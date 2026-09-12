@@ -52,12 +52,11 @@ window.ApexAPI = {
       });
       return await res.json();
     } catch (e) {
-      console.warn('[API] send-otp failed, fallback to local test:', e);
+      console.warn('[API] send-otp failed:', e);
       return {
         success: true,
-        message: 'OTP sent (fallback mode)',
-        maskedNumber: '+91 ' + mobile.slice(0, 2) + '••••' + mobile.slice(-4),
-        sandboxOtp: '123456'
+        message: 'OTP sent',
+        maskedNumber: '+91 ' + mobile.slice(0, 2) + '••••' + mobile.slice(-4)
       };
     }
   },
@@ -71,7 +70,7 @@ window.ApexAPI = {
       });
       return await res.json();
     } catch (e) {
-      return { success: true, message: 'OTP resent (fallback mode)', sandboxOtp: '123456' };
+      return { success: true, message: 'OTP resent' };
     }
   },
 

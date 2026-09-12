@@ -118,8 +118,7 @@ router.post('/send-otp', async (req, res) => {
           provider: 'FAST2SMS_LIVE',
           message: `OTP sent via Fast2SMS to +91 ${masked}`,
           maskedNumber: '+91 ' + masked,
-          timerSeconds: 30,
-          sandboxOtp: fallbackOtp
+          timerSeconds: 30
         });
       }
     } catch (err) {
@@ -142,8 +141,7 @@ router.post('/send-otp', async (req, res) => {
           provider: 'MSG91_LIVE',
           message: `OTP sent via MSG91 SMS to +91 ${masked}`,
           maskedNumber: '+91 ' + masked,
-          timerSeconds: 30,
-          sandboxOtp: fallbackOtp
+          timerSeconds: 30
         });
       } else {
         console.warn('[MSG91] Live send returned non-success:', response.body);
@@ -164,8 +162,7 @@ router.post('/send-otp', async (req, res) => {
             provider: 'MSG91_FLOW',
             message: `OTP sent via MSG91 Flow to +91 ${masked}`,
             maskedNumber: '+91 ' + masked,
-            timerSeconds: 30,
-            sandboxOtp: fallbackOtp
+            timerSeconds: 30
           });
         }
       }
@@ -175,14 +172,13 @@ router.post('/send-otp', async (req, res) => {
   }
 
   // Backup / Test Mode response (ensures zero user lockout while testing)
-  console.log(`[AUTH] Backup/Sandbox OTP for +91 ${masked}: ${fallbackOtp}`);
+  console.log(`[AUTH] Backup OTP stored for +91 ${masked}`);
   res.json({
     success: true,
     provider: 'MSG91_BACKUP',
     message: `OTP sent to +91 ${masked}`,
     maskedNumber: '+91 ' + masked,
-    timerSeconds: 30,
-    sandboxOtp: fallbackOtp
+    timerSeconds: 30
   });
 });
 
@@ -225,8 +221,7 @@ router.post('/resend-otp', async (req, res) => {
   res.json({
     success: true,
     message: `OTP resent to +91 ${masked}`,
-    timerSeconds: 30,
-    sandboxOtp: newOtp
+    timerSeconds: 30
   });
 });
 
