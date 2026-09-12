@@ -21,7 +21,34 @@ app.use((req, res, next) => {
   next();
 });
 
+const path = require('path');
+const rootDir = path.join(__dirname, '..');
+
+// Serve static assets (CSS, JS, media)
+app.use('/css', express.static(path.join(rootDir, 'css')));
+app.use('/js', express.static(path.join(rootDir, 'js')));
+app.use(express.static(rootDir));
+
+// ========================================
+// PUBLIC WEB PAGES (Accessible to everyone)
+// ========================================
 app.get('/', (req, res) => {
+  res.sendFile(path.join(rootDir, 'index.html'));
+});
+
+app.get('/apply', (req, res) => {
+  res.sendFile(path.join(rootDir, 'apply.html'));
+});
+
+app.get('/login', (req, res) => {
+  res.sendFile(path.join(rootDir, 'login.html'));
+});
+
+app.get('/dashboard', (req, res) => {
+  res.sendFile(path.join(rootDir, 'dashboard.html'));
+});
+
+app.get('/api', (req, res) => {
   res.json({
     app: 'ApexLoan NBFC Core API',
     lender: 'Vistas Tecnolabs Finance Limited (RBI Regd. NBFC)',

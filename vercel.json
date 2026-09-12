@@ -18,5 +18,21 @@
       "src": "/(.*)",
       "dest": "/$1"
     }
+  ],
+  "services": {
+    "apexloan-backend": {
+      "root": "backend",
+      "entrypoint": "server.js",
+      "buildCommand": "npm install"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": {
+        "type": "service",
+        "service": "apexloan-backend"
+      }
+    }
   ]
 }
