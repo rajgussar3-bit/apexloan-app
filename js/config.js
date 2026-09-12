@@ -13,7 +13,16 @@ const CONFIG = {
   SUPPORT_EMAIL: 'support@brunocredits.in',
   SUPPORT_PHONE: '1800-890-2828',
   DISBURSAL_WINDOW_MINS: 30,
-  RAZORPAY_KEY_ID: 'rzp_live_T2fa96O02ytH4a'
+  RAZORPAY_KEY_ID: 'rzp_live_T2fa96O02ytH4a',
+  FIREBASE: {
+    apiKey: "AIzaSyAOMwBcfy7IlXAYVDdmP1NdSamdVs_6PY0",
+    authDomain: "bruno-credits.firebaseapp.com",
+    projectId: "bruno-credits",
+    storageBucket: "bruno-credits.firebasestorage.app",
+    messagingSenderId: "392205247968",
+    appId: "1:392205247968:web:1118bd5cb11b986db77785",
+    measurementId: "G-48JY6Q5GR3"
+  }
 };
 
 window.APP_CONFIG = CONFIG;

@@ -66,6 +66,7 @@
             </div>
             <div class="error-text" id="mobileError">Please enter a valid 10-digit mobile number</div>
           </div>
+          <div id="recaptcha-container"></div>
           <button class="btn btn-primary btn-block btn-lg login-btn" id="sendLoginOtp" onclick="sendLoginOTP()">
             Get OTP →
           </button>
@@ -152,6 +153,10 @@
 
   </div>
 
+  <!-- Firebase SDKs (v10 compat for direct browser support) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+
   <script src="js/config.js"></script>
   <script src="js/api.js"></script>
   <script>
@@ -171,8 +176,48 @@
 
     let loginOtpTimer = null;
     let loginGeneratedOTP = '';
+    let firebaseAuth = null;
+    let recaptchaVerifier = null;
+    window.confirmationResult = null;
 
-    // ---- Send OTP via MSG91 ----
+    // ---- Initialize Firebase Authentication ----
+    try {
+      if (typeof firebase !== 'undefined' && window.APP_CONFIG && window.APP_CONFIG.FIREBASE) {
+        if (!firebase.apps.length) {
+          firebase.initializeApp(window.APP_CONFIG.FIREBASE);
+        }
+        firebaseAuth = firebase.auth();
+        firebaseAuth.useDeviceLanguage();
+      }
+    } catch (e) {
+      console.warn('[Firebase] Init warning:', e);
+    }
+
+    function getRecaptchaVerifier() {
+      if (!recaptchaVerifier && firebaseAuth) {
+        recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+          'size': 'invisible',
+          'callback': (response) => {
+            // reCAPTCHA solved
+          },
+          'expired-callback': () => {
+            resetRecaptcha();
+          }
+        });
+      }
+      return recaptchaVerifier;
+    }
+
+    function resetRecaptcha() {
+      if (recaptchaVerifier) {
+        try {
+          recaptchaVerifier.clear();
+        } catch (e) {}
+        recaptchaVerifier = null;
+      }
+    }
+
+    // ---- Send OTP (Firebase Real SMS with zero DLT, fallback to ApexAPI) ----
     async function sendLoginOTP() {
       const mobile = loginMobile.value.trim();
       
@@ -185,32 +230,62 @@
       }
 
       const btn = document.getElementById('sendLoginOtp');
-      btn.innerHTML = '<span class="spinner"></span> Sending OTP via MSG91...';
+      btn.innerHTML = '<span class="spinner"></span> Sending OTP...';
       btn.disabled = true;
 
+      // 1. Attempt Google Firebase Phone Auth (Zero DLT real carrier SMS)
+      if (firebaseAuth) {
+        try {
+          const appVerifier = getRecaptchaVerifier();
+          const phoneNumber = '+91' + mobile;
+          const confirmResult = await firebaseAuth.signInWithPhoneNumber(phoneNumber, appVerifier);
+          window.confirmationResult = confirmResult;
+
+          document.getElementById('mobileSection').style.display = 'none';
+          document.getElementById('loginOtpSection').style.display = 'block';
+
+          const masked = '+91 ' + mobile.slice(0, 2) + '••••' + mobile.slice(-4);
+          const infoEl = document.querySelector('.login-otp-info');
+          infoEl.innerHTML = `
+            <p>📲 Real SMS OTP sent to <strong id="maskedNumber">${masked}</strong></p>
+            <p style="font-size: 11px; color: var(--secondary); margin-top: 4px;">Delivered via Google Cloud SMS (Zero DLT). Check your phone's SMS inbox:</p>
+          `;
+
+          startLoginTimer(45);
+          setupLoginOTPInputs();
+          return;
+        } catch (fbErr) {
+          console.warn('[Firebase] Phone Auth error:', fbErr);
+          resetRecaptcha();
+
+          if (fbErr.code === 'auth/unauthorized-domain') {
+            console.warn('[Firebase] Domain not authorized in Firebase Console yet. Using fallback.');
+          } else if (fbErr.code === 'auth/invalid-phone-number') {
+            alert('Please enter a valid 10-digit mobile number.');
+            btn.innerHTML = 'Get OTP →';
+            btn.disabled = false;
+            return;
+          }
+        }
+      }
+
+      // 2. Fallback to backend ApexAPI
       try {
         const res = await window.ApexAPI.sendOtp(mobile);
         
-        // Show OTP section
         document.getElementById('mobileSection').style.display = 'none';
         document.getElementById('loginOtpSection').style.display = 'block';
 
         const masked = res.maskedNumber || ('+91 ' + mobile.slice(0, 2) + '••••' + mobile.slice(-4));
         const infoEl = document.querySelector('.login-otp-info');
-        if (res.provider === 'MSG91_LIVE' || res.provider === 'MSG91_FLOW') {
-          infoEl.innerHTML = `<p>📲 SMS request dispatched via <strong>MSG91</strong> to <strong id="maskedNumber">${masked}</strong></p><p style="font-size: 11px; color: var(--secondary); margin-top: 4px;">Please check your SMS inbox or use instant test code below:</p>`;
-        } else {
-          infoEl.innerHTML = `<p>OTP sent to <strong id="maskedNumber">${masked}</strong></p>`;
-        }
+        infoEl.innerHTML = `<p>OTP sent to <strong id="maskedNumber">${masked}</strong></p>`;
 
         if (res.sandboxOtp) {
           infoEl.innerHTML += `<div style="margin-top: 8px; font-size: 12px; color: var(--primary); background: rgba(79, 70, 229, 0.08); padding: 6px 10px; border-radius: 6px; font-weight: 600; display: inline-block;">🧪 Testing Code: <span style="letter-spacing: 2px;">${res.sandboxOtp}</span></div>`;
         }
 
-        // Start timer
         startLoginTimer(res.timerSeconds || 30);
 
-        // Auto-fill in sandbox mode
         if (res.sandboxOtp) {
           loginGeneratedOTP = res.sandboxOtp;
           setTimeout(() => {
@@ -279,7 +354,7 @@
       }, 1000);
     }
 
-    // ---- Resend OTP via MSG91 ----
+    // ---- Resend OTP ----
     async function resendLoginOTP() {
       const mobile = loginMobile.value.trim();
       document.querySelectorAll('.otp-input').forEach(input => {
@@ -290,6 +365,21 @@
 
       startLoginTimer(30);
 
+      // Firebase Resend
+      if (firebaseAuth) {
+        try {
+          resetRecaptcha();
+          const appVerifier = getRecaptchaVerifier();
+          const phoneNumber = '+91' + mobile;
+          const confirmResult = await firebaseAuth.signInWithPhoneNumber(phoneNumber, appVerifier);
+          window.confirmationResult = confirmResult;
+          return;
+        } catch (e) {
+          console.warn('[Firebase] Resend error:', e);
+        }
+      }
+
+      // Fallback Resend
       try {
         const res = await window.ApexAPI.resendOtp(mobile);
         if (res.sandboxOtp) {
@@ -312,7 +402,7 @@
       window.location.href = 'dashboard.html';
     }
 
-    // ---- Verify OTP via MSG91 ----
+    // ---- Verify OTP ----
     async function verifyLoginOTP() {
       const otpInputs = document.querySelectorAll('.otp-input');
       let entered = '';
@@ -321,11 +411,39 @@
       if (entered.length !== 6) return;
 
       const btn = document.getElementById('verifyLoginOtp');
-      btn.innerHTML = '<span class="spinner"></span> Verifying with MSG91...';
+      btn.innerHTML = '<span class="spinner"></span> Verifying...';
       btn.disabled = true;
 
       const mobile = loginMobile.value.trim();
 
+      // Firebase Confirmation
+      if (window.confirmationResult) {
+        try {
+          const result = await window.confirmationResult.confirm(entered);
+          const user = result.user;
+
+          clearInterval(loginOtpTimer);
+          localStorage.setItem('apexloan_mobile', mobile);
+          localStorage.setItem('apexloan_logged_in', 'true');
+          localStorage.setItem('apexloan_token', user.accessToken || ('fb_' + user.uid));
+
+          document.getElementById('loginOtpSection').style.display = 'none';
+          document.getElementById('loginVerifiedSection').style.display = 'block';
+
+          setTimeout(() => {
+            window.location.href = 'dashboard.html';
+          }, 1200);
+          return;
+        } catch (err) {
+          console.error('Firebase OTP verification failed:', err);
+          alert('Galat OTP daala gaya hai ya expire ho chuka hai. Kripya phone par aaya sahi OTP dalein.');
+          btn.innerHTML = 'Verify & Continue →';
+          btn.disabled = false;
+          return;
+        }
+      }
+
+      // Backend Fallback Confirmation
       try {
         const res = await window.ApexAPI.verifyOtp(mobile, entered);
         if (res.success) {
@@ -356,15 +474,15 @@
     // ---- Change Number ----
     function changeNumber() {
       clearInterval(loginOtpTimer);
+      window.confirmationResult = null;
+      resetRecaptcha();
       document.getElementById('loginOtpSection').style.display = 'none';
       document.getElementById('mobileSection').style.display = 'block';
       
-      // Reset send button
       const btn = document.getElementById('sendLoginOtp');
       btn.innerHTML = 'Get OTP →';
       btn.disabled = false;
 
-      // Clear OTP inputs
       document.querySelectorAll('.otp-input').forEach(input => {
         input.value = '';
         input.style.borderColor = 'var(--gray-300)';
