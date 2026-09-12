@@ -2,9 +2,9 @@ const express = require('express');
 const router = express.Router();
 const https = require('https');
 
-// MSG91 Configuration
-const MSG91_AUTH_KEY = process.env.MSG91_AUTH_KEY || '';
-const MSG91_TEMPLATE_ID = process.env.MSG91_TEMPLATE_ID || '123012';
+// MSG91 Configuration (Bruno Credits Live)
+const MSG91_AUTH_KEY = process.env.MSG91_AUTH_KEY || '570561AWEF2CIT6aa56e0aP1';
+const MSG91_TEMPLATE_ID = process.env.MSG91_TEMPLATE_ID || 'bruno-credits';
 const MSG91_WIDGET_ID = process.env.MSG91_WIDGET_ID || '36696c6e5676353031383033';
 
 // In-memory OTP store for backup & sandbox verification
