@@ -172,8 +172,8 @@
     let loginOtpTimer = null;
     let loginGeneratedOTP = '';
 
-    // ---- Send OTP ----
-    function sendLoginOTP() {
+    // ---- Send OTP via MSG91 ----
+    async function sendLoginOTP() {
       const mobile = loginMobile.value.trim();
       
       // Validate
@@ -185,39 +185,49 @@
       }
 
       const btn = document.getElementById('sendLoginOtp');
-      btn.innerHTML = '<span class="spinner"></span> Sending OTP...';
+      btn.innerHTML = '<span class="spinner"></span> Sending OTP via MSG91...';
       btn.disabled = true;
 
-      // Generate random OTP
-      loginGeneratedOTP = String(Math.floor(100000 + Math.random() * 900000));
-
-      // Simulate API delay
-      setTimeout(() => {
+      try {
+        const res = await window.ApexAPI.sendOtp(mobile);
+        
         // Show OTP section
         document.getElementById('mobileSection').style.display = 'none';
         document.getElementById('loginOtpSection').style.display = 'block';
 
-        // Show masked number
-        const masked = mobile.slice(0, 2) + '****' + mobile.slice(-4);
-        document.getElementById('maskedNumber').textContent = '+91 ' + masked;
+        const masked = res.maskedNumber || ('+91 ' + mobile.slice(0, 2) + '••••' + mobile.slice(-4));
+        const infoEl = document.querySelector('.login-otp-info');
+        if (res.provider === 'MSG91_LIVE' || res.provider === 'MSG91_FLOW') {
+          infoEl.innerHTML = `<p>📲 Real SMS OTP sent via <strong>MSG91</strong> to <strong id="maskedNumber">${masked}</strong></p><p style="font-size: 11px; color: var(--secondary); margin-top: 4px;">Please enter the 6-digit code received on your phone</p>`;
+        } else {
+          infoEl.innerHTML = `<p>OTP sent to <strong id="maskedNumber">${masked}</strong></p>`;
+        }
 
         // Start timer
-        startLoginTimer();
+        startLoginTimer(res.timerSeconds || 30);
 
-        // Auto-fill OTP after 1.5 seconds (simulate receiving)
-        setTimeout(() => {
-          const otpInputs = document.querySelectorAll('.otp-input');
-          loginGeneratedOTP.split('').forEach((digit, i) => {
-            otpInputs[i].value = digit;
-            otpInputs[i].style.borderColor = 'var(--secondary)';
-            otpInputs[i].style.background = 'rgba(0, 184, 148, 0.05)';
-          });
-        }, 1500);
+        // Auto-fill in sandbox mode
+        if (res.sandboxOtp) {
+          loginGeneratedOTP = res.sandboxOtp;
+          setTimeout(() => {
+            const otpInputs = document.querySelectorAll('.otp-input');
+            res.sandboxOtp.split('').forEach((digit, i) => {
+              if (otpInputs[i]) {
+                otpInputs[i].value = digit;
+                otpInputs[i].style.borderColor = 'var(--secondary)';
+                otpInputs[i].style.background = 'rgba(0, 184, 148, 0.05)';
+              }
+            });
+          }, 1200);
+        }
 
-        // Setup OTP input handlers
         setupLoginOTPInputs();
-
-      }, 1500);
+      } catch (err) {
+        console.error('Error sending OTP:', err);
+        btn.innerHTML = 'Get OTP →';
+        btn.disabled = false;
+        alert('Could not send OTP. Please check your connection and try again.');
+      }
     }
 
     // ---- Setup OTP Inputs ----
@@ -249,8 +259,8 @@
     }
 
     // ---- Timer ----
-    function startLoginTimer() {
-      let seconds = 30;
+    function startLoginTimer(sec = 30) {
+      let seconds = sec;
       const timerEl = document.getElementById('loginTimer');
 
       clearInterval(loginOtpTimer);
@@ -265,28 +275,32 @@
       }, 1000);
     }
 
-    // ---- Resend OTP ----
-    function resendLoginOTP() {
-      loginGeneratedOTP = String(Math.floor(100000 + Math.random() * 900000));
-      
-      // Clear old OTP
+    // ---- Resend OTP via MSG91 ----
+    async function resendLoginOTP() {
+      const mobile = loginMobile.value.trim();
       document.querySelectorAll('.otp-input').forEach(input => {
         input.value = '';
         input.style.borderColor = 'var(--gray-300)';
         input.style.background = 'var(--white)';
       });
 
-      startLoginTimer();
+      startLoginTimer(30);
 
-      // Auto-fill new OTP
-      setTimeout(() => {
-        const otpInputs = document.querySelectorAll('.otp-input');
-        loginGeneratedOTP.split('').forEach((digit, i) => {
-          otpInputs[i].value = digit;
-          otpInputs[i].style.borderColor = 'var(--secondary)';
-          otpInputs[i].style.background = 'rgba(0, 184, 148, 0.05)';
-        });
-      }, 1500);
+      try {
+        const res = await window.ApexAPI.resendOtp(mobile);
+        if (res.sandboxOtp) {
+          setTimeout(() => {
+            const otpInputs = document.querySelectorAll('.otp-input');
+            res.sandboxOtp.split('').forEach((digit, i) => {
+              if (otpInputs[i]) {
+                otpInputs[i].value = digit;
+                otpInputs[i].style.borderColor = 'var(--secondary)';
+                otpInputs[i].style.background = 'rgba(0, 184, 148, 0.05)';
+              }
+            });
+          }, 1200);
+        }
+      } catch (e) {}
     }
 
     // ---- Check Persistent Login Session ----
@@ -294,8 +308,8 @@
       window.location.href = 'dashboard.html';
     }
 
-    // ---- Verify OTP ----
-    function verifyLoginOTP() {
+    // ---- Verify OTP via MSG91 ----
+    async function verifyLoginOTP() {
       const otpInputs = document.querySelectorAll('.otp-input');
       let entered = '';
       otpInputs.forEach(inp => entered += inp.value);
@@ -303,26 +317,36 @@
       if (entered.length !== 6) return;
 
       const btn = document.getElementById('verifyLoginOtp');
-      btn.innerHTML = '<span class="spinner"></span> Verifying...';
+      btn.innerHTML = '<span class="spinner"></span> Verifying with MSG91...';
       btn.disabled = true;
 
-      setTimeout(() => {
-        clearInterval(loginOtpTimer);
+      const mobile = loginMobile.value.trim();
 
-        // Save mobile to localStorage
-        localStorage.setItem('apexloan_mobile', loginMobile.value.trim());
-        localStorage.setItem('apexloan_logged_in', 'true');
+      try {
+        const res = await window.ApexAPI.verifyOtp(mobile, entered);
+        if (res.success) {
+          clearInterval(loginOtpTimer);
 
-        // Show verified section
-        document.getElementById('loginOtpSection').style.display = 'none';
-        document.getElementById('loginVerifiedSection').style.display = 'block';
+          localStorage.setItem('apexloan_mobile', mobile);
+          localStorage.setItem('apexloan_logged_in', 'true');
+          if (res.token) localStorage.setItem('apexloan_token', res.token);
 
-        // Redirect to Dashboard after 1.5 seconds
-        setTimeout(() => {
-          window.location.href = 'dashboard.html';
-        }, 1500);
+          document.getElementById('loginOtpSection').style.display = 'none';
+          document.getElementById('loginVerifiedSection').style.display = 'block';
 
-      }, 1200);
+          setTimeout(() => {
+            window.location.href = 'dashboard.html';
+          }, 1200);
+        } else {
+          alert(res.message || 'Invalid OTP entered. Please try again.');
+          btn.innerHTML = 'Verify & Continue →';
+          btn.disabled = false;
+        }
+      } catch (err) {
+        alert('Verification error. Please try again.');
+        btn.innerHTML = 'Verify & Continue →';
+        btn.disabled = false;
+      }
     }
 
     // ---- Change Number ----
