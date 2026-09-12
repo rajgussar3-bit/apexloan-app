@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="hi-IN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="description" content="ApexLoan - Instant Personal Loans from ₹1,000 to ₹1,00,000. Quick approval, low interest rates, 100% digital process.">
+  <meta name="theme-color" content="#1a1f71">
+  <title>ApexLoan - Instant Personal Loan | ₹1K to ₹1 Lakh</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="container nav-content">
+      <a href="#" class="nav-logo">
+        <div class="logo-icon">₹</div>
+        <span>Apex<span style="color: #00b894;">Loan</span></span>
+      </a>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#calculator">EMI Calculator</a>
+        <a href="#eligibility">Eligibility</a>
+      </div>
+      <a href="login.html" class="btn btn-primary btn-sm nav-cta">Apply Now</a>
+      <button class="mobile-menu-btn" id="menuBtn" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-menu-close" id="menuClose" aria-label="Close menu">✕</button>
+    <a href="#features" onclick="closeMobileMenu()">Features</a>
+    <a href="#calculator" onclick="closeMobileMenu()">EMI Calculator</a>
+    <a href="#eligibility" onclick="closeMobileMenu()">Eligibility</a>
+    <a href="login.html" class="btn btn-primary">Apply Now →</a>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container hero-content">
+      <div class="hero-badge">
+        <span class="dot"></span>
+        🏛️ Lending Partner: Vistas Tecnolabs Finance Limited
+      </div>
+      <h1>
+        Instant Loans<br>
+        <span class="highlight">₹1,000 - ₹1,00,000</span>
+      </h1>
+      <p>
+        Get personal loans with minimal documentation. Quick approval, low interest rates, and 100% digital process. No hidden charges!
+      </p>
+      <div class="hero-buttons">
+        <a href="login.html" class="btn btn-success btn-lg">
+          Apply Now →
+        </a>
+        <a href="#calculator" class="btn btn-secondary btn-lg" style="border-color: rgba(255,255,255,0.3); color: white;">
+          Calculate EMI
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-value">5L+</div>
+          <div class="stat-label">Happy Customers</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">10.5%</div>
+          <div class="stat-label">Interest Rate</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">2 Min</div>
+          <div class="stat-label">Quick Approval</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="section-title">
+        <div class="subtitle">Why Choose Us</div>
+        <h2>Loan Lena Hua Aasan</h2>
+        <p>Fast, transparent, and hassle-free personal loans designed for your needs</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon blue">⚡</div>
+          <h3>Instant Approval</h3>
+          <p>Get your loan approved within 2 minutes with our AI-powered system. No long waiting!</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon green">📊</div>
+          <h3>Low Interest Rates</h3>
+          <p>Competitive rates starting from 10.5% per annum. Affordable EMIs for everyone.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon purple">🔒</div>
+          <h3>100% Secure</h3>
+          <p>Bank-grade security with encrypted data. Your personal information is always safe.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon orange">📱</div>
+          <h3>Fully Digital</h3>
+          <p>Complete KYC, documents, and disbursal — all from your phone. No branch visits!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EMI Calculator Teaser -->
+  <section class="calculator" id="calculator">
+    <div class="container">
+      <div class="section-title">
+        <div class="subtitle">EMI Calculator</div>
+        <h2>Plan Your Loan</h2>
+        <p>Calculate your monthly EMI before applying</p>
+      </div>
+      <div class="calc-card" style="max-width: 520px; margin: 0 auto;">
+        <div class="calc-header">
+          <h3>💰 EMI Calculator</h3>
+          <p>Loan ₹1,000 - ₹1,00,000 | Tenure 3 - 36 Months</p>
+        </div>
+        <div class="calc-body" style="text-align: center; padding: 40px 28px;">
+          <div style="font-size: 48px; margin-bottom: 16px;">📊</div>
+          <h3 style="font-size: 20px; font-weight: 700; color: var(--dark); margin-bottom: 8px;">Calculate Your EMI</h3>
+          <p style="font-size: 14px; color: var(--gray-700); margin-bottom: 24px; line-height: 1.6;">
+            Login to access our EMI Calculator.<br>Select loan amount, tenure & see your monthly EMI instantly.
+          </p>
+          <a href="login.html" class="btn btn-primary btn-lg btn-block">Login & Calculate EMI →</a>
+          <p style="font-size: 12px; color: var(--gray-500); margin-top: 12px;">Interest rates from 10.5% to 24% p.a.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Eligibility Section -->
+  <section class="eligibility" id="eligibility">
+    <div class="container">
+      <div class="section-title">
+        <div class="subtitle">Eligibility</div>
+        <h2>Who Can Apply?</h2>
+        <p>Check if you meet the basic requirements</p>
+      </div>
+      <div class="eligibility-list">
+        <div class="eligibility-item">
+          <div class="check-icon">✓</div>
+          <p>Indian citizen aged 18 to 58 years</p>
+        </div>
+        <div class="eligibility-item">
+          <div class="check-icon">✓</div>
+          <p>Minimum monthly income of ₹15,000</p>
+        </div>
+        <div class="eligibility-item">
+          <div class="check-icon">✓</div>
+          <p>Valid Aadhaar Card and PAN Card</p>
+        </div>
+        <div class="eligibility-item">
+          <div class="check-icon">✓</div>
+          <p>Salaried or Self-Employed with 6+ months work experience</p>
+        </div>
+        <div class="eligibility-item">
+          <div class="check-icon">✓</div>
+          <p>Active bank account for loan disbursal</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="container cta-content">
+      <h2>Ready to Get Your Loan?</h2>
+      <p>Apply now and get instant approval. Loan amount disbursed directly to your bank account within 24 hours.</p>
+      <a href="login.html" class="btn btn-success btn-lg">Start Application →</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="footer-logo">Apex<span style="color: #00b894;">Loan</span></div>
+      <p class="footer-text">
+        ApexLoan is a digital lending platform operated by Apex Finance Ltd., a Reserve Bank of India (RBI) registered Non-Banking Financial Company (NBFC).
+      </p>
+      <div class="footer-links">
+        <a href="#">About Us</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms & Conditions</a>
+        <a href="#">Grievance Redressal</a>
+        <a href="#">Contact Us</a>
+      </div>
+      <div class="footer-divider"></div>
+      <div class="footer-bottom">
+        <p class="nbfc-notice">Apex Finance Ltd. | CIN: U65100MH2020PLC123456 | NBFC Registration No: N-13.02456</p>
+        <p>Interest rates from 10.5% to 24% p.a. | Processing fee: 1-3% of loan amount</p>
+        <p style="margin-top: 8px;">© 2026 ApexLoan. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

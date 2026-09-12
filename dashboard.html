@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="hi-IN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="description" content="ApexLoan Dashboard - Instant Personal Loans, Insurance & Profile.">
+  <meta name="theme-color" content="#1a1f71">
+  <title>Dashboard | ApexLoan - Powered by Vistas Tecnolabs Finance Limited</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="dashboard-page">
+
+  <!-- Top App Bar -->
+  <header class="dash-topbar">
+    <div class="dash-brand">
+      <span class="logo-text">Apex<span style="color: #00b894;">Loan</span></span>
+      <span class="nbfc-sub">Lending Partner: Vistas Tecnolabs Finance Limited</span>
+    </div>
+    <div class="dash-top-actions">
+      <button type="button" class="bell-btn" title="Notifications" onclick="alert('🔔 No new notifications. Your loan account is active!')">🔔</button>
+      <button type="button" class="profile-avatar-btn" id="topAvatarBtn" onclick="switchTab('profile')">R</button>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="dash-container">
+
+    <!-- ==================== TAB 1: HOME & LOANS ==================== -->
+    <div id="tabHome" class="dash-tab-content">
+
+      <!-- Greeting & KYC Header -->
+      <div class="dash-header-card">
+        <div class="user-greeting">
+          <h2 id="greetUserName">Hello, Borrower 👋</h2>
+          <p id="userMobileSub">+91 98••••••10 · Verified Customer</p>
+        </div>
+        <div class="kyc-verified-pill">
+          <span>✓</span> KYC Verified
+        </div>
+      </div>
+
+      <!-- Approved Loan Alert Banner (shown when loan is approved but fee not yet paid) -->
+      <div class="dash-approved-alert" id="dashApprovedAlert" style="display: none; margin-bottom: 16px; padding: 14px 16px; background: linear-gradient(135deg, rgba(0, 184, 148, 0.12), rgba(26, 31, 113, 0.08)); border: 2px solid #00b894; border-radius: var(--radius-md);">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+          <span style="font-size: 11px; font-weight: 800; background: #00b894; color: white; padding: 2px 8px; border-radius: 12px; text-transform: uppercase;">🎉 Sanction Letter Issued</span>
+          <span style="font-size: 11px; font-weight: 700; color: var(--primary);">🏛️ Vistas Tecnolabs Finance Limited</span>
+        </div>
+        <div style="font-size: 15px; font-weight: 800; color: var(--dark); margin-bottom: 4px;">
+          Badhai ho! Aapka <span id="dashAlertAmount" style="color: var(--primary);">₹16,420</span> Personal Loan Approved Hai!
+        </div>
+        <p style="font-size: 12px; color: var(--gray-700); line-height: 1.4; margin-bottom: 10px;">
+          Sabhi KYC aur bank details verify ho chuki hain. Wapas form nahi bharna padega. Bas apna tenure chunein aur 30-min disbursal shuru karein.
+        </p>
+        <a href="apply.html" class="btn btn-success btn-block" style="padding: 10px; font-size: 14px; font-weight: 800; text-align: center;">
+          🚀 Claim Loan & Activate Disbursal →
+        </a>
+      </div>
+
+      <!-- Hero Loan Card (Personal Loan) -->
+      <div class="hero-loan-card" id="heroLoanCard">
+        <div class="card-top-row">
+          <span class="card-type-tag" id="cardStatusTag">⚡ Personal Loan</span>
+          <span class="lender-badge-pill">🏛️ Vistas Tecnolabs Finance Limited</span>
+        </div>
+
+        <div class="card-limit-title" id="cardLimitLabel">Sanctioned Personal Loan</div>
+        <div class="card-limit-amount" id="dashLimitAmount">₹1,00,000</div>
+
+        <div class="card-features-row">
+          <span>⏱️ 3 - 12 Months Tenure</span>
+          <span>⚡ 30-Min Disbursal</span>
+          <span>0 Collateral</span>
+        </div>
+
+        <a href="apply.html" class="card-cta-btn" id="dashHeroCta">
+          <span>Apply for Personal Loan</span>
+          <span>→</span>
+        </a>
+      </div>
+
+      <!-- Quick Action 4-Grid -->
+      <div class="quick-action-grid">
+        <div class="action-tile" onclick="window.location.href='apply.html'">
+          <div class="action-icon-circle" style="background: rgba(26, 31, 113, 0.1); color: var(--primary);">⚡</div>
+          <span class="action-label">Instant<br>Loan</span>
+        </div>
+        <div class="action-tile" onclick="openInsuranceModal('emi')">
+          <div class="action-icon-circle" style="background: rgba(0, 184, 148, 0.1); color: var(--secondary);">🛡️</div>
+          <span class="action-label">EMI Shield<br>Insurance</span>
+        </div>
+        <div class="action-tile" onclick="openInsuranceModal('health')">
+          <div class="action-icon-circle" style="background: rgba(235, 77, 75, 0.1); color: #eb4d4b;">🏥</div>
+          <span class="action-label">HospiCash<br>Health</span>
+        </div>
+        <div class="action-tile" onclick="switchTab('profile')">
+          <div class="action-icon-circle" style="background: rgba(108, 92, 231, 0.1); color: var(--accent);">👤</div>
+          <span class="action-label">My<br>Profile</span>
+        </div>
+      </div>
+
+      <!-- Live 30-Minute Staff Disbursal Tracker Card (Visible during DISBURSAL_PROCESSING) -->
+      <div class="disbursal-tracker-card" id="disbursalTrackerCard" style="display: none; margin: 18px 0; padding: 18px; background: linear-gradient(135deg, #1a1f71, #2d3494); border-radius: var(--radius-lg); color: white; box-shadow: 0 8px 24px rgba(26, 31, 113, 0.2);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 20px;">🚀</span>
+            <span style="font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: #00b894;">Disbursal Stage Active</span>
+          </div>
+          <span style="font-size: 11px; background: rgba(255,255,255,0.2); padding: 3px 8px; border-radius: 12px;">Under 30 Mins</span>
+        </div>
+
+        <div style="font-size: 17px; font-weight: 800; margin-bottom: 6px;">
+          Amount: <span id="trackLoanAmount" style="color: #00b894;">₹16,420</span> to Bank Account
+        </div>
+        <p style="font-size: 13px; color: rgba(255,255,255,0.9); line-height: 1.5; margin-bottom: 14px;">
+          Hamara banking verification staff agle <strong>30 minute ke andar</strong> loan amount aapke bank account (<span id="trackBankName">SBI</span>) me transfer kar dega.
+        </p>
+
+        <!-- Live Countdown Clock -->
+        <div style="background: rgba(0,0,0,0.25); border-radius: var(--radius-md); padding: 10px 14px; margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-size: 12px; color: rgba(255,255,255,0.85);">⏳ Estimated Bank Credit Time:</span>
+          <span id="dashCountdownTicker" style="font-size: 16px; font-weight: 900; color: #00b894; font-family: monospace;">29:50 Mins</span>
+        </div>
+
+        <!-- 4-Step Banking Desk Timeline -->
+        <div class="tracker-steps" style="display: flex; flex-direction: column; gap: 10px; font-size: 12px;">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="width: 20px; height: 20px; border-radius: 50%; background: #00b894; color: white; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800;">✓</span>
+            <span>KYC & Sanction Letter Approved by Vistas Tecnolabs Finance Limited</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="width: 20px; height: 20px; border-radius: 50%; background: #00b894; color: white; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800;">✓</span>
+            <span>One-Time Stamp Duty & Disbursal Fee Received (✓ Verified)</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="width: 20px; height: 20px; border-radius: 50%; background: #f39c12; color: white; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800;">⏳</span>
+            <span style="font-weight: 700; color: #f39c12;">Staff Banking Desk: Verifying IMPS Transfer (In Progress...)</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px; color: rgba(255,255,255,0.65);">
+            <span style="width: 20px; height: 20px; border-radius: 50%; background: rgba(255,255,255,0.2); color: white; display: flex; align-items: center; justify-content: center; font-size: 11px;">4</span>
+            <span>Credit to Bank Account (Target: &lt; 30 Minutes)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== ACTIVE REPAYMENT SCHEDULE ==================== -->
+      <div class="repay-schedule-section" id="repayScheduleSection" style="display: none;">
+        <div class="dash-section-header" style="margin-bottom: 12px;">
+          <h3>📅 Loan Repayment Schedule</h3>
+          <span class="kyc-verified-pill" id="scheduleStatusPill" style="font-size: 11px;">🟢 Active EMIs</span>
+        </div>
+
+        <!-- Next EMI Summary Box -->
+        <div class="repay-summary-box">
+          <div class="repay-summary-top">
+            <span class="next-emi-title">Next Upcoming EMI</span>
+            <span class="auto-debit-badge">⚡ Auto-Debit Active</span>
+          </div>
+
+          <div class="repay-amount-row">
+            <div class="amount-wrap">
+              <div class="emi-big" id="schedNextEmiAmount">₹2,978</div>
+              <div class="due-date-sub" id="schedNextDueDate">Due Date: 05 Oct 2026</div>
+            </div>
+            <button type="button" class="pay-emi-btn" id="summaryPayNowBtn" onclick="openPayEmiModal(1)">Pay Now</button>
+          </div>
+
+          <div class="repay-summary-stats">
+            <div class="repay-stat-item">
+              <span class="stat-label">Sanctioned</span>
+              <span class="stat-value" id="schedSanctionedVal">₹16,420</span>
+            </div>
+            <div class="repay-stat-item">
+              <span class="stat-label">Tenure</span>
+              <span class="stat-value" id="schedTenureVal">6 Months</span>
+            </div>
+            <div class="repay-stat-item">
+              <span class="stat-label">Total Repay</span>
+              <span class="stat-value" id="schedTotalRepayVal">₹17,868</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Installment Breakdown List -->
+        <div style="font-size: 13px; font-weight: 700; color: var(--dark); margin-bottom: 10px;">
+          Installment Schedule (<span id="schedCountText">6 EMIs</span>):
+        </div>
+        <div class="installment-list" id="installmentListContainer">
+          <!-- Dynamically populated -->
+        </div>
+
+        <!-- Foreclosure Banner -->
+        <div class="foreclosure-banner">
+          <span>Close loan early with <strong>0% penalty</strong></span>
+          <button type="button" onclick="forecloseLoanEarly()">Foreclose Loan</button>
+        </div>
+      </div>
+
+      <!-- Insurance & Protection Hub -->
+      <div class="dash-section-header">
+        <h3>🛡️ Insurance & Protection Hub</h3>
+        <a href="#" onclick="switchTab('insurance'); return false;">View All →</a>
+      </div>
+
+      <div class="insurance-list">
+        <!-- 1. EMI Protection -->
+        <div class="ins-card" onclick="openInsuranceModal('emi')">
+          <div class="ins-icon blue">🛡️</div>
+          <div class="ins-info">
+            <h4>Loan Suraksha (EMI Shield)</h4>
+            <p>Protects your loan EMIs against job loss, accident, or disability</p>
+          </div>
+          <div class="ins-price-tag">
+            <span class="price">₹29</span>
+            <span class="freq">/month</span>
+          </div>
+        </div>
+
+        <!-- 2. HospiCash -->
+        <div class="ins-card" onclick="openInsuranceModal('health')">
+          <div class="ins-icon green">🏥</div>
+          <div class="ins-info">
+            <h4>Family HospiCash Allowance</h4>
+            <p>Get ₹5,000/day hospital allowance for up to 30 days</p>
+          </div>
+          <div class="ins-price-tag">
+            <span class="price">₹49</span>
+            <span class="freq">/month</span>
+          </div>
+        </div>
+
+        <!-- 3. Cyber Shield -->
+        <div class="ins-card" onclick="openInsuranceModal('cyber')">
+          <div class="ins-icon purple">🔒</div>
+          <div class="ins-info">
+            <h4>Cyber & UPI Fraud Cover</h4>
+            <p>Up to ₹1,00,000 cover against online payment fraud & phishing</p>
+          </div>
+          <div class="ins-price-tag">
+            <span class="price">₹19</span>
+            <span class="freq">/month</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Free CIBIL Score Card -->
+      <div class="dash-section-header">
+        <h3>📊 Credit Health & Insights</h3>
+      </div>
+      <div class="cibil-card">
+        <div class="cibil-info">
+          <h4>Credit Score: Excellent</h4>
+          <p>Powered by Experian & CIBIL Bureau<br>Next refresh in 14 days</p>
+        </div>
+        <div class="cibil-gauge">
+          <div class="cibil-score">782</div>
+          <div class="cibil-tag">High Trust</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ==================== TAB 2: INSURANCE DETAILED ==================== -->
+    <div id="tabInsurance" class="dash-tab-content" style="display: none;">
+      <div style="padding: 20px 0 10px;">
+        <h2 style="font-size: 20px; font-weight: 800; color: var(--dark);">🛡️ Financial Protection Plans</h2>
+        <p style="font-size: 13px; color: var(--gray-700);">Low-cost insurance customized for ApexLoan borrowers</p>
+      </div>
+
+      <div class="insurance-list">
+        <div class="profile-card">
+          <div class="profile-card-header">
+            <div style="font-size: 28px;">🛡️</div>
+            <div>
+              <h3>Loan EMI Suraksha Cover</h3>
+              <p style="font-size: 12px; color: var(--gray-700);">Underwritten by Leading General Insurer</p>
+            </div>
+          </div>
+          <div class="profile-row">
+            <span class="row-label">Coverage Sum</span>
+            <span class="row-value">Full Outstanding Loan Amount</span>
+          </div>
+          <div class="profile-row">
+            <span class="row-label">Monthly Premium</span>
+            <span class="row-value" style="color: var(--primary);">₹29 / month</span>
+          </div>
+          <div class="profile-row">
+            <span class="row-label">Covered Events</span>
+            <span class="row-value">Job Loss, Accidental Disability, Critical Illness</span>
+          </div>
+          <button type="button" class="btn btn-primary btn-block btn-sm" style="margin-top: 14px;" onclick="alert('✅ Loan Suraksha added to your profile! Premium will be included in your monthly schedule.')">Enroll for ₹29/mo →</button>
+        </div>
+
+        <div class="profile-card">
+          <div class="profile-card-header">
+            <div style="font-size: 28px;">🏥</div>
+            <div>
+              <h3>HospiCash Family Hospital Allowance</h3>
+              <p style="font-size: 12px; color: var(--gray-700);">Cashless support for hospital stays</p>
+            </div>
+          </div>
+          <div class="profile-row">
+            <span class="row-label">Daily Cash Allowance</span>
+            <span class="row-value">₹5,000 / day (up to 30 days)</span>
+          </div>
+          <div class="profile-row">
+            <span class="row-label">Monthly Premium</span>
+            <span class="row-value" style="color: var(--secondary);">₹49 / month</span>
+          </div>
+          <div class="profile-row">
+            <span class="row-label">Claim Settlement</span>
+            <span class="row-value">Direct Bank Transfer in 24 Hrs</span>
+          </div>
+          <button type="button" class="btn btn-secondary btn-block btn-sm" style="margin-top: 14px;" onclick="alert('✅ HospiCash plan activated! Policy document sent to your email.')">Activate Plan →</button>
+        </div>
+
+        <div class="profile-card">
+          <div class="profile-card-header">
+            <div style="font-size: 28px;">🔒</div>
+            <div>
+              <h3>Cyber & UPI Fraud Insurance</h3>
+              <p style="font-size: 12px; color: var(--gray-700);">Complete digital transaction security</p>
+            </div>
+          </div>
+          <div class="profile-row">
+            <span class="row-label">Max Coverage</span>
+            <span class="row-value">₹1,00,000 per incident</span>
+          </div>
+          <div class="profile-row">
+            <span class="row-label">Premium</span>
+            <span class="row-value">₹19 / month</span>
+          </div>
+          <button type="button" class="btn btn-secondary btn-block btn-sm" style="margin-top: 14px;" onclick="alert('✅ Cyber Shield activated on your account!')">Activate for ₹19/mo →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== TAB 3: PROFILE, SUPPORT & POLICIES ==================== -->
+    <div id="tabProfile" class="dash-tab-content" style="display: none;">
+      <div style="padding: 20px 0 10px;">
+        <h2 style="font-size: 20px; font-weight: 800; color: var(--dark);">👤 User Profile & Support</h2>
+        <p style="font-size: 13px; color: var(--gray-700);">Manage your personal details, get 24x7 help & policies</p>
+      </div>
+
+      <!-- 1. User Personal Details Card -->
+      <div class="profile-card">
+        <div class="profile-card-header">
+          <div class="profile-avatar-btn" style="width: 44px; height: 44px; font-size: 18px;">R</div>
+          <div>
+            <h3 id="profileFullName">Rajesh Sharma</h3>
+            <span style="font-size: 12px; color: var(--success); font-weight: 600;">● Verified NBFC Borrower</span>
+          </div>
+        </div>
+
+        <div class="profile-row">
+          <span class="row-label">Mobile Number</span>
+          <span class="row-value" id="profileMobile">+91 9876543210</span>
+        </div>
+        <div class="profile-row">
+          <span class="row-label">Email Address</span>
+          <span class="row-value" id="profileEmail">applicant@email.com</span>
+        </div>
+        <div class="profile-row">
+          <span class="row-label">Date of Birth</span>
+          <span class="row-value" id="profileDob">15 Aug 1996</span>
+        </div>
+        <div class="profile-row">
+          <span class="row-label">City & State</span>
+          <span class="row-value" id="profileCity">Mumbai, Maharashtra</span>
+        </div>
+        <div class="profile-row">
+          <span class="row-label">Aadhaar Status</span>
+          <span class="row-value" style="color: var(--success);">Verified (UIDAI Mock) ✓</span>
+        </div>
+        <div class="profile-row">
+          <span class="row-label">PAN Verification</span>
+          <span class="row-value" style="color: var(--success);">Verified (NSDL Mock) ✓</span>
+        </div>
+        <div class="profile-row">
+          <span class="row-label">Disbursal Bank</span>
+          <span class="row-value" id="profileBank">State Bank of India (•••4567)</span>
+        </div>
+      </div>
+
+      <!-- 2. 24x7 Support Section -->
+      <div class="profile-card">
+        <div class="profile-card-header">
+          <h3>🎧 24x7 Customer Support</h3>
+        </div>
+
+        <!-- WhatsApp Support -->
+        <a href="https://wa.me/919876543210?text=Hi%20ApexLoan%20Support,%20I%20need%20help%20with%20my%20loan%20application" target="_blank" class="support-item">
+          <div class="support-item-left">
+            <span class="icon">💬</span>
+            <div>
+              <div class="title">WhatsApp Support</div>
+              <div class="sub">Instant replies in ~2 minutes</div>
+            </div>
+          </div>
+          <span style="color: var(--secondary); font-weight: 700;">Chat Now →</span>
+        </a>
+
+        <!-- Toll Free Helpline -->
+        <a href="tel:18008902456" class="support-item">
+          <div class="support-item-left">
+            <span class="icon">📞</span>
+            <div>
+              <div class="title">Toll-Free Helpline</div>
+              <div class="sub">1800-890-2456 (9 AM - 8 PM)</div>
+            </div>
+          </div>
+          <span style="color: var(--primary); font-weight: 700;">Call →</span>
+        </a>
+
+        <!-- Priority Email -->
+        <a href="mailto:support@apexloan.in" class="support-item">
+          <div class="support-item-left">
+            <span class="icon">✉️</span>
+            <div>
+              <div class="title">Email Desk</div>
+              <div class="sub">support@apexloan.in</div>
+            </div>
+          </div>
+          <span style="color: var(--primary); font-weight: 700;">Email →</span>
+        </a>
+
+        <!-- Grievance Officer Notice -->
+        <div style="margin-top: 12px; padding: 12px; background: var(--gray-100); border-radius: var(--radius-sm); font-size: 11px; color: var(--gray-700); line-height: 1.5;">
+          <strong>🏛️ Statutory Grievance Redressal Officer (RBI Guidelines):</strong><br>
+          Mr. Amit Saxena | Principal Officer<br>
+          Email: grievance@apexloan.in | Resolution timeframe: 48 working hours
+        </div>
+      </div>
+
+      <!-- 3. Privacy Policy Accordion -->
+      <div class="policy-card" id="privacyCard">
+        <div class="policy-card-header" onclick="togglePolicy('privacyCard')">
+          <h4>🔒 Privacy Policy (RBI Compliant 2024)</h4>
+          <span>▼</span>
+        </div>
+        <div class="policy-card-body">
+          <p><strong>Apex Finance Ltd. & Vistas Tecnolabs Finance Limited Privacy Commitment:</strong></p>
+          <p>1. <strong>Data Minimization:</strong> We only collect required information (Identity proof, employment, bank details) solely for loan underwriting and KYC verification under RBI Digital Lending Directions.</p>
+          <p>2. <strong>No Unnecessary Permissions:</strong> Our app does NOT access your contact list, call logs, personal photos, or external storage files.</p>
+          <p>3. <strong>256-bit Bank Grade Encryption:</strong> All information exchanged between your device and our servers is secured using TLS 1.3 encryption standards.</p>
+          <p>4. <strong>Data Sharing Restriction:</strong> Your financial and personal details are strictly shared with regulated credit information companies (CIBIL/Experian) and authorized lending partners (Vistas Tecnolabs Finance Limited).</p>
+          <p>5. <strong>Right to be Forgotten:</strong> You can request complete erasure of your non-statutory data at any time by emailing privacy@apexloan.in.</p>
+        </div>
+      </div>
+
+      <!-- 4. Terms and Conditions Accordion -->
+      <div class="policy-card" id="termsCard">
+        <div class="policy-card-header" onclick="togglePolicy('termsCard')">
+          <h4>📜 Terms and Conditions & Lending Agreement</h4>
+          <span>▼</span>
+        </div>
+        <div class="policy-card-body">
+          <p><strong>Digital Lending Agreement Terms (Vistas Tecnolabs Finance Limited):</strong></p>
+          <p>1. <strong>Regulated Lender:</strong> Credit facilities are sanctioned and disbursed directly by Vistas Tecnolabs Finance Limited, an RBI-registered NBFC partner.</p>
+          <p>2. <strong>Tenure & Interest Rate:</strong> Loans are offered for flexible tenures between 3 to 12 months. Interest is charged on a daily reducing balance basis (APR ranges between 18% to 36% p.a. depending on borrower risk grade).</p>
+          <p>3. <strong>Repayment Obligations:</strong> Borrowers must repay EMIs on or before the due date via NACH e-Mandate, UPI, or NetBanking. Late payments may attract standard penal charges and be reported to credit bureaus.</p>
+          <p>4. <strong>Zero Foreclosure Penalty:</strong> You can prepay or close your loan anytime without paying any foreclosure or prepayment penalty charges.</p>
+          <p>5. <strong>Governing Law:</strong> All transactions are subject to the exclusive jurisdiction of courts in Mumbai, India.</p>
+        </div>
+      </div>
+
+      <!-- 5. Logout Button -->
+      <button type="button" class="logout-btn" onclick="handleLogout()">
+        <span>🚪</span>
+        <span>Log Out of Account</span>
+      </button>
+
+      <div style="text-align: center; margin-top: 20px; font-size: 11px; color: var(--gray-500);">
+        ApexLoan v2.4 · Powered by Vistas Tecnolabs Finance Limited<br>
+        CIN: U65100MH2020PLC123456 | RBI NBFC Reg: N-13.02456
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Bottom App Navigation Bar -->
+  <nav class="app-bottom-nav">
+    <button type="button" class="app-nav-item active" id="navHome" onclick="switchTab('home')">
+      <span class="nav-icon">🏠</span>
+      <span>Home</span>
+    </button>
+    <button type="button" class="app-nav-item" id="navLoans" onclick="window.location.href='apply.html'">
+      <span class="nav-icon">💰</span>
+      <span>Loan</span>
+    </button>
+    <button type="button" class="app-nav-item" id="navInsurance" onclick="switchTab('insurance')">
+      <span class="nav-icon">🛡️</span>
+      <span>Insurance</span>
+    </button>
+    <button type="button" class="app-nav-item" id="navProfile" onclick="switchTab('profile')">
+      <span class="nav-icon">👤</span>
+      <span>Profile</span>
+    </button>
+  </nav>
+
+  <!-- Pay EMI Modal (UPI / Netbanking Simulation) -->
+  <div class="modal-overlay" id="payEmiModal">
+    <div class="modal-content" style="max-width: 420px; text-align: left;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+        <h3 style="font-size: 18px; font-weight: 800; color: var(--dark); margin: 0;">⚡ Quick EMI Repayment</h3>
+        <button type="button" onclick="closePayEmiModal()" style="background: none; border: none; font-size: 20px; cursor: pointer;">✕</button>
+      </div>
+
+      <div style="background: linear-gradient(135deg, rgba(26, 31, 113, 0.06) 0%, rgba(0, 184, 148, 0.08) 100%); padding: 14px; border-radius: var(--radius-md); margin-bottom: 16px;">
+        <div style="font-size: 11px; text-transform: uppercase; color: var(--gray-700); font-weight: 700;">Installment to Pay:</div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 4px;">
+          <span style="font-size: 15px; font-weight: 800; color: var(--dark);" id="payModalInstTitle">Installment 1</span>
+          <span style="font-size: 22px; font-weight: 900; color: var(--primary);" id="payModalAmount">₹2,978</span>
+        </div>
+        <div style="font-size: 12px; color: var(--gray-500); margin-top: 4px;" id="payModalDueDate">Due by 05 Oct 2026</div>
+      </div>
+
+      <div style="font-size: 12px; font-weight: 700; color: var(--dark); margin-bottom: 8px;">Select Payment Mode:</div>
+      <div class="payment-methods-grid">
+        <div class="payment-method-card selected" onclick="selectPayMethod(this)">
+          <div>📱 Google Pay</div>
+        </div>
+        <div class="payment-method-card" onclick="selectPayMethod(this)">
+          <div>🟣 PhonePe</div>
+        </div>
+        <div class="payment-method-card" onclick="selectPayMethod(this)">
+          <div>🔵 Paytm UPI</div>
+        </div>
+        <div class="payment-method-card" onclick="selectPayMethod(this)">
+          <div>🏛️ NetBanking</div>
+        </div>
+      </div>
+
+      <div style="font-size: 11px; color: var(--gray-500); margin-bottom: 16px; text-align: center;">
+        🔒 Secured by NPCI UPI Gateway · Instant NOC & Receipt Update
+      </div>
+
+      <button type="button" class="btn btn-success btn-block btn-lg" id="confirmPayBtn" onclick="processEmiPayment()">
+        Pay Now ✓
+      </button>
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script>
+    // ---- Persistent Login Check ----
+    if (localStorage.getItem('apexloan_logged_in') !== 'true') {
+      window.location.href = 'login.html';
+    }
+
+    let currentPendingInstNum = 1;
+    let currentPendingAmount = 0;
+
+    // ---- Load Saved Profile / Active Loan Data ----
+    document.addEventListener('DOMContentLoaded', () => {
+      loadDashboardData();
+    });
+
+    function loadDashboardData() {
+      const mobile = localStorage.getItem('apexloan_mobile') || '9876543210';
+      const maskedMobile = '+91 ' + mobile.slice(0, 2) + '••••' + mobile.slice(-4);
+      
+      // Pull saved form data if exists
+      let formData = {};
+      try {
+        formData = JSON.parse(localStorage.getItem('apexloan_form_data') || '{}');
+      } catch (e) {}
+
+      const fullName = formData.fullName || 'Rajesh Sharma';
+      const email = formData.email || 'applicant@email.com';
+      const city = (formData.city ? formData.city + ', ' : '') + (formData.state || 'India');
+      const dob = formData.dob || '15 Aug 1996';
+      const bankName = formData.bankName || 'State Bank of India';
+      const accNumber = formData.accountNumber ? '••••' + formData.accountNumber.slice(-4) : '••••4567';
+
+      // Update DOM
+      document.getElementById('greetUserName').textContent = `Hello, ${fullName.split(' ')[0]} 👋`;
+      document.getElementById('userMobileSub').textContent = `${maskedMobile} · Verified Borrower`;
+      document.getElementById('topAvatarBtn').textContent = fullName.charAt(0).toUpperCase();
+
+      document.getElementById('profileFullName').textContent = fullName;
+      document.getElementById('profileMobile').textContent = '+91 ' + mobile;
+      document.getElementById('profileEmail').textContent = email;
+      document.getElementById('profileDob').textContent = dob;
+      document.getElementById('profileCity').textContent = city;
+      document.getElementById('profileBank').textContent = `${bankName} (${accNumber})`;
+
+      // Check if user has an active/sanctioned loan
+      let activeOffer = null;
+      try {
+        activeOffer = JSON.parse(localStorage.getItem('apexloan_active_loan') || localStorage.getItem('apexloan_sanctioned_offer') || 'null');
+      } catch (e) {}
+
+      const heroCard = document.getElementById('heroLoanCard');
+      const limitAmountEl = document.getElementById('dashLimitAmount');
+      const cardStatusTag = document.getElementById('cardStatusTag');
+      const cardLimitLabel = document.getElementById('cardLimitLabel');
+      const heroCta = document.getElementById('dashHeroCta');
+
+      if (activeOffer && activeOffer.approved) {
+        const isDisbursalProcessing = activeOffer.status === 'DISBURSAL_PROCESSING';
+        const isDisbursed = activeOffer.status === 'DISBURSED';
+        const tenure = activeOffer.selectedTenure || 12;
+        const fee = activeOffer.disbursalFee || (activeOffer.creditLimit <= 25000 ? 199 : 299);
+        limitAmountEl.textContent = '₹' + activeOffer.creditLimit.toLocaleString('en-IN');
+
+        if (isDisbursalProcessing) {
+          const alertCard = document.getElementById('dashApprovedAlert');
+          if (alertCard) alertCard.style.display = 'none';
+
+          // Disbursal Stage active with 30-min staff transfer window!
+          cardStatusTag.textContent = '⏳ Disbursal Stage Active (Under 30 Mins)';
+          cardLimitLabel.textContent = `Sanctioned by Vistas Tecnolabs Finance Limited (${tenure}M)`;
+          heroCta.innerHTML = `<span>⏳ Track 30-Min Bank Transfer (Staff Processing)</span> <span>↓</span>`;
+          heroCta.href = '#disbursalTrackerCard';
+          heroCta.onclick = function(e) {
+            e.preventDefault();
+            const el = document.getElementById('disbursalTrackerCard');
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          };
+
+          // Render live 30-minute tracker
+          renderDisbursalTracker(activeOffer);
+
+          // Render upcoming repayment schedule
+          renderRepaymentSchedule(activeOffer);
+
+        } else if (isDisbursed) {
+          const alertCard = document.getElementById('dashApprovedAlert');
+          if (alertCard) alertCard.style.display = 'none';
+
+          cardStatusTag.textContent = '🟢 Active Disbursed Loan';
+          cardLimitLabel.textContent = `Disbursed by Vistas Tecnolabs Finance Limited (${tenure}M)`;
+          heroCta.innerHTML = `<span>📅 View Repayment Schedule (${tenure} EMIs)</span> <span>↓</span>`;
+          heroCta.href = '#repayScheduleSection';
+          heroCta.onclick = function(e) {
+            e.preventDefault();
+            const schedSec = document.getElementById('repayScheduleSection');
+            if (schedSec) schedSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          };
+
+          const tracker = document.getElementById('disbursalTrackerCard');
+          if (tracker) tracker.style.display = 'none';
+
+          renderRepaymentSchedule(activeOffer);
+
+        } else {
+          // Loan approved, but fee NOT yet paid
+          const alertCard = document.getElementById('dashApprovedAlert');
+          const alertAmt = document.getElementById('dashAlertAmount');
+          if (alertCard) alertCard.style.display = 'block';
+          if (alertAmt) alertAmt.textContent = '₹' + activeOffer.creditLimit.toLocaleString('en-IN');
+
+          cardStatusTag.textContent = '⚡ Loan Sanction Approved';
+          cardLimitLabel.textContent = `Approved by Vistas Tecnolabs Finance Limited (${tenure}M)`;
+          heroCta.innerHTML = `<span>⚡ Pay ₹${fee} Fee & Disburse Loan (In 30 Mins)</span> <span>→</span>`;
+          heroCta.href = 'apply.html';
+          heroCta.onclick = null;
+          const tracker = document.getElementById('disbursalTrackerCard');
+          if (tracker) tracker.style.display = 'none';
+          document.getElementById('repayScheduleSection').style.display = 'none';
+        }
+      } else {
+        const alertCard = document.getElementById('dashApprovedAlert');
+        if (alertCard) alertCard.style.display = 'none';
+
+        const tracker = document.getElementById('disbursalTrackerCard');
+        if (tracker) tracker.style.display = 'none';
+        document.getElementById('repayScheduleSection').style.display = 'none';
+      }
+    }
+
+    // ---- Render Live 30-Minute Disbursal Tracker ----
+    let dashTickerInterval = null;
+    function renderDisbursalTracker(offer) {
+      const tracker = document.getElementById('disbursalTrackerCard');
+      if (!tracker) return;
+      tracker.style.display = 'block';
+
+      document.getElementById('trackLoanAmount').textContent = '₹' + offer.creditLimit.toLocaleString('en-IN');
+      const bank = offer.bankName || 'Bank';
+      const acc = offer.accountNumber ? '••••' + offer.accountNumber.slice(-4) : '••••4567';
+      document.getElementById('trackBankName').textContent = `${bank} (${acc})`;
+
+      const eta = offer.disbursalEta || new Date(Date.now() + 30 * 60 * 1000).toISOString();
+      const targetTime = new Date(eta).getTime();
+
+      if (dashTickerInterval) clearInterval(dashTickerInterval);
+      function updateTicker() {
+        const remaining = Math.max(0, targetTime - Date.now());
+        const totalSec = Math.floor(remaining / 1000);
+        const mins = Math.floor(totalSec / 60);
+        const secs = totalSec % 60;
+        const str = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')} Mins`;
+        const el = document.getElementById('dashCountdownTicker');
+        if (el) el.textContent = str;
+
+        if (remaining <= 0) {
+          clearInterval(dashTickerInterval);
+          if (el) el.textContent = 'Transferred ✓';
+          // Auto-transition to DISBURSED
+          offer.status = 'DISBURSED';
+          localStorage.setItem('apexloan_active_loan', JSON.stringify(offer));
+          document.getElementById('cardStatusTag').textContent = '🟢 Active Disbursed Loan';
+        }
+      }
+      updateTicker();
+      dashTickerInterval = setInterval(updateTicker, 1000);
+    }
+
+    // ---- Render Repayment Schedule ----
+    function renderRepaymentSchedule(offer) {
+      const scheduleSec = document.getElementById('repayScheduleSection');
+      if (!scheduleSec) return;
+      scheduleSec.style.display = 'block';
+
+      const tenure = offer.selectedTenure || 12;
+      const emi = offer.monthlyEmi || Math.round(offer.creditLimit / tenure);
+      const totalRepay = offer.totalRepayment || (emi * tenure);
+
+      // Populate summary stats
+      document.getElementById('schedNextEmiAmount').textContent = '₹' + emi.toLocaleString('en-IN');
+      document.getElementById('schedSanctionedVal').textContent = '₹' + offer.creditLimit.toLocaleString('en-IN');
+      document.getElementById('schedTenureVal').textContent = tenure + ' Months';
+      document.getElementById('schedTotalRepayVal').textContent = '₹' + totalRepay.toLocaleString('en-IN');
+      document.getElementById('schedCountText').textContent = `${tenure} EMIs`;
+
+      // Paid list from localStorage
+      let paidList = [];
+      try {
+        paidList = JSON.parse(localStorage.getItem('apexloan_paid_emis') || '[]');
+      } catch (e) {}
+
+      const container = document.getElementById('installmentListContainer');
+      container.innerHTML = '';
+
+      let nextDueFound = false;
+
+      for (let i = 1; i <= tenure; i++) {
+        // Calculate due date (5th of each future month)
+        const d = new Date();
+        d.setMonth(d.getMonth() + i);
+        d.setDate(5);
+        const dateStr = d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+
+        const isPaid = paidList.includes(i);
+        const isNextDue = !isPaid && !nextDueFound;
+        if (isNextDue) {
+          nextDueFound = true;
+          document.getElementById('schedNextDueDate').textContent = `Due Date: ${dateStr}`;
+          currentPendingInstNum = i;
+          currentPendingAmount = emi;
+          const summaryBtn = document.getElementById('summaryPayNowBtn');
+          if (summaryBtn) {
+            summaryBtn.style.display = 'block';
+            summaryBtn.onclick = function() {
+              openPayEmiModal(i, emi, dateStr);
+            };
+          }
+        }
+
+        const item = document.createElement('div');
+        item.className = 'installment-item' + (isPaid ? ' paid-done' : isNextDue ? ' active-due' : '');
+
+        let statusHtml = '';
+        if (isPaid) {
+          statusHtml = `
+            <div class="inst-right">
+              <span class="inst-amount" style="color: var(--success);">₹${emi.toLocaleString('en-IN')}</span>
+              <span class="inst-badge paid">PAID ✓</span>
+            </div>
+          `;
+        } else if (isNextDue) {
+          statusHtml = `
+            <div class="inst-right">
+              <span class="inst-amount">₹${emi.toLocaleString('en-IN')}</span>
+              <button type="button" class="pay-emi-btn" onclick="openPayEmiModal(${i}, ${emi}, '${dateStr}')">Pay Now</button>
+            </div>
+          `;
+        } else {
+          statusHtml = `
+            <div class="inst-right">
+              <span class="inst-amount">₹${emi.toLocaleString('en-IN')}</span>
+              <span class="inst-badge upcoming">SCHEDULED</span>
+            </div>
+          `;
+        }
+
+        item.innerHTML = `
+          <div class="inst-left">
+            <div class="inst-num-bubble">${isPaid ? '✓' : i}</div>
+            <div class="inst-meta">
+              <span class="inst-title">Installment ${i} of ${tenure}</span>
+              <span class="inst-date">Due: ${dateStr} ${isPaid ? '· Paid Online' : '· Auto-Debit (NACH)'}</span>
+            </div>
+          </div>
+          ${statusHtml}
+        `;
+
+        container.appendChild(item);
+      }
+
+      // If all paid
+      if (!nextDueFound && paidList.length >= tenure) {
+        document.getElementById('schedNextEmiAmount').textContent = '₹0';
+        document.getElementById('schedNextDueDate').textContent = 'All EMIs Cleared! NOC Available 🎉';
+        document.getElementById('summaryPayNowBtn').style.display = 'none';
+        document.getElementById('scheduleStatusPill').textContent = '✅ Fully Repaid';
+        document.getElementById('scheduleStatusPill').style.background = 'rgba(0, 184, 148, 0.15)';
+      }
+    }
+
+    // ---- Pay EMI Modal & Simulation ----
+    function openPayEmiModal(instNum, amount, dueDateStr) {
+      if (!amount) {
+        amount = currentPendingAmount || 2978;
+      }
+      if (!dueDateStr) {
+        dueDateStr = '05 Oct 2026';
+      }
+      currentPendingInstNum = instNum;
+      currentPendingAmount = amount;
+
+      document.getElementById('payModalInstTitle').textContent = `Installment ${instNum}`;
+      document.getElementById('payModalAmount').textContent = '₹' + amount.toLocaleString('en-IN');
+      document.getElementById('payModalDueDate').textContent = `Due by ${dueDateStr}`;
+      document.getElementById('payEmiModal').classList.add('active');
+    }
+
+    function closePayEmiModal() {
+      document.getElementById('payEmiModal').classList.remove('active');
+    }
+
+    function selectPayMethod(el) {
+      document.querySelectorAll('.payment-method-card').forEach(c => c.classList.remove('selected'));
+      el.classList.add('selected');
+    }
+
+    function processEmiPayment() {
+      const btn = document.getElementById('confirmPayBtn');
+      btn.innerHTML = '<span class="spinner"></span> Processing with NPCI UPI...';
+      btn.disabled = true;
+
+      setTimeout(() => {
+        btn.innerHTML = 'Payment Successful ✓';
+        btn.style.background = 'var(--success)';
+
+        let paidList = [];
+        try {
+          paidList = JSON.parse(localStorage.getItem('apexloan_paid_emis') || '[]');
+        } catch (e) {}
+
+        if (!paidList.includes(currentPendingInstNum)) {
+          paidList.push(currentPendingInstNum);
+          localStorage.setItem('apexloan_paid_emis', JSON.stringify(paidList));
+        }
+
+        setTimeout(() => {
+          btn.innerHTML = 'Pay Now ✓';
+          btn.style.background = '';
+          btn.disabled = false;
+          closePayEmiModal();
+
+          alert(`🎉 Payment of ₹${currentPendingAmount.toLocaleString('en-IN')} for Installment ${currentPendingInstNum} Successful!\n\nTransaction ID: UPI-${Date.now().toString().slice(-8)}\nPayment Receipt sent to registered mobile.`);
+
+          // Re-render schedule immediately
+          let activeOffer = null;
+          try {
+            activeOffer = JSON.parse(localStorage.getItem('apexloan_active_loan') || localStorage.getItem('apexloan_sanctioned_offer') || 'null');
+          } catch (e) {}
+          if (activeOffer) renderRepaymentSchedule(activeOffer);
+
+        }, 800);
+      }, 1400);
+    }
+
+    function forecloseLoanEarly() {
+      let activeOffer = null;
+      try {
+        activeOffer = JSON.parse(localStorage.getItem('apexloan_active_loan') || localStorage.getItem('apexloan_sanctioned_offer') || 'null');
+      } catch (e) {}
+
+      const total = activeOffer ? activeOffer.totalRepayment : 17868;
+      if (confirm(`⚡ Early Foreclosure Option:\n\nYou can clear your total remaining balance of ₹${total.toLocaleString('en-IN')} right now with 0% foreclosure charges as per RBI rules.\n\nProceed to instant settlement?`)) {
+        alert('🎉 Loan Foreclosed Successfully! Full NOC and Clearance Certificate issued by Vistas Tecnolabs.');
+        // Mark all paid
+        const tenure = activeOffer ? activeOffer.selectedTenure : 12;
+        const all = [];
+        for (let i = 1; i <= tenure; i++) all.push(i);
+        localStorage.setItem('apexloan_paid_emis', JSON.stringify(all));
+        if (activeOffer) renderRepaymentSchedule(activeOffer);
+      }
+    }
+
+    // ---- Tab Switching ----
+    function switchTab(tabName) {
+      document.getElementById('tabHome').style.display = 'none';
+      document.getElementById('tabInsurance').style.display = 'none';
+      document.getElementById('tabProfile').style.display = 'none';
+
+      document.querySelectorAll('.app-nav-item').forEach(btn => btn.classList.remove('active'));
+
+      if (tabName === 'home') {
+        document.getElementById('tabHome').style.display = 'block';
+        document.getElementById('navHome').classList.add('active');
+      } else if (tabName === 'insurance') {
+        document.getElementById('tabInsurance').style.display = 'block';
+        document.getElementById('navInsurance').classList.add('active');
+      } else if (tabName === 'profile') {
+        document.getElementById('tabProfile').style.display = 'block';
+        document.getElementById('navProfile').classList.add('active');
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ---- Policy Accordion Toggle ----
+    function togglePolicy(cardId) {
+      const card = document.getElementById(cardId);
+      if (!card) return;
+      card.classList.toggle('open');
+    }
+
+    // ---- Insurance Modal ----
+    const plansData = {
+      'emi': {
+        title: '🛡️ Loan EMI Suraksha Protection',
+        desc: 'Protects your loan EMIs against sudden job loss, accident, or hospitalization. In an unfortunate event, the insurer directly settles remaining loan EMIs with Vistas Tecnolabs.',
+        sum: 'Full Outstanding Loan Balance',
+        price: '₹29 / month'
+      },
+      'health': {
+        title: '🏥 Family HospiCash Daily Allowance',
+        desc: 'Receive ₹5,000 cash per day for every day of hospitalization for you or your spouse (up to 30 days per policy year). No medical bills required.',
+        sum: '₹5,00,000 Coverage (₹5,000 / day)',
+        price: '₹49 / month'
+      },
+      'cyber': {
+        title: '🔒 Cyber & UPI Fraud Protection',
+        desc: 'Complete financial safety against unauthorized UPI transfers, card cloning, online phishing, and social engineering scams.',
+        sum: '₹1,00,000 per incident',
+        price: '₹19 / month'
+      }
+    };
+
+    function openInsuranceModal(planKey) {
+      const plan = plansData[planKey] || plansData['emi'];
+      document.getElementById('modalInsTitle').textContent = plan.title;
+      document.getElementById('modalInsDesc').textContent = plan.desc;
+      document.getElementById('modalInsSum').textContent = plan.sum;
+      document.getElementById('modalInsPrice').textContent = plan.price;
+      document.getElementById('insDetailModal').classList.add('active');
+    }
+
+    function closeInsuranceModal() {
+      document.getElementById('insDetailModal').classList.remove('active');
+    }
+
+    function activatePlanFromModal() {
+      alert('🎉 Plan activated successfully! Your certificate of insurance has been generated.');
+      closeInsuranceModal();
+    }
+
+    // ---- Logout Handler ----
+    function handleLogout() {
+      if (confirm('Are you sure you want to log out of ApexLoan?')) {
+        localStorage.removeItem('apexloan_logged_in');
+        window.location.href = 'login.html';
+      }
+    }
+  </script>
+
+</body>
+</html>

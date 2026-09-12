@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="hi-IN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="description" content="ApexLoan - Login with your mobile number to apply for instant personal loans.">
+  <meta name="theme-color" content="#1a1f71">
+  <title>Login | ApexLoan - Instant Personal Loan</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Login Page -->
+  <div class="login-page">
+
+    <!-- Background decoration -->
+    <div class="login-bg-decor"></div>
+    <div class="login-bg-decor2"></div>
+
+    <!-- Top Bar -->
+    <div class="login-topbar">
+      <a href="index.html" class="nav-logo">
+        <div class="logo-icon">₹</div>
+        <span>Apex<span style="color: #00b894;">Loan</span></span>
+      </a>
+    </div>
+
+    <!-- Main Card -->
+    <div class="login-wrapper">
+      <div class="login-card">
+        
+        <!-- Trust badge -->
+        <div class="login-trust-badge">
+          <span class="dot"></span>
+          🏛️ Powered by Vistas Tecnolabs Finance Limited (RBI Reg. NBFC)
+        </div>
+
+        <!-- Header -->
+        <div class="login-header">
+          <div class="login-icon-circle">📱</div>
+          <h1>Welcome to ApexLoan</h1>
+          <p>Enter your mobile number to get started. <br>Instant loans from <strong>₹1,000</strong> to <strong>₹1,00,000</strong></p>
+        </div>
+
+        <!-- Mobile Input Section -->
+        <div id="mobileSection">
+          <div class="form-group">
+            <label>Mobile Number <span class="required">*</span></label>
+            <div class="input-group">
+              <span class="input-prefix">🇮🇳 +91</span>
+              <input type="tel" class="form-control login-mobile-input" id="loginMobile" placeholder="Enter 10-digit mobile number" maxlength="10" inputmode="numeric" autocomplete="tel">
+            </div>
+            <div class="error-text" id="mobileError">Please enter a valid 10-digit mobile number</div>
+          </div>
+          <button class="btn btn-primary btn-block btn-lg login-btn" id="sendLoginOtp" onclick="sendLoginOTP()">
+            Get OTP →
+          </button>
+        </div>
+
+        <!-- OTP Section (hidden initially) -->
+        <div id="loginOtpSection" style="display: none;">
+          <div class="login-otp-info">
+            <p>OTP sent to <strong id="maskedNumber">+91 98****3210</strong></p>
+          </div>
+
+          <div class="otp-container">
+            <input type="text" class="otp-input" maxlength="1" data-index="0" inputmode="numeric">
+            <input type="text" class="otp-input" maxlength="1" data-index="1" inputmode="numeric">
+            <input type="text" class="otp-input" maxlength="1" data-index="2" inputmode="numeric">
+            <input type="text" class="otp-input" maxlength="1" data-index="3" inputmode="numeric">
+            <input type="text" class="otp-input" maxlength="1" data-index="4" inputmode="numeric">
+            <input type="text" class="otp-input" maxlength="1" data-index="5" inputmode="numeric">
+          </div>
+
+          <!-- Timer in small text -->
+          <div class="login-otp-timer">
+            Resend OTP in <span class="timer" id="loginTimer">00:30</span>
+          </div>
+
+          <button class="btn btn-success btn-block btn-lg login-btn" id="verifyLoginOtp" onclick="verifyLoginOTP()">
+            Verify & Continue →
+          </button>
+
+          <button class="login-change-number" onclick="changeNumber()">← Change Number</button>
+        </div>
+
+        <!-- Verified Section (hidden) -->
+        <div id="loginVerifiedSection" style="display: none;">
+          <div class="login-verified-box">
+            <div class="login-verified-icon">✅</div>
+            <h3>Mobile Verified!</h3>
+            <p>Redirecting to loan application...</p>
+            <div class="login-loader">
+              <div class="login-loader-bar"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Trust Signals -->
+      <div class="login-trust-row">
+        <div class="trust-item">
+          <span>🔒</span>
+          <span>Bank-Grade<br>Security</span>
+        </div>
+        <div class="trust-item">
+          <span>⚡</span>
+          <span>2 Min<br>Approval</span>
+        </div>
+        <div class="trust-item">
+          <span>🏛️</span>
+          <span>RBI<br>Registered</span>
+        </div>
+        <div class="trust-item">
+          <span>💰</span>
+          <span>No Hidden<br>Charges</span>
+        </div>
+      </div>
+
+      <!-- Transparency Notice -->
+      <div class="login-transparency">
+        <h4>🛡️ Your Data is Safe With Us</h4>
+        <ul>
+          <li>✅ We never share your data with third parties</li>
+          <li>✅ All communications are end-to-end encrypted</li>
+          <li>✅ You can delete your data anytime</li>
+          <li>✅ Compliant with RBI Digital Lending Guidelines 2024</li>
+        </ul>
+      </div>
+
+      <!-- Footer -->
+      <div class="login-footer">
+        <p>Apex Finance Ltd. · Lending Partner: Vistas Tecnolabs Finance Limited | NBFC Reg: N-13.02456</p>
+        <p style="margin-top: 4px;"><a href="#">Privacy Policy</a> · <a href="#">Terms</a> · <a href="#">Grievance</a></p>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script>
+    // ---- Mobile input: digits only ----
+    const loginMobile = document.getElementById('loginMobile');
+    loginMobile.addEventListener('input', (e) => {
+      e.target.value = e.target.value.replace(/\D/g, '').slice(0, 10);
+      // Clear error on typing
+      document.getElementById('mobileError').style.display = 'none';
+      loginMobile.classList.remove('error');
+    });
+
+    // Enter key to send OTP
+    loginMobile.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') sendLoginOTP();
+    });
+
+    let loginOtpTimer = null;
+    let loginGeneratedOTP = '';
+
+    // ---- Send OTP ----
+    function sendLoginOTP() {
+      const mobile = loginMobile.value.trim();
+      
+      // Validate
+      if (mobile.length !== 10 || !/^[6-9]/.test(mobile)) {
+        document.getElementById('mobileError').style.display = 'block';
+        loginMobile.classList.add('error');
+        loginMobile.focus();
+        return;
+      }
+
+      const btn = document.getElementById('sendLoginOtp');
+      btn.innerHTML = '<span class="spinner"></span> Sending OTP...';
+      btn.disabled = true;
+
+      // Generate random OTP
+      loginGeneratedOTP = String(Math.floor(100000 + Math.random() * 900000));
+
+      // Simulate API delay
+      setTimeout(() => {
+        // Show OTP section
+        document.getElementById('mobileSection').style.display = 'none';
+        document.getElementById('loginOtpSection').style.display = 'block';
+
+        // Show masked number
+        const masked = mobile.slice(0, 2) + '****' + mobile.slice(-4);
+        document.getElementById('maskedNumber').textContent = '+91 ' + masked;
+
+        // Start timer
+        startLoginTimer();
+
+        // Auto-fill OTP after 1.5 seconds (simulate receiving)
+        setTimeout(() => {
+          const otpInputs = document.querySelectorAll('.otp-input');
+          loginGeneratedOTP.split('').forEach((digit, i) => {
+            otpInputs[i].value = digit;
+            otpInputs[i].style.borderColor = 'var(--secondary)';
+            otpInputs[i].style.background = 'rgba(0, 184, 148, 0.05)';
+          });
+        }, 1500);
+
+        // Setup OTP input handlers
+        setupLoginOTPInputs();
+
+      }, 1500);
+    }
+
+    // ---- Setup OTP Inputs ----
+    function setupLoginOTPInputs() {
+      const otpInputs = document.querySelectorAll('.otp-input');
+      otpInputs.forEach((input, index) => {
+        input.addEventListener('input', (e) => {
+          const val = e.target.value.replace(/\D/g, '');
+          e.target.value = val.slice(0, 1);
+          if (val && index < 5) {
+            otpInputs[index + 1].focus();
+          }
+        });
+        input.addEventListener('keydown', (e) => {
+          if (e.key === 'Backspace' && !e.target.value && index > 0) {
+            otpInputs[index - 1].focus();
+          }
+          if (e.key === 'Enter') verifyLoginOTP();
+        });
+        input.addEventListener('paste', (e) => {
+          e.preventDefault();
+          const paste = (e.clipboardData || window.clipboardData).getData('text').replace(/\D/g, '');
+          for (let i = 0; i < Math.min(paste.length, 6); i++) {
+            otpInputs[i].value = paste[i];
+          }
+        });
+      });
+      otpInputs[0].focus();
+    }
+
+    // ---- Timer ----
+    function startLoginTimer() {
+      let seconds = 30;
+      const timerEl = document.getElementById('loginTimer');
+
+      clearInterval(loginOtpTimer);
+      loginOtpTimer = setInterval(() => {
+        seconds--;
+        timerEl.textContent = `00:${String(seconds).padStart(2, '0')}`;
+
+        if (seconds <= 0) {
+          clearInterval(loginOtpTimer);
+          timerEl.innerHTML = '<a href="#" onclick="resendLoginOTP(); return false;" style="color: var(--accent); font-weight: 600; text-decoration: underline;">Resend OTP</a>';
+        }
+      }, 1000);
+    }
+
+    // ---- Resend OTP ----
+    function resendLoginOTP() {
+      loginGeneratedOTP = String(Math.floor(100000 + Math.random() * 900000));
+      
+      // Clear old OTP
+      document.querySelectorAll('.otp-input').forEach(input => {
+        input.value = '';
+        input.style.borderColor = 'var(--gray-300)';
+        input.style.background = 'var(--white)';
+      });
+
+      startLoginTimer();
+
+      // Auto-fill new OTP
+      setTimeout(() => {
+        const otpInputs = document.querySelectorAll('.otp-input');
+        loginGeneratedOTP.split('').forEach((digit, i) => {
+          otpInputs[i].value = digit;
+          otpInputs[i].style.borderColor = 'var(--secondary)';
+          otpInputs[i].style.background = 'rgba(0, 184, 148, 0.05)';
+        });
+      }, 1500);
+    }
+
+    // ---- Check Persistent Login Session ----
+    if (localStorage.getItem('apexloan_logged_in') === 'true') {
+      window.location.href = 'dashboard.html';
+    }
+
+    // ---- Verify OTP ----
+    function verifyLoginOTP() {
+      const otpInputs = document.querySelectorAll('.otp-input');
+      let entered = '';
+      otpInputs.forEach(inp => entered += inp.value);
+
+      if (entered.length !== 6) return;
+
+      const btn = document.getElementById('verifyLoginOtp');
+      btn.innerHTML = '<span class="spinner"></span> Verifying...';
+      btn.disabled = true;
+
+      setTimeout(() => {
+        clearInterval(loginOtpTimer);
+
+        // Save mobile to localStorage
+        localStorage.setItem('apexloan_mobile', loginMobile.value.trim());
+        localStorage.setItem('apexloan_logged_in', 'true');
+
+        // Show verified section
+        document.getElementById('loginOtpSection').style.display = 'none';
+        document.getElementById('loginVerifiedSection').style.display = 'block';
+
+        // Redirect to Dashboard after 1.5 seconds
+        setTimeout(() => {
+          window.location.href = 'dashboard.html';
+        }, 1500);
+
+      }, 1200);
+    }
+
+    // ---- Change Number ----
+    function changeNumber() {
+      clearInterval(loginOtpTimer);
+      document.getElementById('loginOtpSection').style.display = 'none';
+      document.getElementById('mobileSection').style.display = 'block';
+      
+      // Reset send button
+      const btn = document.getElementById('sendLoginOtp');
+      btn.innerHTML = 'Get OTP →';
+      btn.disabled = false;
+
+      // Clear OTP inputs
+      document.querySelectorAll('.otp-input').forEach(input => {
+        input.value = '';
+        input.style.borderColor = 'var(--gray-300)';
+        input.style.background = 'var(--white)';
+      });
+
+      loginMobile.focus();
+    }
+
+    // ---- Auto-focus on load ----
+    window.addEventListener('load', () => {
+      if (localStorage.getItem('apexloan_logged_in') !== 'true') {
+        loginMobile.focus();
+      }
+    });
+  </script>
+
+</body>
+</html>

