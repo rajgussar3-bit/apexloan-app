@@ -98,7 +98,8 @@ router.post('/send-otp', async (req, res) => {
           provider: 'MSG91_LIVE',
           message: `OTP sent via MSG91 SMS to +91 ${masked}`,
           maskedNumber: '+91 ' + masked,
-          timerSeconds: 30
+          timerSeconds: 30,
+          sandboxOtp: fallbackOtp
         });
       } else {
         console.warn('[MSG91] Live send returned non-success:', response.body);
@@ -119,7 +120,8 @@ router.post('/send-otp', async (req, res) => {
             provider: 'MSG91_FLOW',
             message: `OTP sent via MSG91 Flow to +91 ${masked}`,
             maskedNumber: '+91 ' + masked,
-            timerSeconds: 30
+            timerSeconds: 30,
+            sandboxOtp: fallbackOtp
           });
         }
       }

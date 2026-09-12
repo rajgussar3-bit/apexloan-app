@@ -198,9 +198,13 @@
         const masked = res.maskedNumber || ('+91 ' + mobile.slice(0, 2) + '••••' + mobile.slice(-4));
         const infoEl = document.querySelector('.login-otp-info');
         if (res.provider === 'MSG91_LIVE' || res.provider === 'MSG91_FLOW') {
-          infoEl.innerHTML = `<p>📲 Real SMS OTP sent via <strong>MSG91</strong> to <strong id="maskedNumber">${masked}</strong></p><p style="font-size: 11px; color: var(--secondary); margin-top: 4px;">Please enter the 6-digit code received on your phone</p>`;
+          infoEl.innerHTML = `<p>📲 SMS request dispatched via <strong>MSG91</strong> to <strong id="maskedNumber">${masked}</strong></p><p style="font-size: 11px; color: var(--secondary); margin-top: 4px;">Please check your SMS inbox or use instant test code below:</p>`;
         } else {
           infoEl.innerHTML = `<p>OTP sent to <strong id="maskedNumber">${masked}</strong></p>`;
+        }
+
+        if (res.sandboxOtp) {
+          infoEl.innerHTML += `<div style="margin-top: 8px; font-size: 12px; color: var(--primary); background: rgba(79, 70, 229, 0.08); padding: 6px 10px; border-radius: 6px; font-weight: 600; display: inline-block;">🧪 Testing Code: <span style="letter-spacing: 2px;">${res.sandboxOtp}</span></div>`;
         }
 
         // Start timer
