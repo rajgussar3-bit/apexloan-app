@@ -7,8 +7,30 @@ const MSG91_AUTH_KEY = process.env.MSG91_AUTH_KEY || '570561AWEF2CIT6aa56e0aP1';
 const MSG91_TEMPLATE_ID = process.env.MSG91_TEMPLATE_ID || 'bruno-credits';
 const MSG91_WIDGET_ID = process.env.MSG91_WIDGET_ID || '36696c6e5676353031383033';
 
+// Fast2SMS Configuration (Bruno Credits Live)
+const FAST2SMS_API_KEY = process.env.FAST2SMS_API_KEY || '54U7Z8iHPFepRIB0QjEVu6DYGSamfJdTMKloky1w2btAxhCOn3tjMRSo4FPpLNW3HQq7E29ZGUlTvxyC';
+
 // In-memory OTP store for backup & sandbox verification
 const activeOtps = new Map();
+
+// Helper to make HTTPS requests to Fast2SMS
+function callFast2SMS(mobile, otp) {
+  return new Promise((resolve) => {
+    if (!FAST2SMS_API_KEY) return resolve(null);
+    const path = `/dev/bulkV2?authorization=${FAST2SMS_API_KEY}&route=otp&variables_values=${otp}&flash=0&numbers=${mobile}`;
+    https.get(`https://www.fast2sms.com${path}`, (res) => {
+      let data = '';
+      res.on('data', c => data += c);
+      res.on('end', () => {
+        try {
+          resolve(JSON.parse(data));
+        } catch (e) {
+          resolve({ raw: data });
+        }
+      });
+    }).on('error', (err) => resolve({ error: err.message }));
+  });
+}
 
 // Helper to make HTTPS requests to MSG91
 function callMsg91(url, method = 'GET', postData = null, headers = {}) {
@@ -83,7 +105,29 @@ router.post('/send-otp', async (req, res) => {
   const fallbackOtp = String(Math.floor(100000 + Math.random() * 900000));
   activeOtps.set(mobile, { otp: fallbackOtp, expiresAt: Date.now() + (5 * 60 * 1000), attempts: 0 });
 
-  // If MSG91 AuthKey is configured, send live SMS
+  // 1. Try Fast2SMS First (Pre-approved DLT route)
+  if (FAST2SMS_API_KEY && FAST2SMS_API_KEY.length >= 20) {
+    try {
+      console.log(`[FAST2SMS] Dispatching live OTP to +91 ${mobile}...`);
+      const fastRes = await callFast2SMS(mobile, fallbackOtp);
+      console.log('[FAST2SMS] Send OTP response:', fastRes);
+
+      if (fastRes && fastRes.return === true) {
+        return res.json({
+          success: true,
+          provider: 'FAST2SMS_LIVE',
+          message: `OTP sent via Fast2SMS to +91 ${masked}`,
+          maskedNumber: '+91 ' + masked,
+          timerSeconds: 30,
+          sandboxOtp: fallbackOtp
+        });
+      }
+    } catch (err) {
+      console.error('[FAST2SMS] Error:', err.message);
+    }
+  }
+
+  // 2. If MSG91 AuthKey is configured, send live SMS
   if (MSG91_AUTH_KEY && MSG91_AUTH_KEY.length >= 16) {
     try {
       console.log(`[MSG91] Dispatching live OTP to +91 ${mobile} using template ${MSG91_TEMPLATE_ID}...`);
