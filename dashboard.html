@@ -3,21 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <meta name="description" content="ApexLoan Dashboard - Instant Personal Loans, Insurance & Profile.">
-  <meta name="theme-color" content="#1a1f71">
-  <title>Dashboard | ApexLoan - Powered by Vistas Tecnolabs Finance Limited</title>
+  <meta name="description" content="Bruno Credits Dashboard - Instant Personal Loans, Insurance & Profile. Powered by Vistas Tecnolabs Finance Limited.">
+  <meta name="theme-color" content="#0d1338">
+  <title>Dashboard | Bruno Credits - Powered by Vistas Tecnolabs Finance Limited</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="dashboard-page">
 
   <!-- Top App Bar -->
   <header class="dash-topbar">
-    <div class="dash-brand">
-      <span class="logo-text">Apex<span style="color: #00b894;">Loan</span></span>
-      <span class="nbfc-sub">Lending Partner: Vistas Tecnolabs Finance Limited</span>
+    <div class="dash-brand bruno-brand-logo">
+      <div class="logo-mark">
+        <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="brunoGradDash" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#4f46e5" />
+              <stop offset="100%" stop-color="#00b894" />
+            </linearGradient>
+          </defs>
+          <rect width="32" height="32" rx="8" fill="#0d1338"/>
+          <path d="M9 7H17.5C19.9853 7 22 9.01472 22 11.5C22 13.4357 20.7767 15.0863 19.0536 15.7176C21.3213 16.2941 23 18.3496 23 20.8C23 23.6719 20.6719 26 17.8 26H9V7Z" fill="url(#brunoGradDash)"/>
+          <path d="M12.5 10.5V14.5H16.8C17.9046 14.5 18.8 13.6046 18.8 12.5C18.8 11.3954 17.9046 10.5 16.8 10.5H12.5ZM12.5 18V22.5H17.4C18.6703 22.5 19.7 21.4703 19.7 20.2C19.7 18.9297 18.6703 17.9 17.4 17.9H12.5V18Z" fill="#ffffff"/>
+        </svg>
+      </div>
+      <div class="logo-text-group">
+        <span class="brand-title">Bruno<span class="brand-highlight">Credits</span></span>
+        <span class="brand-sub">NBFC: Vistas Tecnolabs</span>
+      </div>
     </div>
     <div class="dash-top-actions">
-      <button type="button" class="bell-btn" title="Notifications" onclick="alert('🔔 No new notifications. Your loan account is active!')">🔔</button>
+      <button type="button" class="bell-btn" title="Notifications" onclick="alert('No new notifications. Your loan account is active!')">🔔</button>
       <button type="button" class="profile-avatar-btn" id="topAvatarBtn" onclick="switchTab('profile')">R</button>
     </div>
   </header>
@@ -263,7 +278,7 @@
     <div id="tabInsurance" class="dash-tab-content" style="display: none;">
       <div style="padding: 20px 0 10px;">
         <h2 style="font-size: 20px; font-weight: 800; color: var(--dark);">🛡️ Financial Protection Plans</h2>
-        <p style="font-size: 13px; color: var(--gray-700);">Low-cost insurance customized for ApexLoan borrowers</p>
+        <p style="font-size: 13px; color: var(--gray-700);">Low-cost insurance customized for Bruno Credits borrowers</p>
       </div>
 
       <div class="insurance-list">
@@ -388,7 +403,7 @@
         </div>
 
         <!-- WhatsApp Support -->
-        <a href="https://wa.me/919876543210?text=Hi%20ApexLoan%20Support,%20I%20need%20help%20with%20my%20loan%20application" target="_blank" class="support-item">
+        <a href="https://wa.me/919876543210?text=Hi%20Bruno%20Credits%20Support,%20I%20need%20help%20with%20my%20loan%20application" target="_blank" class="support-item">
           <div class="support-item-left">
             <span class="icon">💬</span>
             <div>
@@ -412,12 +427,12 @@
         </a>
 
         <!-- Priority Email -->
-        <a href="mailto:support@apexloan.in" class="support-item">
+        <a href="mailto:support@brunocredits.in" class="support-item">
           <div class="support-item-left">
             <span class="icon">✉️</span>
             <div>
               <div class="title">Email Desk</div>
-              <div class="sub">support@apexloan.in</div>
+              <div class="sub">support@brunocredits.in</div>
             </div>
           </div>
           <span style="color: var(--primary); font-weight: 700;">Email →</span>
@@ -427,7 +442,7 @@
         <div style="margin-top: 12px; padding: 12px; background: var(--gray-100); border-radius: var(--radius-sm); font-size: 11px; color: var(--gray-700); line-height: 1.5;">
           <strong>🏛️ Statutory Grievance Redressal Officer (RBI Guidelines):</strong><br>
           Mr. Amit Saxena | Principal Officer<br>
-          Email: grievance@apexloan.in | Resolution timeframe: 48 working hours
+          Email: grievance@brunocredits.in | Resolution timeframe: 48 working hours
         </div>
       </div>
 
@@ -438,12 +453,12 @@
           <span>▼</span>
         </div>
         <div class="policy-card-body">
-          <p><strong>Apex Finance Ltd. & Vistas Tecnolabs Finance Limited Privacy Commitment:</strong></p>
+          <p><strong>Bruno Credits & Vistas Tecnolabs Finance Limited Privacy Commitment:</strong></p>
           <p>1. <strong>Data Minimization:</strong> We only collect required information (Identity proof, employment, bank details) solely for loan underwriting and KYC verification under RBI Digital Lending Directions.</p>
           <p>2. <strong>No Unnecessary Permissions:</strong> Our app does NOT access your contact list, call logs, personal photos, or external storage files.</p>
           <p>3. <strong>256-bit Bank Grade Encryption:</strong> All information exchanged between your device and our servers is secured using TLS 1.3 encryption standards.</p>
           <p>4. <strong>Data Sharing Restriction:</strong> Your financial and personal details are strictly shared with regulated credit information companies (CIBIL/Experian) and authorized lending partners (Vistas Tecnolabs Finance Limited).</p>
-          <p>5. <strong>Right to be Forgotten:</strong> You can request complete erasure of your non-statutory data at any time by emailing privacy@apexloan.in.</p>
+          <p>5. <strong>Right to be Forgotten:</strong> You can request complete erasure of your non-statutory data at any time by emailing privacy@brunocredits.in.</p>
         </div>
       </div>
 
@@ -470,7 +485,7 @@
       </button>
 
       <div style="text-align: center; margin-top: 20px; font-size: 11px; color: var(--gray-500);">
-        ApexLoan v2.4 · Powered by Vistas Tecnolabs Finance Limited<br>
+        Bruno Credits v2.4 · Powered by Vistas Tecnolabs Finance Limited<br>
         CIN: U65100MH2020PLC123456 | RBI NBFC Reg: N-13.02456
       </div>
 
@@ -1014,7 +1029,7 @@
 
     // ---- Logout Handler ----
     function handleLogout() {
-      if (confirm('Are you sure you want to log out of ApexLoan?')) {
+      if (confirm('Are you sure you want to log out of Bruno Credits?')) {
         localStorage.removeItem('apexloan_logged_in');
         window.location.href = 'login.html';
       }

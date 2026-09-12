@@ -1,7 +1,7 @@
 {
   "name": "apexloan-backend",
   "version": "1.0.0",
-  "description": "Production Express Backend for ApexLoan (Powered by Vistas Tecnolabs Finance Limited)",
+  "description": "Production Express Backend for Bruno Credits (Powered by Vistas Tecnolabs Finance Limited)",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

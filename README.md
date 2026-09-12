@@ -1,4 +1,4 @@
-# ApexLoan - NBFC Mobile Web Platform
+# Bruno Credits - NBFC Mobile Web Platform
 
 Powered by **Vistas Tecnolabs Finance Limited** (RBI Registered NBFC).
 

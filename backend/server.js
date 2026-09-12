@@ -50,7 +50,7 @@ app.get('/dashboard', (req, res) => {
 
 app.get('/api', (req, res) => {
   res.json({
-    app: 'ApexLoan NBFC Core API',
+    app: 'Bruno Credits NBFC Core API',
     lender: 'Vistas Tecnolabs Finance Limited (RBI Regd. NBFC)',
     status: 'ONLINE',
     version: '1.0.0',
@@ -102,7 +102,7 @@ app.use((err, req, res, next) => {
 
 app.listen(PORT, '0.0.0.0', () => {
   console.log('==================================================');
-  console.log(`🚀 ApexLoan Backend Server running on port ${PORT}`);
+  console.log(`🚀 Bruno Credits Backend Server running on port ${PORT}`);
   console.log('🏛️ Lending Partner: Vistas Tecnolabs Finance Limited');
   console.log(`🌐 Health check available at: http://localhost:${PORT}/api/health`);
   console.log('==================================================');

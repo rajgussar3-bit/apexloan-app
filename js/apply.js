@@ -50,11 +50,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function calculateEMI() {
-    if (!loanSlider || !tenureSlider || !rateSlider) return;
+    if (!loanSlider) return;
 
-    const P = parseFloat(loanSlider.value);
-    const annualRate = parseFloat(rateSlider.value);
-    const n = parseInt(tenureSlider.value);
+    const P = parseFloat(loanSlider.value) || 50000;
+    const annualRate = rateSlider ? parseFloat(rateSlider.value) : 14;
+    const n = tenureSlider ? parseInt(tenureSlider.value) : 12;
     const r = annualRate / (12 * 100); // Monthly interest rate
 
     let emi;
@@ -77,11 +77,34 @@ document.addEventListener('DOMContentLoaded', () => {
     if (totalInterestEl) totalInterestEl.textContent = formatCurrency(totalInt);
     if (totalPaymentEl) totalPaymentEl.textContent = formatCurrency(totalPay);
 
+    // Update Step 1 quick preview badge
+    const previewBadge = document.getElementById('formEmiPreview');
+    if (previewBadge) {
+      previewBadge.textContent = `~${formatCurrency(emi)}/mo`;
+    }
+
     // Update all slider fills
     updateSliderFill(loanSlider);
     if (tenureSlider) updateSliderFill(tenureSlider);
     if (rateSlider) updateSliderFill(rateSlider);
   }
+
+  window.setFormAmountPreset = function(amt) {
+    if (!loanSlider) return;
+    loanSlider.value = amt;
+    calculateEMI();
+    saveFormData();
+
+    document.querySelectorAll('.loan-pill').forEach(pill => {
+      const txt = pill.textContent.trim();
+      const match = (amt === 10000 && txt.includes('10k')) ||
+                    (amt === 25000 && txt.includes('25k')) ||
+                    (amt === 50000 && txt.includes('50k')) ||
+                    (amt === 100000 && txt.includes('1 Lakh'));
+      if (match) pill.classList.add('active');
+      else pill.classList.remove('active');
+    });
+  };
 
   // Attach event listeners to all calc sliders
   if (loanSlider) {
@@ -288,17 +311,92 @@ function populateSanctionCard(offer) {
   const sanctionTierEl = document.getElementById('sanctionTierNote');
   const feeEl = document.getElementById('sanctionFeeDisplay');
   const noticeSpan = document.getElementById('feeNoticeSpan');
+  const ceilingDisplay = document.getElementById('sanctionMaxCeilingDisplay');
+  const slider = document.getElementById('customLoanAmountSlider');
+  const maxLabel = document.getElementById('sliderMaxCapLabel');
+
+  const maxCap = offer.maxApprovedLimit || offer.creditLimit;
+  offer.maxApprovedLimit = maxCap;
+  const currentChosen = offer.selectedAmount || offer.creditLimit;
+  offer.selectedAmount = currentChosen;
 
   const bankName = offer.bankName || 'Verified Bank';
   const accNum = offer.accountNumber ? offer.accountNumber.slice(-4) : '••••';
 
-  if (sanctionAmtEl) sanctionAmtEl.textContent = '₹' + offer.creditLimit.toLocaleString('en-IN');
+  if (ceilingDisplay) ceilingDisplay.textContent = '₹' + maxCap.toLocaleString('en-IN');
+  if (sanctionAmtEl) sanctionAmtEl.textContent = '₹' + currentChosen.toLocaleString('en-IN');
   if (sanctionEmiEl) sanctionEmiEl.textContent = '₹' + (offer.monthlyEmi || 1556).toLocaleString('en-IN') + ' / mo';
   if (sanctionBankEl) sanctionBankEl.textContent = `${bankName} ••••${accNum}`;
-  if (sanctionTierEl) sanctionTierEl.textContent = `✅ ${offer.tierName || 'Standard Starter Loan'} | Approved by Vistas Tecnolabs Finance Limited`;
-  if (feeEl) feeEl.textContent = '₹' + (offer.disbursalFee || calculateDisbursalFee(offer.creditLimit));
-  if (noticeSpan) noticeSpan.textContent = (offer.disbursalFee || calculateDisbursalFee(offer.creditLimit));
+  if (sanctionTierEl) sanctionTierEl.textContent = `✅ ${offer.tierName || 'Bruno Credits Personal Loan'} | Approved by Vistas Tecnolabs Finance Limited`;
+
+  if (slider) {
+    const minVal = Math.min(3000, Math.floor(maxCap * 0.25));
+    slider.min = minVal;
+    slider.max = maxCap;
+    slider.value = currentChosen;
+    if (maxLabel) maxLabel.textContent = 'Max: ₹' + maxCap.toLocaleString('en-IN');
+  }
+
+  // Update quick preset chips
+  updateCustomChipsUI(currentChosen, maxCap);
+
+  const fee = offer.disbursalFee || calculateDisbursalFee(currentChosen);
+  if (feeEl) feeEl.textContent = '₹' + fee;
+  if (noticeSpan) noticeSpan.textContent = fee;
 }
+
+// Update chip active states
+function updateCustomChipsUI(chosen, maxCap) {
+  const fullChip = document.getElementById('chipFullLimit');
+  if (fullChip) {
+    if (chosen >= maxCap) fullChip.classList.add('active');
+    else fullChip.classList.remove('active');
+  }
+
+  document.querySelectorAll('.quick-amount-chips .amt-chip').forEach(chip => {
+    if (chip.id === 'chipFullLimit') return;
+    const txt = chip.textContent.replace(/[^0-9]/g, '');
+    const num = parseInt(txt, 10);
+    if (num === chosen) chip.classList.add('active');
+    else chip.classList.remove('active');
+  });
+}
+
+// Dynamic Loan Customizer Handler (Borrower can increase/decrease within limit)
+window.updateCustomLoanAmount = function(val) {
+  if (!window.sanctionedOffer) return;
+  const maxCap = window.sanctionedOffer.maxApprovedLimit || window.sanctionedOffer.creditLimit;
+  let chosen = Number(val);
+  if (isNaN(chosen) || chosen < 1000) chosen = maxCap;
+  chosen = Math.max(1000, Math.min(chosen, maxCap));
+
+  window.sanctionedOffer.selectedAmount = chosen;
+  window.sanctionedOffer.creditLimit = chosen;
+
+  const slider = document.getElementById('customLoanAmountSlider');
+  if (slider && Number(slider.value) !== chosen) slider.value = chosen;
+
+  const sanctionAmtEl = document.getElementById('sanctionedAmountDisplay');
+  if (sanctionAmtEl) sanctionAmtEl.textContent = '₹' + chosen.toLocaleString('en-IN');
+
+  updateCustomChipsUI(chosen, maxCap);
+
+  // Re-calculate tenure metrics with chosen amount
+  window.selectSanctionTenure(window.sanctionedOffer.selectedTenure || 12);
+};
+
+window.setCustomAmountPreset = function(preset) {
+  if (!window.sanctionedOffer) return;
+  const maxCap = window.sanctionedOffer.maxApprovedLimit || window.sanctionedOffer.creditLimit;
+  let chosen = maxCap;
+  if (preset === 'MAX') {
+    chosen = maxCap;
+  } else if (typeof preset === 'number') {
+    chosen = Math.min(preset, maxCap);
+  }
+
+  window.updateCustomLoanAmount(chosen);
+};
 
 // User can optionally re-apply from scratch
 window.startFreshApplication = function() {
@@ -1140,8 +1238,8 @@ window.selectSanctionTenure = function(months) {
     }
   });
 
-  const P = window.sanctionedOffer.creditLimit;
-  const fee = window.sanctionedOffer.disbursalFee || calculateDisbursalFee(P);
+  const P = window.sanctionedOffer.selectedAmount || window.sanctionedOffer.creditLimit;
+  const fee = calculateDisbursalFee(P);
 
   // Interest Rate Matrix:
   let annualRate = 24.0;
@@ -1167,6 +1265,8 @@ window.selectSanctionTenure = function(months) {
   const totalInterest = totalRepayment - P;
 
   // Update in-memory offer
+  window.sanctionedOffer.selectedAmount = P;
+  window.sanctionedOffer.creditLimit = P;
   window.sanctionedOffer.selectedTenure = months;
   window.sanctionedOffer.interestRate = annualRate;
   window.sanctionedOffer.monthlyEmi = emi;
@@ -1185,17 +1285,21 @@ window.selectSanctionTenure = function(months) {
   const interestEl = document.getElementById('sanctionTotalInterestDisplay');
   const formulaEl = document.getElementById('repaymentFormulaText');
   const acceptBtn = document.getElementById('acceptLoanBtn');
+  const feeEl = document.getElementById('sanctionFeeDisplay');
+  const noticeSpan = document.getElementById('feeNoticeSpan');
 
   if (emiEl) emiEl.textContent = '₹' + emi.toLocaleString('en-IN') + ' / mo';
   if (repayEl) repayEl.textContent = '₹' + totalRepayment.toLocaleString('en-IN');
   if (tenureEl) tenureEl.textContent = months + ' Months';
   if (rateEl) rateEl.textContent = annualRate.toFixed(1) + '% p.a. (' + (annualRate / 12).toFixed(1) + '%/mo)';
   if (interestEl) interestEl.textContent = '₹' + totalInterest.toLocaleString('en-IN');
+  if (feeEl) feeEl.textContent = '₹' + fee;
+  if (noticeSpan) noticeSpan.textContent = fee;
   if (formulaEl) {
     formulaEl.innerHTML = `Principal (<strong>₹${P.toLocaleString('en-IN')}</strong>) + Interest (<strong>₹${totalInterest.toLocaleString('en-IN')}</strong>) = Total Repayment <strong>₹${totalRepayment.toLocaleString('en-IN')}</strong>`;
   }
   if (acceptBtn) {
-    acceptBtn.innerHTML = `⚡ Pay ₹${fee} Fee & Disburse Loan (${months}M) →`;
+    acceptBtn.innerHTML = `⚡ Pay ₹${fee} Fee & Disburse ₹${P.toLocaleString('en-IN')} Loan (${months}M) →`;
   }
 };
 

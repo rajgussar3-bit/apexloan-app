@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <meta name="description" content="ApexLoan - Apply for Personal Loan. Complete KYC in 3 simple steps.">
-  <meta name="theme-color" content="#1a1f71">
-  <title>Apply for Loan | ApexLoan</title>
+  <meta name="description" content="Bruno Credits - Instant Personal Loans powered by Vistas Tecnolabs Finance Limited. Complete digital KYC in 3 minutes.">
+  <meta name="theme-color" content="#0d1338">
+  <title>Apply for Personal Loan | Bruno Credits</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="apply-page">
@@ -13,9 +13,24 @@
   <!-- Navbar -->
   <nav class="navbar scrolled" id="navbar">
     <div class="container nav-content">
-      <a href="index.html" class="nav-logo">
-        <div class="logo-icon">₹</div>
-        <span>Apex<span style="color: #00b894;">Loan</span></span>
+      <a href="index.html" class="nav-logo bruno-brand-logo">
+        <div class="logo-mark">
+          <svg width="30" height="30" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="brunoGradNav" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#4f46e5" />
+                <stop offset="100%" stop-color="#00b894" />
+              </linearGradient>
+            </defs>
+            <rect width="32" height="32" rx="8" fill="#0d1338"/>
+            <path d="M9 7H17.5C19.9853 7 22 9.01472 22 11.5C22 13.4357 20.7767 15.0863 19.0536 15.7176C21.3213 16.2941 23 18.3496 23 20.8C23 23.6719 20.6719 26 17.8 26H9V7Z" fill="url(#brunoGradNav)"/>
+            <path d="M12.5 10.5V14.5H16.8C17.9046 14.5 18.8 13.6046 18.8 12.5C18.8 11.3954 17.9046 10.5 16.8 10.5H12.5ZM12.5 18V22.5H17.4C18.6703 22.5 19.7 21.4703 19.7 20.2C19.7 18.9297 18.6703 17.9 17.4 17.9H12.5V18Z" fill="#ffffff"/>
+          </svg>
+        </div>
+        <div class="logo-text-group">
+          <span class="brand-title">Bruno<span class="brand-highlight">Credits</span></span>
+          <span class="brand-sub">NBFC: Vistas Tecnolabs</span>
+        </div>
       </a>
       <div class="nav-links">
         <a href="index.html">Home</a>
@@ -166,10 +181,23 @@
         <div class="error-text">Please enter a valid email address</div>
       </div>
 
-
-
-
-
+      <!-- Loan Purpose (Placed logically with personal requirements) -->
+      <div class="form-group">
+        <label>Loan Purpose (Kiske liye loan le rahe hain?) <span class="required">*</span></label>
+        <select class="form-control" id="loanPurpose">
+          <option value="">Select Purpose</option>
+          <option value="personal">Personal / Household Use</option>
+          <option value="medical">Medical Emergency</option>
+          <option value="business">Business / Working Capital</option>
+          <option value="education">Education Fees</option>
+          <option value="wedding">Wedding / Family Function</option>
+          <option value="home_renovation">Home Renovation</option>
+          <option value="debt_consolidation">Debt Consolidation</option>
+          <option value="travel">Travel / Relocation</option>
+          <option value="other">Other Needs</option>
+        </select>
+        <div class="error-text">Please select loan purpose</div>
+      </div>
 
       <div class="form-row">
         <div class="form-group">
@@ -224,11 +252,12 @@
         <div class="error-text">Please select your state</div>
       </div>
 
-      <!-- Loan Amount & EMI Calculator -->
-      <div class="form-group">
-        <label>Loan Amount Required <span class="required">*</span></label>
+      <!-- Compact Desired Loan Amount Selector -->
+      <div class="form-group" style="margin-top: 14px;">
+        <label>Desired Loan Amount <span class="required">*</span></label>
         <div class="loan-slider-container">
           <div class="loan-amount-display">
+            <span class="loan-slider-label">Amount Required:</span>
             <div class="amount" id="formLoanDisplay">₹<span>50,000</span></div>
           </div>
           <input type="range" class="calc-slider" id="formLoanAmount" min="1000" max="100000" value="50000" step="1000">
@@ -236,76 +265,17 @@
             <span>₹1,000</span>
             <span>₹1,00,000</span>
           </div>
-        </div>
-      </div>
-
-      <!-- EMI Calculator -->
-      <div class="calc-card" style="margin-bottom: 20px;">
-        <div class="calc-header">
-          <h3>💰 EMI Calculator</h3>
-          <p>See your monthly EMI based on loan amount</p>
-        </div>
-        <div class="calc-body">
-          <!-- Tenure -->
-          <div class="calc-field">
-            <label>
-              <span>Loan Tenure</span>
-              <span class="value-display" id="calcTenureDisplay">12 Months</span>
-            </label>
-            <input type="range" class="calc-slider" id="calcTenure" min="3" max="36" value="12" step="1">
-            <div class="calc-range-labels">
-              <span>3 Months</span>
-              <span>36 Months</span>
-            </div>
+          <div class="loan-quick-pills">
+            <button type="button" class="loan-pill" onclick="window.setFormAmountPreset(10000)">₹10k</button>
+            <button type="button" class="loan-pill" onclick="window.setFormAmountPreset(25000)">₹25k</button>
+            <button type="button" class="loan-pill active" onclick="window.setFormAmountPreset(50000)">₹50k</button>
+            <button type="button" class="loan-pill" onclick="window.setFormAmountPreset(100000)">₹1 Lakh</button>
           </div>
-
-          <!-- Interest Rate -->
-          <div class="calc-field">
-            <label>
-              <span>Interest Rate (p.a.)</span>
-              <span class="value-display" id="calcRateDisplay">14%</span>
-            </label>
-            <input type="range" class="calc-slider" id="calcRate" min="10" max="24" value="14" step="0.5">
-            <div class="calc-range-labels">
-              <span>10%</span>
-              <span>24%</span>
-            </div>
-          </div>
-
-          <!-- Result -->
-          <div class="calc-result">
-            <div class="emi-label">Your Monthly EMI</div>
-            <div class="emi-value" id="emiValue">₹<span>4,497</span></div>
-            <div class="calc-details">
-              <div class="calc-detail-item">
-                <div class="detail-label">Total Interest</div>
-                <div class="detail-value" id="totalInterest">₹3,968</div>
-              </div>
-              <div class="calc-detail-item">
-                <div class="detail-label">Total Payment</div>
-                <div class="detail-value" id="totalPayment">₹53,968</div>
-              </div>
-            </div>
+          <div class="loan-est-emi-badge">
+            <span>Estimated Monthly EMI (12M):</span>
+            <strong id="emiValue">₹<span>4,497</span>/mo</strong>
           </div>
         </div>
-      </div>
-
-      <!-- Loan Purpose -->
-      <div class="form-group">
-        <label>Loan Purpose <span class="required">*</span></label>
-        <select class="form-control" id="loanPurpose">
-          <option value="">Select Purpose</option>
-          <option value="education">📚 Education</option>
-          <option value="medical">🏥 Medical Emergency</option>
-          <option value="wedding">💍 Wedding</option>
-          <option value="home_renovation">🏠 Home Renovation</option>
-          <option value="personal">👤 Personal Use</option>
-          <option value="business">💼 Business</option>
-          <option value="travel">✈️ Travel</option>
-          <option value="debt_consolidation">💳 Debt Consolidation</option>
-          <option value="other">📋 Other</option>
-        </select>
-        <div class="error-text">Please select loan purpose</div>
       </div>
     </div>
 
@@ -565,7 +535,7 @@
       <div style="margin-top: 28px; padding: 20px; background: var(--gray-100); border-radius: var(--radius-md);">
         <label style="display: flex; gap: 12px; align-items: flex-start; cursor: pointer; font-size: 13px; color: var(--gray-700);">
           <input type="checkbox" id="termsConsent" style="margin-top: 3px; width: 18px; height: 18px; accent-color: var(--primary);">
-          <span>I agree to the <a href="#" style="color: var(--primary); font-weight: 600;">Terms & Conditions</a>, <a href="#" style="color: var(--primary); font-weight: 600;">Privacy Policy</a>, and consent to KYC verification as per RBI guidelines. I authorize ApexLoan to access my Aadhaar & PAN details for verification purposes.</span>
+          <span>I agree to the <a href="#" style="color: var(--primary); font-weight: 600;">Terms & Conditions</a>, <a href="#" style="color: var(--primary); font-weight: 600;">Privacy Policy</a>, and consent to KYC verification as per RBI guidelines. I authorize Bruno Credits to access my Aadhaar & PAN details for verification purposes.</span>
         </label>
         <div class="error-text" id="termsError" style="margin-top: 6px;">Please accept the terms to continue</div>
       </div>
@@ -693,9 +663,39 @@
           </div>
 
           <div class="sanction-body">
-            <div class="sanction-limit-label">Sanctioned Personal Loan Amount</div>
-            <div class="sanction-limit-amount" id="sanctionedAmountDisplay">₹16,420</div>
-            <div class="sanction-subtext" id="sanctionTierNote">✅ High Eligibility Profile | Approved by Vistas Tecnolabs Finance Limited</div>
+            <div class="sanction-limit-label">Sanctioned Personal Loan</div>
+            <div class="sanction-max-pill">
+              <span>Approved Credit Ceiling:</span>
+              <strong id="sanctionMaxCeilingDisplay">₹16,420</strong>
+            </div>
+
+            <!-- Dynamic Loan Amount Adjuster (Borrower can customize within ceiling) -->
+            <div class="amount-adjuster-box">
+              <div class="adjuster-title-row">
+                <span class="adjuster-title">Select Desired Loan Amount:</span>
+                <span class="adjuster-value" id="sanctionedAmountDisplay">₹16,420</span>
+              </div>
+              <input type="range" 
+                     class="custom-amount-slider" 
+                     id="customLoanAmountSlider" 
+                     min="3000" 
+                     max="16420" 
+                     step="500" 
+                     value="16420" 
+                     oninput="window.updateCustomLoanAmount(this.value)">
+              <div class="slider-bounds">
+                <span>Min: ₹3,000</span>
+                <span id="sliderMaxCapLabel">Max: ₹16,420</span>
+              </div>
+              <div class="quick-amount-chips">
+                <button type="button" class="amt-chip" onclick="window.setCustomAmountPreset(5000)">₹5,000</button>
+                <button type="button" class="amt-chip" onclick="window.setCustomAmountPreset(10000)">₹10,000</button>
+                <button type="button" class="amt-chip" onclick="window.setCustomAmountPreset(15000)">₹15,000</button>
+                <button type="button" class="amt-chip active" id="chipFullLimit" onclick="window.setCustomAmountPreset('MAX')">Full Limit</button>
+              </div>
+            </div>
+
+            <div class="sanction-subtext" id="sanctionTierNote">✅ Approved by Vistas Tecnolabs Finance Limited</div>
 
             <!-- Tenure Selector (Stashfin Model: Up to 12 Months) -->
             <div class="tenure-selection-wrapper">
