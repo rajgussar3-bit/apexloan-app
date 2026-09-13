@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <meta name="description" content="Bruno Credits - Instant Personal Loans powered by Vistas Tecnolabs Finance Limited. Complete digital KYC in 3 minutes.">
-  <meta name="theme-color" content="#060814">
+  <meta name="theme-color" content="#09206d">
   <title>Apply for Personal Loan | Bruno Credits - Powered by Vistas Tecnolabs</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,31 +18,43 @@
     }
   </script>
 
-  <style>
+    <style>
     /* ========================================================
-       PREMIUM OBSIDIAN FINTECH LUXURY THEME - APPLICATION FORM
-       Tier-1 Institutional Look Matching Login Interface
+       EXACT ROYAL COBALT BLUE & CRISP WHITE FINTECH THEME - APPLY
+       Matching User Reference Screenshots (Photos 1, 2)
        ======================================================== */
     :root {
-      --fin-bg: #060814;
-      --fin-card-bg: rgba(12, 17, 36, 0.88);
-      --fin-card-border: rgba(255, 255, 255, 0.1);
-      --fin-text-primary: #ffffff;
-      --fin-text-secondary: #94a3b8;
-      --fin-text-muted: #64748b;
-      --fin-accent-indigo: #6366f1;
-      --fin-accent-cyan: #06b6d4;
-      --fin-accent-emerald: #10b981;
-      --fin-accent-amber: #f59e0b;
-      --fin-accent-rose: #f43f5e;
+      --primary: #0d2b82;
+      --primary-dark: #09206d;
+      --primary-vibrant: #103bb3;
+      --primary-light: #eef2ff;
+      --secondary: #10b981;
+      --secondary-light: #ecfdf5;
+      --accent-red: #ef4444;
+      --accent-amber: #f59e0b;
+      --canvas-bg: #f4f6fb;
+      --card-white: #ffffff;
+      --text-dark: #0f172a;
+      --text-muted: #64748b;
+      --text-light: #94a3b8;
+      --border-light: #e2e8f0;
+      --shadow-sm: 0 2px 8px rgba(13, 43, 130, 0.04);
+      --shadow-md: 0 6px 24px rgba(13, 43, 130, 0.08);
+      --shadow-lg: 0 12px 36px rgba(13, 43, 130, 0.12);
+      --radius-sm: 10px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
 
     body.apply-page {
-      background: #060814 !important;
-      color: #ffffff !important;
-      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif !important;
+      background: var(--canvas-bg) !important;
+      color: var(--text-dark) !important;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
       min-height: 100vh;
       margin: 0;
       padding: 0 0 70px 0 !important;
@@ -51,36 +63,17 @@
       position: relative;
     }
 
-    /* Ambient Orbs */
+    /* Ambient top gradient */
     .ambient-orb {
-      position: fixed;
-      border-radius: 50%;
-      pointer-events: none;
-      filter: blur(90px);
-      z-index: 0;
-    }
-    .orb-1 {
-      top: -120px;
-      right: -80px;
-      width: 380px;
-      height: 380px;
-      background: rgba(99, 102, 241, 0.22);
-    }
-    .orb-2 {
-      bottom: 60px;
-      left: -100px;
-      width: 340px;
-      height: 340px;
-      background: rgba(16, 185, 129, 0.16);
+      display: none !important;
     }
 
-    /* Navbar */
+    /* Top Royal Navbar */
     .navbar {
-      background: rgba(8, 12, 28, 0.88) !important;
-      backdrop-filter: blur(28px) !important;
-      -webkit-backdrop-filter: blur(28px) !important;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
-      padding: 14px 20px !important;
+      background: linear-gradient(180deg, #09206d 0%, #103bb3 100%) !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+      padding: calc(env(safe-area-inset-top, 0px) + 14px) 20px 18px 20px !important;
+      color: #ffffff;
     }
     .brand-title {
       font-size: 19px !important;
@@ -89,264 +82,597 @@
       letter-spacing: -0.4px !important;
     }
     .brand-highlight {
-      background: linear-gradient(135deg, #6366f1 0%, #06b6d4 100%) !important;
-      -webkit-background-clip: text !important;
-      -webkit-text-fill-color: transparent !important;
+      color: #93c5fd !important;
+      background: none !important;
+      -webkit-text-fill-color: #93c5fd !important;
     }
     .brand-sub {
-      font-size: 11px !important;
-      color: #94a3b8 !important;
+      font-size: 10.5px !important;
+      color: rgba(255, 255, 255, 0.8) !important;
       font-weight: 600 !important;
     }
 
     .rbi-badge-pill {
       display: inline-flex;
       align-items: center;
-      gap: 7px;
-      padding: 5px 12px;
-      background: rgba(16, 185, 129, 0.08);
-      border: 1px solid rgba(16, 185, 129, 0.25);
+      gap: 6px;
+      padding: 4px 10px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
       border-radius: 9999px;
       font-size: 11px;
       font-weight: 700;
-      color: #10b981;
-      backdrop-filter: blur(10px);
+      color: #ffffff;
+      backdrop-filter: blur(8px);
     }
-    .pulse-dot {
+    .rbi-badge-pill .pulse-dot {
       width: 6px;
       height: 6px;
       background: #10b981;
       border-radius: 50%;
-      box-shadow: 0 0 8px #10b981;
-      animation: pulseRadar 2s infinite;
-    }
-    @keyframes pulseRadar {
-      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6); }
-      70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
-    }
-
-    /* Lending Partner Banner */
-    .lender-trust-banner {
-      background: rgba(15, 23, 42, 0.6) !important;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
-      color: #94a3b8 !important;
-    }
-    .lender-trust-banner strong {
-      color: #ffffff !important;
     }
 
     /* Stepper Capsule */
     .stepper-capsule {
-      background: rgba(12, 17, 36, 0.85) !important;
-      border: 1px solid rgba(255, 255, 255, 0.1) !important;
-      backdrop-filter: blur(20px) !important;
-      border-radius: 9999px !important;
-      padding: 6px !important;
-      display: flex;
-      justify-content: space-between;
-    }
-    .step-pill {
-      color: #94a3b8 !important;
-      font-weight: 700 !important;
-      font-size: 12px !important;
-      padding: 8px 14px !important;
-      border-radius: 9999px !important;
       display: flex;
       align-items: center;
-      gap: 6px;
-      transition: all 0.25s ease;
+      justify-content: space-between;
+      background: #ffffff;
+      border: 1px solid var(--border-light);
+      border-radius: 9999px;
+      padding: 6px;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 16px;
     }
-    .step-pill.active {
-      background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%) !important;
-      color: #ffffff !important;
-      box-shadow: 0 4px 15px rgba(79, 70, 229, 0.4) !important;
-    }
-    .step-dot {
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.15);
+    .step-pill {
+      flex: 1;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 11px;
+      gap: 6px;
+      padding: 8px 10px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-muted);
+      transition: all 0.2s ease;
+    }
+    .step-pill.active {
+      background: var(--primary-vibrant);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(16, 59, 179, 0.25);
+    }
+    .step-pill.completed {
+      background: #ecfdf5;
+      color: #059669;
+    }
+    .step-pill .step-dot {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
       font-weight: 800;
     }
     .step-pill.active .step-dot {
       background: #ffffff;
-      color: #060814;
+      color: var(--primary-vibrant);
+    }
+    .step-pill.completed .step-dot {
+      background: #10b981;
+      color: #ffffff;
     }
 
     /* Form Container & Step Cards */
     .form-container {
-      max-width: 600px !important;
-      margin: 20px auto 0 !important;
-      padding: 0 16px !important;
-      position: relative;
-      z-index: 10;
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 0 16px;
     }
 
     .form-step {
-      background: rgba(12, 17, 36, 0.88) !important;
-      backdrop-filter: blur(28px) !important;
-      -webkit-backdrop-filter: blur(28px) !important;
-      border: 1px solid rgba(255, 255, 255, 0.1) !important;
-      border-radius: 24px !important;
-      padding: 32px 26px !important;
-      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 30px rgba(99, 102, 241, 0.1) !important;
-      position: relative;
-      overflow: hidden;
+      background: var(--card-white) !important;
+      border: 1px solid var(--border-light) !important;
+      border-radius: var(--radius-lg) !important;
+      padding: 24px 20px !important;
+      box-shadow: var(--shadow-md) !important;
       margin-bottom: 24px;
+      position: relative;
     }
     .form-step::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; height: 2px;
-      background: linear-gradient(90deg, #4f46e5 0%, #06b6d4 50%, #10b981 100%);
+      display: none !important;
     }
 
     .step-header h2 {
-      font-size: 22px !important;
+      font-size: 20px !important;
       font-weight: 800 !important;
-      color: #ffffff !important;
-      margin: 0 0 6px !important;
-      letter-spacing: -0.4px;
+      color: var(--text-dark) !important;
+      margin: 0 0 4px !important;
+      letter-spacing: -0.3px;
     }
     .step-header p {
       font-size: 13px !important;
-      color: #94a3b8 !important;
-      margin: 0 0 24px !important;
+      color: var(--text-muted) !important;
+      margin: 0 0 20px !important;
     }
 
     /* Form Controls */
     .form-group {
-      margin-bottom: 20px !important;
+      margin-bottom: 18px !important;
     }
     .form-group label {
       display: block;
-      font-size: 12px !important;
-      font-weight: 700 !important;
-      color: #94a3b8 !important;
+      font-size: 11.5px !important;
+      font-weight: 800 !important;
+      color: var(--text-muted) !important;
       text-transform: uppercase;
       letter-spacing: 0.6px;
-      margin-bottom: 8px !important;
+      margin-bottom: 6px !important;
     }
     .form-control, input, select, textarea {
       width: 100% !important;
-      background: rgba(15, 23, 42, 0.75) !important;
-      border: 1.5px solid rgba(255, 255, 255, 0.14) !important;
-      border-radius: 14px !important;
-      padding: 13px 16px !important;
-      font-size: 15px !important;
-      color: #ffffff !important;
+      background: #ffffff !important;
+      border: 1.5px solid #cbd5e1 !important;
+      border-radius: 12px !important;
+      padding: 12px 14px !important;
+      font-size: 14.5px !important;
+      color: var(--text-dark) !important;
       outline: none !important;
       font-family: inherit !important;
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      transition: all 0.2s ease !important;
     }
     .form-control:focus, input:focus, select:focus {
-      border-color: #6366f1 !important;
-      background: rgba(20, 30, 58, 0.95) !important;
-      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25), 0 0 20px rgba(99, 102, 241, 0.15) !important;
+      border-color: var(--primary-vibrant) !important;
+      background: #ffffff !important;
+      box-shadow: 0 0 0 3px rgba(16, 59, 179, 0.15) !important;
     }
     .form-control::placeholder {
-      color: #475569 !important;
+      color: #94a3b8 !important;
     }
     select.form-control option {
-      background: #0f172a !important;
-      color: #ffffff !important;
+      background: #ffffff !important;
+      color: #0f172a !important;
+    }
+
+    .input-group {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .input-prefix {
+      position: absolute;
+      left: 14px;
+      z-index: 2;
+      color: var(--primary-vibrant);
+      display: flex;
+      align-items: center;
+    }
+    .input-group .form-control {
+      padding-left: 42px !important;
+    }
+    .toggle-btn {
+      position: absolute;
+      right: 12px;
+      background: none;
+      border: none;
+      color: #94a3b8;
+      cursor: pointer;
     }
 
     /* KYC Upload Cards (Step 3) */
     .kyc-upload-card, .doc-upload-box {
-      background: rgba(15, 23, 42, 0.6) !important;
-      border: 1.5px dashed rgba(255, 255, 255, 0.18) !important;
-      border-radius: 16px !important;
-      padding: 18px 16px !important;
+      background: #f8fafc !important;
+      border: 1.5px dashed #cbd5e1 !important;
+      border-radius: 14px !important;
+      padding: 16px 14px !important;
       transition: all 0.2s ease !important;
       cursor: pointer;
     }
     .kyc-upload-card:hover, .doc-upload-box:hover {
-      border-color: #06b6d4 !important;
-      background: rgba(15, 23, 42, 0.9) !important;
+      border-color: var(--primary-vibrant) !important;
+      background: #f1f5f9 !important;
     }
     .kyc-upload-card.has-file, .doc-upload-box.has-file {
       border-style: solid !important;
-      border-color: rgba(16, 185, 129, 0.4) !important;
-      background: rgba(16, 185, 129, 0.05) !important;
+      border-color: #10b981 !important;
+      background: #ecfdf5 !important;
     }
 
     /* Buttons */
     .btn-primary, .btn-secondary, .btn-success, .btn-next, .btn-premium-glow {
-      background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%) !important;
+      background: linear-gradient(135deg, #0d2b82 0%, #103bb3 100%) !important;
       color: #ffffff !important;
       font-weight: 800 !important;
       border-radius: 14px !important;
-      height: 52px;
+      height: 50px;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
       border: none !important;
       cursor: pointer;
-      box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.4) !important;
-      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 6px 20px rgba(13, 43, 130, 0.22) !important;
+      transition: transform 0.2s, box-shadow 0.2s !important;
     }
-    .btn-primary:hover, .btn-secondary:hover, .btn-success:hover, .btn-next:hover, .btn-premium-glow:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 14px 30px -5px rgba(79, 70, 229, 0.5), 0 0 30px rgba(6, 182, 212, 0.3) !important;
+    .btn-primary:active, .btn-secondary:active, .btn-success:active, .btn-next:active {
+      transform: scale(0.98);
     }
 
-    /* Sanction Card (Step 4) */
+    /* ========================================================
+       PHOTO 1: SANCTION & CUSTOMIZATION CARD (Step 4)
+       ======================================================== */
     .sanction-card {
-      background: linear-gradient(135deg, #0e142e 0%, #080c1d 60%, #111a3b 100%) !important;
-      border: 1.5px solid rgba(255, 255, 255, 0.15) !important;
-      border-radius: 24px !important;
-      padding: 28px 22px !important;
-      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.85), 0 0 35px rgba(99, 102, 241, 0.15) !important;
-      color: #ffffff !important;
+      background: transparent !important;
+      border: none !important;
+      padding: 0 !important;
+      box-shadow: none !important;
+      color: var(--text-dark) !important;
     }
-    .sanction-badge {
-      background: rgba(16, 185, 129, 0.15) !important;
-      border: 1px solid rgba(16, 185, 129, 0.3) !important;
-      color: #10b981 !important;
-      border-radius: 9999px !important;
-      padding: 4px 12px !important;
-      font-weight: 700 !important;
-      font-size: 12px !important;
+
+    .sanction-hero-top {
+      background: linear-gradient(180deg, #09206d 0%, #0d2e85 60%, #103bb3 100%);
+      border-radius: 20px 20px 0 0;
+      padding: 24px 20px;
+      color: #ffffff;
+      text-align: center;
+      position: relative;
     }
-    .sanction-max-pill strong, #sanctionedAmountDisplay, #sanctionMaxCeilingDisplay {
-      font-family: 'JetBrains Mono', monospace !important;
-      color: #10b981 !important;
+
+    .sanction-hero-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.85);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
-    .tenure-chip {
-      background: rgba(15, 23, 42, 0.7) !important;
-      border: 1px solid rgba(255, 255, 255, 0.12) !important;
-      color: #94a3b8 !important;
-      border-radius: 12px !important;
-      padding: 10px 16px !important;
-      font-weight: 700 !important;
+
+    .sanction-hero-amount {
+      font-size: 38px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      color: #ffffff;
+      margin-top: 4px;
+    }
+
+    .sanction-white-body {
+      background: #ffffff;
+      border-radius: 0 0 20px 20px;
+      padding: 24px 20px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border-light);
+      border-top: none;
+    }
+
+    .sanction-field-label {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .dotted-divider {
+      border-bottom: 1.5px dashed #cbd5e1;
+      margin: 18px 0;
+    }
+
+    /* EMI Plan Radio Chips (Photo 1) */
+    .emi-plans-container {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .emi-plan-pill {
+      flex: 1;
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 12px 8px;
+      text-align: center;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.2s;
     }
-    .tenure-chip.active {
-      background: linear-gradient(135deg, #4f46e5, #06b6d4) !important;
-      border-color: transparent !important;
-      color: #ffffff !important;
-      box-shadow: 0 4px 15px rgba(79, 70, 229, 0.35) !important;
+
+    .emi-plan-pill.selected {
+      background: #eef2ff;
+      border-color: #103bb3;
+      box-shadow: 0 4px 14px rgba(16, 59, 179, 0.12);
     }
-    .sanction-grid-item {
-      background: rgba(255, 255, 255, 0.04) !important;
-      border: 1px solid rgba(255, 255, 255, 0.07) !important;
-      border-radius: 14px !important;
-      padding: 12px 14px !important;
+
+    .emi-plan-pill .radio-circle {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 2px solid #cbd5e1;
+      margin: 0 auto 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    .sanction-grid-item .item-label { color: #64748b !important; font-size: 11px !important; }
-    .sanction-grid-item .item-val { font-family: 'JetBrains Mono', monospace !important; color: #ffffff !important; font-weight: 800 !important; }
-    .disbursal-fee-box {
-      background: rgba(15, 23, 42, 0.8) !important;
-      border: 1px solid rgba(245, 158, 11, 0.3) !important;
-      border-radius: 16px !important;
+
+    .emi-plan-pill.selected .radio-circle {
+      border-color: #103bb3;
+      background: #103bb3;
+    }
+
+    .emi-plan-pill.selected .radio-circle::after {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #ffffff;
+    }
+
+    .emi-plan-pill .plan-tenure-txt {
+      font-size: 13px;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .emi-plan-pill .plan-emi-txt {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .emi-plan-pill.selected .plan-emi-txt {
+      color: #103bb3;
+      font-weight: 800;
+    }
+
+    /* Verified Bank Account Strip (Photo 1) */
+    .verified-bank-strip {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 18px;
+      margin-bottom: 20px;
+    }
+
+    .v-bank-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .v-bank-check-circle {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #eef2ff;
+      color: #103bb3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 14px;
+    }
+
+    .v-bank-name {
+      font-size: 13px;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .v-bank-acc {
+      font-size: 11.5px;
+      color: #64748b;
+      font-weight: 600;
+    }
+
+    .v-bank-change-link {
+      font-size: 12px;
+      font-weight: 700;
+      color: #103bb3;
+      cursor: pointer;
+    }
+
+    .btn-continue-loan {
+      background: linear-gradient(135deg, #0d2b82 0%, #103bb3 100%);
+      color: #ffffff;
+      border: none;
+      border-radius: 14px;
+      height: 52px;
+      width: 100%;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(13, 43, 130, 0.25);
+      transition: transform 0.2s;
+    }
+
+    .btn-continue-loan:active {
+      transform: scale(0.98);
+    }
+
+    /* ========================================================
+       PHOTO 2: DISBURSAL SUCCESS TICKET VOUCHER MODAL
+       ======================================================== */
+    .voucher-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(180deg, #09206d 0%, #0d2e85 50%, #103bb3 100%);
+      z-index: 1000;
+      overflow-y: auto;
+      padding: 30px 16px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .voucher-modal-overlay.active {
+      display: flex;
+    }
+
+    .voucher-content-box {
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      animation: zoomIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @keyframes zoomIn {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .scalloped-checkmark-badge {
+      width: 72px;
+      height: 72px;
+      margin: 0 auto 16px;
+      background: #ffffff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #103bb3;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    }
+
+    .voucher-title-congrats {
+      font-size: 24px;
+      font-weight: 900;
+      color: #ffffff;
+      margin-bottom: 6px;
+    }
+
+    .voucher-desc-sub {
+      font-size: 13.5px;
+      color: rgba(255, 255, 255, 0.9);
+      line-height: 1.5;
+      margin-bottom: 22px;
+      padding: 0 10px;
+    }
+
+    /* Ticket card with left & right notches */
+    .ticket-voucher-container {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 22px 20px;
+      position: relative;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.25);
+      text-align: left;
+      overflow: hidden;
+    }
+
+    .notch-circle-left {
+      position: absolute;
+      left: -12px;
+      top: 54%;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #0d2e85;
+      box-shadow: inset -2px 0 4px rgba(0,0,0,0.1);
+    }
+
+    .notch-circle-right {
+      position: absolute;
+      right: -12px;
+      top: 54%;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #0d2e85;
+      box-shadow: inset 2px 0 4px rgba(0,0,0,0.1);
+    }
+
+    .ticket-dash-line {
+      border-top: 2px dashed #cbd5e1;
+      margin: 18px -20px;
+    }
+
+    .ticket-amount-val {
+      font-size: 32px;
+      font-weight: 900;
+      color: #0f172a;
+      letter-spacing: -0.5px;
+    }
+
+    .ticket-meta-status {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11.5px;
+      color: #64748b;
+      margin-top: 4px;
+    }
+
+    .ticket-disbursed-chip {
+      color: #103bb3;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .ticket-details-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+
+    .ticket-col-id {
+      max-width: 200px;
+    }
+    .ticket-col-id .lbl {
+      font-size: 10.5px;
+      color: #94a3b8;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .ticket-col-id .val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      color: #0f172a;
+      word-break: break-all;
+    }
+
+    .ticket-col-tenure {
+      text-align: right;
+    }
+    .ticket-col-tenure .val-months {
+      font-size: 13px;
+      font-weight: 800;
+      color: #0f172a;
+    }
+    .ticket-col-tenure .val-emi {
+      font-size: 12px;
+      font-weight: 700;
+      color: #103bb3;
+    }
+
+    .btn-done-action {
+      background: linear-gradient(135deg, #0d2b82 0%, #103bb3 100%);
+      color: #ffffff;
+      border-radius: 14px;
+      height: 50px;
+      width: 100%;
+      border: none;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      box-shadow: 0 6px 20px rgba(13, 43, 130, 0.25);
+    }
+
+    .btn-done-action:active {
+      transform: scale(0.98);
     }
   </style>
 </head>
@@ -1024,143 +1350,85 @@
 
       <!-- Approved Sanction Card -->
       <div id="creditSanctionCard" style="display: none; margin-top: 24px;">
-        <div class="sanction-card">
-          <div class="sanction-banner">
-            <div class="sanction-badge">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-              <span>Personal Loan Sanctioned & Approved</span>
+        <div class="sanction-hero-top">
+          <div class="sanction-hero-label">
+            Approved limit
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          </div>
+          <div class="sanction-hero-amount" id="sanctionMaxCeilingDisplay">₹ 50,000</div>
+        </div>
+
+        <div class="sanction-white-body">
+          <label class="sanction-field-label">Choose your Loan amount</label>
+          <select class="form-control" id="customLoanAmountSelect" onchange="window.handleSelectLoanAmount(this.value)" style="margin-bottom: 6px; font-weight: 800;">
+            <option value="50000" selected>₹ 50,000</option>
+            <option value="40000">₹ 40,000</option>
+            <option value="30000">₹ 30,000</option>
+            <option value="20000">₹ 20,000</option>
+            <option value="10000">₹ 10,000</option>
+          </select>
+
+          <!-- Hidden input for backwards compatibility with apply.js -->
+          <span id="sanctionedAmountDisplay" style="display: none;">₹50,000</span>
+          <span id="sanctionEmiDisplay" style="display: none;">₹6,249 / mo</span>
+          <span id="sanctionBankDisplay" style="display: none;">SBI ••••5995</span>
+          <span id="sanctionTierNote" style="display: none;">Approved by Vistas Tecnolabs Finance Limited</span>
+          <span id="sanctionFeeDisplay" style="display: none;">₹199</span>
+          <span id="feeNoticeSpan" style="display: none;">199</span>
+          <span id="sanctionTenureDisplay" style="display: none;">9 Months</span>
+          <span id="sanctionTotalRepaymentDisplay" style="display: none;">₹56,242</span>
+          <span id="sanctionTotalInterestDisplay" style="display: none;">₹6,242</span>
+          <input type="checkbox" id="sanctionConsent" checked style="display: none;">
+
+          <div class="dotted-divider"></div>
+
+          <label class="sanction-field-label">Choose EMI's plan</label>
+          <div class="emi-plans-container">
+            <div class="emi-plan-pill" data-months="6" onclick="window.selectPlanChip(6)">
+              <div class="radio-circle"></div>
+              <div class="plan-tenure-txt">6 Months</div>
+              <div class="plan-emi-txt" id="planEmi6">₹ 9,120/mo</div>
             </div>
-            <div class="lender-tag">
-              <span>Sanctioned by Lending Partner:</span>
-              <strong style="display: inline-flex; align-items: center; gap: 6px;">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M3 10h18M5 10v11M9 10v11M15 10v11M19 10v11M12 2L2 7h20L12 2z"/></svg>
-                Vistas Tecnolabs Finance Limited
-              </strong>
+
+            <div class="emi-plan-pill selected" data-months="9" onclick="window.selectPlanChip(9)">
+              <div class="radio-circle"></div>
+              <div class="plan-tenure-txt">9 Months</div>
+              <div class="plan-emi-txt" id="planEmi9">₹ 6,249/mo</div>
+            </div>
+
+            <div class="emi-plan-pill" data-months="12" onclick="window.selectPlanChip(12)">
+              <div class="radio-circle"></div>
+              <div class="plan-tenure-txt">12 Months</div>
+              <div class="plan-emi-txt" id="planEmi12">₹ 4,812/mo</div>
             </div>
           </div>
 
-          <div class="sanction-body">
-            <div class="sanction-limit-label">Sanctioned Personal Loan</div>
-            <div class="sanction-max-pill">
-              <span>Approved Credit Ceiling:</span>
-              <strong id="sanctionMaxCeilingDisplay">₹16,420</strong>
-            </div>
+          <label class="sanction-field-label">How you intend to use the money ?</label>
+          <select class="form-control" id="loanIntendedPurpose" style="margin-bottom: 12px; font-weight: 600;">
+            <option value="" disabled>Choose any one of the following</option>
+            <option value="Personal / Household" selected>Personal / Household expenses</option>
+            <option value="Medical Emergency">Medical Emergency</option>
+            <option value="Education">Education / Upskilling</option>
+            <option value="Shopping & Gadgets">Shopping / Gadgets</option>
+            <option value="Business / Working Capital">Business / Working Capital</option>
+          </select>
 
-            <!-- Dynamic Loan Amount Adjuster (Borrower can customize within ceiling) -->
-            <div class="amount-adjuster-box">
-              <div class="adjuster-title-row">
-                <span class="adjuster-title">Select Desired Loan Amount:</span>
-                <span class="adjuster-value" id="sanctionedAmountDisplay">₹16,420</span>
-              </div>
-              <input type="range" 
-                     class="custom-amount-slider" 
-                     id="customLoanAmountSlider" 
-                     min="3000" 
-                     max="16420" 
-                     step="500" 
-                     value="16420" 
-                     oninput="window.updateCustomLoanAmount(this.value)">
-              <div class="slider-bounds">
-                <span>Min: ₹3,000</span>
-                <span id="sliderMaxCapLabel">Max: ₹16,420</span>
-              </div>
-              <div class="quick-amount-chips">
-                <button type="button" class="amt-chip" onclick="window.setCustomAmountPreset(5000)">₹5,000</button>
-                <button type="button" class="amt-chip" onclick="window.setCustomAmountPreset(10000)">₹10,000</button>
-                <button type="button" class="amt-chip" onclick="window.setCustomAmountPreset(15000)">₹15,000</button>
-                <button type="button" class="amt-chip active" id="chipFullLimit" onclick="window.setCustomAmountPreset('MAX')">Full Limit</button>
+          <!-- Verified Bank Account Strip (Photo 1) -->
+          <div class="verified-bank-strip">
+            <div class="v-bank-left">
+              <div class="v-bank-check-circle">✓</div>
+              <div>
+                <div class="v-bank-name" id="sanctionAccNumDisplay">A/c No. XX 5995 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline; vertical-align:middle;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div>
+                <div class="v-bank-acc" id="sanctionBankNameDisplay">State Bank Of India</div>
               </div>
             </div>
-
-            <div class="sanction-subtext" id="sanctionTierNote">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="display:inline-block; vertical-align:middle; margin-right:4px;"><polyline points="20 6 9 17 4 12"/></svg>
-              Approved by Vistas Tecnolabs Finance Limited
-            </div>
-
-            <!-- Tenure Selector (Stashfin Model: Up to 12 Months) -->
-            <div class="tenure-selection-wrapper">
-              <div class="tenure-section-title">
-                <span>Choose Loan Repayment Tenure:</span>
-                <span class="stashfin-tag" style="display: inline-flex; align-items: center; gap: 4px;">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-                  Flexible Tenures
-                </span>
-              </div>
-              <div class="tenure-chips-row">
-                <button type="button" class="tenure-chip" data-months="3" onclick="selectSanctionTenure(3)">3 Months</button>
-                <button type="button" class="tenure-chip" data-months="6" onclick="selectSanctionTenure(6)">6 Months</button>
-                <button type="button" class="tenure-chip" data-months="9" onclick="selectSanctionTenure(9)">9 Months</button>
-                <button type="button" class="tenure-chip active" data-months="12" onclick="selectSanctionTenure(12)">12 Months</button>
-              </div>
-            </div>
-
-            <!-- Loan Details Grid -->
-            <div class="sanction-details-grid">
-              <div class="sanction-grid-item highlight-box">
-                <span class="item-label">Monthly EMI</span>
-                <span class="item-val highlight" id="sanctionEmiDisplay">₹1,556 / mo</span>
-              </div>
-              <div class="sanction-grid-item highlight-box">
-                <span class="item-label">Total Repayment Amount</span>
-                <span class="item-val highlight-green" id="sanctionTotalRepaymentDisplay">₹18,672</span>
-              </div>
-              <div class="sanction-grid-item">
-                <span class="item-label">Selected Tenure</span>
-                <span class="item-val" id="sanctionTenureDisplay">12 Months</span>
-              </div>
-              <div class="sanction-grid-item">
-                <span class="item-label">Interest Rate</span>
-                <span class="item-val" id="sanctionRateDisplay">24.0% p.a. (2.0%/mo)</span>
-              </div>
-              <div class="sanction-grid-item">
-                <span class="item-label">Total Interest</span>
-                <span class="item-val" id="sanctionTotalInterestDisplay">₹2,252</span>
-              </div>
-              <div class="sanction-grid-item">
-                <span class="item-label">Disbursal Bank</span>
-                <span class="item-val" id="sanctionBankDisplay">SBI ••••1234</span>
-              </div>
-            </div>
-
-            <!-- One-Time Stamp & Disbursal Verification Fee Box -->
-            <div class="disbursal-fee-box" id="disbursalFeeBox" style="margin: 18px 0; padding: 16px 18px; background: rgba(10, 14, 39, 0.03); border: 1px solid rgba(10, 14, 39, 0.12); border-radius: var(--radius-md);">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                <span style="font-size: 11px; font-weight: 800; background: #e67e22; color: white; padding: 2px 8px; border-radius: 10px; text-transform: uppercase;">Required Before Disbursal</span>
-                <span style="font-size: 11px; font-weight: 700; color: var(--primary);">Vistas Tecnolabs Finance Limited</span>
-              </div>
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                <div>
-                  <div style="font-size: 13px; font-weight: 700; color: var(--dark);">One-Time Disbursal & Stamp Duty Fee:</div>
-                  <div style="font-size: 11px; color: var(--gray-700);">Mandatory stamp fee to release funds</div>
-                </div>
-                <div style="font-size: 26px; font-weight: 900; color: var(--primary);" id="sanctionFeeDisplay">₹199</div>
-              </div>
-              <div style="font-size: 12px; color: var(--gray-700); line-height: 1.5; background: var(--white); padding: 12px; border-radius: var(--radius-sm); border: 1px solid rgba(0,0,0,0.08);">
-                <strong>Disbursal Stage Guarantee:</strong> Jaise hi borrower yeh ₹<span id="feeNoticeSpan">199</span> fee pay karega, loan turant <strong>Disbursal Stage</strong> par aa jayega aur hamara banking staff <strong>30 minute ke andar</strong> loan amount aapke bank account me transfer kar dega.
-              </div>
-            </div>
-
-            <!-- Transparent Repayment Notice -->
-            <div class="transparent-repay-notice">
-              <span class="notice-icon" style="color: var(--secondary);">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-              </span>
-              <span id="repaymentFormulaText">Principal + Interest = Total Repayment Amount</span>
-            </div>
-
-            <!-- Sanction Agreement Checklist -->
-            <div class="sanction-terms-box">
-              <label class="terms-label">
-                <input type="checkbox" id="sanctionConsent" checked>
-                <span>I accept the loan sanction letter and repayment schedule issued by <strong>Vistas Tecnolabs Finance Limited</strong> and authorize immediate fund transfer upon fee verification.</span>
-              </label>
-            </div>
-
-            <!-- Disburse Button: Opens Fee Modal -->
-            <button type="button" class="btn btn-secondary btn-block btn-lg" id="acceptLoanBtn" onclick="openDisbursalFeeModal()" style="font-weight: 800; font-size: 15px;">
-              Pay ₹199 Fee & Disburse Loan (In 30 Mins) →
-            </button>
+            <div class="v-bank-change-link" onclick="handleChangeAccount()">Change account ^</div>
           </div>
+
+          <!-- Continue Button -->
+          <button type="button" class="btn-continue-loan" id="acceptLoanBtn" onclick="openDisbursalFeeModal()">
+            Continue with loan amount
+          </button>
         </div>
       </div>
 
@@ -1307,35 +1575,54 @@
     </div>
   </div>
 
-  <!-- Disbursal Success Modal -->
-  <div class="modal-overlay" id="successModal">
-    <div class="modal-content" style="max-width: 440px; text-align: center;">
-      <div class="modal-icon" style="color: var(--secondary); display: flex; justify-content: center; margin-bottom: 12px;">
-        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-      </div>
-      <div class="badge badge-success" style="margin-bottom: 10px; font-size: 11px;">Vistas Tecnolabs Finance Limited</div>
-      <h3 style="font-size: 20px; font-weight: 800; color: var(--dark); margin-bottom: 8px;">Loan Disbursal Stage Active!</h3>
-      <p style="font-size: 14px; color: var(--gray-700); line-height: 1.6; margin-bottom: 16px;">
-        Fee Paid Successfully! Aapka personal loan of <strong id="modalApprovedAmount" style="color: var(--primary); font-size: 16px;">₹16,420</strong> <strong>Disbursal Stage</strong> par pahunch gaya hai.
-      </p>
-
-      <div style="background: rgba(0, 210, 135, 0.08); border: 1px solid rgba(0, 210, 135, 0.3); border-radius: var(--radius-md); padding: 14px; margin-bottom: 18px; text-align: left;">
-        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--secondary)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          <strong style="font-size: 13px; color: var(--dark);">30-Minute Staff Disbursal Window:</strong>
-        </div>
-        <p style="font-size: 12px; color: var(--gray-700); margin: 0; line-height: 1.5;">
-          Hamara banking verification staff agle <strong>30 minute ke andar</strong> loan amount aapke bank account (<span id="modalSuccessBankName">SBI</span>) me transfer kar dega.
-        </p>
-        <div style="margin-top: 10px; font-size: 13px; font-weight: 700; color: var(--primary); display: flex; justify-content: space-between; align-items: center; padding-top: 8px; border-top: 1px dashed rgba(0, 210, 135, 0.3);">
-          <span>Estimated Transfer Time:</span>
-          <span id="modalCountdownTimer" style="background: var(--primary); color: white; padding: 2px 8px; border-radius: 4px; font-family: monospace;">29:59 Mins</span>
-        </div>
+  <!-- Disbursal Success Modal (Photo 2) -->
+  <div class="voucher-modal-overlay" id="successModal">
+    <div class="voucher-content-box">
+      <!-- Scalloped white checkmark badge -->
+      <div class="scalloped-checkmark-badge">
+        <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
       </div>
 
-      <div class="app-ref" id="appRefNumber">VT-AL-XXXXXX</div>
-      <p style="font-size: 11px; color: var(--gray-500); margin-bottom: 18px;">Sanction & IMPS Dispatch Reference ID</p>
-      <a href="dashboard.html" class="btn btn-secondary btn-block btn-lg" style="font-weight: 800;">Go to Dashboard & Track Live Transfer →</a>
+      <div class="voucher-title-congrats">Congratulations!</div>
+      <div class="voucher-desc-sub">
+        Your Loan request of <strong id="modalApprovedAmount">₹50,000</strong> was successfully disbursed.
+      </div>
+
+      <!-- Ticket Voucher with circular notches -->
+      <div class="ticket-voucher-container">
+        <div class="notch-circle-left"></div>
+        <div class="notch-circle-right"></div>
+
+        <!-- Upper section -->
+        <div class="ticket-amount-val" id="ticketAmountDisplay">₹ 50,000.00</div>
+        <div class="ticket-meta-status">
+          <span class="ticket-disbursed-chip">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+            Loan amount disbursed
+          </span>
+          <span id="ticketTimestampDisplay">June 3, 2026 at 2:30 PM</span>
+        </div>
+
+        <!-- Dotted tear line -->
+        <div class="ticket-dash-line"></div>
+
+        <!-- Lower section -->
+        <div class="ticket-details-row">
+          <div class="ticket-col-id">
+            <div class="lbl">Loan ID:</div>
+            <div class="val" id="appRefNumber">1LACcf4447a7-e236-494b-9659...</div>
+          </div>
+          <div class="ticket-col-tenure">
+            <div class="val-months" id="ticketTenureDisplay">9 Months</div>
+            <div class="val-emi" id="ticketEmiDisplay">₹ 6,249.19/month</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blue Done CTA Button -->
+      <a href="dashboard.html" class="btn-done-action">
+        Done
+      </a>
     </div>
   </div>
 
@@ -1436,5 +1723,106 @@
       }
     });
   </script>
+
+  <script>
+    // Photo 1 & Photo 2 Helper interactions
+    window.handleSelectLoanAmount = function(val) {
+      const amt = parseInt(val, 10);
+      const heroCeiling = document.getElementById('sanctionMaxCeilingDisplay');
+      const ticketAmt = document.getElementById('ticketAmountDisplay');
+      const modalAppr = document.getElementById('modalApprovedAmount');
+      if (heroCeiling) heroCeiling.textContent = '₹ ' + amt.toLocaleString('en-IN');
+      if (ticketAmt) ticketAmt.textContent = '₹ ' + amt.toLocaleString('en-IN') + '.00';
+      if (modalAppr) modalAppr.textContent = '₹' + amt.toLocaleString('en-IN');
+
+      if (window.sanctionedOffer) {
+        window.sanctionedOffer.selectedAmount = amt;
+        window.sanctionedOffer.creditLimit = amt;
+      }
+      updatePlanEmiCalculations(amt);
+    };
+
+    function updatePlanEmiCalculations(principal) {
+      const emi6 = Math.round((principal * 1.12) / 6);
+      const emi9 = Math.round((principal * 1.16) / 9);
+      const emi12 = Math.round((principal * 1.20) / 12);
+
+      const el6 = document.getElementById('planEmi6');
+      const el9 = document.getElementById('planEmi9');
+      const el12 = document.getElementById('planEmi12');
+
+      if (el6) el6.textContent = '₹ ' + emi6.toLocaleString('en-IN') + '/mo';
+      if (el9) el9.textContent = '₹ ' + emi9.toLocaleString('en-IN') + '/mo';
+      if (el12) el12.textContent = '₹ ' + emi12.toLocaleString('en-IN') + '/mo';
+
+      // Update ticket EMI
+      const selectedPill = document.querySelector('.emi-plan-pill.selected');
+      const months = selectedPill ? parseInt(selectedPill.getAttribute('data-months'), 10) : 9;
+      const emiChosen = months === 6 ? emi6 : (months === 12 ? emi12 : emi9);
+      const ticketEmi = document.getElementById('ticketEmiDisplay');
+      const ticketTenure = document.getElementById('ticketTenureDisplay');
+      if (ticketEmi) ticketEmi.textContent = '₹ ' + emiChosen.toLocaleString('en-IN') + '.00/month';
+      if (ticketTenure) ticketTenure.textContent = months + ' Months';
+    }
+
+    window.selectPlanChip = function(months) {
+      document.querySelectorAll('.emi-plan-pill').forEach(pill => {
+        if (parseInt(pill.getAttribute('data-months'), 10) === months) {
+          pill.classList.add('selected');
+        } else {
+          pill.classList.remove('selected');
+        }
+      });
+      if (window.sanctionedOffer) {
+        window.sanctionedOffer.selectedTenure = months;
+      }
+      const selectEl = document.getElementById('customLoanAmountSelect');
+      const amt = selectEl ? parseInt(selectEl.value, 10) : 50000;
+      updatePlanEmiCalculations(amt);
+    };
+
+    function handleChangeAccount() {
+      const bankCard = document.getElementById('bankFormCard');
+      const sanctionCard = document.getElementById('creditSanctionCard');
+      if (bankCard) bankCard.style.display = 'block';
+      if (sanctionCard) sanctionCard.style.display = 'none';
+      const accInput = document.getElementById('accountNumber');
+      if (accInput) accInput.focus();
+    }
+
+    // Set live timestamp on ticket voucher
+    document.addEventListener('DOMContentLoaded', () => {
+      const now = new Date();
+      const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+      const dateStr = months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
+      let hours = now.getHours();
+      const ampm = hours >= 12 ? 'PM' : 'AM';
+      hours = hours % 12 || 12;
+      const mins = String(now.getMinutes()).padStart(2, '0');
+      const timeStr = hours + ':' + mins + ' ' + ampm;
+      const timeEl = document.getElementById('ticketTimestampDisplay');
+      if (timeEl) timeEl.textContent = dateStr + ' at ' + timeStr;
+
+      // Also sync bank details from form
+      const accInput = document.getElementById('accountNumber');
+      const bankSelect = document.getElementById('bankName');
+      if (accInput && bankSelect) {
+        accInput.addEventListener('change', () => {
+          const val = accInput.value.trim();
+          const accDisplay = document.getElementById('sanctionAccNumDisplay');
+          if (accDisplay && val.length >= 4) {
+            accDisplay.innerHTML = 'A/c No. XX ' + val.slice(-4) + ' ⓘ';
+          }
+        });
+        bankSelect.addEventListener('change', () => {
+          const bDisplay = document.getElementById('sanctionBankNameDisplay');
+          if (bDisplay && bankSelect.value) {
+            bDisplay.textContent = bankSelect.value;
+          }
+        });
+      }
+    });
+  </script>
+
 </body>
 </html>

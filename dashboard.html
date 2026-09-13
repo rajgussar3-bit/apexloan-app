@@ -2,14 +2,13 @@
 <html lang="hi-IN">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <meta name="description" content="Bruno Credits Dashboard - Instant Personal Loans, Insurance & Profile. Powered by Vistas Tecnolabs Finance Limited.">
-  <meta name="theme-color" content="#060814">
-  <title>Dashboard | Bruno Credits - Powered by Vistas Tecnolabs Finance Limited</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <meta name="description" content="Bruno Credits Dashboard - Instant Personal Loans, Limits & Repayments. Powered by Vistas Tecnolabs Finance Limited.">
+  <meta name="theme-color" content="#09206d">
+  <title>Bruno Credits | Instant Personal Loans & Limit</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
 
   <script>
     // Immediate auth guard: redirect to login.html if not authenticated
@@ -18,1570 +17,1603 @@
     }
   </script>
 
+  <!-- Razorpay Checkout -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
   <style>
     /* ========================================================
-       PREMIUM OBSIDIAN FINTECH LUXURY THEME - DASHBOARD
-       Tier-1 Institutional Look Matching Login Interface
+       EXACT ROYAL COBALT BLUE & CRISP WHITE FINTECH THEME
+       Matching User Reference Screenshots (Photos 3, 4, 5)
        ======================================================== */
     :root {
-      --fin-bg: #060814;
-      --fin-card-bg: rgba(12, 17, 36, 0.88);
-      --fin-card-border: rgba(255, 255, 255, 0.1);
-      --fin-text-primary: #ffffff;
-      --fin-text-secondary: #94a3b8;
-      --fin-text-muted: #64748b;
-      --fin-accent-indigo: #6366f1;
-      --fin-accent-cyan: #06b6d4;
-      --fin-accent-emerald: #10b981;
-      --fin-accent-amber: #f59e0b;
-      --fin-accent-rose: #f43f5e;
+      --primary-blue: #0d2b82;
+      --primary-blue-dark: #09206d;
+      --primary-blue-vibrant: #103bb3;
+      --primary-blue-light: #eef2ff;
+      --accent-green: #10b981;
+      --accent-green-light: #ecfdf5;
+      --accent-red: #ef4444;
+      --accent-red-light: #fef2f2;
+      --accent-amber: #f59e0b;
+      --canvas-bg: #f4f6fb;
+      --card-white: #ffffff;
+      --text-dark: #0f172a;
+      --text-muted: #64748b;
+      --text-light: #94a3b8;
+      --border-light: #e2e8f0;
+      --shadow-sm: 0 2px 8px rgba(13, 43, 130, 0.04);
+      --shadow-md: 0 4px 20px rgba(13, 43, 130, 0.08);
+      --shadow-lg: 0 10px 30px rgba(13, 43, 130, 0.12);
+      --radius-sm: 10px;
+      --radius-md: 16px;
+      --radius-lg: 22px;
     }
 
-    * { box-sizing: border-box; }
-
-    body.dashboard-page {
-      background: #060814 !important;
-      color: #ffffff !important;
-      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif !important;
-      min-height: 100vh;
+    * {
+      box-sizing: border-box;
       margin: 0;
-      padding: 0 0 96px 0 !important;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background: var(--canvas-bg);
+      color: var(--text-dark);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      min-height: 100vh;
+      min-height: 100dvh;
+      margin: 0;
+      padding-bottom: 84px;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
+    }
+
+    /* App Viewport Container (Centered for desktop, full-width on mobile) */
+    .app-shell {
+      width: 100%;
+      max-width: 480px;
+      margin: 0 auto;
+      min-height: 100vh;
+      min-height: 100dvh;
+      background: var(--canvas-bg);
       position: relative;
     }
 
-    /* Ambient Orbs */
-    .ambient-orb {
-      position: fixed;
+    /* ========================================================
+       TOP CURVED HEADER (Photo 4 & 5)
+       ======================================================== */
+    .royal-header {
+      background: linear-gradient(180deg, #09206d 0%, #0e2f8d 70%, #103bb3 100%);
+      padding: calc(env(safe-area-inset-top, 0px) + 18px) 20px 32px 20px;
+      border-radius: 0 0 28px 28px;
+      color: #ffffff;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .royal-header::after {
+      content: '';
+      position: absolute;
+      top: -40px;
+      right: -40px;
+      width: 180px;
+      height: 180px;
       border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.12) 0%, transparent 70%);
       pointer-events: none;
-      filter: blur(90px);
-      z-index: 0;
-    }
-    .orb-1 {
-      top: -120px;
-      right: -80px;
-      width: 380px;
-      height: 380px;
-      background: rgba(99, 102, 241, 0.22);
-    }
-    .orb-2 {
-      bottom: 60px;
-      left: -100px;
-      width: 340px;
-      height: 340px;
-      background: rgba(16, 185, 129, 0.16);
     }
 
-    /* Topbar */
-    .dash-topbar {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(8, 12, 28, 0.88) !important;
-      backdrop-filter: blur(28px) !important;
-      -webkit-backdrop-filter: blur(28px) !important;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
-      padding: 14px 20px !important;
+    .header-topbar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-    }
-    .brand-title {
-      font-size: 19px !important;
-      font-weight: 800 !important;
-      color: #ffffff !important;
-      letter-spacing: -0.4px !important;
-    }
-    .brand-highlight {
-      background: linear-gradient(135deg, #6366f1 0%, #06b6d4 100%) !important;
-      -webkit-background-clip: text !important;
-      -webkit-text-fill-color: transparent !important;
-    }
-    .brand-sub {
-      font-size: 11px !important;
-      color: #94a3b8 !important;
-      font-weight: 600 !important;
-    }
-
-    .rbi-badge-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      padding: 5px 12px;
-      background: rgba(16, 185, 129, 0.08);
-      border: 1px solid rgba(16, 185, 129, 0.25);
-      border-radius: 9999px;
-      font-size: 11px;
-      font-weight: 700;
-      color: #10b981;
-      backdrop-filter: blur(10px);
-    }
-    .pulse-dot {
-      width: 6px;
-      height: 6px;
-      background: #10b981;
-      border-radius: 50%;
-      box-shadow: 0 0 8px #10b981;
-      animation: pulseRadar 2s infinite;
-    }
-    @keyframes pulseRadar {
-      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6); }
-      70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
-    }
-
-    /* Container */
-    .dash-container {
+      margin-bottom: 20px;
       position: relative;
-      z-index: 10;
-      max-width: 580px;
-      margin: 16px auto 0;
-      padding: 0 16px;
+      z-index: 2;
     }
 
-    /* Frosted Cards */
-    .dash-header-card, .profile-card, .ins-card, .cibil-card, .repay-summary-box, .installment-item, .policy-card, .disbursal-radar-box, .dash-approved-alert {
-      background: rgba(12, 17, 36, 0.88) !important;
-      backdrop-filter: blur(28px) !important;
-      -webkit-backdrop-filter: blur(28px) !important;
-      border: 1px solid rgba(255, 255, 255, 0.1) !important;
-      border-radius: 20px !important;
-      color: #ffffff !important;
-      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.75), 0 0 20px rgba(99, 102, 241, 0.08) !important;
-    }
-
-    /* Luminous top accents */
-    .dash-header-card, .repay-summary-box, .disbursal-radar-box {
-      position: relative;
-      overflow: hidden;
-    }
-    .dash-header-card::before, .repay-summary-box::before, .disbursal-radar-box::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, #4f46e5 0%, #06b6d4 50%, #10b981 100%);
-    }
-
-    /* User Greeting */
-    .dash-header-card {
-      padding: 20px !important;
-      margin-bottom: 20px !important;
+    .user-greeting {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .user-greeting h2 {
-      font-size: 19px !important;
-      font-weight: 800 !important;
-      color: #ffffff !important;
-      margin: 0 0 4px !important;
-    }
-    .user-greeting p {
-      font-size: 12px !important;
-      color: #94a3b8 !important;
-      margin: 0 !important;
-      font-family: 'JetBrains Mono', monospace;
-    }
-    .kyc-verified-pill {
-      background: rgba(16, 185, 129, 0.12) !important;
-      border: 1px solid rgba(16, 185, 129, 0.3) !important;
-      color: #10b981 !important;
-      font-size: 11px !important;
-      font-weight: 700 !important;
-      padding: 4px 10px !important;
-      border-radius: 9999px !important;
-    }
-
-    /* Approved Alert */
-    .dash-approved-alert {
-      border-color: rgba(16, 185, 129, 0.35) !important;
-      background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(12, 17, 36, 0.95)) !important;
-    }
-
-    /* Titanium Card */
-    .titanium-card {
-      background: linear-gradient(135deg, #0e142e 0%, #080c1d 60%, #111a3b 100%) !important;
-      border: 1.5px solid rgba(255, 255, 255, 0.15) !important;
-      border-radius: 24px !important;
-      padding: 26px 24px !important;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.85), 0 0 35px rgba(99, 102, 241, 0.15) !important;
-    }
-    .titanium-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; height: 2px;
-      background: linear-gradient(90deg, #6366f1, #06b6d4, #10b981);
-    }
-    .titanium-balance-label {
-      color: #94a3b8 !important;
-      font-size: 12px !important;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-    }
-    .titanium-balance-val {
-      font-family: 'JetBrains Mono', monospace !important;
-      font-size: 38px !important;
-      font-weight: 800 !important;
-      color: #ffffff !important;
-      letter-spacing: -0.5px;
-      text-shadow: 0 0 25px rgba(99, 102, 241, 0.3);
-    }
-
-    /* Quick Action Grid */
-    .quick-action-grid {
-      display: grid !important;
-      grid-template-columns: repeat(4, 1fr) !important;
-      gap: 10px !important;
-      margin-bottom: 22px !important;
-    }
-    .action-tile {
-      background: rgba(15, 23, 42, 0.7) !important;
-      border: 1px solid rgba(255, 255, 255, 0.08) !important;
-      border-radius: 16px !important;
-      padding: 14px 8px !important;
-      display: flex;
-      flex-direction: column;
       align-items: center;
       gap: 8px;
       cursor: pointer;
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .action-tile:hover {
-      transform: translateY(-2px);
-      border-color: rgba(99, 102, 241, 0.4) !important;
-      background: rgba(20, 30, 60, 0.8) !important;
-      box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.5);
-    }
-    .action-icon-circle {
-      width: 44px !important;
-      height: 44px !important;
-      border-radius: 12px !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      background: rgba(255, 255, 255, 0.06) !important;
-    }
-    .action-label {
-      font-size: 11px !important;
-      font-weight: 700 !important;
-      color: #94a3b8 !important;
-      text-align: center;
-      line-height: 1.25;
     }
 
-    /* Disbursal Radar Box */
-    .disbursal-radar-box {
-      border-color: rgba(16, 185, 129, 0.3) !important;
-      background: rgba(12, 17, 36, 0.95) !important;
-      padding: 24px 20px !important;
-      text-align: center;
-    }
-    .radar-pulse-center {
-      margin: 0 auto 16px !important;
-    }
-
-    /* Repayment Schedule */
-    .repay-summary-box {
-      padding: 22px !important;
-      margin-bottom: 18px !important;
-    }
-    .next-emi-title {
-      font-size: 12px !important;
-      font-weight: 700 !important;
-      color: #94a3b8 !important;
+    .user-name-text {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.2px;
+      color: #ffffff;
       text-transform: uppercase;
-      letter-spacing: 0.6px;
     }
-    .emi-big {
-      font-family: 'JetBrains Mono', monospace !important;
-      font-size: 32px !important;
-      font-weight: 800 !important;
-      color: #ffffff !important;
-      margin: 4px 0 !important;
-    }
-    .due-date-sub {
-      color: #38bdf8 !important;
-      font-size: 13px !important;
-      font-weight: 600 !important;
-    }
-    .pay-emi-btn {
-      background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%) !important;
-      color: #ffffff !important;
-      font-weight: 800 !important;
-      border-radius: 12px !important;
-      padding: 10px 20px !important;
-      box-shadow: 0 6px 20px -3px rgba(79, 70, 229, 0.4) !important;
-      transition: all 0.2s ease !important;
-    }
-    .repay-stat-item {
-      background: rgba(255, 255, 255, 0.04) !important;
-      border: 1px solid rgba(255, 255, 255, 0.06) !important;
-      border-radius: 12px !important;
-      padding: 10px !important;
-    }
-    .stat-label { color: #64748b !important; font-size: 11px !important; }
-    .stat-value { color: #ffffff !important; font-weight: 800 !important; font-family: 'JetBrains Mono', monospace !important; }
 
-    /* Installment item */
-    .installment-item {
-      padding: 14px 16px !important;
-      margin-bottom: 10px !important;
+    .down-chevron-icon {
+      width: 14px;
+      height: 14px;
+      opacity: 0.8;
+      transition: transform 0.2s;
+    }
+
+    .header-actions {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      border-radius: 14px !important;
+      gap: 12px;
     }
-    .installment-item.active-due {
-      border-color: rgba(6, 182, 212, 0.4) !important;
-      background: rgba(6, 182, 212, 0.06) !important;
-    }
-    .installment-item.paid-done {
-      border-color: rgba(16, 185, 129, 0.25) !important;
-      background: rgba(16, 185, 129, 0.04) !important;
-    }
-    .inst-num-bubble {
-      background: rgba(255, 255, 255, 0.08) !important;
-      color: #ffffff !important;
+
+    .icon-circle-btn {
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
-      width: 28px;
-      height: 28px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
       display: flex;
       align-items: center;
       justify-content: center;
+      color: #ffffff;
+      position: relative;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition: background 0.2s;
+    }
+
+    .icon-circle-btn:active {
+      transform: scale(0.95);
+    }
+
+    .bell-badge-dot {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      width: 8px;
+      height: 8px;
+      background: var(--accent-red);
+      border: 2px solid #0d2b82;
+      border-radius: 50%;
+    }
+
+    .user-avatar-circle {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+      color: var(--primary-blue);
       font-weight: 800;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    /* ========================================================
+       HERO APPROVED CREDIT LIMIT CARD (Photo 5)
+       ======================================================== */
+    .hero-limit-card {
+      background: linear-gradient(135deg, #081745 0%, #0d2777 50%, #123bb5 100%);
+      border-radius: 22px;
+      padding: 22px 20px;
+      color: #ffffff;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 28px rgba(9, 28, 83, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      margin-top: -12px;
+      z-index: 3;
+    }
+
+    .hero-limit-card::before {
+      content: '';
+      position: absolute;
+      top: -30%;
+      right: -20%;
+      width: 240px;
+      height: 240px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .card-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .card-label-sub {
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.78);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .card-amount-num {
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      color: #ffffff;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .card-active-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.12);
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 18px;
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .btn-instant-cash {
+      background: #ffffff;
+      color: var(--primary-blue);
+      border: none;
+      border-radius: 9999px;
+      padding: 12px 24px;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+      transition: transform 0.2s, box-shadow 0.2s;
+      width: 100%;
+    }
+
+    .btn-instant-cash:active {
+      transform: scale(0.98);
+    }
+
+    /* ========================================================
+       CONTENT WRAPPER
+       ======================================================== */
+    .dash-content {
+      padding: 14px 16px;
+    }
+
+    /* ========================================================
+       TRENDING FUNDS STRIP (Photo 5)
+       ======================================================== */
+    .trending-strip-card {
+      background: var(--card-white);
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-light);
+      margin-bottom: 14px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .trending-strip-card:active {
+      transform: scale(0.99);
+    }
+
+    .trending-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .trending-icon-box {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: #f0fdf4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-green);
+    }
+
+    .trending-title-text {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    .btn-green-pill {
+      background: var(--accent-green);
+      color: #ffffff;
+      border: none;
+      border-radius: 9999px;
+      padding: 6px 12px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.3px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* ========================================================
+       4-STEP QUICK APPLICATION CARD (Photo 4)
+       ======================================================== */
+    .quick-loan-card {
+      background: var(--card-white);
+      border-radius: var(--radius-lg);
+      padding: 20px 18px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border-light);
+      margin-bottom: 14px;
+    }
+
+    .quick-loan-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 16px;
+    }
+
+    .steps-timeline {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      position: relative;
+      margin: 18px 0 22px 0;
+      padding: 0 4px;
+    }
+
+    .steps-timeline::before {
+      content: '';
+      position: absolute;
+      top: 14px;
+      left: 20px;
+      right: 20px;
+      height: 2.5px;
+      background: #e2e8f0;
+      z-index: 1;
+    }
+
+    .steps-progress-fill {
+      position: absolute;
+      top: 14px;
+      left: 20px;
+      width: 35%;
+      height: 2.5px;
+      background: var(--primary-blue-vibrant);
+      z-index: 2;
+      transition: width 0.3s;
+    }
+
+    .step-item-node {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      position: relative;
+      z-index: 3;
+      width: 70px;
+      text-align: center;
+    }
+
+    .step-node-bubble {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 2px solid #cbd5e1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--text-muted);
+      transition: all 0.2s;
+    }
+
+    .step-item-node.completed .step-node-bubble {
+      background: var(--primary-blue-vibrant);
+      border-color: var(--primary-blue-vibrant);
+      color: #ffffff;
+    }
+
+    .step-item-node.active .step-node-bubble {
+      background: #ffffff;
+      border-color: var(--primary-blue-vibrant);
+      color: var(--primary-blue-vibrant);
+      box-shadow: 0 0 0 3px rgba(16, 59, 179, 0.18);
+    }
+
+    .step-node-label {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--text-muted);
+      line-height: 1.2;
+    }
+
+    .step-item-node.completed .step-node-label,
+    .step-item-node.active .step-node-label {
+      color: var(--text-dark);
+    }
+
+    .btn-primary-blue {
+      background: linear-gradient(135deg, #0d2b82 0%, #103bb3 100%);
+      color: #ffffff;
+      border: none;
+      border-radius: 14px;
+      width: 100%;
+      height: 48px;
+      font-size: 15px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(13, 43, 130, 0.22);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-primary-blue:active {
+      transform: scale(0.98);
+    }
+
+    .quick-subtext {
+      text-align: center;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-top: 10px;
+    }
+
+    /* ========================================================
+       "IMPORTANT" KYC ACTION CARD (Photo 4)
+       ======================================================== */
+    .important-card {
+      background: var(--card-white);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-light);
+      margin-bottom: 16px;
+    }
+
+    .red-important-badge {
+      display: inline-block;
+      background: #fee2e2;
+      color: #dc2626;
+      font-size: 10.5px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      margin-bottom: 8px;
+    }
+
+    .important-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 12px;
+    }
+
+    .important-action-row {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .important-action-row:hover {
+      background: #f1f5f9;
+    }
+
+    .important-left-desc {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    .important-left-desc span {
+      display: block;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .chevron-blue-right {
+      color: var(--primary-blue-vibrant);
+      font-weight: 800;
+      font-size: 16px;
+    }
+
+    /* ========================================================
+       2x2 "EXPLORE MORE" GRID (Photo 5)
+       ======================================================== */
+    .section-headline {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin: 18px 0 12px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .explore-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .explore-tile {
+      background: var(--card-white);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-light);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 130px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .explore-tile:active {
+      transform: scale(0.98);
+    }
+
+    .explore-tile-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .tile-icon-bubble {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .tile-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--text-dark);
+      line-height: 1.25;
+      margin-bottom: 4px;
+    }
+
+    .tile-badge-pill {
+      display: inline-block;
+      font-size: 9px;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: #ecfdf5;
+      color: #059669;
+      margin-bottom: 6px;
+    }
+
+    .tile-subtext {
+      font-size: 10.5px;
+      font-weight: 600;
+      color: var(--text-muted);
+      line-height: 1.3;
+    }
+
+    .cibil-score-box {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .score-circle-badge {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 3px solid #10b981;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 800;
+      color: #10b981;
+    }
+
+    /* ========================================================
+       MY LOANS TAB (Photo 3)
+       ======================================================== */
+    .tab-view-container {
+      display: none;
+    }
+
+    .tab-view-container.active {
+      display: block;
+    }
+
+    .loans-topbar {
+      background: #ffffff;
+      padding: calc(env(safe-area-inset-top, 0px) + 16px) 16px 14px 16px;
+      border-bottom: 1px solid var(--border-light);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .loans-title-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text-dark);
+      cursor: pointer;
+    }
+
+    .loans-amount-right {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--primary-blue-vibrant);
+    }
+
+    .myloans-body {
+      padding: 16px;
+    }
+
+    .loan-details-card {
+      background: var(--card-white);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-light);
+      margin-bottom: 16px;
+    }
+
+    .loan-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 12px;
+    }
+
+    .loan-meta-row .date-sub {
+      color: var(--text-muted);
+      font-weight: 500;
       font-size: 12px;
     }
-    .paid-done .inst-num-bubble {
-      background: rgba(16, 185, 129, 0.2) !important;
-      color: #10b981 !important;
-    }
-    .inst-title { color: #ffffff !important; font-weight: 700 !important; font-size: 13px !important; }
-    .inst-amount { font-family: 'JetBrains Mono', monospace !important; font-weight: 800 !important; color: #ffffff !important; }
 
-    /* Insurance cards */
-    .ins-card {
-      padding: 16px !important;
-      margin-bottom: 12px !important;
+    .loan-inner-gray-pill {
+      background: #f1f5f9;
+      border-radius: 12px;
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .inner-emi-amt {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--text-dark);
+    }
+
+    .inner-emis-count {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--primary-blue-vibrant);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .repay-selector-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .repay-option-card {
+      background: var(--card-white);
+      border: 1.5px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .repay-option-card.selected {
+      border-color: var(--primary-blue-vibrant);
+      background: #f8faff;
+      box-shadow: 0 4px 16px rgba(16, 59, 179, 0.08);
+    }
+
+    .repay-left-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .custom-radio-circle {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid #cbd5e1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.2s;
+    }
+
+    .repay-option-card.selected .custom-radio-circle {
+      border-color: var(--primary-blue-vibrant);
+    }
+
+    .custom-radio-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: transparent;
+      transition: background 0.2s;
+    }
+
+    .repay-option-card.selected .custom-radio-dot {
+      background: var(--primary-blue-vibrant);
+    }
+
+    .repay-title-date {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: var(--text-dark);
+    }
+
+    .repay-right-amount {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--primary-blue-vibrant);
+    }
+
+    .breakdown-accordion {
+      background: var(--card-white);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-light);
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+
+    .accordion-header {
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.4px;
+      color: var(--text-muted);
+      cursor: pointer;
+      text-transform: uppercase;
+    }
+
+    .accordion-body {
+      display: none;
+      padding: 0 16px 14px 16px;
+      border-top: 1px dashed var(--border-light);
+    }
+
+    .accordion-body.open {
+      display: block;
+    }
+
+    .breakdown-line {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 0;
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+
+    .breakdown-line strong {
+      color: var(--text-dark);
+      font-weight: 700;
+    }
+
+    .breakdown-line.total-line {
+      border-top: 1px solid var(--border-light);
+      padding-top: 10px;
+      margin-top: 4px;
+      font-size: 13.5px;
+      font-weight: 800;
+      color: var(--text-dark);
+    }
+
+    .floating-repay-bar {
+      position: fixed;
+      bottom: 64px;
+      left: 0;
+      right: 0;
+      max-width: 480px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 12px 16px;
+      border-top: 1px solid var(--border-light);
+      z-index: 50;
+      box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.05);
+    }
+
+    .btn-pay-now-action {
+      background: linear-gradient(135deg, #0d2b82 0%, #103bb3 100%);
+      color: #ffffff;
+      border: none;
+      border-radius: 14px;
+      width: 100%;
+      height: 52px;
+      font-size: 15px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(13, 43, 130, 0.28);
+      transition: transform 0.2s, opacity 0.2s;
+    }
+
+    .btn-pay-now-action:active {
+      transform: scale(0.98);
+    }
+
+    /* ========================================================
+       SETTINGS / PROFILE TAB
+       ======================================================== */
+    .profile-card {
+      background: var(--card-white);
+      border-radius: var(--radius-md);
+      padding: 18px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-light);
+      margin-bottom: 14px;
+    }
+
+    .profile-header-row {
       display: flex;
       align-items: center;
       gap: 14px;
-      cursor: pointer;
-      transition: all 0.2s ease;
+      margin-bottom: 16px;
     }
-    .ins-card:hover {
-      transform: translateY(-2px);
-      border-color: rgba(99, 102, 241, 0.3) !important;
-    }
-    .ins-info h4 { color: #ffffff !important; font-size: 14px !important; font-weight: 700 !important; margin: 0 0 2px !important; }
-    .ins-info p { color: #94a3b8 !important; font-size: 11px !important; margin: 0 !important; }
-    .ins-price-tag .price { color: #38bdf8 !important; font-weight: 800 !important; font-family: 'JetBrains Mono', monospace !important; }
-    .ins-price-tag .freq { color: #64748b !important; font-size: 11px !important; }
 
-    /* CIBIL card */
-    .cibil-card {
-      padding: 20px !important;
+    .profile-avatar-lg {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #0d2b82 0%, #103bb3 100%);
+      color: #ffffff;
+      font-size: 20px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .profile-info h3 {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text-dark);
+    }
+
+    .profile-info p {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .menu-list-group {
+      background: var(--card-white);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+
+    .menu-item-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 24px !important;
-    }
-    .cibil-info h4 { color: #ffffff !important; margin: 0 0 4px !important; font-size: 15px !important; }
-    .cibil-info p { color: #94a3b8 !important; margin: 0 !important; font-size: 12px !important; }
-    .cibil-score { font-family: 'JetBrains Mono', monospace !important; font-size: 28px !important; font-weight: 800 !important; color: #10b981 !important; }
-    .cibil-tag { color: #10b981 !important; font-size: 11px !important; font-weight: 700 !important; }
-
-    /* Profile Rows */
-    .profile-card {
-      padding: 22px 20px !important;
-      margin-bottom: 16px !important;
-    }
-    .profile-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 11px 0 !important;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
-      font-size: 13px !important;
-    }
-    .profile-row:last-child { border-bottom: none !important; }
-    .row-label { color: #94a3b8 !important; font-weight: 500 !important; }
-    .row-value { color: #ffffff !important; font-weight: 700 !important; }
-
-    /* Policy Accordions */
-    .policy-card-header {
-      padding: 16px 18px !important;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border-light);
       cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: #ffffff !important;
-    }
-    .policy-card-header h4 { margin: 0 !important; font-size: 14px !important; font-weight: 700 !important; }
-    .policy-card-body {
-      padding: 0 18px 18px !important;
-      font-size: 12px !important;
-      color: #94a3b8 !important;
-      line-height: 1.6 !important;
+      transition: background 0.2s;
     }
 
-    /* Support items */
-    .support-item {
+    .menu-item-row:last-child {
+      border-bottom: none;
+    }
+
+    .menu-item-row:hover {
+      background: #f8fafc;
+    }
+
+    .menu-left-meta {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      padding: 12px 14px !important;
-      background: rgba(255, 255, 255, 0.03) !important;
-      border: 1px solid rgba(255, 255, 255, 0.06) !important;
-      border-radius: 12px !important;
-      margin-bottom: 10px !important;
-      color: #ffffff !important;
-      text-decoration: none;
+      gap: 12px;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--text-dark);
     }
-    .support-item:hover {
-      border-color: rgba(99, 102, 241, 0.3) !important;
-      background: rgba(255, 255, 255, 0.06) !important;
-    }
-    .support-item-left .title { color: #ffffff !important; font-weight: 700 !important; font-size: 13px !important; }
-    .support-item-left .sub { color: #64748b !important; font-size: 11px !important; }
 
-    /* Logout Button */
-    .logout-btn {
-      width: 100% !important;
-      background: rgba(244, 63, 94, 0.08) !important;
-      border: 1.5px solid rgba(244, 63, 94, 0.35) !important;
-      color: #f43f5e !important;
-      border-radius: 14px !important;
-      padding: 14px !important;
-      font-weight: 800 !important;
-      font-size: 14px !important;
+    .btn-logout {
+      width: 100%;
+      height: 48px;
+      background: #fee2e2;
+      color: #dc2626;
+      border: 1px solid #fca5a5;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 800;
       cursor: pointer;
-      margin-top: 14px !important;
-      transition: all 0.2s ease;
-    }
-    .logout-btn:hover {
-      background: rgba(244, 63, 94, 0.16) !important;
-      border-color: #f43f5e !important;
-      color: #ffffff !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 10px;
     }
 
-    /* Bottom Nav */
-    .app-bottom-nav {
-      position: fixed !important;
-      bottom: 0 !important;
-      left: 0 !important;
-      right: 0 !important;
-      height: 64px !important;
-      background: rgba(8, 12, 28, 0.92) !important;
-      backdrop-filter: blur(24px) !important;
-      -webkit-backdrop-filter: blur(24px) !important;
-      border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: space-around !important;
-      z-index: 900 !important;
-      max-width: 580px !important;
-      margin: 0 auto !important;
+    /* ========================================================
+       BOTTOM NAVIGATION DOCK (Photo 5)
+       ======================================================== */
+    .bottom-nav-dock {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      max-width: 480px;
+      margin: 0 auto;
+      height: 64px;
+      background: #ffffff;
+      border-top: 1px solid var(--border-light);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      z-index: 100;
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.05);
+      padding-bottom: env(safe-area-inset-bottom, 0px);
     }
-    .app-nav-item {
-      background: none !important;
-      border: none !important;
-      color: #64748b !important;
-      display: flex !important;
-      flex-direction: column !important;
-      align-items: center !important;
-      gap: 3px !important;
-      font-size: 11px !important;
-      font-weight: 700 !important;
-      padding: 6px 16px !important;
+
+    .nav-tab-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      background: none;
+      border: none;
+      color: var(--text-muted);
       cursor: pointer;
-      transition: color 0.2s ease;
-    }
-    .app-nav-item.active {
-      color: #38bdf8 !important;
-    }
-
-    /* General Typography & Headers */
-    .dash-section-header h3 {
-      font-size: 16px !important;
-      font-weight: 800 !important;
-      color: #ffffff !important;
-      margin: 18px 0 10px !important;
-    }
-    .dash-section-header a {
-      color: #818cf8 !important;
-      font-size: 12px !important;
-      font-weight: 700 !important;
-    }
-    .btn-premium-glow {
-      background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%) !important;
-      color: #ffffff !important;
-      border-radius: 9999px !important;
-      font-weight: 800 !important;
-      box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.4) !important;
+      padding: 6px 16px;
+      font-size: 11px;
+      font-weight: 700;
+      transition: color 0.2s, transform 0.1s;
     }
 
-    /* Modals */
-    .modal-overlay {
-      background: rgba(3, 5, 15, 0.85) !important;
-      backdrop-filter: blur(16px) !important;
+    .nav-tab-item.active {
+      color: var(--primary-blue-vibrant);
     }
-    .modal-content, .disbursal-fee-modal-content {
-      background: rgba(12, 17, 36, 0.96) !important;
-      border: 1px solid rgba(255, 255, 255, 0.12) !important;
-      border-radius: 24px !important;
-      color: #ffffff !important;
-      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.9) !important;
+
+    .nav-tab-item svg {
+      width: 22px;
+      height: 22px;
+      transition: stroke 0.2s, transform 0.2s;
+    }
+
+    .nav-tab-item.active svg {
+      stroke: var(--primary-blue-vibrant);
+      transform: translateY(-1px);
     }
   </style>
 </head>
-<body class="dashboard-page">
+<body>
 
-  <!-- Ambient background glow orbs -->
-  <div class="ambient-orb orb-1"></div>
-  <div class="ambient-orb orb-2"></div>
+  <div class="app-shell">
 
-  <!-- Top App Bar -->
-  <header class="dash-topbar">
-    <div class="dash-brand bruno-brand-logo">
-      <div class="logo-mark">
-        <svg width="34" height="34" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" class="bruno-logo-svg">
-          <defs>
-            <linearGradient id="brunoShieldGradDash" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#0b0f24" />
-              <stop offset="100%" stop-color="#050714" />
-            </linearGradient>
-            <linearGradient id="brunoNeonGradDash1" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#4f46e5" />
-              <stop offset="50%" stop-color="#6366f1" />
-              <stop offset="100%" stop-color="#06b6d4" />
-            </linearGradient>
-            <linearGradient id="brunoNeonGradDash2" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#06b6d4" />
-              <stop offset="50%" stop-color="#10b981" />
-              <stop offset="100%" stop-color="#34d399" />
-            </linearGradient>
-          </defs>
-          <rect width="36" height="36" rx="10" fill="url(#brunoShieldGradDash)" stroke="rgba(99, 102, 241, 0.35)" stroke-width="1.2"/>
-          <path d="M9 8.5C9 7.67157 9.67157 7 10.5 7H14.5C15.3284 7 16 7.67157 16 8.5V27.5C16 28.3284 15.3284 29 14.5 29H10.5C9.67157 29 9 28.3284 9 27.5V8.5Z" fill="url(#brunoNeonGradDash1)" />
-          <path d="M15 7H22.5C25.5376 7 28 9.46243 28 12.5C28 15.5376 25.5376 18 22.5 18H15V7Z" fill="url(#brunoNeonGradDash1)" />
-          <path d="M16 10.5H22C23.1046 10.5 24 11.3954 24 12.5C24 13.6046 23.1046 14.5 22 14.5H16V10.5Z" fill="#070a1a" />
-          <path d="M15 17.5H23.5C26.8137 17.5 29.5 20.1863 29.5 23.5C29.5 26.8137 26.8137 29.5 23.5 29.5H15V17.5Z" fill="url(#brunoNeonGradDash2)" />
-          <path d="M16 21H23C24.3807 21 25.5 22.1193 25.5 23.5C25.5 24.8807 24.3807 26 23 26H16V21Z" fill="#070a1a" />
-          <circle cx="16" cy="17.75" r="1.5" fill="#ffffff" />
-        </svg>
-      </div>
-      <div class="logo-text-group">
-        <span class="brand-title">Bruno<span class="brand-highlight">Credits</span></span>
-        <span class="brand-sub">NBFC • Vistas Tecnolabs</span>
-      </div>
-    </div>
-    <div class="dash-top-actions" style="display: flex; align-items: center; gap: 10px;">
-      <div class="rbi-badge-pill">
-        <span class="pulse-dot"></span>
-        <span>RBI Regd. NBFC</span>
-      </div>
-      <button type="button" class="bell-btn" title="Notifications" onclick="alert('No new notifications. Your loan account is active!')" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: #ffffff; border-radius: 10px; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-      </button>
-      <button type="button" class="profile-avatar-btn" id="topAvatarBtn" onclick="switchTab('profile')" style="background: linear-gradient(135deg, #4f46e5, #06b6d4); color: #ffffff; border: none; font-weight: 800; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer;">R</button>
-    </div>
-  </header>
-
-  <!-- Main Container -->
-  <main class="dash-container">
-
-    <!-- ==================== TAB 1: HOME & LOANS ==================== -->
-    <div id="tabHome" class="dash-tab-content">
-
-      <!-- Greeting & KYC Header -->
-      <div class="dash-header-card">
-        <div class="user-greeting">
-          <h2 id="greetUserName" style="display: flex; align-items: center; gap: 8px;">
-            <span>Hello, Borrower</span>
-            <span style="font-size: 11px; background: rgba(16, 185, 129, 0.15); color: #10b981; padding: 2px 8px; border-radius: 12px; font-weight: 800; display: inline-flex; align-items: center; gap: 4px;">
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-              Verified
-            </span>
-          </h2>
-          <p id="userMobileSub">+91 98••••••10 · Tier-1 Credit Profile</p>
+    <!-- ========================================================
+         TAB 1: HOME (Photo 4 & Photo 5)
+         ======================================================== -->
+    <div id="tabHome" class="tab-view-container active">
+      
+      <!-- Top Royal Curved Header -->
+      <div class="royal-header">
+        <div class="header-topbar">
+          <div class="user-greeting" onclick="switchTab('settings')">
+            <span class="user-name-text" id="greetingNameDisplay">SUBIPRA C.</span>
+            <svg class="down-chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="header-actions">
+            <div class="icon-circle-btn" onclick="alert('You have 1 unread notification: Your credit limit is ready to be drawn!')" title="Notifications">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+              <span class="bell-badge-dot"></span>
+            </div>
+            <div class="user-avatar-circle" id="avatarInitial" onclick="switchTab('settings')">
+              S
+            </div>
+          </div>
         </div>
-        <div class="kyc-verified-pill" style="display: inline-flex; align-items: center; gap: 4px;">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-          KYC Approved
+
+        <!-- Approved Credit Limit Hero Card (Photo 5) -->
+        <div class="hero-limit-card">
+          <div class="card-top-row">
+            <span class="card-label-sub">Approved Credit Limit <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span>
+            <span style="font-size: 11px; font-weight: 700; color: #10b981; background: rgba(16, 185, 129, 0.15); padding: 2px 8px; border-radius: 9999px;">RBI Regd. NBFC</span>
+          </div>
+          <div class="card-amount-num" id="heroLimitDisplay">
+            ₹ 50,000
+          </div>
+          <div class="card-active-pill" id="heroActiveLoanBadge">
+            <span style="width: 6px; height: 6px; border-radius: 50%; background: #10b981;"></span>
+            <span id="activeLoanSummaryText">₹0 Currently Active Loan</span>
+          </div>
+          <button type="button" class="btn-instant-cash" onclick="handleGetInstantCash()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></svg>
+            <span>Get Instant Cash</span>
+          </button>
         </div>
       </div>
 
-      <!-- Approved Loan Alert Banner (shown when loan is approved but fee not yet paid) -->
-      <div class="dash-approved-alert" id="dashApprovedAlert" style="display: none; margin-bottom: 20px; padding: 16px 18px; background: linear-gradient(135deg, rgba(0, 210, 135, 0.1), rgba(10, 14, 39, 0.05)); border: 1px solid rgba(0, 210, 135, 0.4); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm);">
-        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
-          <span style="font-size: 11px; font-weight: 800; background: var(--secondary); color: white; padding: 3px 10px; border-radius: 12px; text-transform: uppercase; letter-spacing: 0.5px; display: inline-flex; align-items: center; gap: 4px;">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            Sanction Letter Issued
-          </span>
-          <span style="font-size: 11px; font-weight: 700; color: var(--primary);">Vistas Tecnolabs Finance Limited</span>
-        </div>
-        <div style="font-size: 16px; font-weight: 800; color: var(--dark); margin-bottom: 6px;">
-          Badhai ho! Aapka <span id="dashAlertAmount" style="color: var(--primary);">₹16,420</span> Personal Loan Approved Hai!
-        </div>
-        <p style="font-size: 13px; color: var(--gray-700); line-height: 1.5; margin-bottom: 12px;">
-          Sabhi KYC aur bank details verify ho chuki hain. Wapas form nahi bharna padega. Bas apna tenure chunein aur 30-min disbursal shuru karein.
-        </p>
-        <a href="apply.html" class="btn btn-secondary btn-block" style="padding: 12px; font-size: 14px; font-weight: 800; text-align: center;">
-          Claim Loan & Activate Disbursal →
-        </a>
-      </div>
+      <!-- Main Dashboard Content -->
+      <div class="dash-content">
 
-      <!-- Holographic Titanium Credit Limit Card (Cred & Apple Card Aesthetic) -->
-      <div class="titanium-card" id="heroLoanCard" style="margin-bottom: 24px;">
-        <div class="titanium-sheen"></div>
-        <div class="titanium-top">
-          <div class="titanium-brand-tag">
-            <div class="brand-icon">B</div>
+        <!-- Trending Strip (Photo 5) -->
+        <div class="trending-strip-card" onclick="handleTrendingClick()">
+          <div class="trending-left">
+            <div class="trending-icon-box">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+            </div>
+            <span class="trending-title-text">Get access to more funds</span>
+          </div>
+          <div class="btn-green-pill">
+            <span>REQUEST NOW</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+        </div>
+
+        <!-- 4-Step Quick Loan Progress Card (Photo 4) -->
+        <div class="quick-loan-card">
+          <div class="quick-loan-title">Get a credit limit up to ₹50,000</div>
+          
+          <div class="steps-timeline">
+            <div class="steps-progress-fill" id="dashProgressFill"></div>
+
+            <!-- Step 1 -->
+            <div class="step-item-node completed" id="dashStep1">
+              <div class="step-node-bubble">✓</div>
+              <span class="step-node-label">Personal Details</span>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-item-node active" id="dashStep2">
+              <div class="step-node-bubble">2</div>
+              <span class="step-node-label">Verify Aadhaar</span>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-item-node" id="dashStep3">
+              <div class="step-node-bubble">3</div>
+              <span class="step-node-label">Verify Selfie</span>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step-item-node" id="dashStep4">
+              <div class="step-node-bubble">4</div>
+              <span class="step-node-label">Bank Details</span>
+            </div>
+          </div>
+
+          <button type="button" class="btn-primary-blue" onclick="window.location.href='apply.html'">
+            <span>Complete your application</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+          <div class="quick-subtext">Avail limit up to ₹50,000 in 4 easy steps</div>
+        </div>
+
+        <!-- Important Notice Card (Photo 4) -->
+        <div class="important-card">
+          <span class="red-important-badge">Important</span>
+          <div class="important-title">Few steps left to unlock your money 💸</div>
+          <div class="important-action-row" onclick="window.location.href='apply.html'">
+            <div class="important-left-desc">
+              Complete your KYC
+              <span>Selfie and Bank account verification</span>
+            </div>
+            <div class="chevron-blue-right">›</div>
+          </div>
+        </div>
+
+        <!-- 2x2 Explore More Grid (Photo 5) -->
+        <div class="section-headline">
+          <span>Explore More</span>
+        </div>
+
+        <div class="explore-grid">
+          <!-- Tile 1: Loans for Salaried -->
+          <div class="explore-tile" onclick="window.location.href='apply.html'">
+            <div class="explore-tile-top">
+              <div class="tile-icon-bubble" style="background: #eef2ff; color: #4f46e5;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+              </div>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
             <div>
-              <div class="brand-title">Bruno Credits</div>
-              <div class="brand-sub">NBFC: VISTAS TECNOLABS</div>
+              <div class="tile-title">Loans for Salaried</div>
+              <span class="tile-badge-pill">HIGHER CREDIT LIMIT ↗</span>
+              <div class="tile-subtext">UPTO* ₹50,000<br>Tenure for 6 month ›</div>
             </div>
           </div>
-          <div class="titanium-chip-wrap">
-            <div class="emv-chip"></div>
-            <svg class="nfc-icon-svg" viewBox="0 0 24 24">
-              <path d="M8.5 16.5a5 5 0 0 1 0-9"/>
-              <path d="M12 19a8.5 8.5 0 0 1 0-14"/>
-              <path d="M15.5 21.5a12 12 0 0 1 0-19"/>
-            </svg>
-          </div>
-        </div>
 
-        <div class="titanium-balance-label" id="cardLimitLabel">Available Credit Limit</div>
-        <div class="titanium-balance-val" id="dashLimitAmount">₹1,00,000</div>
-
-        <div class="titanium-bottom">
-          <div class="titanium-holder">
-            <div class="label">Product / Status</div>
-            <div class="val" id="cardStatusTag">Pre-Approved Prime</div>
-          </div>
-          <a href="apply.html" class="btn-premium-glow" id="dashHeroCta" style="padding: 10px 20px; font-size: 12px; text-decoration: none;">
-            <span>Apply Now</span>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-          </a>
-        </div>
-      </div>
-
-      <!-- Quick Action 4-Grid -->
-      <div class="quick-action-grid" style="margin-bottom: 24px;">
-        <div class="action-tile" onclick="window.location.href='apply.html'">
-          <div class="action-icon-circle" style="background: rgba(10, 14, 39, 0.06); color: var(--primary);">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-          </div>
-          <span class="action-label">Instant<br>Loan</span>
-        </div>
-        <div class="action-tile" onclick="openInsuranceModal('emi')">
-          <div class="action-icon-circle" style="background: rgba(0, 210, 135, 0.1); color: var(--secondary);">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          </div>
-          <span class="action-label">EMI Shield<br>Insurance</span>
-        </div>
-        <div class="action-tile" onclick="openInsuranceModal('health')">
-          <div class="action-icon-circle" style="background: rgba(235, 77, 75, 0.1); color: #eb4d4b;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-          </div>
-          <span class="action-label">HospiCash<br>Health</span>
-        </div>
-        <div class="action-tile" onclick="switchTab('profile')">
-          <div class="action-icon-circle" style="background: rgba(99, 102, 241, 0.1); color: var(--accent);">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          </div>
-          <span class="action-label">My<br>Profile</span>
-        </div>
-      </div>
-
-      <!-- Live 30-Minute Staff Disbursal Radar Tracker (Visible during DISBURSAL_PROCESSING) -->
-      <div class="disbursal-radar-box" id="disbursalTrackerCard" style="display: none; margin: 20px 0;">
-        <div class="radar-pulse-center">
-          <div class="radar-pulse-ring"></div>
-          <div class="radar-pulse-ring"></div>
-          <div class="radar-pulse-ring"></div>
-          <div class="radar-icon-core">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-          </div>
-        </div>
-
-        <div style="font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: #10b981; margin-bottom: 6px;">
-          30-Minute Live Wire Disbursal Active
-        </div>
-        <div style="font-size: 22px; font-weight: 900; color: #ffffff; margin-bottom: 6px;">
-          Amount: <span id="trackLoanAmount" style="color: #00d287;">₹16,420</span> to Bank
-        </div>
-        <p style="font-size: 13px; color: rgba(255,255,255,0.75); line-height: 1.5; margin-bottom: 16px; max-width: 380px;">
-          Banking desk staff agle <strong>30 minute ke andar</strong> loan amount aapke bank account (<span id="trackBankName" style="color: #fff; font-weight: 700;">SBI</span>) me transfer kar raha hai.
-        </p>
-
-        <!-- Live Countdown Clock -->
-        <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-md); padding: 12px 18px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 380px;">
-          <span style="font-size: 12px; color: rgba(255,255,255,0.85); display: flex; align-items: center; gap: 6px;">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            Estimated Bank Credit:
-          </span>
-          <span id="dashCountdownTicker" style="font-size: 18px; font-weight: 900; color: #00d287; font-family: monospace;">29:50 Mins</span>
-        </div>
-
-        <!-- 4-Step Banking Desk Timeline -->
-        <div class="tracker-steps" style="display: flex; flex-direction: column; gap: 10px; font-size: 12px; text-align: left; width: 100%; max-width: 380px;">
-          <div style="display: flex; align-items: center; gap: 10px;">
-            <span style="width: 20px; height: 20px; border-radius: 50%; background: #00d287; color: white; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800;">✓</span>
-            <span>KYC & Sanction Letter Issued by Vistas Tecnolabs</span>
-          </div>
-          <div style="display: flex; align-items: center; gap: 10px;">
-            <span style="width: 20px; height: 20px; border-radius: 50%; background: #00d287; color: white; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800;">✓</span>
-            <span>One-Time Stamp Duty & Disbursal Fee Verified</span>
-          </div>
-          <div style="display: flex; align-items: center; gap: 10px;">
-            <span style="width: 20px; height: 20px; border-radius: 50%; background: #fbbf24; color: #000; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800;">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-            </span>
-            <span style="font-weight: 700; color: #fbbf24;">Banking Wire Desk: IMPS Transfer Clearing (In Progress...)</span>
-          </div>
-          <div style="display: flex; align-items: center; gap: 10px; color: rgba(255,255,255,0.5);">
-            <span style="width: 20px; height: 20px; border-radius: 50%; background: rgba(255,255,255,0.15); color: white; display: flex; align-items: center; justify-content: center; font-size: 11px;">4</span>
-            <span>Direct Credit to Account (Under 30 Minutes)</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- ==================== ACTIVE REPAYMENT SCHEDULE ==================== -->
-      <div class="repay-schedule-section" id="repayScheduleSection" style="display: none;">
-        <div class="dash-section-header" style="margin-bottom: 12px;">
-          <h3 style="display: flex; align-items: center; gap: 8px;">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-            Loan Repayment Schedule
-          </h3>
-          <span class="kyc-verified-pill" id="scheduleStatusPill" style="font-size: 11px;">Active EMIs</span>
-        </div>
-
-        <!-- Next EMI Summary Box -->
-        <div class="repay-summary-box">
-          <div class="repay-summary-top">
-            <span class="next-emi-title">Next Upcoming EMI</span>
-            <span class="auto-debit-badge" style="display: inline-flex; align-items: center; gap: 4px;">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-              Auto-Debit Active
-            </span>
-          </div>
-
-          <div class="repay-amount-row">
-            <div class="amount-wrap">
-              <div class="emi-big" id="schedNextEmiAmount">₹2,978</div>
-              <div class="due-date-sub" id="schedNextDueDate">Due Date: 05 Oct 2026</div>
+          <!-- Tile 2: Set-up UPI Autopay -->
+          <div class="explore-tile" onclick="openAutopayModal()">
+            <div class="explore-tile-top">
+              <div class="tile-icon-bubble" style="background: #fdf2f8; color: #db2777;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              </div>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
             </div>
-            <button type="button" class="pay-emi-btn" id="summaryPayNowBtn" onclick="openPayEmiModal(1)">Pay Now</button>
+            <div>
+              <div class="tile-title">Set-up UPI Autopay</div>
+              <div class="tile-subtext" style="margin-top: 6px;">Never miss a due date & keep 750+ CIBIL score ›</div>
+            </div>
           </div>
 
-          <div class="repay-summary-stats">
-            <div class="repay-stat-item">
-              <span class="stat-label">Sanctioned</span>
-              <span class="stat-value" id="schedSanctionedVal">₹16,420</span>
+          <!-- Tile 3: Refer your Friends -->
+          <div class="explore-tile" onclick="openReferModal()">
+            <div class="explore-tile-top">
+              <div class="tile-icon-bubble" style="background: #fffbeb; color: #d97706;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+              </div>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
             </div>
-            <div class="repay-stat-item">
-              <span class="stat-label">Tenure</span>
-              <span class="stat-value" id="schedTenureVal">6 Months</span>
+            <div>
+              <div class="tile-title">Refer your Friends!</div>
+              <div class="tile-subtext" style="margin-top: 6px;">Share the app & earn upto ₹1,000 cash ›</div>
             </div>
-            <div class="repay-stat-item">
-              <span class="stat-label">Total Repay</span>
-              <span class="stat-value" id="schedTotalRepayVal">₹17,868</span>
+          </div>
+
+          <!-- Tile 4: Credit Score -->
+          <div class="explore-tile" onclick="alert('Your official Experian / CIBIL bureau score is 752 (Good Category).')">
+            <div class="explore-tile-top">
+              <div class="tile-icon-bubble" style="background: #ecfdf5; color: #059669;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12A10 10 0 0 0 12 2v10z"/><path d="M21.17 8H12V2.83"/></svg>
+              </div>
+              <span style="font-size: 10px; font-weight: 800; color: #059669;">EXCELLENT</span>
+            </div>
+            <div>
+              <div class="tile-title">Credit Score</div>
+              <div class="cibil-score-box">
+                <div class="score-circle-badge">752</div>
+                <div class="tile-subtext"><strong>752 / 900</strong><br><span style="color: #059669; font-weight: 800;">GOOD</span></div>
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- Installment Breakdown List -->
-        <div style="font-size: 13px; font-weight: 700; color: var(--dark); margin-bottom: 10px;">
-          Installment Schedule (<span id="schedCountText">6 EMIs</span>):
-        </div>
-        <div class="installment-list" id="installmentListContainer">
-          <!-- Dynamically populated -->
-        </div>
-
-        <!-- Foreclosure Banner -->
-        <div class="foreclosure-banner">
-          <span>Close loan early with <strong>0% penalty</strong></span>
-          <button type="button" onclick="forecloseLoanEarly()">Foreclose Loan</button>
-        </div>
       </div>
-
-      <!-- Insurance & Protection Hub -->
-      <div class="dash-section-header">
-        <h3 style="display: flex; align-items: center; gap: 8px;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          Insurance & Protection Hub
-        </h3>
-        <a href="#" onclick="switchTab('insurance'); return false;">View All →</a>
-      </div>
-
-      <div class="insurance-list">
-        <!-- 1. EMI Protection -->
-        <div class="ins-card" onclick="openInsuranceModal('emi')">
-          <div class="ins-icon blue">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          </div>
-          <div class="ins-info">
-            <h4>Loan Suraksha (EMI Shield)</h4>
-            <p>Protects your loan EMIs against job loss, accident, or disability</p>
-          </div>
-          <div class="ins-price-tag">
-            <span class="price">₹29</span>
-            <span class="freq">/month</span>
-          </div>
-        </div>
-
-        <!-- 2. HospiCash -->
-        <div class="ins-card" onclick="openInsuranceModal('health')">
-          <div class="ins-icon green">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-          </div>
-          <div class="ins-info">
-            <h4>Family HospiCash Allowance</h4>
-            <p>Get ₹5,000/day hospital allowance for up to 30 days</p>
-          </div>
-          <div class="ins-price-tag">
-            <span class="price">₹49</span>
-            <span class="freq">/month</span>
-          </div>
-        </div>
-
-        <!-- 3. Cyber Shield -->
-        <div class="ins-card" onclick="openInsuranceModal('cyber')">
-          <div class="ins-icon purple">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          </div>
-          <div class="ins-info">
-            <h4>Cyber & UPI Fraud Cover</h4>
-            <p>Up to ₹1,00,000 cover against online payment fraud & phishing</p>
-          </div>
-          <div class="ins-price-tag">
-            <span class="price">₹19</span>
-            <span class="freq">/month</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Free CIBIL Score Card -->
-      <div class="dash-section-header">
-        <h3 style="display: flex; align-items: center; gap: 8px;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-          Credit Health & Insights
-        </h3>
-      </div>
-      <div class="cibil-card">
-        <div class="cibil-info">
-          <h4>Credit Score: Excellent</h4>
-          <p>Powered by Experian & CIBIL Bureau<br>Next refresh in 14 days</p>
-        </div>
-        <div class="cibil-gauge">
-          <div class="cibil-score">782</div>
-          <div class="cibil-tag">High Trust</div>
-        </div>
-      </div>
-
     </div>
 
-    <!-- ==================== TAB 2: INSURANCE DETAILED ==================== -->
-    <div id="tabInsurance" class="dash-tab-content" style="display: none;">
-      <div style="padding: 20px 0 10px;">
-        <h2 style="font-size: 20px; font-weight: 800; color: var(--dark); display: flex; align-items: center; gap: 8px;">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          Financial Protection Plans
-        </h2>
-        <p style="font-size: 13px; color: var(--gray-700);">Low-cost insurance customized for Bruno Credits borrowers</p>
+    <!-- ========================================================
+         TAB 2: MY LOANS / REPAYMENT (Photo 3)
+         ======================================================== -->
+    <div id="tabLoans" class="tab-view-container">
+      <div class="loans-topbar">
+        <div class="loans-title-left" onclick="switchTab('home')">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+          <span>Loan Details</span>
+        </div>
+        <div class="loans-amount-right">
+          Amount to Pay · <strong id="topbarAmountDisplay">₹ 2,613.00</strong>
+        </div>
       </div>
 
-      <div class="insurance-list">
+      <div class="myloans-body">
+        <!-- Main Loan Amount Card -->
+        <div class="loan-details-card">
+          <div class="loan-meta-row">
+            <span>Loan Amount : <strong id="loanCardPrincipal">₹ 5,000.00</strong></span>
+            <span class="date-sub" id="loanCardDate">Taken on : 05 May</span>
+          </div>
+
+          <div class="loan-inner-gray-pill">
+            <div class="inner-emi-amt">
+              EMI Amount : <span id="innerEmiAmountText">₹ 2,613.00</span>
+            </div>
+            <div class="inner-emis-count" id="innerEmisCountText">
+              <span>EMI's 0/3</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Repayment Option Radio Group -->
+        <div class="repay-selector-group">
+          <!-- Option 1: Upcoming Payment -->
+          <div class="repay-option-card selected" id="repayOptUpcoming" onclick="selectRepayMode('upcoming')">
+            <div class="repay-left-meta">
+              <div class="custom-radio-circle">
+                <div class="custom-radio-dot"></div>
+              </div>
+              <div>
+                <div class="repay-title-date" id="upcomingDueDateLabel">5th OCT, 2026 · EMI 1/3</div>
+                <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">Upcoming Scheduled EMI</div>
+              </div>
+            </div>
+            <div class="repay-right-amount" id="upcomingEmiAmountLabel">₹ 2,613.00</div>
+          </div>
+
+          <!-- Option 2: Full Repayment -->
+          <div class="repay-option-card" id="repayOptFull" onclick="selectRepayMode('full')">
+            <div class="repay-left-meta">
+              <div class="custom-radio-circle">
+                <div class="custom-radio-dot"></div>
+              </div>
+              <div>
+                <div class="repay-title-date">Pay Full Amount</div>
+                <div style="font-size: 11px; color: #10b981; font-weight: 700; margin-top: 2px;">0% Foreclosure Penalty</div>
+              </div>
+            </div>
+            <div class="repay-right-amount" id="fullRepayAmountLabel">₹ 5,339.00</div>
+          </div>
+        </div>
+
+        <!-- Loan Charges Breakdown Accordion -->
+        <div class="breakdown-accordion">
+          <div class="accordion-header" onclick="toggleAccordion()">
+            <span>LOAN CHARGES BREAKDOWN</span>
+            <svg id="accordionChevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="accordion-body open" id="breakdownBody">
+            <div class="breakdown-line">
+              <span>Principal Amount</span>
+              <strong id="breakdownPrincipal">₹ 5,000.00</strong>
+            </div>
+            <div class="breakdown-line">
+              <span>Total Interest (24% p.a.)</span>
+              <strong id="breakdownInterest">₹ 210.00</strong>
+            </div>
+            <div class="breakdown-line">
+              <span>Processing & Verification</span>
+              <strong>₹ 110.00</strong>
+            </div>
+            <div class="breakdown-line">
+              <span>GST (18%)</span>
+              <strong>₹ 19.00</strong>
+            </div>
+            <div class="breakdown-line">
+              <span>Late Penal Charges</span>
+              <strong style="color: #10b981;">₹ 0.00 (On-Time)</strong>
+            </div>
+            <div class="breakdown-line total-line">
+              <span>Total Repayable Balance</span>
+              <span id="breakdownTotal" style="color: var(--primary-blue-vibrant);">₹ 5,339.00</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Floating Pay Now Bottom Bar -->
+      <div class="floating-repay-bar">
+        <button type="button" class="btn-pay-now-action" id="btnPayNowCta" onclick="triggerRepaymentPayment()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+          <span id="payNowBtnText">PAY NOW | ₹ 2,613.00</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ========================================================
+         TAB 3: SETTINGS / PROFILE
+         ======================================================== -->
+    <div id="tabSettings" class="tab-view-container">
+      <div class="loans-topbar">
+        <div class="loans-title-left" onclick="switchTab('home')">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+          <span>Account & Settings</span>
+        </div>
+      </div>
+
+      <div class="myloans-body">
         <div class="profile-card">
-          <div class="profile-card-header">
-            <div class="ins-icon blue" style="width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <div class="profile-header-row">
+            <div class="profile-avatar-lg" id="profileAvatarLarge">S</div>
+            <div class="profile-info">
+              <h3 id="profileFullName">SUBIPRA C.</h3>
+              <p id="profileMobileText">+91 ••••• •••••</p>
+              <span style="display: inline-block; background: #ecfdf5; color: #059669; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 9999px; margin-top: 4px;">KYC Verified ✓</span>
             </div>
-            <div>
-              <h3>Loan EMI Suraksha Cover</h3>
-              <p style="font-size: 12px; color: var(--gray-700);">Underwritten by Leading General Insurer</p>
-            </div>
           </div>
-          <div class="profile-row">
-            <span class="row-label">Coverage Sum</span>
-            <span class="row-value">Full Outstanding Loan Amount</span>
-          </div>
-          <div class="profile-row">
-            <span class="row-label">Monthly Premium</span>
-            <span class="row-value" style="color: var(--primary);">₹29 / month</span>
-          </div>
-          <div class="profile-row">
-            <span class="row-label">Covered Events</span>
-            <span class="row-value">Job Loss, Accidental Disability, Critical Illness</span>
-          </div>
-          <button type="button" class="btn btn-primary btn-block btn-sm" style="margin-top: 14px;" onclick="alert('Loan Suraksha added to your profile! Premium will be included in your monthly schedule.')">Enroll for ₹29/mo →</button>
         </div>
 
-        <div class="profile-card">
-          <div class="profile-card-header">
-            <div class="ins-icon green" style="width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        <div class="menu-list-group">
+          <div class="menu-item-row" onclick="window.location.href='apply.html'">
+            <div class="menu-left-meta">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary-blue-vibrant)" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <span>Application Status / KYC</span>
             </div>
-            <div>
-              <h3>HospiCash Family Hospital Allowance</h3>
-              <p style="font-size: 12px; color: var(--gray-700);">Cashless support for hospital stays</p>
+            <span style="color: #10b981; font-weight: 700; font-size: 12px;">Active ›</span>
+          </div>
+
+          <div class="menu-item-row" onclick="switchTab('loans')">
+            <div class="menu-left-meta">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary-blue-vibrant)" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              <span>My Loans & Repayment Schedule</span>
             </div>
+            <span style="color: var(--text-muted); font-size: 14px;">›</span>
           </div>
-          <div class="profile-row">
-            <span class="row-label">Daily Cash Allowance</span>
-            <span class="row-value">₹5,000 / day (up to 30 days)</span>
+
+          <div class="menu-item-row" onclick="alert('Lending Partner: Vistas Tecnolabs Finance Limited\nRBI Regd. NBFC License: B-14.02528\nRegistered with Reserve Bank of India.')">
+            <div class="menu-left-meta">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary-blue-vibrant)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <span>NBFC Regulatory Disclosure</span>
+            </div>
+            <span style="color: #10b981; font-size: 11px; font-weight: 700;">Verified</span>
           </div>
-          <div class="profile-row">
-            <span class="row-label">Monthly Premium</span>
-            <span class="row-value" style="color: var(--secondary);">₹49 / month</span>
+
+          <div class="menu-item-row" onclick="alert('24x7 Customer Support\nEmail: support@vistastecnolabs.com\nHelpline: 1800-209-4321')">
+            <div class="menu-left-meta">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary-blue-vibrant)" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <span>24x7 Customer Care Helpline</span>
+            </div>
+            <span style="color: var(--text-muted); font-size: 14px;">›</span>
           </div>
-          <div class="profile-row">
-            <span class="row-label">Claim Settlement</span>
-            <span class="row-value">Direct Bank Transfer in 24 Hrs</span>
-          </div>
-          <button type="button" class="btn btn-secondary btn-block btn-sm" style="margin-top: 14px;" onclick="alert('HospiCash plan activated! Policy document sent to your email.')">Activate Plan →</button>
         </div>
 
-        <div class="profile-card">
-          <div class="profile-card-header">
-            <div class="ins-icon purple" style="width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-            </div>
-            <div>
-              <h3>Cyber & UPI Fraud Insurance</h3>
-              <p style="font-size: 12px; color: var(--gray-700);">Complete digital transaction security</p>
-            </div>
-          </div>
-          <div class="profile-row">
-            <span class="row-label">Max Coverage</span>
-            <span class="row-value">₹1,00,000 per incident</span>
-          </div>
-          <div class="profile-row">
-            <span class="row-label">Premium</span>
-            <span class="row-value">₹19 / month</span>
-          </div>
-          <button type="button" class="btn btn-secondary btn-block btn-sm" style="margin-top: 14px;" onclick="alert('Cyber Shield activated on your account!')">Activate for ₹19/mo →</button>
-        </div>
+        <button type="button" class="btn-logout" onclick="handleLogout()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          <span>Log Out of Bruno Credits</span>
+        </button>
       </div>
     </div>
 
-    <!-- ==================== TAB 3: PROFILE, SUPPORT & POLICIES ==================== -->
-    <div id="tabProfile" class="dash-tab-content" style="display: none;">
-      <div style="padding: 20px 0 10px;">
-        <h2 style="font-size: 20px; font-weight: 800; color: var(--dark); display: flex; align-items: center; gap: 8px;">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          User Profile & Support
-        </h2>
-        <p style="font-size: 13px; color: var(--gray-700);">Manage your personal details, get 24x7 help & policies</p>
-      </div>
-
-      <!-- 1. User Personal Details Card -->
-      <div class="profile-card">
-        <div class="profile-card-header">
-          <div class="profile-avatar-btn" style="width: 44px; height: 44px; font-size: 18px;">R</div>
-          <div>
-            <h3 id="profileFullName">Rajesh Sharma</h3>
-            <span style="font-size: 12px; color: var(--success); font-weight: 600;">● Verified NBFC Borrower</span>
-          </div>
-        </div>
-
-        <div class="profile-row">
-          <span class="row-label">Mobile Number</span>
-          <span class="row-value" id="profileMobile">+91 9876543210</span>
-        </div>
-        <div class="profile-row">
-          <span class="row-label">Email Address</span>
-          <span class="row-value" id="profileEmail">applicant@email.com</span>
-        </div>
-        <div class="profile-row">
-          <span class="row-label">Date of Birth</span>
-          <span class="row-value" id="profileDob">15 Aug 1996</span>
-        </div>
-        <div class="profile-row">
-          <span class="row-label">City & State</span>
-          <span class="row-value" id="profileCity">Mumbai, Maharashtra</span>
-        </div>
-        <div class="profile-row">
-          <span class="row-label">Aadhaar Status</span>
-          <span class="row-value" style="color: var(--success);">Verified (UIDAI) ✓</span>
-        </div>
-        <div class="profile-row">
-          <span class="row-label">PAN Verification</span>
-          <span class="row-value" style="color: var(--success);">Verified (NSDL) ✓</span>
-        </div>
-        <div class="profile-row">
-          <span class="row-label">Disbursal Bank</span>
-          <span class="row-value" id="profileBank">State Bank of India (•••4567)</span>
-        </div>
-      </div>
-
-      <!-- 2. 24x7 Support Section -->
-      <div class="profile-card">
-        <div class="profile-card-header">
-          <h3 style="display: flex; align-items: center; gap: 8px;">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
-            24x7 Customer Support
-          </h3>
-        </div>
-
-        <!-- WhatsApp Support -->
-        <a href="https://wa.me/919876543210?text=Hi%20Bruno%20Credits%20Support,%20I%20need%20help%20with%20my%20loan%20application" target="_blank" class="support-item">
-          <div class="support-item-left">
-            <span class="icon" style="color: #00d287;">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-            </span>
-            <div>
-              <div class="title">WhatsApp Support</div>
-              <div class="sub">Instant replies in ~2 minutes</div>
-            </div>
-          </div>
-          <span style="color: var(--secondary); font-weight: 700;">Chat Now →</span>
-        </a>
-
-        <!-- Toll Free Helpline -->
-        <a href="tel:18008902456" class="support-item">
-          <div class="support-item-left">
-            <span class="icon" style="color: var(--primary);">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-            </span>
-            <div>
-              <div class="title">Toll-Free Helpline</div>
-              <div class="sub">1800-890-2456 (9 AM - 8 PM)</div>
-            </div>
-          </div>
-          <span style="color: var(--primary); font-weight: 700;">Call →</span>
-        </a>
-
-        <!-- Priority Email -->
-        <a href="mailto:support@brunocredits.in" class="support-item">
-          <div class="support-item-left">
-            <span class="icon" style="color: var(--accent);">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            </span>
-            <div>
-              <div class="title">Email Desk</div>
-              <div class="sub">support@brunocredits.in</div>
-            </div>
-          </div>
-          <span style="color: var(--primary); font-weight: 700;">Email →</span>
-        </a>
-
-        <!-- Grievance Officer Notice -->
-        <div style="margin-top: 12px; padding: 12px; background: var(--gray-100); border-radius: var(--radius-sm); font-size: 11px; color: var(--gray-700); line-height: 1.5;">
-          <strong>Statutory Grievance Redressal Officer (RBI Guidelines):</strong><br>
-          Mr. Amit Saxena | Principal Officer<br>
-          Email: grievance@brunocredits.in | Resolution timeframe: 48 working hours
-        </div>
-      </div>
-
-      <!-- 3. Privacy Policy Accordion -->
-      <div class="policy-card" id="privacyCard">
-        <div class="policy-card-header" onclick="togglePolicy('privacyCard')">
-          <h4 style="display: flex; align-items: center; gap: 8px;">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-            Privacy Policy (RBI Compliant 2024)
-          </h4>
-          <span>▼</span>
-        </div>
-        <div class="policy-card-body">
-          <p><strong>Bruno Credits & Vistas Tecnolabs Finance Limited Privacy Commitment:</strong></p>
-          <p>1. <strong>Data Minimization:</strong> We only collect required information (Identity proof, employment, bank details) solely for loan underwriting and KYC verification under RBI Digital Lending Directions.</p>
-          <p>2. <strong>No Unnecessary Permissions:</strong> Our app does NOT access your contact list, call logs, personal photos, or external storage files.</p>
-          <p>3. <strong>256-bit Bank Grade Encryption:</strong> All information exchanged between your device and our servers is secured using TLS 1.3 encryption standards.</p>
-          <p>4. <strong>Data Sharing Restriction:</strong> Your financial and personal details are strictly shared with regulated credit information companies (CIBIL/Experian) and authorized lending partners (Vistas Tecnolabs Finance Limited).</p>
-          <p>5. <strong>Right to be Forgotten:</strong> You can request complete erasure of your non-statutory data at any time by emailing privacy@brunocredits.in.</p>
-        </div>
-      </div>
-
-      <!-- 4. Terms and Conditions Accordion -->
-      <div class="policy-card" id="termsCard">
-        <div class="policy-card-header" onclick="togglePolicy('termsCard')">
-          <h4 style="display: flex; align-items: center; gap: 8px;">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-            Terms and Conditions & Lending Agreement
-          </h4>
-          <span>▼</span>
-        </div>
-        <div class="policy-card-body">
-          <p><strong>Digital Lending Agreement Terms (Vistas Tecnolabs Finance Limited):</strong></p>
-          <p>1. <strong>Regulated Lender:</strong> Credit facilities are sanctioned and disbursed directly by Vistas Tecnolabs Finance Limited, an RBI-registered NBFC partner.</p>
-          <p>2. <strong>Tenure & Interest Rate:</strong> Loans are offered for flexible tenures between 3 to 12 months. Interest is charged on a daily reducing balance basis (APR ranges between 18% to 36% p.a. depending on borrower risk grade).</p>
-          <p>3. <strong>Repayment Obligations:</strong> Borrowers must repay EMIs on or before the due date via NACH e-Mandate, UPI, or NetBanking. Late payments may attract standard penal charges and be reported to credit bureaus.</p>
-          <p>4. <strong>Zero Foreclosure Penalty:</strong> You can prepay or close your loan anytime without paying any foreclosure or prepayment penalty charges.</p>
-          <p>5. <strong>Governing Law:</strong> All transactions are subject to the exclusive jurisdiction of courts in Mumbai, India.</p>
-        </div>
-      </div>
-
-      <!-- 5. Logout Button -->
-      <button type="button" class="logout-btn" onclick="handleLogout()" style="display: flex; align-items: center; justify-content: center; gap: 8px;">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-        <span>Log Out of Account</span>
+    <!-- ========================================================
+         BOTTOM NAVIGATION DOCK (Photo 5)
+         ======================================================== -->
+    <nav class="bottom-nav-dock">
+      <button type="button" class="nav-tab-item active" id="navTabHome" onclick="switchTab('home')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span>Home</span>
       </button>
 
-      <div style="text-align: center; margin-top: 20px; font-size: 11px; color: var(--gray-500);">
-        Bruno Credits v2.4 · Powered by Vistas Tecnolabs Finance Limited<br>
-        CIN: U65100MH2020PLC123456 | RBI NBFC Reg: N-13.02456
-      </div>
-
-    </div>
-
-  </main>
-
-  <!-- Bottom App Navigation Bar -->
-  <nav class="app-bottom-nav">
-    <button type="button" class="app-nav-item active" id="navHome" onclick="switchTab('home')">
-      <span class="nav-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-      </span>
-      <span>Home</span>
-    </button>
-    <button type="button" class="app-nav-item" id="navLoans" onclick="window.location.href='apply.html'">
-      <span class="nav-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-      </span>
-      <span>Loan</span>
-    </button>
-    <button type="button" class="app-nav-item" id="navInsurance" onclick="switchTab('insurance')">
-      <span class="nav-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      </span>
-      <span>Insurance</span>
-    </button>
-    <button type="button" class="app-nav-item" id="navProfile" onclick="switchTab('profile')">
-      <span class="nav-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-      </span>
-      <span>Profile</span>
-    </button>
-  </nav>
-
-  <!-- Pay EMI Modal (UPI / Netbanking Simulation) -->
-  <div class="modal-overlay" id="payEmiModal">
-    <div class="modal-content" style="max-width: 420px; text-align: left;">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
-        <h3 style="font-size: 18px; font-weight: 800; color: var(--dark); margin: 0; display: flex; align-items: center; gap: 8px;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-          Quick EMI Repayment
-        </h3>
-        <button type="button" onclick="closePayEmiModal()" style="background: none; border: none; font-size: 20px; cursor: pointer;">✕</button>
-      </div>
-
-      <div style="background: rgba(10, 14, 39, 0.04); padding: 14px; border-radius: var(--radius-md); margin-bottom: 16px; border: 1px solid rgba(10, 14, 39, 0.1);">
-        <div style="font-size: 11px; text-transform: uppercase; color: var(--gray-700); font-weight: 700;">Installment to Pay:</div>
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 4px;">
-          <span style="font-size: 15px; font-weight: 800; color: var(--dark);" id="payModalInstTitle">Installment 1</span>
-          <span style="font-size: 22px; font-weight: 900; color: var(--primary);" id="payModalAmount">₹2,978</span>
-        </div>
-        <div style="font-size: 12px; color: var(--gray-500); margin-top: 4px;" id="payModalDueDate">Due by 05 Oct 2026</div>
-      </div>
-
-      <div style="font-size: 12px; font-weight: 700; color: var(--dark); margin-bottom: 8px;">Select Payment Mode:</div>
-      <div class="payment-methods-grid">
-        <div class="payment-method-card selected" onclick="selectPayMethod(this)">
-          <div>Google Pay</div>
-        </div>
-        <div class="payment-method-card" onclick="selectPayMethod(this)">
-          <div>PhonePe</div>
-        </div>
-        <div class="payment-method-card" onclick="selectPayMethod(this)">
-          <div>Paytm UPI</div>
-        </div>
-        <div class="payment-method-card" onclick="selectPayMethod(this)">
-          <div>Net Banking</div>
-        </div>
-      </div>
-
-      <button type="button" class="btn btn-secondary btn-block btn-lg" id="confirmPayBtn" style="margin-top: 18px; font-weight: 800;" onclick="confirmEmiPayment()">
-        Pay via Razorpay Live Gateway →
+      <button type="button" class="nav-tab-item" id="navTabLoans" onclick="switchTab('loans')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="6" y1="8" x2="10" y2="8"/><line x1="6" y1="12" x2="18" y2="12"/><line x1="6" y1="16" x2="14" y2="16"/></svg>
+        <span>My loans</span>
       </button>
 
-      <div style="margin-top: 10px; font-size: 11px; color: var(--gray-500); text-align: center; display: flex; align-items: center; justify-content: center; gap: 4px;">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-        <span>100% Secure RBI Regulated Escrow Payment</span>
-      </div>
-    </div>
+      <button type="button" class="nav-tab-item" id="navTabSettings" onclick="switchTab('settings')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        <span>Settings</span>
+      </button>
+    </nav>
+
   </div>
 
-  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-  <script src="js/config.js"></script>
-  <script src="js/api.js"></script>
+  <!-- JavaScript Logic -->
   <script>
-    // ---- Persistent Login Check ----
-    if (localStorage.getItem('apexloan_logged_in') !== 'true') {
-      window.location.href = 'login.html';
-    }
+    // State
+    let selectedRepayMode = 'upcoming'; // 'upcoming' or 'full'
+    let currentPendingAmount = 2613;
+    let fullPendingAmount = 5339;
 
-    let currentPendingInstNum = 1;
-    let currentPendingAmount = 0;
-
-    // ---- Load Saved Profile / Active Loan Data ----
     document.addEventListener('DOMContentLoaded', () => {
-      // Check for Razorpay Payment Link Callback
-      const urlParams = new URLSearchParams(window.location.search);
-      const paidPaymentId = urlParams.get('razorpay_payment_id');
-      if (paidPaymentId) {
-        let offer = null;
-        try {
-          offer = JSON.parse(localStorage.getItem('apexloan_pending_offer') || localStorage.getItem('apexloan_sanctioned_offer') || '{}');
-        } catch (e) {}
-
-        offer.status = 'DISBURSAL_PROCESSING';
-        offer.paymentId = paidPaymentId;
-        offer.paidAt = new Date().toISOString();
-        offer.approved = true;
-        if (!offer.creditLimit) offer.creditLimit = 45000;
-
-        localStorage.setItem('apexloan_active_loan', JSON.stringify(offer));
-        localStorage.setItem('apexloan_sanctioned_offer', JSON.stringify(offer));
-        localStorage.setItem('apexloan_disbursal_paid', 'true');
-        localStorage.setItem('apexloan_disbursal_payment_id', paidPaymentId);
-        window.history.replaceState({}, document.title, window.location.pathname);
-
-        setTimeout(() => {
-          alert(`🎉 Payment Successful!\n\nOfficial Razorpay Payment ID: ${paidPaymentId}\n\n30-Minute Disbursal Desk is activated. Our staff is processing your direct bank transfer.`);
-        }, 500);
-      }
-
-      loadDashboardData();
+      initDashboardData();
     });
 
-    function loadDashboardData() {
-      const mobile = localStorage.getItem('apexloan_mobile') || '9876543210';
-      const maskedMobile = '+91 ' + mobile.slice(0, 2) + '••••' + mobile.slice(-4);
+    function initDashboardData() {
+      const mobile = localStorage.getItem('apexloan_mobile') || '';
+      const savedName = localStorage.getItem('apexloan_fullname') || localStorage.getItem('apexloan_borrower_name') || 'SUBIPRA C.';
       
-      // Pull saved form data if exists
-      let formData = {};
+      // Greeting & Avatar
+      const greetingEl = document.getElementById('greetingNameDisplay');
+      const avatarEl = document.getElementById('avatarInitial');
+      const profileNameEl = document.getElementById('profileFullName');
+      const profileAvatarLg = document.getElementById('profileAvatarLarge');
+      const mobileEl = document.getElementById('profileMobileText');
+
+      if (greetingEl) greetingEl.textContent = savedName.toUpperCase();
+      if (profileNameEl) profileNameEl.textContent = savedName.toUpperCase();
+      const firstChar = (savedName.trim()[0] || 'S').toUpperCase();
+      if (avatarEl) avatarEl.textContent = firstChar;
+      if (profileAvatarLg) profileAvatarLg.textContent = firstChar;
+      if (mobileEl && mobile) mobileEl.textContent = '+91 ' + mobile.slice(0, 5) + ' ' + mobile.slice(5);
+
+      // Check active loan
+      let activeLoan = null;
       try {
-        formData = JSON.parse(localStorage.getItem('apexloan_form_data') || '{}');
+        activeLoan = JSON.parse(localStorage.getItem('apexloan_active_loan') || localStorage.getItem('apexloan_sanctioned_offer') || 'null');
       } catch (e) {}
 
-      const fullName = formData.fullName || 'Rajesh Sharma';
-      const email = formData.email || 'applicant@email.com';
-      const city = (formData.city ? formData.city + ', ' : '') + (formData.state || 'India');
-      const dob = formData.dob || '15 Aug 1996';
-      const bankName = formData.bankName || 'State Bank of India';
-      const accNumber = formData.accountNumber ? '••••' + formData.accountNumber.slice(-4) : '••••4567';
+      if (activeLoan) {
+        const principal = activeLoan.approvedLimit || activeLoan.loanAmount || 50000;
+        const emi = activeLoan.monthlyEmi || 2613;
+        const tenure = activeLoan.selectedTenure || 6;
+        const total = activeLoan.totalRepayment || (emi * tenure);
 
-      // Update DOM
-      document.getElementById('greetUserName').textContent = `Hello, ${fullName.split(' ')[0]} 👋`;
-      document.getElementById('userMobileSub').textContent = `${maskedMobile} · Verified Borrower`;
-      document.getElementById('topAvatarBtn').textContent = fullName.charAt(0).toUpperCase();
+        document.getElementById('heroLimitDisplay').textContent = '₹ ' + principal.toLocaleString('en-IN');
+        document.getElementById('activeLoanSummaryText').textContent = '₹' + principal.toLocaleString('en-IN') + ' Active Loan';
+        
+        // My Loans Card values
+        document.getElementById('loanCardPrincipal').textContent = '₹ ' + principal.toLocaleString('en-IN');
+        document.getElementById('innerEmiAmountText').textContent = '₹ ' + emi.toLocaleString('en-IN');
+        document.getElementById('upcomingEmiAmountLabel').textContent = '₹ ' + emi.toLocaleString('en-IN');
+        document.getElementById('fullRepayAmountLabel').textContent = '₹ ' + total.toLocaleString('en-IN');
+        document.getElementById('topbarAmountDisplay').textContent = '₹ ' + emi.toLocaleString('en-IN');
+        document.getElementById('payNowBtnText').textContent = 'PAY NOW | ₹ ' + emi.toLocaleString('en-IN');
+        
+        document.getElementById('breakdownPrincipal').textContent = '₹ ' + principal.toLocaleString('en-IN');
+        document.getElementById('breakdownTotal').textContent = '₹ ' + total.toLocaleString('en-IN');
 
-      document.getElementById('profileFullName').textContent = fullName;
-      document.getElementById('profileMobile').textContent = '+91 ' + mobile;
-      document.getElementById('profileEmail').textContent = email;
-      document.getElementById('profileDob').textContent = dob;
-      document.getElementById('profileCity').textContent = city;
-      document.getElementById('profileBank').textContent = `${bankName} (${accNumber})`;
+        currentPendingAmount = emi;
+        fullPendingAmount = total;
 
-      // Check if user has an active/sanctioned loan
-      let activeOffer = null;
-      try {
-        activeOffer = JSON.parse(localStorage.getItem('apexloan_active_loan') || localStorage.getItem('apexloan_sanctioned_offer') || 'null');
-      } catch (e) {}
-
-      const heroCard = document.getElementById('heroLoanCard');
-      const limitAmountEl = document.getElementById('dashLimitAmount');
-      const cardStatusTag = document.getElementById('cardStatusTag');
-      const cardLimitLabel = document.getElementById('cardLimitLabel');
-      const heroCta = document.getElementById('dashHeroCta');
-
-      if (activeOffer && activeOffer.approved) {
-        const isDisbursalProcessing = activeOffer.status === 'DISBURSAL_PROCESSING';
-        const isDisbursed = activeOffer.status === 'DISBURSED';
-        const tenure = activeOffer.selectedTenure || 12;
-        const fee = activeOffer.disbursalFee || (activeOffer.creditLimit <= 25000 ? 199 : 299);
-        limitAmountEl.textContent = '₹' + activeOffer.creditLimit.toLocaleString('en-IN');
-
-        if (isDisbursalProcessing) {
-          const alertCard = document.getElementById('dashApprovedAlert');
-          if (alertCard) alertCard.style.display = 'none';
-
-          // Disbursal Stage active with 30-min staff transfer window!
-          cardStatusTag.textContent = '⏳ Disbursal Stage Active (Under 30 Mins)';
-          cardLimitLabel.textContent = `Sanctioned by Vistas Tecnolabs Finance Limited (${tenure}M)`;
-          heroCta.innerHTML = `<span>⏳ Track 30-Min Bank Transfer (Staff Processing)</span> <span>↓</span>`;
-          heroCta.href = '#disbursalTrackerCard';
-          heroCta.onclick = function(e) {
-            e.preventDefault();
-            const el = document.getElementById('disbursalTrackerCard');
-            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          };
-
-          // Render live 30-minute tracker
-          renderDisbursalTracker(activeOffer);
-
-          // Render upcoming repayment schedule
-          renderRepaymentSchedule(activeOffer);
-
-        } else if (isDisbursed) {
-          const alertCard = document.getElementById('dashApprovedAlert');
-          if (alertCard) alertCard.style.display = 'none';
-
-          cardStatusTag.textContent = '🟢 Active Disbursed Loan';
-          cardLimitLabel.textContent = `Disbursed by Vistas Tecnolabs Finance Limited (${tenure}M)`;
-          heroCta.innerHTML = `<span>📅 View Repayment Schedule (${tenure} EMIs)</span> <span>↓</span>`;
-          heroCta.href = '#repayScheduleSection';
-          heroCta.onclick = function(e) {
-            e.preventDefault();
-            const schedSec = document.getElementById('repayScheduleSection');
-            if (schedSec) schedSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          };
-
-          const tracker = document.getElementById('disbursalTrackerCard');
-          if (tracker) tracker.style.display = 'none';
-
-          renderRepaymentSchedule(activeOffer);
-
-        } else {
-          // Loan approved, but fee NOT yet paid
-          const alertCard = document.getElementById('dashApprovedAlert');
-          const alertAmt = document.getElementById('dashAlertAmount');
-          if (alertCard) alertCard.style.display = 'block';
-          if (alertAmt) alertAmt.textContent = '₹' + activeOffer.creditLimit.toLocaleString('en-IN');
-
-          cardStatusTag.textContent = '⚡ Loan Sanction Approved';
-          cardLimitLabel.textContent = `Approved by Vistas Tecnolabs Finance Limited (${tenure}M)`;
-          heroCta.innerHTML = `<span>⚡ Pay ₹${fee} Fee & Disburse Loan (In 30 Mins)</span> <span>→</span>`;
-          heroCta.href = 'apply.html';
-          heroCta.onclick = null;
-          const tracker = document.getElementById('disbursalTrackerCard');
-          if (tracker) tracker.style.display = 'none';
-          document.getElementById('repayScheduleSection').style.display = 'none';
-        }
+        // Progress bar in step card
+        document.getElementById('dashProgressFill').style.width = '100%';
+        document.querySelectorAll('.step-item-node').forEach(node => {
+          node.classList.add('completed');
+          node.classList.remove('active');
+          const bubble = node.querySelector('.step-node-bubble');
+          if (bubble) bubble.textContent = '✓';
+        });
       } else {
-        const alertCard = document.getElementById('dashApprovedAlert');
-        if (alertCard) alertCard.style.display = 'none';
-
-        const tracker = document.getElementById('disbursalTrackerCard');
-        if (tracker) tracker.style.display = 'none';
-        document.getElementById('repayScheduleSection').style.display = 'none';
+        // Default presentation values matching Photo 5 & Photo 4
+        document.getElementById('heroLimitDisplay').textContent = '₹ 50,000';
+        document.getElementById('activeLoanSummaryText').textContent = '₹0 Currently Active Loan';
       }
     }
 
-    // ---- Render Live 30-Minute Disbursal Tracker ----
-    let dashTickerInterval = null;
-    function renderDisbursalTracker(offer) {
-      const tracker = document.getElementById('disbursalTrackerCard');
-      if (!tracker) return;
-      tracker.style.display = 'block';
+    // Switch Tabs
+    function switchTab(tabName) {
+      document.querySelectorAll('.tab-view-container').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-tab-item').forEach(el => el.classList.remove('active'));
 
-      document.getElementById('trackLoanAmount').textContent = '₹' + offer.creditLimit.toLocaleString('en-IN');
-      const bank = offer.bankName || 'Bank';
-      const acc = offer.accountNumber ? '••••' + offer.accountNumber.slice(-4) : '••••4567';
-      document.getElementById('trackBankName').textContent = `${bank} (${acc})`;
-
-      const eta = offer.disbursalEta || new Date(Date.now() + 30 * 60 * 1000).toISOString();
-      const targetTime = new Date(eta).getTime();
-
-      if (dashTickerInterval) clearInterval(dashTickerInterval);
-      function updateTicker() {
-        const remaining = Math.max(0, targetTime - Date.now());
-        const totalSec = Math.floor(remaining / 1000);
-        const mins = Math.floor(totalSec / 60);
-        const secs = totalSec % 60;
-        const str = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')} Mins`;
-        const el = document.getElementById('dashCountdownTicker');
-        if (el) el.textContent = str;
-
-        if (remaining <= 0) {
-          clearInterval(dashTickerInterval);
-          if (el) el.textContent = 'Transferred ✓';
-          // Auto-transition to DISBURSED
-          offer.status = 'DISBURSED';
-          localStorage.setItem('apexloan_active_loan', JSON.stringify(offer));
-          document.getElementById('cardStatusTag').textContent = '🟢 Active Disbursed Loan';
-        }
+      if (tabName === 'home') {
+        document.getElementById('tabHome').classList.add('active');
+        document.getElementById('navTabHome').classList.add('active');
+      } else if (tabName === 'loans') {
+        document.getElementById('tabLoans').classList.add('active');
+        document.getElementById('navTabLoans').classList.add('active');
+      } else if (tabName === 'settings') {
+        document.getElementById('tabSettings').classList.add('active');
+        document.getElementById('navTabSettings').classList.add('active');
       }
-      updateTicker();
-      dashTickerInterval = setInterval(updateTicker, 1000);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // ---- Render Repayment Schedule ----
-    function renderRepaymentSchedule(offer) {
-      const scheduleSec = document.getElementById('repayScheduleSection');
-      if (!scheduleSec) return;
-      scheduleSec.style.display = 'block';
+    // Repayment Selection Mode
+    function selectRepayMode(mode) {
+      selectedRepayMode = mode;
+      const optUpcoming = document.getElementById('repayOptUpcoming');
+      const optFull = document.getElementById('repayOptFull');
+      const payBtnText = document.getElementById('payNowBtnText');
+      const topbarDisplay = document.getElementById('topbarAmountDisplay');
 
-      const tenure = offer.selectedTenure || 12;
-      const emi = offer.monthlyEmi || Math.round(offer.creditLimit / tenure);
-      const totalRepay = offer.totalRepayment || (emi * tenure);
+      if (mode === 'upcoming') {
+        optUpcoming.classList.add('selected');
+        optFull.classList.remove('selected');
+        payBtnText.textContent = 'PAY NOW | ₹ ' + currentPendingAmount.toLocaleString('en-IN');
+        topbarDisplay.textContent = '₹ ' + currentPendingAmount.toLocaleString('en-IN');
+      } else {
+        optFull.classList.add('selected');
+        optUpcoming.classList.remove('selected');
+        payBtnText.textContent = 'PAY NOW | ₹ ' + fullPendingAmount.toLocaleString('en-IN');
+        topbarDisplay.textContent = '₹ ' + fullPendingAmount.toLocaleString('en-IN');
+      }
+    }
 
-      // Populate summary stats
-      document.getElementById('schedNextEmiAmount').textContent = '₹' + emi.toLocaleString('en-IN');
-      document.getElementById('schedSanctionedVal').textContent = '₹' + offer.creditLimit.toLocaleString('en-IN');
-      document.getElementById('schedTenureVal').textContent = tenure + ' Months';
-      document.getElementById('schedTotalRepayVal').textContent = '₹' + totalRepay.toLocaleString('en-IN');
-      document.getElementById('schedCountText').textContent = `${tenure} EMIs`;
+    // Accordion Toggle
+    function toggleAccordion() {
+      const body = document.getElementById('breakdownBody');
+      const chevron = document.getElementById('accordionChevron');
+      body.classList.toggle('open');
+      if (body.classList.contains('open')) {
+        chevron.style.transform = 'rotate(0deg)';
+      } else {
+        chevron.style.transform = 'rotate(-90deg)';
+      }
+    }
 
-      // Paid list from localStorage
-      let paidList = [];
+    // Handle "Get Instant Cash" CTA
+    function handleGetInstantCash() {
+      let activeLoan = null;
       try {
-        paidList = JSON.parse(localStorage.getItem('apexloan_paid_emis') || '[]');
+        activeLoan = JSON.parse(localStorage.getItem('apexloan_active_loan') || 'null');
       } catch (e) {}
 
-      const container = document.getElementById('installmentListContainer');
-      container.innerHTML = '';
-
-      let nextDueFound = false;
-
-      for (let i = 1; i <= tenure; i++) {
-        // Calculate due date (5th of each future month)
-        const d = new Date();
-        d.setMonth(d.getMonth() + i);
-        d.setDate(5);
-        const dateStr = d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
-
-        const isPaid = paidList.includes(i);
-        const isNextDue = !isPaid && !nextDueFound;
-        if (isNextDue) {
-          nextDueFound = true;
-          document.getElementById('schedNextDueDate').textContent = `Due Date: ${dateStr}`;
-          currentPendingInstNum = i;
-          currentPendingAmount = emi;
-          const summaryBtn = document.getElementById('summaryPayNowBtn');
-          if (summaryBtn) {
-            summaryBtn.style.display = 'block';
-            summaryBtn.onclick = function() {
-              openPayEmiModal(i, emi, dateStr);
-            };
-          }
-        }
-
-        const item = document.createElement('div');
-        item.className = 'installment-item' + (isPaid ? ' paid-done' : isNextDue ? ' active-due' : '');
-
-        let statusHtml = '';
-        if (isPaid) {
-          statusHtml = `
-            <div class="inst-right">
-              <span class="inst-amount" style="color: var(--success);">₹${emi.toLocaleString('en-IN')}</span>
-              <span class="inst-badge paid">PAID ✓</span>
-            </div>
-          `;
-        } else if (isNextDue) {
-          statusHtml = `
-            <div class="inst-right">
-              <span class="inst-amount">₹${emi.toLocaleString('en-IN')}</span>
-              <button type="button" class="pay-emi-btn" onclick="openPayEmiModal(${i}, ${emi}, '${dateStr}')">Pay Now</button>
-            </div>
-          `;
-        } else {
-          statusHtml = `
-            <div class="inst-right">
-              <span class="inst-amount">₹${emi.toLocaleString('en-IN')}</span>
-              <span class="inst-badge upcoming">SCHEDULED</span>
-            </div>
-          `;
-        }
-
-        item.innerHTML = `
-          <div class="inst-left">
-            <div class="inst-num-bubble">${isPaid ? '✓' : i}</div>
-            <div class="inst-meta">
-              <span class="inst-title">Installment ${i} of ${tenure}</span>
-              <span class="inst-date">Due: ${dateStr} ${isPaid ? '· Paid Online' : '· Auto-Debit (NACH)'}</span>
-            </div>
-          </div>
-          ${statusHtml}
-        `;
-
-        container.appendChild(item);
-      }
-
-      // If all paid
-      if (!nextDueFound && paidList.length >= tenure) {
-        document.getElementById('schedNextEmiAmount').textContent = '₹0';
-        document.getElementById('schedNextDueDate').textContent = 'All EMIs Cleared! NOC Available 🎉';
-        document.getElementById('summaryPayNowBtn').style.display = 'none';
-        document.getElementById('scheduleStatusPill').textContent = '✅ Fully Repaid';
-        document.getElementById('scheduleStatusPill').style.background = 'rgba(0, 184, 148, 0.15)';
+      if (activeLoan) {
+        switchTab('loans');
+      } else {
+        window.location.href = 'apply.html';
       }
     }
 
-    // ---- Pay EMI Modal & Simulation ----
-    function openPayEmiModal(instNum, amount, dueDateStr) {
-      if (!amount) {
-        amount = currentPendingAmount || 2978;
+    function handleTrendingClick() {
+      alert('Credit Limit Upgrade:\n\nYour profile is eligible for an enhanced limit up to ₹1,00,000. Maintain on-time repayments for 2 consecutive cycles to auto-unlock.');
+    }
+
+    function openAutopayModal() {
+      alert('⚡ UPI Autopay Setup:\n\nLink your GooglePay, PhonePe, or Paytm UPI ID to enable auto-debit on the 5th of each month with 0% bounce fees.');
+    }
+
+    function openReferModal() {
+      const link = window.location.origin + '/apply.html?ref=' + (localStorage.getItem('apexloan_mobile') || 'FRIEND');
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(link);
+        alert('🎉 Referral Link Copied!\n\nShare with friends and earn ₹500 instant cash upon their first loan disbursal.');
+      } else {
+        alert('Referral Code: APEX' + (localStorage.getItem('apexloan_mobile') || '100'));
       }
-      if (!dueDateStr) {
-        dueDateStr = '05 Oct 2026';
-      }
-      currentPendingInstNum = instNum;
-      currentPendingAmount = amount;
-
-      document.getElementById('payModalInstTitle').textContent = `Installment ${instNum}`;
-      document.getElementById('payModalAmount').textContent = '₹' + amount.toLocaleString('en-IN');
-      document.getElementById('payModalDueDate').textContent = `Due by ${dueDateStr}`;
-      document.getElementById('payEmiModal').classList.add('active');
     }
 
-    function closePayEmiModal() {
-      document.getElementById('payEmiModal').classList.remove('active');
-    }
-
-    function selectPayMethod(el) {
-      document.querySelectorAll('.payment-method-card').forEach(c => c.classList.remove('selected'));
-      el.classList.add('selected');
-    }
-
-    async function processEmiPayment() {
-      const btn = document.getElementById('confirmPayBtn');
-      const originalText = btn ? btn.innerHTML : 'Pay Now ✓';
-      btn.innerHTML = '<span class="spinner"></span> Connecting Razorpay Gateway...';
+    // Repayment via Razorpay
+    async function triggerRepaymentPayment() {
+      const btn = document.getElementById('btnPayNowCta');
+      const amount = (selectedRepayMode === 'full') ? fullPendingAmount : currentPendingAmount;
+      const originalText = btn.innerHTML;
+      btn.innerHTML = '<span style="display:inline-block; animation:spin 1s linear infinite;">⏳</span> Connecting Payment Gateway...';
       btn.disabled = true;
 
       const mobile = localStorage.getItem('apexloan_mobile') || '9876543210';
       const apiBase = (window.APP_CONFIG && window.APP_CONFIG.API_BASE_URL) ? window.APP_CONFIG.API_BASE_URL : '/api';
 
-      function completeEmiSuccess(paymentId) {
+      function onPaymentSuccess(paymentId) {
         btn.innerHTML = 'Payment Successful ✓';
-        btn.style.background = 'var(--success)';
-
-        let paidList = [];
-        try {
-          paidList = JSON.parse(localStorage.getItem('apexloan_paid_emis') || '[]');
-        } catch (e) {}
-
-        if (!paidList.includes(currentPendingInstNum)) {
-          paidList.push(currentPendingInstNum);
-          localStorage.setItem('apexloan_paid_emis', JSON.stringify(paidList));
-        }
+        btn.style.background = '#10b981';
 
         setTimeout(() => {
-          btn.innerHTML = 'Pay Now ✓';
+          btn.innerHTML = originalText;
           btn.style.background = '';
           btn.disabled = false;
-          closePayEmiModal();
-
-          alert(`🎉 Payment of ₹${currentPendingAmount.toLocaleString('en-IN')} for Installment ${currentPendingInstNum} Successful!\n\nRazorpay Payment ID: ${paymentId || 'pay_' + Date.now().toString().slice(-8)}\nOfficial NOC & Receipt generated.`);
-
-          // Re-render schedule immediately
-          let activeOffer = null;
-          try {
-            activeOffer = JSON.parse(localStorage.getItem('apexloan_active_loan') || localStorage.getItem('apexloan_sanctioned_offer') || 'null');
-          } catch (e) {}
-          if (activeOffer) renderRepaymentSchedule(activeOffer);
+          alert('🎉 Payment of ₹' + amount.toLocaleString('en-IN') + ' Successful!\n\nRazorpay Transaction ID: ' + (paymentId || 'pay_' + Date.now().toString(36)) + '\nOfficial NBFC NOC & Clearance Receipt generated.');
         }, 800);
       }
 
       try {
-        const orderRes = await fetch(`${apiBase}/payment/create-order`, {
+        const orderRes = await fetch(apiBase + '/payment/create-order', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            amount: currentPendingAmount,
+            amount: amount,
             customerMobile: mobile,
-            loanRefNum: `EMI-INST-${currentPendingInstNum}`
+            loanRefNum: 'REPAY-' + (selectedRepayMode === 'full' ? 'FULL' : 'EMI1')
           })
         });
         const orderData = await orderRes.json();
@@ -1597,17 +1629,13 @@
             amount: orderData.amount,
             currency: 'INR',
             name: 'Vistas Tecnolabs Finance Limited',
-            description: `EMI Installment #${currentPendingInstNum} Repayment`,
+            description: selectedRepayMode === 'full' ? 'Full Loan Balance Repayment' : 'Monthly EMI Repayment',
             image: 'https://cdn-icons-png.flaticon.com/512/2830/2830284.png',
             order_id: orderData.orderId,
-            prefill: {
-              contact: mobile
-            },
-            theme: {
-              color: '#1a1f71'
-            },
+            prefill: { contact: mobile },
+            theme: { color: '#0d2b82' },
             handler: function(resp) {
-              completeEmiSuccess(resp.razorpay_payment_id);
+              onPaymentSuccess(resp.razorpay_payment_id);
             },
             modal: {
               ondismiss: function() {
@@ -1619,101 +1647,15 @@
           const rzp = new window.Razorpay(options);
           rzp.open();
         } else {
-          completeEmiSuccess('pay_live_sim_' + Date.now().toString(36));
+          onPaymentSuccess('pay_sim_' + Date.now().toString(36));
         }
       } catch (err) {
-        console.warn('EMI gateway fallback:', err);
-        completeEmiSuccess('pay_sim_' + Date.now().toString(36));
+        console.warn('Payment fallback simulation:', err);
+        onPaymentSuccess('pay_sim_' + Date.now().toString(36));
       }
     }
 
-    function forecloseLoanEarly() {
-      let activeOffer = null;
-      try {
-        activeOffer = JSON.parse(localStorage.getItem('apexloan_active_loan') || localStorage.getItem('apexloan_sanctioned_offer') || 'null');
-      } catch (e) {}
-
-      const total = activeOffer ? activeOffer.totalRepayment : 17868;
-      if (confirm(`⚡ Early Foreclosure Option:\n\nYou can clear your total remaining balance of ₹${total.toLocaleString('en-IN')} right now with 0% foreclosure charges as per RBI rules.\n\nProceed to instant settlement?`)) {
-        alert('🎉 Loan Foreclosed Successfully! Full NOC and Clearance Certificate issued by Vistas Tecnolabs.');
-        // Mark all paid
-        const tenure = activeOffer ? activeOffer.selectedTenure : 12;
-        const all = [];
-        for (let i = 1; i <= tenure; i++) all.push(i);
-        localStorage.setItem('apexloan_paid_emis', JSON.stringify(all));
-        if (activeOffer) renderRepaymentSchedule(activeOffer);
-      }
-    }
-
-    // ---- Tab Switching ----
-    function switchTab(tabName) {
-      document.getElementById('tabHome').style.display = 'none';
-      document.getElementById('tabInsurance').style.display = 'none';
-      document.getElementById('tabProfile').style.display = 'none';
-
-      document.querySelectorAll('.app-nav-item').forEach(btn => btn.classList.remove('active'));
-
-      if (tabName === 'home') {
-        document.getElementById('tabHome').style.display = 'block';
-        document.getElementById('navHome').classList.add('active');
-      } else if (tabName === 'insurance') {
-        document.getElementById('tabInsurance').style.display = 'block';
-        document.getElementById('navInsurance').classList.add('active');
-      } else if (tabName === 'profile') {
-        document.getElementById('tabProfile').style.display = 'block';
-        document.getElementById('navProfile').classList.add('active');
-      }
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    // ---- Policy Accordion Toggle ----
-    function togglePolicy(cardId) {
-      const card = document.getElementById(cardId);
-      if (!card) return;
-      card.classList.toggle('open');
-    }
-
-    // ---- Insurance Modal ----
-    const plansData = {
-      'emi': {
-        title: '🛡️ Loan EMI Suraksha Protection',
-        desc: 'Protects your loan EMIs against sudden job loss, accident, or hospitalization. In an unfortunate event, the insurer directly settles remaining loan EMIs with Vistas Tecnolabs.',
-        sum: 'Full Outstanding Loan Balance',
-        price: '₹29 / month'
-      },
-      'health': {
-        title: '🏥 Family HospiCash Daily Allowance',
-        desc: 'Receive ₹5,000 cash per day for every day of hospitalization for you or your spouse (up to 30 days per policy year). No medical bills required.',
-        sum: '₹5,00,000 Coverage (₹5,000 / day)',
-        price: '₹49 / month'
-      },
-      'cyber': {
-        title: '🔒 Cyber & UPI Fraud Protection',
-        desc: 'Complete financial safety against unauthorized UPI transfers, card cloning, online phishing, and social engineering scams.',
-        sum: '₹1,00,000 per incident',
-        price: '₹19 / month'
-      }
-    };
-
-    function openInsuranceModal(planKey) {
-      const plan = plansData[planKey] || plansData['emi'];
-      document.getElementById('modalInsTitle').textContent = plan.title;
-      document.getElementById('modalInsDesc').textContent = plan.desc;
-      document.getElementById('modalInsSum').textContent = plan.sum;
-      document.getElementById('modalInsPrice').textContent = plan.price;
-      document.getElementById('insDetailModal').classList.add('active');
-    }
-
-    function closeInsuranceModal() {
-      document.getElementById('insDetailModal').classList.remove('active');
-    }
-
-    function activatePlanFromModal() {
-      alert('🎉 Plan activated successfully! Your certificate of insurance has been generated.');
-      closeInsuranceModal();
-    }
-
-    // ---- Logout Handler ----
+    // Logout
     function handleLogout() {
       if (confirm('Are you sure you want to log out of Bruno Credits?')) {
         localStorage.removeItem('apexloan_logged_in');

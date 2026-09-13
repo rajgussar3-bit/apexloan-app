@@ -1478,14 +1478,24 @@ function finalizeDisbursalActivation(offer, fee, paymentId) {
   setTimeout(() => {
     window.closeDisbursalFeeModal();
 
-    // Setup Success Modal
+    // Setup Success Modal (Photo 2 Ticket Voucher)
     const modalLoanAmount = document.getElementById('modalApprovedAmount');
     const modalBankName = document.getElementById('modalSuccessBankName');
     const refEl = document.getElementById('appRefNumber');
+    const ticketAmt = document.getElementById('ticketAmountDisplay');
+    const ticketTenure = document.getElementById('ticketTenureDisplay');
+    const ticketEmi = document.getElementById('ticketEmiDisplay');
 
-    if (modalLoanAmount) modalLoanAmount.textContent = '₹' + offer.creditLimit.toLocaleString('en-IN');
+    const finalAmt = offer.selectedAmount || offer.creditLimit || 50000;
+    const finalTenure = offer.selectedTenure || 9;
+    const finalEmi = offer.monthlyEmi || 6249.19;
+
+    if (modalLoanAmount) modalLoanAmount.textContent = '₹' + finalAmt.toLocaleString('en-IN');
     if (modalBankName) modalBankName.textContent = `${offer.bankName} ••••${offer.accountNumber.slice(-4)}`;
     if (refEl) refEl.textContent = refNum;
+    if (ticketAmt) ticketAmt.textContent = '₹ ' + finalAmt.toLocaleString('en-IN') + '.00';
+    if (ticketTenure) ticketTenure.textContent = finalTenure + ' Months';
+    if (ticketEmi) ticketEmi.textContent = '₹ ' + (typeof finalEmi === 'number' ? finalEmi.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2}) : finalEmi) + '/month';
 
     // Start live 30 min countdown
     startDisbursalCountdown(offer.disbursalEta);
