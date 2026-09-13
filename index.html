@@ -7,8 +7,18 @@
   <meta name="theme-color" content="#0d1338">
   <title>Bruno Credits - Instant Personal Loans | Powered by Vistas Tecnolabs</title>
   <link rel="stylesheet" href="css/style.css">
+  <script>
+    // Immediate entry routing: New user -> login.html, Logged in -> dashboard.html
+    (function() {
+      if (localStorage.getItem('apexloan_logged_in') === 'true') {
+        window.location.replace('dashboard.html');
+      } else {
+        window.location.replace('login.html');
+      }
+    })();
+  </script>
 </head>
-<body>
+<body style="background: #060814; color: #ffffff;">
 
   <!-- Navbar -->
   <nav class="navbar" id="navbar">
