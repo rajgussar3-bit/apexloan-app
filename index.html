@@ -53,143 +53,233 @@
     <a href="login.html" class="btn btn-primary">Apply Now →</a>
   </div>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="container hero-content">
-      <div class="hero-badge">
-        <span class="dot"></span>
-        🏛️ Lending Partner: Vistas Tecnolabs Finance Limited
-      </div>
-      <h1>
-        Instant Loans<br>
-        <span class="highlight">₹1,000 - ₹1,00,000</span>
-      </h1>
-      <p>
-        Get personal loans with minimal documentation. Quick approval, low interest rates, and 100% digital process. No hidden charges!
-      </p>
-      <div class="hero-buttons">
-        <a href="login.html" class="btn btn-success btn-lg">
-          Apply Now →
-        </a>
-        <a href="#calculator" class="btn btn-secondary btn-lg" style="border-color: rgba(255,255,255,0.3); color: white;">
-          Calculate EMI
-        </a>
-      </div>
-      <div class="hero-stats">
-        <div class="stat-item">
-          <div class="stat-value">5L+</div>
-          <div class="stat-label">Happy Customers</div>
+  <!-- Hero Section with Titanium Card Preview -->
+  <section class="hero" style="background: var(--gradient-hero); padding: 80px 0 60px; overflow: hidden; position: relative;">
+    <div class="container">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; align-items: center;">
+        
+        <!-- Left: Copy & CTAs -->
+        <div class="hero-copy">
+          <div class="hero-badge" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); padding: 6px 14px; border-radius: 9999px; margin-bottom: 20px;">
+            <span class="dot" style="width: 8px; height: 8px; border-radius: 50%; background: #00d287; box-shadow: 0 0 10px #00d287;"></span>
+            <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.5px; color: #cbd5e1;">LENDING PARTNER: VISTAS TECNOLABS (RBI REGD. NBFC)</span>
+          </div>
+
+          <h1 style="font-size: clamp(34px, 5vw, 56px); font-weight: 900; line-height: 1.1; color: #ffffff; letter-spacing: -1.5px; margin-bottom: 18px;">
+            Instant Credit Limits<br>
+            <span style="background: linear-gradient(135deg, #00d287 0%, #25f4a6 50%, #60a5fa 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">₹1,000 to ₹1,00,000</span>
+          </h1>
+
+          <p style="font-size: 16px; line-height: 1.6; color: #94a3b8; max-width: 520px; margin-bottom: 30px;">
+            Tier-1 digital credit powered by AI instant underwriting. 2-minute sanction, direct escrow disbursal, and zero hidden platform charges.
+          </p>
+
+          <div class="hero-buttons" style="display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 40px;">
+            <a href="login.html" class="btn-premium-glow" style="text-decoration: none;">
+              Get Started →
+            </a>
+            <a href="#calculator" class="btn btn-secondary btn-lg" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15); color: #ffffff; border-radius: 9999px; padding: 16px 24px;">
+              Calculate EMI
+            </a>
+          </div>
+
+          <div class="hero-stats" style="display: flex; gap: 28px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 24px;">
+            <div class="stat-item">
+              <div class="stat-value" style="font-size: 24px; font-weight: 900; color: #ffffff;">5L+</div>
+              <div class="stat-label" style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #64748b;">Borrowers</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value" style="font-size: 24px; font-weight: 900; color: #00d287;">10.5%</div>
+              <div class="stat-label" style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #64748b;">Annual ROI</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value" style="font-size: 24px; font-weight: 900; color: #ffffff;">30 Mins</div>
+              <div class="stat-label" style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #64748b;">Disbursal Desk</div>
+            </div>
+          </div>
         </div>
-        <div class="stat-item">
-          <div class="stat-value">10.5%</div>
-          <div class="stat-label">Interest Rate</div>
+
+        <!-- Right: 3D Holographic Titanium Card Preview -->
+        <div class="hero-card-showcase" style="display: flex; justify-content: center;">
+          <div class="titanium-card">
+            <div class="titanium-sheen"></div>
+            <div class="titanium-top">
+              <div class="titanium-brand-tag">
+                <div class="brand-icon">B</div>
+                <div>
+                  <div class="brand-title">BrunoCredits</div>
+                  <div class="brand-sub">NBFC Titanium Card</div>
+                </div>
+              </div>
+              <div class="titanium-chip-wrap">
+                <div class="emv-chip"></div>
+                <svg class="nfc-icon-svg" viewBox="0 0 24 24">
+                  <path d="M8.5 16.5a5 5 0 0 1 0-9M12 19a8.5 8.5 0 0 0 0-14M15.5 21.5a12 12 0 0 0 0-19" />
+                </svg>
+              </div>
+            </div>
+            <div class="titanium-balance-label">Pre-Approved Sanction Limit</div>
+            <div class="titanium-balance-val">₹1,00,000</div>
+            <div style="font-size: 13px; font-family: monospace; letter-spacing: 3px; color: #94a3b8; margin-bottom: 20px;">
+              •••• •••• •••• 8920
+            </div>
+            <div class="titanium-bottom">
+              <div class="titanium-holder">
+                <div class="label">Primary Member</div>
+                <div class="val">DEVRAJ GUSSAR</div>
+              </div>
+              <div class="titanium-badge">
+                Direct NEFT Disbursal
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="stat-item">
-          <div class="stat-value">2 Min</div>
-          <div class="stat-label">Quick Approval</div>
-        </div>
+
       </div>
     </div>
   </section>
 
-  <!-- Features Section -->
-  <section class="features" id="features">
+  <!-- Features Section (Replaced Emojis with Precision SVGs) -->
+  <section class="features" id="features" style="padding: 70px 0; background: #ffffff;">
     <div class="container">
       <div class="section-title">
-        <div class="subtitle">Why Choose Us</div>
-        <h2>Loan Lena Hua Aasan</h2>
-        <p>Fast, transparent, and hassle-free personal loans designed for your needs</p>
+        <div class="subtitle" style="font-size: 12px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent);">Why Bruno Credits</div>
+        <h2 style="font-size: 32px; font-weight: 900; color: var(--primary); letter-spacing: -0.5px;">Next-Gen Digital Lending</h2>
+        <p style="color: var(--gray-600);">Fast, transparent, institutional-grade loan products designed for salaried and self-employed professionals</p>
       </div>
       <div class="features-grid">
-        <div class="feature-card">
-          <div class="feature-icon blue">⚡</div>
-          <h3>Instant Approval</h3>
-          <p>Get your loan approved within 2 minutes with our AI-powered system. No long waiting!</p>
+        <div class="feature-card glass-panel" style="padding: 28px; text-align: left;">
+          <div style="width: 48px; height: 48px; border-radius: 14px; background: rgba(79, 70, 229, 0.08); display: flex; align-items: center; justify-content: center; margin-bottom: 18px;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+            </svg>
+          </div>
+          <h3 style="font-size: 18px; font-weight: 800; color: var(--primary); margin-bottom: 8px;">2-Minute Sanction</h3>
+          <p style="font-size: 14px; color: var(--gray-600); line-height: 1.6;">Automated bureau scoring delivers instantaneous sanction approvals without tedious paperwork.</p>
         </div>
-        <div class="feature-card">
-          <div class="feature-icon green">📊</div>
-          <h3>Low Interest Rates</h3>
-          <p>Competitive rates starting from 10.5% per annum. Affordable EMIs for everyone.</p>
+
+        <div class="feature-card glass-panel" style="padding: 28px; text-align: left;">
+          <div style="width: 48px; height: 48px; border-radius: 14px; background: rgba(0, 210, 135, 0.1); display: flex; align-items: center; justify-content: center; margin-bottom: 18px;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00d287" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="20" x2="18" y2="10"></line>
+              <line x1="12" y1="20" x2="12" y2="4"></line>
+              <line x1="6" y1="20" x2="6" y2="14"></line>
+            </svg>
+          </div>
+          <h3 style="font-size: 18px; font-weight: 800; color: var(--primary); margin-bottom: 8px;">Fair Interest Rates</h3>
+          <p style="font-size: 14px; color: var(--gray-600); line-height: 1.6;">Affordable, transparent interest starting from 10.5% p.a. Flexible repayment from 3 to 36 months.</p>
         </div>
-        <div class="feature-card">
-          <div class="feature-icon purple">🔒</div>
-          <h3>100% Secure</h3>
-          <p>Bank-grade security with encrypted data. Your personal information is always safe.</p>
+
+        <div class="feature-card glass-panel" style="padding: 28px; text-align: left;">
+          <div style="width: 48px; height: 48px; border-radius: 14px; background: rgba(99, 102, 241, 0.08); display: flex; align-items: center; justify-content: center; margin-bottom: 18px;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+          </div>
+          <h3 style="font-size: 18px; font-weight: 800; color: var(--primary); margin-bottom: 8px;">Bank-Grade Encryption</h3>
+          <p style="font-size: 14px; color: var(--gray-600); line-height: 1.6;">End-to-end 256-bit SHA encryption. Compliant with RBI 2024 Digital Lending Directives.</p>
         </div>
-        <div class="feature-card">
-          <div class="feature-icon orange">📱</div>
-          <h3>Fully Digital</h3>
-          <p>Complete KYC, documents, and disbursal — all from your phone. No branch visits!</p>
+
+        <div class="feature-card glass-panel" style="padding: 28px; text-align: left;">
+          <div style="width: 48px; height: 48px; border-radius: 14px; background: rgba(245, 158, 11, 0.1); display: flex; align-items: center; justify-content: center; margin-bottom: 18px;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></line>
+              <line x1="12" y1="18" x2="12.01" y2="18"></line>
+            </svg>
+          </div>
+          <h3 style="font-size: 18px; font-weight: 800; color: var(--primary); margin-bottom: 8px;">100% Digital KYC</h3>
+          <p style="font-size: 14px; color: var(--gray-600); line-height: 1.6;">Instant UIDAI Aadhaar verification & PAN validation directly on your phone without physical visits.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- EMI Calculator Teaser -->
-  <section class="calculator" id="calculator">
+  <section class="calculator" id="calculator" style="padding: 70px 0; background: var(--bg);">
     <div class="container">
       <div class="section-title">
-        <div class="subtitle">EMI Calculator</div>
-        <h2>Plan Your Loan</h2>
-        <p>Calculate your monthly EMI before applying</p>
+        <div class="subtitle" style="font-size: 12px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent);">Financial Planning</div>
+        <h2 style="font-size: 32px; font-weight: 900; color: var(--primary);">Interactive EMI Calculator</h2>
+        <p style="color: var(--gray-600);">Estimate your monthly installment and interest distribution before submitting</p>
       </div>
-      <div class="calc-card" style="max-width: 520px; margin: 0 auto;">
-        <div class="calc-header">
-          <h3>💰 EMI Calculator</h3>
-          <p>Loan ₹1,000 - ₹1,00,000 | Tenure 3 - 36 Months</p>
+      <div class="calc-card glass-panel" style="max-width: 520px; margin: 0 auto; overflow: hidden; border: 1px solid var(--gray-200);">
+        <div class="calc-header" style="background: var(--primary); color: #fff; padding: 20px; display: flex; justify-content: space-between; align-items: center;">
+          <div style="font-weight: 800; font-size: 16px;">EMI Estimator</div>
+          <span style="font-size: 12px; color: #a5b4fc; background: rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 9999px;">10.5% - 24% p.a.</span>
         </div>
-        <div class="calc-body" style="text-align: center; padding: 40px 28px;">
-          <div style="font-size: 48px; margin-bottom: 16px;">📊</div>
-          <h3 style="font-size: 20px; font-weight: 700; color: var(--dark); margin-bottom: 8px;">Calculate Your EMI</h3>
-          <p style="font-size: 14px; color: var(--gray-700); margin-bottom: 24px; line-height: 1.6;">
-            Login to access our EMI Calculator.<br>Select loan amount, tenure & see your monthly EMI instantly.
+        <div class="calc-body" style="text-align: center; padding: 36px 28px;">
+          <div style="display: inline-flex; align-items: center; justify-content: center; width: 64px; height: 64px; border-radius: 20px; background: rgba(79, 70, 229, 0.08); margin-bottom: 16px;">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+              <line x1="6" y1="8" x2="6" y2="8"></line>
+              <line x1="10" y1="8" x2="10" y2="8"></line>
+              <line x1="14" y1="8" x2="14" y2="8"></line>
+              <line x1="18" y1="8" x2="18" y2="8"></line>
+              <line x1="6" y1="12" x2="18" y2="12"></line>
+              <line x1="6" y1="16" x2="18" y2="16"></line>
+            </svg>
+          </div>
+          <h3 style="font-size: 20px; font-weight: 800; color: var(--primary); margin-bottom: 8px;">Instant EMI Simulator</h3>
+          <p style="font-size: 14px; color: var(--gray-600); margin-bottom: 24px; line-height: 1.6;">
+            Access full dynamic tenure simulation and custom loan amount calculators by signing in with your phone.
           </p>
-          <a href="login.html" class="btn btn-primary btn-lg btn-block">Login & Calculate EMI →</a>
-          <p style="font-size: 12px; color: var(--gray-500); margin-top: 12px;">Interest rates from 10.5% to 24% p.a.</p>
+          <a href="login.html" class="btn btn-primary btn-lg btn-block" style="border-radius: var(--radius-full); padding: 14px 24px; font-weight: 800;">
+            Calculate With Mobile →
+          </a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Eligibility Section -->
-  <section class="eligibility" id="eligibility">
+  <!-- Eligibility Section (Replaced checkmarks with SVG icons) -->
+  <section class="eligibility" id="eligibility" style="padding: 70px 0; background: #ffffff;">
     <div class="container">
       <div class="section-title">
-        <div class="subtitle">Eligibility</div>
-        <h2>Who Can Apply?</h2>
-        <p>Check if you meet the basic requirements</p>
+        <div class="subtitle" style="font-size: 12px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent);">Applicant Criteria</div>
+        <h2 style="font-size: 32px; font-weight: 900; color: var(--primary);">Simple Eligibility Criteria</h2>
+        <p style="color: var(--gray-600);">Check if you meet the standard lending criteria</p>
       </div>
-      <div class="eligibility-list">
-        <div class="eligibility-item">
-          <div class="check-icon">✓</div>
-          <p>Indian citizen aged 18 to 58 years</p>
+      <div class="eligibility-list" style="max-width: 600px; margin: 0 auto;">
+        <div class="eligibility-item" style="display: flex; align-items: center; gap: 14px; padding: 16px; margin-bottom: 12px; background: var(--bg); border-radius: 12px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          <p style="margin: 0; font-size: 15px; font-weight: 600; color: var(--gray-800);">Indian citizen aged 18 to 58 years</p>
         </div>
-        <div class="eligibility-item">
-          <div class="check-icon">✓</div>
-          <p>Minimum monthly income of ₹15,000</p>
+        <div class="eligibility-item" style="display: flex; align-items: center; gap: 14px; padding: 16px; margin-bottom: 12px; background: var(--bg); border-radius: 12px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          <p style="margin: 0; font-size: 15px; font-weight: 600; color: var(--gray-800);">Minimum monthly income of ₹15,000</p>
         </div>
-        <div class="eligibility-item">
-          <div class="check-icon">✓</div>
-          <p>Valid Aadhaar Card and PAN Card</p>
+        <div class="eligibility-item" style="display: flex; align-items: center; gap: 14px; padding: 16px; margin-bottom: 12px; background: var(--bg); border-radius: 12px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          <p style="margin: 0; font-size: 15px; font-weight: 600; color: var(--gray-800);">Valid Aadhaar Card and PAN Card</p>
         </div>
-        <div class="eligibility-item">
-          <div class="check-icon">✓</div>
-          <p>Salaried or Self-Employed with 6+ months work experience</p>
+        <div class="eligibility-item" style="display: flex; align-items: center; gap: 14px; padding: 16px; margin-bottom: 12px; background: var(--bg); border-radius: 12px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          <p style="margin: 0; font-size: 15px; font-weight: 600; color: var(--gray-800);">Salaried or Self-Employed with 6+ months experience</p>
         </div>
-        <div class="eligibility-item">
-          <div class="check-icon">✓</div>
-          <p>Active bank account for loan disbursal</p>
+        <div class="eligibility-item" style="display: flex; align-items: center; gap: 14px; padding: 16px; margin-bottom: 12px; background: var(--bg); border-radius: 12px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          <p style="margin: 0; font-size: 15px; font-weight: 600; color: var(--gray-800);">Active bank account for automated disbursal</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- CTA Section -->
-  <section class="cta-section">
+  <section class="cta-section" style="padding: 70px 0; background: var(--gradient-hero); color: #fff; text-align: center;">
     <div class="container cta-content">
-      <h2>Ready to Get Your Loan?</h2>
-      <p>Apply now and get instant approval. Loan amount disbursed directly to your bank account within 24 hours.</p>
-      <a href="login.html" class="btn btn-success btn-lg">Start Application →</a>
+      <h2 style="font-size: 36px; font-weight: 900; letter-spacing: -0.5px; margin-bottom: 12px;">Activate Your Credit Limit</h2>
+      <p style="font-size: 16px; color: #94a3b8; max-width: 520px; margin: 0 auto 28px;">Apply in under 2 minutes. Funds dispatched by our Disbursal Desk within 30 minutes of verification.</p>
+      <a href="login.html" class="btn-premium-glow" style="text-decoration: none;">Start Instant Application →</a>
     </div>
   </section>
 

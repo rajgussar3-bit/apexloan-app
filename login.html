@@ -45,9 +45,9 @@
       <div class="login-card">
         
         <!-- Trust badge -->
-        <div class="login-trust-badge">
-          <span class="dot"></span>
-          🏛️ Powered by Vistas Tecnolabs Finance Limited (RBI Reg. NBFC)
+        <div class="login-trust-badge" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: var(--radius-full); background: rgba(10, 14, 39, 0.04); border: 1px solid rgba(10, 14, 39, 0.1); font-size: 11px; font-weight: 700; color: var(--primary);">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M3 10h18M5 10v11M9 10v11M15 10v11M19 10v11M12 2L2 7h20L12 2z"/></svg>
+          <span>Powered by Vistas Tecnolabs Finance Limited (RBI Reg. NBFC)</span>
         </div>
 
         <!-- Header -->
@@ -61,13 +61,13 @@
           <div class="form-group">
             <label>Mobile Number <span class="required">*</span></label>
             <div class="input-group">
-              <span class="input-prefix">🇮🇳 +91</span>
+              <span class="input-prefix" style="font-weight: 700; color: var(--primary); padding: 0 12px;">+91</span>
               <input type="tel" class="form-control login-mobile-input" id="loginMobile" placeholder="Enter 10-digit mobile number" maxlength="10" inputmode="numeric" autocomplete="tel">
             </div>
             <div class="error-text" id="mobileError">Please enter a valid 10-digit mobile number</div>
           </div>
           <div id="recaptcha-container"></div>
-          <button class="btn btn-primary btn-block btn-lg login-btn" id="sendLoginOtp" onclick="sendLoginOTP()">
+          <button class="btn btn-secondary btn-block btn-lg login-btn" id="sendLoginOtp" onclick="sendLoginOTP()" style="font-weight: 800;">
             Get OTP →
           </button>
         </div>
@@ -92,7 +92,7 @@
             Resend OTP in <span class="timer" id="loginTimer">00:30</span>
           </div>
 
-          <button class="btn btn-success btn-block btn-lg login-btn" id="verifyLoginOtp" onclick="verifyLoginOTP()">
+          <button class="btn btn-secondary btn-block btn-lg login-btn" id="verifyLoginOtp" onclick="verifyLoginOTP()" style="font-weight: 800;">
             Verify & Continue →
           </button>
 
@@ -102,7 +102,9 @@
         <!-- Verified Section (hidden) -->
         <div id="loginVerifiedSection" style="display: none;">
           <div class="login-verified-box">
-            <div class="login-verified-icon">✅</div>
+            <div class="login-verified-icon" style="color: var(--secondary); display: flex; justify-content: center; margin-bottom: 12px;">
+              <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
             <h3>Mobile Verified!</h3>
             <p>Redirecting to loan application...</p>
             <div class="login-loader">
@@ -116,31 +118,54 @@
       <!-- Trust Signals -->
       <div class="login-trust-row">
         <div class="trust-item">
-          <span>🔒</span>
+          <span style="display: flex; justify-content: center; margin-bottom: 6px; color: var(--primary);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </span>
           <span>Bank-Grade<br>Security</span>
         </div>
         <div class="trust-item">
-          <span>⚡</span>
-          <span>2 Min<br>Approval</span>
+          <span style="display: flex; justify-content: center; margin-bottom: 6px; color: var(--secondary);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </span>
+          <span>Instant<br>Approval</span>
         </div>
         <div class="trust-item">
-          <span>🏛️</span>
+          <span style="display: flex; justify-content: center; margin-bottom: 6px; color: var(--primary);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M3 10h18M5 10v11M9 10v11M15 10v11M19 10v11M12 2L2 7h20L12 2z"/></svg>
+          </span>
           <span>RBI<br>Registered</span>
         </div>
         <div class="trust-item">
-          <span>💰</span>
+          <span style="display: flex; justify-content: center; margin-bottom: 6px; color: var(--accent);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          </span>
           <span>No Hidden<br>Charges</span>
         </div>
       </div>
 
       <!-- Transparency Notice -->
       <div class="login-transparency">
-        <h4>🛡️ Your Data is Safe With Us</h4>
+        <h4 style="display: flex; align-items: center; gap: 8px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>Your Data is Safe With Us</span>
+        </h4>
         <ul>
-          <li>✅ We never share your data with third parties</li>
-          <li>✅ All communications are end-to-end encrypted</li>
-          <li>✅ You can delete your data anytime</li>
-          <li>✅ Compliant with RBI Digital Lending Guidelines 2024</li>
+          <li>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00d287" stroke-width="2.5" style="display:inline-block; vertical-align:middle; margin-right:4px;"><polyline points="20 6 9 17 4 12"/></svg>
+            We never share your data with unauthorized third parties
+          </li>
+          <li>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00d287" stroke-width="2.5" style="display:inline-block; vertical-align:middle; margin-right:4px;"><polyline points="20 6 9 17 4 12"/></svg>
+            All communications are end-to-end 256-bit encrypted
+          </li>
+          <li>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00d287" stroke-width="2.5" style="display:inline-block; vertical-align:middle; margin-right:4px;"><polyline points="20 6 9 17 4 12"/></svg>
+            You can delete or manage your data anytime
+          </li>
+          <li>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00d287" stroke-width="2.5" style="display:inline-block; vertical-align:middle; margin-right:4px;"><polyline points="20 6 9 17 4 12"/></svg>
+            100% Compliant with RBI Digital Lending Guidelines 2024
+          </li>
         </ul>
       </div>
 

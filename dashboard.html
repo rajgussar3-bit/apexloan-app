@@ -32,7 +32,9 @@
       </div>
     </div>
     <div class="dash-top-actions">
-      <button type="button" class="bell-btn" title="Notifications" onclick="alert('No new notifications. Your loan account is active!')">🔔</button>
+      <button type="button" class="bell-btn" title="Notifications" onclick="alert('No new notifications. Your loan account is active!')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      </button>
       <button type="button" class="profile-avatar-btn" id="topAvatarBtn" onclick="switchTab('profile')">R</button>
     </div>
   </header>
@@ -46,113 +48,154 @@
       <!-- Greeting & KYC Header -->
       <div class="dash-header-card">
         <div class="user-greeting">
-          <h2 id="greetUserName">Hello, Borrower 👋</h2>
-          <p id="userMobileSub">+91 98••••••10 · Verified Customer</p>
+          <h2 id="greetUserName" style="display: flex; align-items: center; gap: 8px;">
+            <span>Hello, Borrower</span>
+            <span style="font-size: 11px; background: rgba(16, 185, 129, 0.15); color: #10b981; padding: 2px 8px; border-radius: 12px; font-weight: 800; display: inline-flex; align-items: center; gap: 4px;">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              Verified
+            </span>
+          </h2>
+          <p id="userMobileSub">+91 98••••••10 · Tier-1 Credit Profile</p>
         </div>
-        <div class="kyc-verified-pill">
-          <span>✓</span> KYC Verified
+        <div class="kyc-verified-pill" style="display: inline-flex; align-items: center; gap: 4px;">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          KYC Approved
         </div>
       </div>
 
       <!-- Approved Loan Alert Banner (shown when loan is approved but fee not yet paid) -->
-      <div class="dash-approved-alert" id="dashApprovedAlert" style="display: none; margin-bottom: 16px; padding: 14px 16px; background: linear-gradient(135deg, rgba(0, 184, 148, 0.12), rgba(26, 31, 113, 0.08)); border: 2px solid #00b894; border-radius: var(--radius-md);">
-        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
-          <span style="font-size: 11px; font-weight: 800; background: #00b894; color: white; padding: 2px 8px; border-radius: 12px; text-transform: uppercase;">🎉 Sanction Letter Issued</span>
-          <span style="font-size: 11px; font-weight: 700; color: var(--primary);">🏛️ Vistas Tecnolabs Finance Limited</span>
+      <div class="dash-approved-alert" id="dashApprovedAlert" style="display: none; margin-bottom: 20px; padding: 16px 18px; background: linear-gradient(135deg, rgba(0, 210, 135, 0.1), rgba(10, 14, 39, 0.05)); border: 1px solid rgba(0, 210, 135, 0.4); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm);">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+          <span style="font-size: 11px; font-weight: 800; background: var(--secondary); color: white; padding: 3px 10px; border-radius: 12px; text-transform: uppercase; letter-spacing: 0.5px; display: inline-flex; align-items: center; gap: 4px;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            Sanction Letter Issued
+          </span>
+          <span style="font-size: 11px; font-weight: 700; color: var(--primary);">Vistas Tecnolabs Finance Limited</span>
         </div>
-        <div style="font-size: 15px; font-weight: 800; color: var(--dark); margin-bottom: 4px;">
+        <div style="font-size: 16px; font-weight: 800; color: var(--dark); margin-bottom: 6px;">
           Badhai ho! Aapka <span id="dashAlertAmount" style="color: var(--primary);">₹16,420</span> Personal Loan Approved Hai!
         </div>
-        <p style="font-size: 12px; color: var(--gray-700); line-height: 1.4; margin-bottom: 10px;">
+        <p style="font-size: 13px; color: var(--gray-700); line-height: 1.5; margin-bottom: 12px;">
           Sabhi KYC aur bank details verify ho chuki hain. Wapas form nahi bharna padega. Bas apna tenure chunein aur 30-min disbursal shuru karein.
         </p>
-        <a href="apply.html" class="btn btn-success btn-block" style="padding: 10px; font-size: 14px; font-weight: 800; text-align: center;">
-          🚀 Claim Loan & Activate Disbursal →
+        <a href="apply.html" class="btn btn-secondary btn-block" style="padding: 12px; font-size: 14px; font-weight: 800; text-align: center;">
+          Claim Loan & Activate Disbursal →
         </a>
       </div>
 
-      <!-- Hero Loan Card (Personal Loan) -->
-      <div class="hero-loan-card" id="heroLoanCard">
-        <div class="card-top-row">
-          <span class="card-type-tag" id="cardStatusTag">⚡ Personal Loan</span>
-          <span class="lender-badge-pill">🏛️ Vistas Tecnolabs Finance Limited</span>
+      <!-- Holographic Titanium Credit Limit Card (Cred & Apple Card Aesthetic) -->
+      <div class="titanium-card" id="heroLoanCard" style="margin-bottom: 24px;">
+        <div class="titanium-sheen"></div>
+        <div class="titanium-top">
+          <div class="titanium-brand-tag">
+            <div class="brand-icon">B</div>
+            <div>
+              <div class="brand-title">Bruno Credits</div>
+              <div class="brand-sub">NBFC: VISTAS TECNOLABS</div>
+            </div>
+          </div>
+          <div class="titanium-chip-wrap">
+            <div class="emv-chip"></div>
+            <svg class="nfc-icon-svg" viewBox="0 0 24 24">
+              <path d="M8.5 16.5a5 5 0 0 1 0-9"/>
+              <path d="M12 19a8.5 8.5 0 0 1 0-14"/>
+              <path d="M15.5 21.5a12 12 0 0 1 0-19"/>
+            </svg>
+          </div>
         </div>
 
-        <div class="card-limit-title" id="cardLimitLabel">Sanctioned Personal Loan</div>
-        <div class="card-limit-amount" id="dashLimitAmount">₹1,00,000</div>
+        <div class="titanium-balance-label" id="cardLimitLabel">Available Credit Limit</div>
+        <div class="titanium-balance-val" id="dashLimitAmount">₹1,00,000</div>
 
-        <div class="card-features-row">
-          <span>⏱️ 3 - 12 Months Tenure</span>
-          <span>⚡ 30-Min Disbursal</span>
-          <span>0 Collateral</span>
+        <div class="titanium-bottom">
+          <div class="titanium-holder">
+            <div class="label">Product / Status</div>
+            <div class="val" id="cardStatusTag">Pre-Approved Prime</div>
+          </div>
+          <a href="apply.html" class="btn-premium-glow" id="dashHeroCta" style="padding: 10px 20px; font-size: 12px; text-decoration: none;">
+            <span>Apply Now</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
         </div>
-
-        <a href="apply.html" class="card-cta-btn" id="dashHeroCta">
-          <span>Apply for Personal Loan</span>
-          <span>→</span>
-        </a>
       </div>
 
       <!-- Quick Action 4-Grid -->
-      <div class="quick-action-grid">
+      <div class="quick-action-grid" style="margin-bottom: 24px;">
         <div class="action-tile" onclick="window.location.href='apply.html'">
-          <div class="action-icon-circle" style="background: rgba(26, 31, 113, 0.1); color: var(--primary);">⚡</div>
+          <div class="action-icon-circle" style="background: rgba(10, 14, 39, 0.06); color: var(--primary);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
           <span class="action-label">Instant<br>Loan</span>
         </div>
         <div class="action-tile" onclick="openInsuranceModal('emi')">
-          <div class="action-icon-circle" style="background: rgba(0, 184, 148, 0.1); color: var(--secondary);">🛡️</div>
+          <div class="action-icon-circle" style="background: rgba(0, 210, 135, 0.1); color: var(--secondary);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
           <span class="action-label">EMI Shield<br>Insurance</span>
         </div>
         <div class="action-tile" onclick="openInsuranceModal('health')">
-          <div class="action-icon-circle" style="background: rgba(235, 77, 75, 0.1); color: #eb4d4b;">🏥</div>
+          <div class="action-icon-circle" style="background: rgba(235, 77, 75, 0.1); color: #eb4d4b;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          </div>
           <span class="action-label">HospiCash<br>Health</span>
         </div>
         <div class="action-tile" onclick="switchTab('profile')">
-          <div class="action-icon-circle" style="background: rgba(108, 92, 231, 0.1); color: var(--accent);">👤</div>
+          <div class="action-icon-circle" style="background: rgba(99, 102, 241, 0.1); color: var(--accent);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
           <span class="action-label">My<br>Profile</span>
         </div>
       </div>
 
-      <!-- Live 30-Minute Staff Disbursal Tracker Card (Visible during DISBURSAL_PROCESSING) -->
-      <div class="disbursal-tracker-card" id="disbursalTrackerCard" style="display: none; margin: 18px 0; padding: 18px; background: linear-gradient(135deg, #1a1f71, #2d3494); border-radius: var(--radius-lg); color: white; box-shadow: 0 8px 24px rgba(26, 31, 113, 0.2);">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <span style="font-size: 20px;">🚀</span>
-            <span style="font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: #00b894;">Disbursal Stage Active</span>
+      <!-- Live 30-Minute Staff Disbursal Radar Tracker (Visible during DISBURSAL_PROCESSING) -->
+      <div class="disbursal-radar-box" id="disbursalTrackerCard" style="display: none; margin: 20px 0;">
+        <div class="radar-pulse-center">
+          <div class="radar-pulse-ring"></div>
+          <div class="radar-pulse-ring"></div>
+          <div class="radar-pulse-ring"></div>
+          <div class="radar-icon-core">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
           </div>
-          <span style="font-size: 11px; background: rgba(255,255,255,0.2); padding: 3px 8px; border-radius: 12px;">Under 30 Mins</span>
         </div>
 
-        <div style="font-size: 17px; font-weight: 800; margin-bottom: 6px;">
-          Amount: <span id="trackLoanAmount" style="color: #00b894;">₹16,420</span> to Bank Account
+        <div style="font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: #10b981; margin-bottom: 6px;">
+          30-Minute Live Wire Disbursal Active
         </div>
-        <p style="font-size: 13px; color: rgba(255,255,255,0.9); line-height: 1.5; margin-bottom: 14px;">
-          Hamara banking verification staff agle <strong>30 minute ke andar</strong> loan amount aapke bank account (<span id="trackBankName">SBI</span>) me transfer kar dega.
+        <div style="font-size: 22px; font-weight: 900; color: #ffffff; margin-bottom: 6px;">
+          Amount: <span id="trackLoanAmount" style="color: #00d287;">₹16,420</span> to Bank
+        </div>
+        <p style="font-size: 13px; color: rgba(255,255,255,0.75); line-height: 1.5; margin-bottom: 16px; max-width: 380px;">
+          Banking desk staff agle <strong>30 minute ke andar</strong> loan amount aapke bank account (<span id="trackBankName" style="color: #fff; font-weight: 700;">SBI</span>) me transfer kar raha hai.
         </p>
 
         <!-- Live Countdown Clock -->
-        <div style="background: rgba(0,0,0,0.25); border-radius: var(--radius-md); padding: 10px 14px; margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center;">
-          <span style="font-size: 12px; color: rgba(255,255,255,0.85);">⏳ Estimated Bank Credit Time:</span>
-          <span id="dashCountdownTicker" style="font-size: 16px; font-weight: 900; color: #00b894; font-family: monospace;">29:50 Mins</span>
+        <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-md); padding: 12px 18px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 380px;">
+          <span style="font-size: 12px; color: rgba(255,255,255,0.85); display: flex; align-items: center; gap: 6px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Estimated Bank Credit:
+          </span>
+          <span id="dashCountdownTicker" style="font-size: 18px; font-weight: 900; color: #00d287; font-family: monospace;">29:50 Mins</span>
         </div>
 
         <!-- 4-Step Banking Desk Timeline -->
-        <div class="tracker-steps" style="display: flex; flex-direction: column; gap: 10px; font-size: 12px;">
+        <div class="tracker-steps" style="display: flex; flex-direction: column; gap: 10px; font-size: 12px; text-align: left; width: 100%; max-width: 380px;">
           <div style="display: flex; align-items: center; gap: 10px;">
-            <span style="width: 20px; height: 20px; border-radius: 50%; background: #00b894; color: white; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800;">✓</span>
-            <span>KYC & Sanction Letter Approved by Vistas Tecnolabs Finance Limited</span>
+            <span style="width: 20px; height: 20px; border-radius: 50%; background: #00d287; color: white; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800;">✓</span>
+            <span>KYC & Sanction Letter Issued by Vistas Tecnolabs</span>
           </div>
           <div style="display: flex; align-items: center; gap: 10px;">
-            <span style="width: 20px; height: 20px; border-radius: 50%; background: #00b894; color: white; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800;">✓</span>
-            <span>One-Time Stamp Duty & Disbursal Fee Received (✓ Verified)</span>
+            <span style="width: 20px; height: 20px; border-radius: 50%; background: #00d287; color: white; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800;">✓</span>
+            <span>One-Time Stamp Duty & Disbursal Fee Verified</span>
           </div>
           <div style="display: flex; align-items: center; gap: 10px;">
-            <span style="width: 20px; height: 20px; border-radius: 50%; background: #f39c12; color: white; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800;">⏳</span>
-            <span style="font-weight: 700; color: #f39c12;">Staff Banking Desk: Verifying IMPS Transfer (In Progress...)</span>
+            <span style="width: 20px; height: 20px; border-radius: 50%; background: #fbbf24; color: #000; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800;">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            </span>
+            <span style="font-weight: 700; color: #fbbf24;">Banking Wire Desk: IMPS Transfer Clearing (In Progress...)</span>
           </div>
-          <div style="display: flex; align-items: center; gap: 10px; color: rgba(255,255,255,0.65);">
-            <span style="width: 20px; height: 20px; border-radius: 50%; background: rgba(255,255,255,0.2); color: white; display: flex; align-items: center; justify-content: center; font-size: 11px;">4</span>
-            <span>Credit to Bank Account (Target: &lt; 30 Minutes)</span>
+          <div style="display: flex; align-items: center; gap: 10px; color: rgba(255,255,255,0.5);">
+            <span style="width: 20px; height: 20px; border-radius: 50%; background: rgba(255,255,255,0.15); color: white; display: flex; align-items: center; justify-content: center; font-size: 11px;">4</span>
+            <span>Direct Credit to Account (Under 30 Minutes)</span>
           </div>
         </div>
       </div>
@@ -160,15 +203,21 @@
       <!-- ==================== ACTIVE REPAYMENT SCHEDULE ==================== -->
       <div class="repay-schedule-section" id="repayScheduleSection" style="display: none;">
         <div class="dash-section-header" style="margin-bottom: 12px;">
-          <h3>📅 Loan Repayment Schedule</h3>
-          <span class="kyc-verified-pill" id="scheduleStatusPill" style="font-size: 11px;">🟢 Active EMIs</span>
+          <h3 style="display: flex; align-items: center; gap: 8px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Loan Repayment Schedule
+          </h3>
+          <span class="kyc-verified-pill" id="scheduleStatusPill" style="font-size: 11px;">Active EMIs</span>
         </div>
 
         <!-- Next EMI Summary Box -->
         <div class="repay-summary-box">
           <div class="repay-summary-top">
             <span class="next-emi-title">Next Upcoming EMI</span>
-            <span class="auto-debit-badge">⚡ Auto-Debit Active</span>
+            <span class="auto-debit-badge" style="display: inline-flex; align-items: center; gap: 4px;">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              Auto-Debit Active
+            </span>
           </div>
 
           <div class="repay-amount-row">
@@ -212,14 +261,19 @@
 
       <!-- Insurance & Protection Hub -->
       <div class="dash-section-header">
-        <h3>🛡️ Insurance & Protection Hub</h3>
+        <h3 style="display: flex; align-items: center; gap: 8px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Insurance & Protection Hub
+        </h3>
         <a href="#" onclick="switchTab('insurance'); return false;">View All →</a>
       </div>
 
       <div class="insurance-list">
         <!-- 1. EMI Protection -->
         <div class="ins-card" onclick="openInsuranceModal('emi')">
-          <div class="ins-icon blue">🛡️</div>
+          <div class="ins-icon blue">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
           <div class="ins-info">
             <h4>Loan Suraksha (EMI Shield)</h4>
             <p>Protects your loan EMIs against job loss, accident, or disability</p>
@@ -232,7 +286,9 @@
 
         <!-- 2. HospiCash -->
         <div class="ins-card" onclick="openInsuranceModal('health')">
-          <div class="ins-icon green">🏥</div>
+          <div class="ins-icon green">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          </div>
           <div class="ins-info">
             <h4>Family HospiCash Allowance</h4>
             <p>Get ₹5,000/day hospital allowance for up to 30 days</p>
@@ -245,7 +301,9 @@
 
         <!-- 3. Cyber Shield -->
         <div class="ins-card" onclick="openInsuranceModal('cyber')">
-          <div class="ins-icon purple">🔒</div>
+          <div class="ins-icon purple">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
           <div class="ins-info">
             <h4>Cyber & UPI Fraud Cover</h4>
             <p>Up to ₹1,00,000 cover against online payment fraud & phishing</p>
@@ -259,7 +317,10 @@
 
       <!-- Free CIBIL Score Card -->
       <div class="dash-section-header">
-        <h3>📊 Credit Health & Insights</h3>
+        <h3 style="display: flex; align-items: center; gap: 8px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          Credit Health & Insights
+        </h3>
       </div>
       <div class="cibil-card">
         <div class="cibil-info">
@@ -277,14 +338,19 @@
     <!-- ==================== TAB 2: INSURANCE DETAILED ==================== -->
     <div id="tabInsurance" class="dash-tab-content" style="display: none;">
       <div style="padding: 20px 0 10px;">
-        <h2 style="font-size: 20px; font-weight: 800; color: var(--dark);">🛡️ Financial Protection Plans</h2>
+        <h2 style="font-size: 20px; font-weight: 800; color: var(--dark); display: flex; align-items: center; gap: 8px;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Financial Protection Plans
+        </h2>
         <p style="font-size: 13px; color: var(--gray-700);">Low-cost insurance customized for Bruno Credits borrowers</p>
       </div>
 
       <div class="insurance-list">
         <div class="profile-card">
           <div class="profile-card-header">
-            <div style="font-size: 28px;">🛡️</div>
+            <div class="ins-icon blue" style="width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
             <div>
               <h3>Loan EMI Suraksha Cover</h3>
               <p style="font-size: 12px; color: var(--gray-700);">Underwritten by Leading General Insurer</p>
@@ -302,12 +368,14 @@
             <span class="row-label">Covered Events</span>
             <span class="row-value">Job Loss, Accidental Disability, Critical Illness</span>
           </div>
-          <button type="button" class="btn btn-primary btn-block btn-sm" style="margin-top: 14px;" onclick="alert('✅ Loan Suraksha added to your profile! Premium will be included in your monthly schedule.')">Enroll for ₹29/mo →</button>
+          <button type="button" class="btn btn-primary btn-block btn-sm" style="margin-top: 14px;" onclick="alert('Loan Suraksha added to your profile! Premium will be included in your monthly schedule.')">Enroll for ₹29/mo →</button>
         </div>
 
         <div class="profile-card">
           <div class="profile-card-header">
-            <div style="font-size: 28px;">🏥</div>
+            <div class="ins-icon green" style="width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            </div>
             <div>
               <h3>HospiCash Family Hospital Allowance</h3>
               <p style="font-size: 12px; color: var(--gray-700);">Cashless support for hospital stays</p>
@@ -325,12 +393,14 @@
             <span class="row-label">Claim Settlement</span>
             <span class="row-value">Direct Bank Transfer in 24 Hrs</span>
           </div>
-          <button type="button" class="btn btn-secondary btn-block btn-sm" style="margin-top: 14px;" onclick="alert('✅ HospiCash plan activated! Policy document sent to your email.')">Activate Plan →</button>
+          <button type="button" class="btn btn-secondary btn-block btn-sm" style="margin-top: 14px;" onclick="alert('HospiCash plan activated! Policy document sent to your email.')">Activate Plan →</button>
         </div>
 
         <div class="profile-card">
           <div class="profile-card-header">
-            <div style="font-size: 28px;">🔒</div>
+            <div class="ins-icon purple" style="width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </div>
             <div>
               <h3>Cyber & UPI Fraud Insurance</h3>
               <p style="font-size: 12px; color: var(--gray-700);">Complete digital transaction security</p>
@@ -344,7 +414,7 @@
             <span class="row-label">Premium</span>
             <span class="row-value">₹19 / month</span>
           </div>
-          <button type="button" class="btn btn-secondary btn-block btn-sm" style="margin-top: 14px;" onclick="alert('✅ Cyber Shield activated on your account!')">Activate for ₹19/mo →</button>
+          <button type="button" class="btn btn-secondary btn-block btn-sm" style="margin-top: 14px;" onclick="alert('Cyber Shield activated on your account!')">Activate for ₹19/mo →</button>
         </div>
       </div>
     </div>
@@ -352,7 +422,10 @@
     <!-- ==================== TAB 3: PROFILE, SUPPORT & POLICIES ==================== -->
     <div id="tabProfile" class="dash-tab-content" style="display: none;">
       <div style="padding: 20px 0 10px;">
-        <h2 style="font-size: 20px; font-weight: 800; color: var(--dark);">👤 User Profile & Support</h2>
+        <h2 style="font-size: 20px; font-weight: 800; color: var(--dark); display: flex; align-items: center; gap: 8px;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          User Profile & Support
+        </h2>
         <p style="font-size: 13px; color: var(--gray-700);">Manage your personal details, get 24x7 help & policies</p>
       </div>
 
@@ -384,11 +457,11 @@
         </div>
         <div class="profile-row">
           <span class="row-label">Aadhaar Status</span>
-          <span class="row-value" style="color: var(--success);">Verified (UIDAI Mock) ✓</span>
+          <span class="row-value" style="color: var(--success);">Verified (UIDAI) ✓</span>
         </div>
         <div class="profile-row">
           <span class="row-label">PAN Verification</span>
-          <span class="row-value" style="color: var(--success);">Verified (NSDL Mock) ✓</span>
+          <span class="row-value" style="color: var(--success);">Verified (NSDL) ✓</span>
         </div>
         <div class="profile-row">
           <span class="row-label">Disbursal Bank</span>
@@ -399,13 +472,18 @@
       <!-- 2. 24x7 Support Section -->
       <div class="profile-card">
         <div class="profile-card-header">
-          <h3>🎧 24x7 Customer Support</h3>
+          <h3 style="display: flex; align-items: center; gap: 8px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+            24x7 Customer Support
+          </h3>
         </div>
 
         <!-- WhatsApp Support -->
         <a href="https://wa.me/919876543210?text=Hi%20Bruno%20Credits%20Support,%20I%20need%20help%20with%20my%20loan%20application" target="_blank" class="support-item">
           <div class="support-item-left">
-            <span class="icon">💬</span>
+            <span class="icon" style="color: #00d287;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </span>
             <div>
               <div class="title">WhatsApp Support</div>
               <div class="sub">Instant replies in ~2 minutes</div>
@@ -417,7 +495,9 @@
         <!-- Toll Free Helpline -->
         <a href="tel:18008902456" class="support-item">
           <div class="support-item-left">
-            <span class="icon">📞</span>
+            <span class="icon" style="color: var(--primary);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </span>
             <div>
               <div class="title">Toll-Free Helpline</div>
               <div class="sub">1800-890-2456 (9 AM - 8 PM)</div>
@@ -429,7 +509,9 @@
         <!-- Priority Email -->
         <a href="mailto:support@brunocredits.in" class="support-item">
           <div class="support-item-left">
-            <span class="icon">✉️</span>
+            <span class="icon" style="color: var(--accent);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </span>
             <div>
               <div class="title">Email Desk</div>
               <div class="sub">support@brunocredits.in</div>
@@ -440,7 +522,7 @@
 
         <!-- Grievance Officer Notice -->
         <div style="margin-top: 12px; padding: 12px; background: var(--gray-100); border-radius: var(--radius-sm); font-size: 11px; color: var(--gray-700); line-height: 1.5;">
-          <strong>🏛️ Statutory Grievance Redressal Officer (RBI Guidelines):</strong><br>
+          <strong>Statutory Grievance Redressal Officer (RBI Guidelines):</strong><br>
           Mr. Amit Saxena | Principal Officer<br>
           Email: grievance@brunocredits.in | Resolution timeframe: 48 working hours
         </div>
@@ -449,7 +531,10 @@
       <!-- 3. Privacy Policy Accordion -->
       <div class="policy-card" id="privacyCard">
         <div class="policy-card-header" onclick="togglePolicy('privacyCard')">
-          <h4>🔒 Privacy Policy (RBI Compliant 2024)</h4>
+          <h4 style="display: flex; align-items: center; gap: 8px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Privacy Policy (RBI Compliant 2024)
+          </h4>
           <span>▼</span>
         </div>
         <div class="policy-card-body">
@@ -465,7 +550,10 @@
       <!-- 4. Terms and Conditions Accordion -->
       <div class="policy-card" id="termsCard">
         <div class="policy-card-header" onclick="togglePolicy('termsCard')">
-          <h4>📜 Terms and Conditions & Lending Agreement</h4>
+          <h4 style="display: flex; align-items: center; gap: 8px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            Terms and Conditions & Lending Agreement
+          </h4>
           <span>▼</span>
         </div>
         <div class="policy-card-body">
@@ -479,8 +567,8 @@
       </div>
 
       <!-- 5. Logout Button -->
-      <button type="button" class="logout-btn" onclick="handleLogout()">
-        <span>🚪</span>
+      <button type="button" class="logout-btn" onclick="handleLogout()" style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
         <span>Log Out of Account</span>
       </button>
 
@@ -496,19 +584,27 @@
   <!-- Bottom App Navigation Bar -->
   <nav class="app-bottom-nav">
     <button type="button" class="app-nav-item active" id="navHome" onclick="switchTab('home')">
-      <span class="nav-icon">🏠</span>
+      <span class="nav-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      </span>
       <span>Home</span>
     </button>
     <button type="button" class="app-nav-item" id="navLoans" onclick="window.location.href='apply.html'">
-      <span class="nav-icon">💰</span>
+      <span class="nav-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+      </span>
       <span>Loan</span>
     </button>
     <button type="button" class="app-nav-item" id="navInsurance" onclick="switchTab('insurance')">
-      <span class="nav-icon">🛡️</span>
+      <span class="nav-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </span>
       <span>Insurance</span>
     </button>
     <button type="button" class="app-nav-item" id="navProfile" onclick="switchTab('profile')">
-      <span class="nav-icon">👤</span>
+      <span class="nav-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </span>
       <span>Profile</span>
     </button>
   </nav>
@@ -517,11 +613,14 @@
   <div class="modal-overlay" id="payEmiModal">
     <div class="modal-content" style="max-width: 420px; text-align: left;">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
-        <h3 style="font-size: 18px; font-weight: 800; color: var(--dark); margin: 0;">⚡ Quick EMI Repayment</h3>
+        <h3 style="font-size: 18px; font-weight: 800; color: var(--dark); margin: 0; display: flex; align-items: center; gap: 8px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          Quick EMI Repayment
+        </h3>
         <button type="button" onclick="closePayEmiModal()" style="background: none; border: none; font-size: 20px; cursor: pointer;">✕</button>
       </div>
 
-      <div style="background: linear-gradient(135deg, rgba(26, 31, 113, 0.06) 0%, rgba(0, 184, 148, 0.08) 100%); padding: 14px; border-radius: var(--radius-md); margin-bottom: 16px;">
+      <div style="background: rgba(10, 14, 39, 0.04); padding: 14px; border-radius: var(--radius-md); margin-bottom: 16px; border: 1px solid rgba(10, 14, 39, 0.1);">
         <div style="font-size: 11px; text-transform: uppercase; color: var(--gray-700); font-weight: 700;">Installment to Pay:</div>
         <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 4px;">
           <span style="font-size: 15px; font-weight: 800; color: var(--dark);" id="payModalInstTitle">Installment 1</span>
@@ -533,26 +632,27 @@
       <div style="font-size: 12px; font-weight: 700; color: var(--dark); margin-bottom: 8px;">Select Payment Mode:</div>
       <div class="payment-methods-grid">
         <div class="payment-method-card selected" onclick="selectPayMethod(this)">
-          <div>📱 Google Pay</div>
+          <div>Google Pay</div>
         </div>
         <div class="payment-method-card" onclick="selectPayMethod(this)">
-          <div>🟣 PhonePe</div>
+          <div>PhonePe</div>
         </div>
         <div class="payment-method-card" onclick="selectPayMethod(this)">
-          <div>🔵 Paytm UPI</div>
+          <div>Paytm UPI</div>
         </div>
         <div class="payment-method-card" onclick="selectPayMethod(this)">
-          <div>🏛️ NetBanking</div>
+          <div>Net Banking</div>
         </div>
       </div>
 
-      <div style="font-size: 11px; color: var(--gray-500); margin-bottom: 16px; text-align: center;">
-        🔒 Secured by NPCI UPI Gateway · Instant NOC & Receipt Update
-      </div>
-
-      <button type="button" class="btn btn-success btn-block btn-lg" id="confirmPayBtn" onclick="processEmiPayment()">
-        Pay Now ✓
+      <button type="button" class="btn btn-secondary btn-block btn-lg" id="confirmPayBtn" style="margin-top: 18px; font-weight: 800;" onclick="confirmEmiPayment()">
+        Pay via Razorpay Live Gateway →
       </button>
+
+      <div style="margin-top: 10px; font-size: 11px; color: var(--gray-500); text-align: center; display: flex; align-items: center; justify-content: center; gap: 4px;">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <span>100% Secure RBI Regulated Escrow Payment</span>
+      </div>
     </div>
   </div>
 

@@ -53,52 +53,56 @@
   </div>
 
   <!-- Lending Partner Announcement Banner -->
-  <div class="lender-trust-banner" style="background: rgba(26, 31, 113, 0.05); border-bottom: 1px solid rgba(26, 31, 113, 0.1); padding: 8px 12px; text-align: center;">
+  <div class="lender-trust-banner" style="background: rgba(10, 14, 39, 0.03); border-bottom: 1px solid rgba(10, 14, 39, 0.08); padding: 9px 14px; text-align: center;">
     <div class="container" style="display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; font-size: 13px; font-weight: 600; color: var(--primary);">
-      <span>🏛️ Official NBFC Lender:</span>
+      <span style="display: inline-flex; align-items: center; gap: 5px;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M3 10h18M5 10v11M9 10v11M15 10v11M19 10v11M12 2L2 7h20L12 2z"/></svg>
+        Official NBFC Lender:
+      </span>
       <strong style="color: var(--primary); text-decoration: underline;">Vistas Tecnolabs Finance Limited</strong>
-      <span style="font-size: 11px; background: rgba(39, 174, 96, 0.15); color: var(--success); padding: 2px 8px; border-radius: 12px; font-weight: 700;">● RBI Registered</span>
+      <span style="font-size: 11px; background: rgba(16, 185, 129, 0.12); color: var(--secondary); padding: 2px 8px; border-radius: 12px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;">
+        <span style="width: 6px; height: 6px; border-radius: 50%; background: var(--secondary); display: inline-block;"></span> RBI Registered NBFC
+      </span>
     </div>
   </div>
 
   <!-- Already Approved Notice Banner (Prevents filling the form again) -->
-  <div id="alreadyApprovedBanner" class="already-approved-banner" style="display: none; background: linear-gradient(135deg, #1a1f71, #2d3494); color: white; padding: 14px 16px; border-bottom: 2px solid #00b894;">
-    <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
-      <div style="display: flex; align-items: center; gap: 10px;">
-        <span style="font-size: 24px;">🎉</span>
+  <div id="alreadyApprovedBanner" class="already-approved-banner" style="display: none; background: linear-gradient(135deg, #0f172a, #1e293b); color: white; padding: 14px 18px; border-bottom: 2px solid var(--secondary); box-shadow: var(--shadow-sm);">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <div style="width: 36px; height: 36px; border-radius: 50%; background: rgba(0, 210, 135, 0.15); display: flex; align-items: center; justify-content: center; color: var(--secondary); flex-shrink: 0;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
         <div>
-          <div style="font-size: 14px; font-weight: 800; color: #00b894;">Aapka Personal Loan Already Approved Hai!</div>
-          <div style="font-size: 12px; color: rgba(255,255,255,0.85);" id="approvedBannerSub">Approved Amount: <strong id="bannerApprovedAmount" style="color: white; font-size: 14px;">₹16,420</strong> by Vistas Tecnolabs Finance Limited</div>
+          <div style="font-size: 14px; font-weight: 800; color: var(--secondary-light); letter-spacing: 0.3px;">Personal Loan Pre-Approved & Active</div>
+          <div style="font-size: 12px; color: rgba(255,255,255,0.8);" id="approvedBannerSub">Approved Amount: <strong id="bannerApprovedAmount" style="color: white; font-size: 14px;">₹16,420</strong> by Vistas Tecnolabs Finance Limited</div>
         </div>
       </div>
       <div style="display: flex; gap: 8px;">
-        <a href="dashboard.html" class="btn btn-success btn-sm" style="font-weight: 700;">Go to Dashboard →</a>
+        <a href="dashboard.html" class="btn btn-secondary btn-sm" style="font-weight: 700;">Go to Dashboard →</a>
       </div>
     </div>
   </div>
 
-  <!-- Progress Bar -->
-  <section class="progress-section">
-    <div class="container">
-      <div class="progress-bar-wrapper">
-        <div class="step-indicator active" id="stepInd1">
-          <div class="step-circle">1</div>
-          <div class="step-label">Personal Info</div>
+  <!-- Modern Stepper Capsule -->
+  <section class="progress-section" style="padding: 24px 0 8px;">
+    <div class="container" style="max-width: 640px;">
+      <div class="stepper-capsule">
+        <div class="step-pill active" id="stepInd1">
+          <span class="step-dot">1</span>
+          <span>Personal</span>
         </div>
-        <div class="step-line" id="line1"></div>
-        <div class="step-indicator" id="stepInd2">
-          <div class="step-circle">2</div>
-          <div class="step-label">Employment</div>
+        <div class="step-pill" id="stepInd2">
+          <span class="step-dot">2</span>
+          <span>Income</span>
         </div>
-        <div class="step-line" id="line2"></div>
-        <div class="step-indicator" id="stepInd3">
-          <div class="step-circle">3</div>
-          <div class="step-label">KYC</div>
+        <div class="step-pill" id="stepInd3">
+          <span class="step-dot">3</span>
+          <span>KYC</span>
         </div>
-        <div class="step-line" id="line3"></div>
-        <div class="step-indicator" id="stepInd4">
-          <div class="step-circle">4</div>
-          <div class="step-label">Bank & Offer</div>
+        <div class="step-pill" id="stepInd4">
+          <span class="step-dot">4</span>
+          <span>Sanction</span>
         </div>
       </div>
     </div>
@@ -108,44 +112,50 @@
   <div class="form-container">
 
     <!-- Active Disbursal Stage Banner (If loan fee paid and 30-min transfer running) -->
-    <div class="already-approved-banner active-disbursal" id="activeDisbursalBanner" style="display: none; background: linear-gradient(135deg, #1a1f71, #2d3494); color: white; border: 2px solid #00b894;">
-      <div class="banner-badge" style="background: #00b894; color: white;">🚀 DISBURSAL STAGE IN PROGRESS</div>
-      <h3 style="color: white; margin-top: 4px;">Aapka Personal Loan Disbursal Stage Par Hai!</h3>
-      <p style="color: rgba(255,255,255,0.9); margin-bottom: 6px;">
-        Sanctioned Amount: <strong style="color: #00b894; font-size: 19px;" id="activeBannerAmount">₹16,420</strong> | Lending Partner: <strong>Vistas Tecnolabs Finance Limited</strong>
-      </p>
-      <div class="banner-note" style="background: rgba(0,0,0,0.25); color: rgba(255,255,255,0.9); border-left: 3px solid #00b894;">
-        ⏳ Hamara staff <strong>30 minute ke andar</strong> loan amount aapke bank account me transfer kar raha hai. Aapko dobara form bharne ki zaroorat nahi hai.
+    <div class="already-approved-banner active-disbursal" id="activeDisbursalBanner" style="display: none; background: linear-gradient(135deg, #090d20 0%, #111a3d 100%); color: white; border: 1px solid rgba(0, 210, 135, 0.4); border-radius: var(--radius-lg); box-shadow: 0 10px 30px rgba(0,0,0,0.25); padding: 20px;">
+      <div class="banner-badge" style="background: rgba(0, 210, 135, 0.2); color: var(--secondary); border: 1px solid rgba(0, 210, 135, 0.4); display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 800; letter-spacing: 0.5px;">
+        <span style="width: 6px; height: 6px; border-radius: 50%; background: var(--secondary); animation: pulse 1.5s infinite;"></span>
+        DISBURSAL STAGE IN PROGRESS
       </div>
-      <div class="banner-actions" style="margin-top: 14px;">
-        <a href="dashboard.html" class="btn btn-success btn-block btn-lg" style="font-size: 15px; font-weight: 800;">
-          📊 Go to Dashboard & Track Live Bank Transfer →
+      <h3 style="color: white; margin-top: 10px; font-size: 18px; font-weight: 800;">Loan Disbursal Stage Active</h3>
+      <p style="color: rgba(255,255,255,0.85); margin-bottom: 10px; font-size: 13px;">
+        Sanctioned Amount: <strong style="color: var(--secondary-light); font-size: 18px;" id="activeBannerAmount">₹16,420</strong> | Lending Partner: <strong>Vistas Tecnolabs Finance Limited</strong>
+      </p>
+      <div class="banner-note" style="background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.9); border-left: 3px solid var(--secondary); border-radius: 4px; padding: 10px 12px; font-size: 12px;">
+        Hamara staff <strong>30 minute ke andar</strong> loan amount aapke bank account me transfer kar raha hai. Dobara form bharne ki zaroorat nahi hai.
+      </div>
+      <div class="banner-actions" style="margin-top: 16px;">
+        <a href="dashboard.html" class="btn btn-secondary btn-block btn-lg" style="font-size: 14px; font-weight: 800;">
+          Go to Dashboard & Track Live Bank Transfer →
         </a>
       </div>
     </div>
 
     <!-- Already Approved Sanction Banner (If loan approved, awaiting tenure/disbursal) -->
     <div class="already-approved-banner" id="alreadyApprovedBanner" style="display: none;">
-      <div class="banner-badge">🎉 LOAN SANCTION ACTIVE</div>
+      <div class="banner-badge">LOAN SANCTION ACTIVE</div>
       <h3 id="approvedBannerTitle">Aapka Personal Loan Pehle Se Approved Hai!</h3>
       <p id="approvedBannerSub">
         Lending Partner: <strong>Vistas Tecnolabs Finance Limited</strong> | Sanction Amount: <span id="bannerApprovedAmount" class="banner-amt">₹16,420</span>
       </p>
       <div class="banner-note">
-        💡 <strong>Wapas form nahi bharna padega:</strong> Aapki sabhi personal, employment aur bank details pehle se verified hain. Neeche apna tenure (3 se 12 mahine) chunein aur turant 30-minute disbursal shuru karein.
+        <strong>Wapas form nahi bharna padega:</strong> Aapki sabhi personal, employment aur bank details pehle se verified hain. Neeche apna tenure (3 se 12 mahine) chunein aur turant 30-minute disbursal shuru karein.
       </div>
       <div class="banner-actions">
         <a href="#creditSanctionCard" class="btn btn-success" id="bannerViewOfferBtn">Neeche Sanction Offer Dekhein ↓</a>
         <a href="dashboard.html" class="btn btn-primary">Dashboard Par Jayein →</a>
-        <button type="button" onclick="startFreshApplication()" style="background: none; border: none; color: var(--gray-700); text-decoration: underline; cursor: pointer; font-size: 12px; margin-left: auto;">🔄 New Application / Re-apply</button>
+        <button type="button" onclick="startFreshApplication()" style="background: none; border: none; color: var(--gray-700); text-decoration: underline; cursor: pointer; font-size: 12px; margin-left: auto;">Reset / New Application</button>
       </div>
     </div>
 
     <!-- ==================== STEP 1: Personal Info ==================== -->
     <div class="form-step active" id="step1">
       <div class="step-header">
-        <h2>👤 Personal Information</h2>
-        <p>Tell us about yourself to get started</p>
+        <h2 style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Personal Information
+        </h2>
+        <p>Tell us about yourself to check pre-approved loan eligibility</p>
       </div>
 
       <!-- Full Name -->
@@ -282,8 +292,11 @@
     <!-- ==================== STEP 2: Employment ==================== -->
     <div class="form-step" id="step2">
       <div class="step-header">
-        <h2>💼 Employment & Income</h2>
-        <p>Help us understand your income for better loan offers</p>
+        <h2 style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+          Employment & Income
+        </h2>
+        <p>Help us understand your income for instant underwrite approval</p>
       </div>
 
       <!-- Employment Type -->
@@ -291,19 +304,27 @@
         <label>Employment Type <span class="required">*</span></label>
         <div class="emp-type-grid">
           <div class="emp-type-card" data-type="salaried" onclick="selectEmpType(this)">
-            <div class="emp-icon">💼</div>
+            <div class="emp-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+            </div>
             <div class="emp-label">Salaried</div>
           </div>
           <div class="emp-type-card" data-type="self_employed" onclick="selectEmpType(this)">
-            <div class="emp-icon">🏪</div>
+            <div class="emp-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </div>
             <div class="emp-label">Self Employed</div>
           </div>
           <div class="emp-type-card" data-type="business" onclick="selectEmpType(this)">
-            <div class="emp-icon">🏢</div>
+            <div class="emp-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"/><line x1="9" y1="22" x2="9" y2="22.01"/><line x1="15" y1="22" x2="15" y2="22.01"/><line x1="9" y1="6" x2="9" y2="6.01"/><line x1="15" y1="6" x2="15" y2="6.01"/><line x1="9" y1="10" x2="9" y2="10.01"/><line x1="15" y1="10" x2="15" y2="10.01"/><line x1="9" y1="14" x2="9" y2="14.01"/><line x1="15" y1="14" x2="15" y2="14.01"/><line x1="9" y1="18" x2="9" y2="18.01"/><line x1="15" y1="18" x2="15" y2="18.01"/></svg>
+            </div>
             <div class="emp-label">Business Owner</div>
           </div>
           <div class="emp-type-card" data-type="freelancer" onclick="selectEmpType(this)">
-            <div class="emp-icon">💻</div>
+            <div class="emp-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            </div>
             <div class="emp-label">Freelancer</div>
           </div>
         </div>
@@ -356,7 +377,9 @@
       <div class="form-group">
         <label>Upload Salary Slip (Optional)</label>
         <div class="file-upload-area" id="salarySlipUpload" onclick="document.getElementById('salarySlipFile').click()">
-          <div class="upload-icon">📄</div>
+          <div class="upload-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          </div>
           <div class="upload-text">Click to upload salary slip</div>
           <div class="upload-hint">PDF, JPG, PNG (Max 5MB)</div>
           <input type="file" id="salarySlipFile" accept=".pdf,.jpg,.jpeg,.png" onchange="handleFileUpload(this, 'salarySlipUpload', 'salarySlipPreview')">
@@ -368,8 +391,11 @@
     <!-- ==================== STEP 3: KYC Verification ==================== -->
     <div class="form-step" id="step3">
       <div class="step-header">
-        <h2>🔐 KYC Verification</h2>
-        <p>Verify your identity with Aadhaar & PAN</p>
+        <h2 style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+          KYC Verification
+        </h2>
+        <p>Instant digital paperless identity verification as per RBI guidelines</p>
       </div>
 
       <div class="kyc-methods">
@@ -378,7 +404,9 @@
         <div class="kyc-card open" id="aadhaarOtpCard">
           <div class="kyc-card-header" onclick="toggleKycCard('aadhaarOtpCard')">
             <div class="kyc-title">
-              <div class="kyc-icon aadhaar-icon">🆔</div>
+              <div class="kyc-icon aadhaar-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><line x1="15" y1="8" x2="17" y2="8"/><line x1="15" y1="12" x2="17" y2="12"/><line x1="7" y1="16" x2="17" y2="16"/></svg>
+              </div>
               <div>
                 <h4>Aadhaar OTP Verification</h4>
                 <div class="kyc-subtitle">Verify instantly with Aadhaar-linked mobile</div>
@@ -435,7 +463,9 @@
         <div class="kyc-card" id="aadhaarManualCard">
           <div class="kyc-card-header" onclick="toggleKycCard('aadhaarManualCard')">
             <div class="kyc-title">
-              <div class="kyc-icon aadhaar-icon">📤</div>
+              <div class="kyc-icon aadhaar-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              </div>
               <div>
                 <h4>Manual Aadhaar Upload</h4>
                 <div class="kyc-subtitle">Upload Aadhaar card front & back images</div>
@@ -448,7 +478,9 @@
             <div class="form-group">
               <label>Aadhaar Card - Front Side <span class="required">*</span></label>
               <div class="file-upload-area" id="aadhaarFrontUpload" onclick="document.getElementById('aadhaarFrontFile').click()">
-                <div class="upload-icon">🖼️</div>
+                <div class="upload-icon">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                </div>
                 <div class="upload-text">Upload Aadhaar Front</div>
                 <div class="upload-hint">JPG, PNG (Max 5MB)</div>
                 <input type="file" id="aadhaarFrontFile" accept=".jpg,.jpeg,.png" onchange="handleFileUpload(this, 'aadhaarFrontUpload', 'aadhaarFrontPreview')">
@@ -460,7 +492,9 @@
             <div class="form-group">
               <label>Aadhaar Card - Back Side <span class="required">*</span></label>
               <div class="file-upload-area" id="aadhaarBackUpload" onclick="document.getElementById('aadhaarBackFile').click()">
-                <div class="upload-icon">🖼️</div>
+                <div class="upload-icon">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                </div>
                 <div class="upload-text">Upload Aadhaar Back</div>
                 <div class="upload-hint">JPG, PNG (Max 5MB)</div>
                 <input type="file" id="aadhaarBackFile" accept=".jpg,.jpeg,.png" onchange="handleFileUpload(this, 'aadhaarBackUpload', 'aadhaarBackPreview')">
@@ -476,10 +510,12 @@
         <div class="kyc-card" id="panCard">
           <div class="kyc-card-header" onclick="toggleKycCard('panCard')">
             <div class="kyc-title">
-              <div class="kyc-icon pan-icon">💳</div>
+              <div class="kyc-icon pan-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+              </div>
               <div>
                 <h4>PAN Card Verification</h4>
-                <div class="kyc-subtitle">Verify PAN for tax compliance</div>
+                <div class="kyc-subtitle">Verify PAN for tax & credit bureau underwriting</div>
               </div>
             </div>
             <span class="kyc-toggle-icon">▼</span>
@@ -501,11 +537,15 @@
               <label>PAN Holder Name</label>
               <input type="text" class="form-control success" id="panHolderName" readonly>
               <div class="verification-status success" id="panNameMatch" style="display: none;">
-                <span class="status-icon">✅</span>
+                <span class="status-icon">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                </span>
                 <span>Name matches with your personal information</span>
               </div>
               <div class="verification-status error" id="panNameMismatch" style="display: none;">
-                <span class="status-icon">⚠️</span>
+                <span class="status-icon">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                </span>
                 <span>Name does not match. Please verify your details.</span>
               </div>
             </div>
@@ -517,7 +557,9 @@
             <div class="form-group">
               <label>PAN Card Image <span class="required">*</span></label>
               <div class="file-upload-area" id="panUploadArea" onclick="document.getElementById('panFile').click()">
-                <div class="upload-icon">💳</div>
+                <div class="upload-icon">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                </div>
                 <div class="upload-text">Upload PAN Card</div>
                 <div class="upload-hint">JPG, PNG (Max 5MB)</div>
                 <input type="file" id="panFile" accept=".jpg,.jpeg,.png" onchange="handleFileUpload(this, 'panUploadArea', 'panPreview')">
@@ -544,8 +586,11 @@
     <!-- ==================== STEP 4: Bank Details & Credit Limit ==================== -->
     <div class="form-step" id="step4">
       <div class="step-header">
-        <h2>🏦 Bank Verification & Loan Sanction</h2>
-        <p>Enter bank account where your approved loan will be disbursed</p>
+        <h2 style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M3 10h18M5 10v11M9 10v11M15 10v11M19 10v11M12 2L2 7h20L12 2z"/></svg>
+          Bank Verification & Loan Sanction
+        </h2>
+        <p>Enter bank account where your approved loan funds will be disbursed</p>
       </div>
 
       <!-- Bank Form Card -->
@@ -554,9 +599,13 @@
         <div class="form-group">
           <label>Bank Account Number <span class="required">*</span></label>
           <div class="input-group">
-            <span class="input-prefix">🔢</span>
+            <span class="input-prefix" style="color: var(--primary);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg>
+            </span>
             <input type="password" class="form-control" id="accountNumber" placeholder="Enter bank account number" maxlength="18" inputmode="numeric" autocomplete="off">
-            <button type="button" class="toggle-btn" onclick="toggleAccVisibility('accountNumber', this)" title="Show/Hide">👁️</button>
+            <button type="button" class="toggle-btn" onclick="toggleAccVisibility('accountNumber', this)" title="Show/Hide">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
           </div>
           <div class="error-text" id="accNumError">Please enter a valid bank account number (9 to 18 digits)</div>
         </div>
@@ -565,7 +614,9 @@
         <div class="form-group">
           <label>Re-enter Bank Account Number <span class="required">*</span></label>
           <div class="input-group">
-            <span class="input-prefix">🔄</span>
+            <span class="input-prefix" style="color: var(--secondary);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+            </span>
             <input type="text" class="form-control" id="confirmAccountNumber" placeholder="Re-enter bank account number" maxlength="18" inputmode="numeric" autocomplete="off">
           </div>
           <div class="match-hint" id="accMatchHint" style="display: none;"></div>
@@ -576,7 +627,9 @@
         <div class="form-group">
           <label>Bank IFSC Code <span class="required">*</span></label>
           <div class="input-group">
-            <span class="input-prefix">🏛️</span>
+            <span class="input-prefix" style="color: var(--primary);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M3 10h18M5 10v11M9 10v11M15 10v11M19 10v11M12 2L2 7h20L12 2z"/></svg>
+            </span>
             <input type="text" class="form-control" id="ifscCode" placeholder="e.g. SBIN0001234 or HDFC0000128" maxlength="11" style="text-transform: uppercase;">
           </div>
           <div class="ifsc-detected-badge" id="ifscBadge" style="display: none;">
@@ -612,7 +665,9 @@
 
         <!-- Beneficiary Name Pill -->
         <div class="acc-holder-pill">
-          <span class="pill-icon">👤</span>
+          <span class="pill-icon" style="color: var(--primary);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </span>
           <div>
             <div class="pill-title">Verified Beneficiary Name</div>
             <div class="pill-name" id="beneficiaryNameDisplay">As per KYC Details</div>
@@ -620,8 +675,9 @@
         </div>
 
         <!-- Verify Bank & Get Credit Limit Button -->
-        <button type="button" class="btn btn-primary btn-block btn-lg" id="verifyBankBtn" onclick="verifyBankAndCalculateLimit()">
-          ⚡ Verify Account & Check Credit Limit →
+        <button type="button" class="btn btn-secondary btn-block btn-lg" id="verifyBankBtn" onclick="verifyBankAndCalculateLimit()" style="display: flex; align-items: center; justify-content: center; gap: 8px; font-weight: 800;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          <span>Verify Account & Check Credit Limit →</span>
         </button>
       </div>
 
@@ -655,10 +711,16 @@
       <div id="creditSanctionCard" style="display: none; margin-top: 24px;">
         <div class="sanction-card">
           <div class="sanction-banner">
-            <div class="sanction-badge">🟢 Personal Loan Sanctioned & Approved</div>
+            <div class="sanction-badge">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              <span>Personal Loan Sanctioned & Approved</span>
+            </div>
             <div class="lender-tag">
               <span>Sanctioned by Lending Partner:</span>
-              <strong>🏛️ Vistas Tecnolabs Finance Limited</strong>
+              <strong style="display: inline-flex; align-items: center; gap: 6px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M3 10h18M5 10v11M9 10v11M15 10v11M19 10v11M12 2L2 7h20L12 2z"/></svg>
+                Vistas Tecnolabs Finance Limited
+              </strong>
             </div>
           </div>
 
@@ -695,13 +757,19 @@
               </div>
             </div>
 
-            <div class="sanction-subtext" id="sanctionTierNote">✅ Approved by Vistas Tecnolabs Finance Limited</div>
+            <div class="sanction-subtext" id="sanctionTierNote">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="display:inline-block; vertical-align:middle; margin-right:4px;"><polyline points="20 6 9 17 4 12"/></svg>
+              Approved by Vistas Tecnolabs Finance Limited
+            </div>
 
             <!-- Tenure Selector (Stashfin Model: Up to 12 Months) -->
             <div class="tenure-selection-wrapper">
               <div class="tenure-section-title">
                 <span>Choose Loan Repayment Tenure:</span>
-                <span class="stashfin-tag">⚡ Flexible Tenures</span>
+                <span class="stashfin-tag" style="display: inline-flex; align-items: center; gap: 4px;">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                  Flexible Tenures
+                </span>
               </div>
               <div class="tenure-chips-row">
                 <button type="button" class="tenure-chip" data-months="3" onclick="selectSanctionTenure(3)">3 Months</button>
@@ -740,26 +808,28 @@
             </div>
 
             <!-- One-Time Stamp & Disbursal Verification Fee Box -->
-            <div class="disbursal-fee-box" id="disbursalFeeBox" style="margin: 18px 0; padding: 14px 16px; background: rgba(26, 31, 113, 0.04); border: 2px solid rgba(26, 31, 113, 0.15); border-radius: var(--radius-md);">
+            <div class="disbursal-fee-box" id="disbursalFeeBox" style="margin: 18px 0; padding: 16px 18px; background: rgba(10, 14, 39, 0.03); border: 1px solid rgba(10, 14, 39, 0.12); border-radius: var(--radius-md);">
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
                 <span style="font-size: 11px; font-weight: 800; background: #e67e22; color: white; padding: 2px 8px; border-radius: 10px; text-transform: uppercase;">Required Before Disbursal</span>
-                <span style="font-size: 11px; font-weight: 700; color: var(--primary);">🏛️ Vistas Tecnolabs Finance Limited</span>
+                <span style="font-size: 11px; font-weight: 700; color: var(--primary);">Vistas Tecnolabs Finance Limited</span>
               </div>
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
                 <div>
                   <div style="font-size: 13px; font-weight: 700; color: var(--dark);">One-Time Disbursal & Stamp Duty Fee:</div>
                   <div style="font-size: 11px; color: var(--gray-700);">Mandatory stamp fee to release funds</div>
                 </div>
-                <div style="font-size: 24px; font-weight: 900; color: var(--primary);" id="sanctionFeeDisplay">₹199</div>
+                <div style="font-size: 26px; font-weight: 900; color: var(--primary);" id="sanctionFeeDisplay">₹199</div>
               </div>
-              <div style="font-size: 12px; color: var(--gray-700); line-height: 1.5; background: var(--white); padding: 10px; border-radius: var(--radius-sm); border: 1px dashed rgba(0,0,0,0.15);">
-                ⚡ <strong>Disbursal Stage Guarantee:</strong> Jaise hi borrower yeh ₹<span id="feeNoticeSpan">199</span> fee pay karega, loan turant <strong>Disbursal Stage</strong> par aa jayega aur hamara banking staff <strong>30 minute ke andar</strong> loan amount aapke bank account me transfer kar dega.
+              <div style="font-size: 12px; color: var(--gray-700); line-height: 1.5; background: var(--white); padding: 12px; border-radius: var(--radius-sm); border: 1px solid rgba(0,0,0,0.08);">
+                <strong>Disbursal Stage Guarantee:</strong> Jaise hi borrower yeh ₹<span id="feeNoticeSpan">199</span> fee pay karega, loan turant <strong>Disbursal Stage</strong> par aa jayega aur hamara banking staff <strong>30 minute ke andar</strong> loan amount aapke bank account me transfer kar dega.
               </div>
             </div>
 
             <!-- Transparent Repayment Notice -->
             <div class="transparent-repay-notice">
-              <span class="notice-icon">💡</span>
+              <span class="notice-icon" style="color: var(--secondary);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+              </span>
               <span id="repaymentFormulaText">Principal + Interest = Total Repayment Amount</span>
             </div>
 
@@ -772,8 +842,8 @@
             </div>
 
             <!-- Disburse Button: Opens Fee Modal -->
-            <button type="button" class="btn btn-success btn-block btn-lg" id="acceptLoanBtn" onclick="openDisbursalFeeModal()">
-              ⚡ Pay ₹199 Fee & Disburse Loan (In 30 Mins) →
+            <button type="button" class="btn btn-secondary btn-block btn-lg" id="acceptLoanBtn" onclick="openDisbursalFeeModal()" style="font-weight: 800; font-size: 15px;">
+              Pay ₹199 Fee & Disburse Loan (In 30 Mins) →
             </button>
           </div>
         </div>
@@ -782,11 +852,13 @@
       <!-- Declined Sanction Card -->
       <div id="creditDeclineCard" style="display: none; margin-top: 24px;">
         <div class="decline-card">
-          <div class="decline-icon">⚠️</div>
+          <div class="decline-icon" style="color: var(--danger); display: flex; justify-content: center; margin-bottom: 12px;">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </div>
           <h3>Credit Application Not Approved</h3>
           <p id="declineReasonText">As per Vistas Tecnolabs Finance Limited underwriting policy, minimum monthly income must be at least ₹15,000.</p>
           <div class="decline-advice">
-            <strong>💡 Policy Guidelines by Vistas Tecnolabs Finance Limited:</strong>
+            <strong>Policy Guidelines by Vistas Tecnolabs Finance Limited:</strong>
             <ul>
               <li>Minimum monthly salary requirement: ₹15,000</li>
               <li>Age must be between 18 and 58 years</li>
@@ -818,7 +890,9 @@
   <div class="modal-overlay" id="disbursalFeeModal">
     <div class="modal-content" style="max-width: 440px; text-align: center;">
       <button type="button" class="modal-close" onclick="closeDisbursalFeeModal()" aria-label="Close" style="position: absolute; right: 16px; top: 16px; background: none; border: none; font-size: 20px; cursor: pointer;">✕</button>
-      <div class="modal-icon" style="font-size: 38px; margin-bottom: 8px;">🏛️</div>
+      <div class="modal-icon" style="margin-bottom: 10px; display: flex; justify-content: center; color: var(--primary);">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+      </div>
       <div class="badge badge-primary" style="margin-bottom: 8px; font-size: 11px;">Vistas Tecnolabs Finance Limited</div>
       <h3 style="font-size: 20px; font-weight: 800; color: var(--dark); margin-bottom: 6px;">Pay Loan Disbursal Fee</h3>
       <p style="font-size: 13px; color: var(--gray-700); line-height: 1.5; margin-bottom: 16px;">
@@ -826,7 +900,7 @@
       </p>
 
       <!-- Amount breakdown -->
-      <div style="background: rgba(26, 31, 113, 0.05); border: 2px dashed var(--primary); border-radius: var(--radius-md); padding: 14px; margin-bottom: 16px; text-align: left;">
+      <div style="background: rgba(10, 14, 39, 0.04); border: 1px solid rgba(10, 14, 39, 0.15); border-radius: var(--radius-md); padding: 14px; margin-bottom: 16px; text-align: left;">
         <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px;">
           <span style="color: var(--gray-700);">Sanctioned Loan:</span>
           <strong id="feeModalLoanAmount" style="color: var(--dark);">₹16,420</strong>
@@ -846,26 +920,27 @@
         <label style="font-size: 12px; font-weight: 700; color: var(--dark); margin-bottom: 8px; display: block;">Select Payment Method:</label>
         <div class="payment-methods-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;">
           <div class="payment-method-card selected" onclick="selectFeePayMethod(this)">
-            <span>⚡ Google Pay</span>
+            <span>Google Pay</span>
           </div>
           <div class="payment-method-card" onclick="selectFeePayMethod(this)">
-            <span>🟣 PhonePe</span>
+            <span>PhonePe</span>
           </div>
           <div class="payment-method-card" onclick="selectFeePayMethod(this)">
-            <span>🔵 Paytm UPI</span>
+            <span>Paytm UPI</span>
           </div>
           <div class="payment-method-card" onclick="selectFeePayMethod(this)">
-            <span>🏦 Net Banking</span>
+            <span>Net Banking</span>
           </div>
         </div>
       </div>
 
-      <button type="button" class="btn btn-success btn-block btn-lg" id="confirmFeePayBtn" onclick="processDisbursalFeePayment()">
+      <button type="button" class="btn btn-secondary btn-block btn-lg" id="confirmFeePayBtn" onclick="processDisbursalFeePayment()" style="font-weight: 800; font-size: 15px;">
         Confirm & Pay ₹199 via UPI →
       </button>
 
-      <div style="margin-top: 12px; font-size: 11px; color: var(--gray-500); display: flex; align-items: center; justify-content: center; gap: 4px;">
-        <span>🔒 256-Bit Encrypted | Vistas Tecnolabs Finance Limited Escrow Desk</span>
+      <div style="margin-top: 12px; font-size: 11px; color: var(--gray-500); display: flex; align-items: center; justify-content: center; gap: 5px;">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <span>256-Bit Encrypted | Vistas Tecnolabs Finance Limited Escrow Desk</span>
       </div>
     </div>
   </div>
@@ -873,22 +948,24 @@
   <!-- Disbursal Success Modal -->
   <div class="modal-overlay" id="successModal">
     <div class="modal-content" style="max-width: 440px; text-align: center;">
-      <div class="modal-icon">🚀</div>
-      <div class="badge badge-success" style="margin-bottom: 10px; font-size: 11px;">🏛️ Vistas Tecnolabs Finance Limited</div>
+      <div class="modal-icon" style="color: var(--secondary); display: flex; justify-content: center; margin-bottom: 12px;">
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      </div>
+      <div class="badge badge-success" style="margin-bottom: 10px; font-size: 11px;">Vistas Tecnolabs Finance Limited</div>
       <h3 style="font-size: 20px; font-weight: 800; color: var(--dark); margin-bottom: 8px;">Loan Disbursal Stage Active!</h3>
       <p style="font-size: 14px; color: var(--gray-700); line-height: 1.6; margin-bottom: 16px;">
-        🎉 Fee Paid Successfully! Aapka personal loan of <strong id="modalApprovedAmount" style="color: var(--primary); font-size: 16px;">₹16,420</strong> <strong>Disbursal Stage</strong> par pahunch gaya hai.
+        Fee Paid Successfully! Aapka personal loan of <strong id="modalApprovedAmount" style="color: var(--primary); font-size: 16px;">₹16,420</strong> <strong>Disbursal Stage</strong> par pahunch gaya hai.
       </p>
 
-      <div style="background: rgba(0, 184, 148, 0.08); border: 1px solid rgba(0, 184, 148, 0.3); border-radius: var(--radius-md); padding: 14px; margin-bottom: 18px; text-align: left;">
+      <div style="background: rgba(0, 210, 135, 0.08); border: 1px solid rgba(0, 210, 135, 0.3); border-radius: var(--radius-md); padding: 14px; margin-bottom: 18px; text-align: left;">
         <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
-          <span style="font-size: 18px;">⏳</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--secondary)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           <strong style="font-size: 13px; color: var(--dark);">30-Minute Staff Disbursal Window:</strong>
         </div>
         <p style="font-size: 12px; color: var(--gray-700); margin: 0; line-height: 1.5;">
           Hamara banking verification staff agle <strong>30 minute ke andar</strong> loan amount aapke bank account (<span id="modalSuccessBankName">SBI</span>) me transfer kar dega.
         </p>
-        <div style="margin-top: 10px; font-size: 13px; font-weight: 700; color: var(--primary); display: flex; justify-content: space-between; align-items: center; padding-top: 8px; border-top: 1px dashed rgba(0, 184, 148, 0.3);">
+        <div style="margin-top: 10px; font-size: 13px; font-weight: 700; color: var(--primary); display: flex; justify-content: space-between; align-items: center; padding-top: 8px; border-top: 1px dashed rgba(0, 210, 135, 0.3);">
           <span>Estimated Transfer Time:</span>
           <span id="modalCountdownTimer" style="background: var(--primary); color: white; padding: 2px 8px; border-radius: 4px; font-family: monospace;">29:59 Mins</span>
         </div>
@@ -896,64 +973,88 @@
 
       <div class="app-ref" id="appRefNumber">VT-AL-XXXXXX</div>
       <p style="font-size: 11px; color: var(--gray-500); margin-bottom: 18px;">Sanction & IMPS Dispatch Reference ID</p>
-      <a href="dashboard.html" class="btn btn-primary btn-block btn-lg">Go to Dashboard & Track Live Transfer →</a>
+      <a href="dashboard.html" class="btn btn-secondary btn-block btn-lg" style="font-weight: 800;">Go to Dashboard & Track Live Transfer →</a>
     </div>
   </div>
 
-  <!-- ==================== GIFT BOX REVEAL CELEBRATION MODAL ==================== -->
-  <div class="modal-overlay gift-modal-overlay" id="giftRevealModal">
+  <!-- ==================== HOLOGRAPHIC TITANIUM SANCTION CARD REVEAL MODAL ==================== -->
+  <div class="modal-overlay titanium-reveal-modal" id="giftRevealModal">
     <canvas id="confettiCanvas" class="confetti-canvas"></canvas>
     
-    <div class="gift-modal-content">
-      
-      <!-- Stage 1: Closed Gift Box with Wiggle Animation -->
-      <div id="giftStageClosed" class="gift-stage-box" onclick="openGiftBox()">
-        <div class="gift-sparkles-floating">✨ 🌟 ✨</div>
-        <div class="gift-3d-box animate-gift-wiggle">
-          <div class="gift-lid" id="giftLid">
-            <div class="gift-bow">🎀</div>
-          </div>
-          <div class="gift-box-base">
-            <div class="gift-ribbon-vertical"></div>
-            <div class="gift-ribbon-horizontal"></div>
-            <span class="gift-emblem">🏛️</span>
-          </div>
+    <div class="titanium-modal-content">
+      <!-- Top Institutional Badge -->
+      <div class="titanium-modal-header">
+        <div class="sanction-status-chip">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+          <span>OFFICIAL NBFC CREDIT SANCTION</span>
         </div>
-        <h3 class="gift-tap-title">🎁 Tap to Unwrap Your Loan Gift!</h3>
-        <p class="gift-tap-sub">Vistas Tecnolabs Finance Limited has unlocked a special credit offer for you</p>
-        <button type="button" class="btn btn-warning btn-lg gift-open-btn" onclick="openGiftBox()">
-          ✨ Tap to Open Gift ✨
-        </button>
+        <div class="lender-micro-brand">Vistas Tecnolabs Finance Limited</div>
       </div>
 
-      <!-- Stage 2: Revealed Loan Sanction (Pops up with golden aura & confetti) -->
-      <div id="giftStageOpen" class="gift-revealed-box" style="display: none;">
-        <div class="gift-gold-rays"></div>
-        <div class="gift-badge-trophy animate-trophy-pop">🏆</div>
-        <div class="gift-congrats-tag">🎉 CONGRATULATIONS! 🎉</div>
-        <h2 class="gift-loan-approved-title">Personal Loan Approved</h2>
-        <div class="gift-lender-credit">Official Lender: <strong>Vistas Tecnolabs Finance Limited</strong></div>
-
-        <div class="gift-amount-reveal animate-amount-zoom">
-          <span class="currency-symbol">₹</span>
-          <span id="giftAmountNum">16,420</span>
+      <!-- 3D Holographic Titanium Card -->
+      <div class="titanium-card animate-card-reveal" id="revealTitaniumCard">
+        <div class="titanium-sheen"></div>
+        <div class="titanium-top">
+          <div class="titanium-brand-tag">
+            <div class="brand-icon">B</div>
+            <div>
+              <div class="brand-title">Bruno Credits</div>
+              <div class="brand-sub">NBFC: Vistas Tecnolabs</div>
+            </div>
+          </div>
+          <div class="titanium-chip-wrap">
+            <div class="emv-chip"></div>
+            <svg class="nfc-icon-svg" viewBox="0 0 24 24">
+              <path d="M8.5 16.5a5 5 0 0 1 0-9"/>
+              <path d="M12 19a8.5 8.5 0 0 1 0-14"/>
+              <path d="M15.5 21.5a12 12 0 0 1 0-19"/>
+            </svg>
+          </div>
         </div>
 
-        <div class="gift-benefits-row">
-          <span class="benefit-tag">⚡ Instant Transfer</span>
-          <span class="benefit-tag">📅 Up to 12M Tenure</span>
-          <span class="benefit-tag">0 Collateral</span>
+        <div class="titanium-balance-label">Approved Credit Ceiling</div>
+        <div class="titanium-balance-val">
+          <span>₹</span><span id="giftAmountNum">0</span>
         </div>
 
-        <div class="gift-unlock-note">
-          💡 Aapka personal loan gift safaltapoorvak unlock ho gaya hai! Neeche apna tenure select karein aur disbursal finalize karein.
+        <div class="titanium-bottom">
+          <div class="titanium-holder">
+            <div class="label">Beneficiary</div>
+            <div class="val" id="revealBeneficiaryName">VERIFIED APPLICANT</div>
+          </div>
+          <div class="titanium-badge">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" style="display:inline-block; vertical-align:middle; margin-right:3px;"><path d="M20 6L9 17l-5-5"/></svg>
+            Pre-Approved
+          </div>
         </div>
-
-        <button type="button" class="btn btn-success btn-block btn-lg gift-claim-btn" onclick="claimGiftAndShowOffer()">
-          🚀 Claim Loan & Select Tenure →
-        </button>
       </div>
 
+      <!-- Live Features Row -->
+      <div class="titanium-features-strip">
+        <div class="tf-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00d287" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          <span>30-Min Bank Wire</span>
+        </div>
+        <div class="tf-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <span>3 - 12M Tenure</span>
+        </div>
+        <div class="tf-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>0 Collateral</span>
+        </div>
+      </div>
+
+      <!-- Claim CTA Button -->
+      <button type="button" class="btn-premium-glow" style="width: 100%; margin-top: 20px;" onclick="claimGiftAndShowOffer()">
+        <span>Accept Sanction & Customize Loan</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </button>
+
+      <div class="titanium-modal-footer">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <span>End-to-End 256-Bit Encrypted · Underwriting: Vistas Tecnolabs Finance Limited</span>
+      </div>
     </div>
   </div>
 

@@ -1096,7 +1096,7 @@ function runCreditLimitAlgorithm() {
 }
 
 
-// ---- Gift Box Celebration Experience ----
+// ---- Holographic Titanium Sanction Reveal Experience (Cred & Apple Card Aesthetic) ----
 window.showGiftBoxReveal = function(offer) {
   const modal = document.getElementById('giftRevealModal');
   if (!modal) {
@@ -1108,44 +1108,54 @@ window.showGiftBoxReveal = function(offer) {
     return;
   }
 
-  const amountNum = document.getElementById('giftAmountNum');
-  if (amountNum) {
-    amountNum.textContent = offer.creditLimit.toLocaleString('en-IN');
+  // Set verified beneficiary name on titanium card
+  const beneficiaryEl = document.getElementById('revealBeneficiaryName');
+  if (beneficiaryEl) {
+    const name = document.getElementById('panHolderName')?.value.trim() ||
+                 document.getElementById('fullName')?.value.trim() ||
+                 'VERIFIED APPLICANT';
+    beneficiaryEl.textContent = name.toUpperCase();
   }
 
-  // Reset to Stage 1: Closed box with wiggle
-  const stageClosed = document.getElementById('giftStageClosed');
-  const stageOpen = document.getElementById('giftStageOpen');
-  const lid = document.getElementById('giftLid');
-
-  if (stageClosed) stageClosed.style.display = 'flex';
-  if (stageOpen) stageOpen.style.display = 'none';
-  if (lid) lid.classList.remove('lid-fly-off');
+  const amountNum = document.getElementById('giftAmountNum');
+  if (amountNum) amountNum.textContent = '0';
 
   modal.classList.add('active');
   document.body.style.overflow = 'hidden';
 
-  // Auto-open after 1.4 seconds for instant delightful feedback, or user can tap!
-  setTimeout(() => {
-    if (modal.classList.contains('active') && stageClosed.style.display !== 'none') {
-      openGiftBox();
+  // Digital ticker counter: smoothly ticks up from 0 to creditLimit
+  const targetVal = offer.creditLimit || 45000;
+  let startTimestamp = null;
+  const duration = 1400; // 1.4s smooth digital roll
+
+  function stepCounter(timestamp) {
+    if (!startTimestamp) startTimestamp = timestamp;
+    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+    // Ease-out expo curve for ultra-satisfying deceleration
+    const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+    const currentVal = Math.floor(easeProgress * targetVal);
+    
+    if (amountNum) {
+      amountNum.textContent = currentVal.toLocaleString('en-IN');
     }
-  }, 1400);
+
+    if (progress < 1) {
+      window.requestAnimationFrame(stepCounter);
+    } else {
+      if (amountNum) amountNum.textContent = targetVal.toLocaleString('en-IN');
+      // Gentle celebratory shimmer particles
+      triggerConfettiBlast();
+    }
+  }
+
+  // Brief pause before counter starts to let the card slide in majestically
+  setTimeout(() => {
+    window.requestAnimationFrame(stepCounter);
+  }, 250);
 };
 
 window.openGiftBox = function() {
-  const lid = document.getElementById('giftLid');
-  if (lid) lid.classList.add('lid-fly-off');
-
-  // Trigger high-energy confetti celebration!
-  triggerConfettiBlast();
-
-  setTimeout(() => {
-    const stageClosed = document.getElementById('giftStageClosed');
-    const stageOpen = document.getElementById('giftStageOpen');
-    if (stageClosed) stageClosed.style.display = 'none';
-    if (stageOpen) stageOpen.style.display = 'block';
-  }, 500);
+  claimGiftAndShowOffer();
 };
 
 window.claimGiftAndShowOffer = function() {
@@ -1173,7 +1183,7 @@ function triggerConfettiBlast() {
   canvas.height = window.innerHeight;
 
   const pieces = [];
-  const colors = ['#f1c40f', '#e67e22', '#2ecc71', '#3498db', '#9b59b6', '#e74c3c', '#ffffff', '#ffd700'];
+  const colors = ['#fbbf24', '#f59e0b', '#00d287', '#6366f1', '#a5b4fc', '#e2e8f0', '#ffffff'];
 
   for (let i = 0; i < 140; i++) {
     pieces.push({
