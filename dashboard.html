@@ -570,6 +570,32 @@
 
     // ---- Load Saved Profile / Active Loan Data ----
     document.addEventListener('DOMContentLoaded', () => {
+      // Check for Razorpay Payment Link Callback
+      const urlParams = new URLSearchParams(window.location.search);
+      const paidPaymentId = urlParams.get('razorpay_payment_id');
+      if (paidPaymentId) {
+        let offer = null;
+        try {
+          offer = JSON.parse(localStorage.getItem('apexloan_pending_offer') || localStorage.getItem('apexloan_sanctioned_offer') || '{}');
+        } catch (e) {}
+
+        offer.status = 'DISBURSAL_PROCESSING';
+        offer.paymentId = paidPaymentId;
+        offer.paidAt = new Date().toISOString();
+        offer.approved = true;
+        if (!offer.creditLimit) offer.creditLimit = 45000;
+
+        localStorage.setItem('apexloan_active_loan', JSON.stringify(offer));
+        localStorage.setItem('apexloan_sanctioned_offer', JSON.stringify(offer));
+        localStorage.setItem('apexloan_disbursal_paid', 'true');
+        localStorage.setItem('apexloan_disbursal_payment_id', paidPaymentId);
+        window.history.replaceState({}, document.title, window.location.pathname);
+
+        setTimeout(() => {
+          alert(`🎉 Payment Successful!\n\nOfficial Razorpay Payment ID: ${paidPaymentId}\n\n30-Minute Disbursal Desk is activated. Our staff is processing your direct bank transfer.`);
+        }, 500);
+      }
+
       loadDashboardData();
     });
 
@@ -904,6 +930,11 @@
           })
         });
         const orderData = await orderRes.json();
+
+        if (orderData.paymentLinkUrl) {
+          window.location.href = orderData.paymentLinkUrl;
+          return;
+        }
 
         if (orderData.success && typeof window.Razorpay === 'function') {
           const options = {

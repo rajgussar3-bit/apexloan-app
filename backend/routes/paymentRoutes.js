@@ -93,9 +93,42 @@ router.post('/create-order', async (req, res) => {
 
     console.log(`[RAZORPAY LIVE] Order created successfully: ${orderData.id}`);
 
+    // Generate Razorpay Hosted Payment Link (Bypasses all domain whitelisting restrictions!)
+    let paymentLinkUrl = null;
+    try {
+      let cleanMobile = customerMobile ? customerMobile.toString().replace(/\D/g, '').slice(-10) : '';
+      if (cleanMobile.length !== 10) cleanMobile = '9876543210';
+
+      const plinkPayload = {
+        amount: amountInPaise,
+        currency: currency,
+        accept_partial: false,
+        description: `Disbursal Stamp Duty & Fee (#${loanRefNum || 'BC-' + Date.now().toString(36).toUpperCase().slice(-6)})`,
+        customer: {
+          name: customerName || 'Borrower',
+          contact: '+91' + cleanMobile,
+          email: customerEmail || 'borrower@brunocredits.in'
+        },
+        notify: { sms: false, email: false, whatsapp: false },
+        reminder_enable: false,
+        callback_url: 'https://nbfc-loan-app.vercel.app/dashboard',
+        callback_method: 'get'
+      };
+
+      console.log(`[RAZORPAY PLINK] Generating hosted checkout link for ₹${amountNum}...`);
+      const plinkResult = await makeRazorpayApiRequest('/v1/payment_links', 'POST', plinkPayload);
+      if (plinkResult.data && plinkResult.data.short_url) {
+        paymentLinkUrl = plinkResult.data.short_url;
+        console.log(`[RAZORPAY PLINK] Hosted URL created: ${paymentLinkUrl}`);
+      }
+    } catch (plErr) {
+      console.warn('[RAZORPAY PLINK WARNING]', plErr.message);
+    }
+
     res.json({
       success: true,
       orderId: orderData.id,
+      paymentLinkUrl: paymentLinkUrl,
       amount: orderData.amount, // in paise
       amountInRupees: amountNum,
       currency: orderData.currency,

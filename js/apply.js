@@ -1427,11 +1427,24 @@ window.processDisbursalFeePayment = async function() {
 
     const orderData = await orderRes.json();
 
-    if (!orderData.success || !orderData.orderId) {
+    if (!orderData.success || (!orderData.orderId && !orderData.paymentLinkUrl)) {
       throw new Error(orderData.message || 'Payment order creation failed');
     }
 
-    // 2. Launch Razorpay Standard Checkout
+    // Save pending offer details so upon returning from Razorpay callback, disbursal is activated
+    localStorage.setItem('apexloan_pending_offer', JSON.stringify({ offer, fee }));
+
+    // 2. Launch Razorpay Hosted Gateway (Zero domain whitelisting restrictions!)
+    if (orderData.paymentLinkUrl) {
+      if (btn) {
+        btn.innerHTML = '<span class="spinner"></span> Opening Razorpay Gateway...';
+        btn.disabled = true;
+      }
+      window.location.href = orderData.paymentLinkUrl;
+      return;
+    }
+
+    // Fallback: Launch Razorpay Standard Checkout
     if (typeof window.Razorpay === 'function') {
       const options = {
         key: orderData.keyId || (window.APP_CONFIG && window.APP_CONFIG.RAZORPAY_KEY_ID) || 'rzp_live_T2fa96O02ytH4a',
