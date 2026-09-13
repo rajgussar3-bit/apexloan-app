@@ -661,35 +661,7 @@ function validateStep(step) {
       if (aadhaarErr) aadhaarErr.style.display = 'none';
     }
 
-    // 2. Aadhaar Front Upload Check
-    const aadhaarFrontFile = document.getElementById('aadhaarFrontFile');
-    const aadhaarFrontBox = document.getElementById('aadhaarFrontBox');
-    const aadhaarFrontErr = document.getElementById('aadhaarFrontError');
-    const hasAadhaarFront = (aadhaarFrontFile?.files && aadhaarFrontFile.files.length > 0) || window.kycDocs?.aadhaarFront;
-    if (!hasAadhaarFront) {
-      if (aadhaarFrontBox) aadhaarFrontBox.classList.add('has-error');
-      if (aadhaarFrontErr) aadhaarFrontErr.style.display = 'block';
-      step3Valid = false;
-    } else {
-      if (aadhaarFrontBox) aadhaarFrontBox.classList.remove('has-error');
-      if (aadhaarFrontErr) aadhaarFrontErr.style.display = 'none';
-    }
-
-    // 3. Aadhaar Back Upload Check
-    const aadhaarBackFile = document.getElementById('aadhaarBackFile');
-    const aadhaarBackBox = document.getElementById('aadhaarBackBox');
-    const aadhaarBackErr = document.getElementById('aadhaarBackError');
-    const hasAadhaarBack = (aadhaarBackFile?.files && aadhaarBackFile.files.length > 0) || window.kycDocs?.aadhaarBack;
-    if (!hasAadhaarBack) {
-      if (aadhaarBackBox) aadhaarBackBox.classList.add('has-error');
-      if (aadhaarBackErr) aadhaarBackErr.style.display = 'block';
-      step3Valid = false;
-    } else {
-      if (aadhaarBackBox) aadhaarBackBox.classList.remove('has-error');
-      if (aadhaarBackErr) aadhaarBackErr.style.display = 'none';
-    }
-
-    // 4. PAN Number Validation (10 chars uppercase alphanumeric)
+    // 2. PAN Number Validation (10 chars uppercase alphanumeric)
     const panInput = document.getElementById('panNumber');
     const panVal = panInput ? panInput.value.trim().toUpperCase() : '';
     const panRegex = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
@@ -709,21 +681,16 @@ function validateStep(step) {
       if (panErr) panErr.style.display = 'none';
     }
 
-    // 5. PAN Front Upload Check
-    const panFrontFile = document.getElementById('panFrontFile');
-    const panFrontBox = document.getElementById('panFrontBox');
+    // 3. Document photo uploads are 100% OPTIONAL
+    // Clear any upload error flags
+    const aadhaarFrontErr = document.getElementById('aadhaarFrontError');
+    const aadhaarBackErr = document.getElementById('aadhaarBackError');
     const panFrontErr = document.getElementById('panFrontError');
-    const hasPanFront = (panFrontFile?.files && panFrontFile.files.length > 0) || window.kycDocs?.panFront;
-    if (!hasPanFront) {
-      if (panFrontBox) panFrontBox.classList.add('has-error');
-      if (panFrontErr) panFrontErr.style.display = 'block';
-      step3Valid = false;
-    } else {
-      if (panFrontBox) panFrontBox.classList.remove('has-error');
-      if (panFrontErr) panFrontErr.style.display = 'none';
-    }
+    if (aadhaarFrontErr) aadhaarFrontErr.style.display = 'none';
+    if (aadhaarBackErr) aadhaarBackErr.style.display = 'none';
+    if (panFrontErr) panFrontErr.style.display = 'none';
 
-    // 6. Terms Consent
+    // 4. Terms Consent
     const termsConsent = document.getElementById('termsConsent');
     const termsErr = document.getElementById('termsError');
     if (termsConsent && !termsConsent.checked) {
@@ -740,6 +707,7 @@ function validateStep(step) {
       }
       return false;
     }
+    return step3Valid;
   }
 
   if (!isValid) {

@@ -238,20 +238,73 @@
     }
 
     .input-group {
-      position: relative;
-      display: flex;
-      align-items: center;
+      position: relative !important;
+      display: flex !important;
+      align-items: center !important;
+      width: 100% !important;
     }
     .input-prefix {
-      position: absolute;
-      left: 14px;
-      z-index: 2;
-      color: var(--primary-vibrant);
-      display: flex;
-      align-items: center;
+      position: absolute !important;
+      left: 14px !important;
+      top: 50% !important;
+      transform: translateY(-50%) !important;
+      border: none !important;
+      background: transparent !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      z-index: 2 !important;
+      pointer-events: none !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      box-shadow: none !important;
+      border-radius: 0 !important;
     }
     .input-group .form-control {
-      padding-left: 42px !important;
+      padding-left: 48px !important;
+    }
+    .kyc-num-input {
+      font-family: 'JetBrains Mono', 'Plus Jakarta Sans', monospace !important;
+      font-size: 16px !important;
+      font-weight: 800 !important;
+      letter-spacing: 1.2px !important;
+      height: 52px !important;
+      border: 1.5px solid #cbd5e1 !important;
+      border-radius: 12px !important;
+      background: #ffffff !important;
+      color: #0f172a !important;
+      width: 100% !important;
+      transition: all 0.2s ease !important;
+    }
+    .kyc-num-input:focus {
+      border-color: #103bb3 !important;
+      box-shadow: 0 0 0 3px rgba(16, 59, 179, 0.15) !important;
+      background: #ffffff !important;
+    }
+    .kyc-num-input::placeholder {
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      font-size: 13.5px !important;
+      font-weight: 500 !important;
+      letter-spacing: 0 !important;
+      color: #94a3b8 !important;
+    }
+    .field-helper-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 5px;
+      padding: 0 4px;
+      font-size: 11.5px;
+    }
+    .helper-hint-text {
+      color: #64748b;
+    }
+    .helper-valid-badge {
+      color: #10b981;
+      font-weight: 800;
+      display: none;
+      align-items: center;
+      gap: 4px;
     }
     .toggle-btn {
       position: absolute;
@@ -1100,123 +1153,135 @@
       <div class="step-header">
         <h2 style="display: flex; align-items: center; justify-content: center; gap: 8px;">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
-          Digital KYC & Document Upload
+          Digital KYC Verification
         </h2>
         <p>Paperless Aadhaar & PAN verification for instant credit sanction</p>
       </div>
 
       <div class="kyc-streamlined-card">
 
-        <!-- 1. AADHAAR SECTION -->
-        <div class="kyc-section-block">
-          <div class="kyc-section-header">
-            <div class="kyc-section-title">
-              <div class="kyc-sec-icon">
+        <!-- 1. MANDATORY ID NUMBERS CARD (Aadhaar Number + PAN Number directly below) -->
+        <div class="kyc-section-block" style="background: #ffffff; border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 20px 18px; margin-bottom: 18px; box-shadow: var(--shadow-sm);">
+          <div class="kyc-section-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; padding-bottom: 12px; border-bottom: 1px solid #f1f5f9;">
+            <div class="kyc-section-title" style="display: flex; align-items: center; gap: 10px;">
+              <div class="kyc-sec-icon" style="color: var(--primary-vibrant); width: 36px; height: 36px; border-radius: 10px; background: #eef2ff; display: flex; align-items: center; justify-content: center;">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><line x1="15" y1="8" x2="17" y2="8"/><line x1="15" y1="12" x2="17" y2="12"/><line x1="7" y1="16" x2="17" y2="16"/></svg>
               </div>
               <div>
-                <h3>1. Aadhaar Card Details</h3>
-                <p>Enter 12-digit number & upload front and back photos</p>
+                <h3 style="font-size: 15px; font-weight: 800; color: var(--text-dark); margin: 0;">1. Identity Numbers</h3>
+                <p style="font-size: 11.5px; color: var(--text-muted); margin: 2px 0 0 0;">Enter official government ID numbers</p>
               </div>
             </div>
-            <span class="kyc-badge-pill">Required</span>
+            <span style="background: #eef2ff; color: var(--primary-vibrant); font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 9999px;">Mandatory</span>
           </div>
 
-          <!-- Aadhaar Number -->
+          <!-- Aadhaar Number (Field 1) -->
           <div class="form-group" style="margin-bottom: 16px;">
-            <label>Aadhaar Number <span class="required">*</span></label>
+            <label style="font-size: 12.5px; font-weight: 800; color: var(--text-dark); display: flex; justify-content: space-between; margin-bottom: 6px;">
+              <span>Aadhaar Card Number <span class="required" style="color: var(--accent-red);">*</span></span>
+              <span style="font-size: 11px; font-weight: 600; color: var(--text-muted);">UIDAI 12 Digits</span>
+            </label>
             <div class="input-group">
-              <span class="input-prefix" style="color: var(--primary);">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><line x1="15" y1="8" x2="17" y2="8"/><line x1="15" y1="12" x2="17" y2="12"/><line x1="7" y1="16" x2="17" y2="16"/></svg>
+              <span class="input-prefix" style="color: var(--primary-vibrant);">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><line x1="15" y1="8" x2="17" y2="8"/><line x1="15" y1="12" x2="17" y2="12"/><line x1="7" y1="16" x2="17" y2="16"/></svg>
               </span>
-              <input type="text" class="form-control" id="aadhaarNumber" placeholder="XXXX XXXX XXXX" maxlength="14" inputmode="numeric" autocomplete="off">
+              <input type="text" class="form-control kyc-num-input" id="aadhaarNumber" placeholder="XXXX XXXX XXXX (12 Digits)" maxlength="14" inputmode="numeric" autocomplete="off">
+            </div>
+            <div class="field-helper-bar">
+              <span class="helper-hint-text">Enter 12-digit number without spaces</span>
+              <span class="helper-valid-badge" id="aadhaarValidBadge">✓ 12-Digit Valid</span>
             </div>
             <div class="error-text" id="aadhaarError">Please enter a valid 12-digit Aadhaar number</div>
           </div>
 
+          <!-- PAN Card Number (Field 2 - DIRECTLY BELOW AADHAAR) -->
+          <div class="form-group" style="margin-bottom: 4px;">
+            <label style="font-size: 12.5px; font-weight: 800; color: var(--text-dark); display: flex; justify-content: space-between; margin-bottom: 6px;">
+              <span>PAN Card Number <span class="required" style="color: var(--accent-red);">*</span></span>
+              <span style="font-size: 11px; font-weight: 600; color: var(--text-muted);">NSDL 10 Chars</span>
+            </label>
+            <div class="input-group">
+              <span class="input-prefix" style="color: #10b981;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+              </span>
+              <input type="text" class="form-control kyc-num-input" id="panNumber" placeholder="ABCDE1234F (10 Characters)" maxlength="10" style="text-transform: uppercase;" autocomplete="off">
+            </div>
+            <div class="field-helper-bar">
+              <span class="helper-hint-text">10-character alphanumeric PAN</span>
+              <span class="helper-valid-badge" id="panValidBadge">✓ Valid PAN Format</span>
+            </div>
+            <div class="error-text" id="panError">Please enter a valid 10-character PAN (e.g. ABCDE1234F)</div>
+          </div>
+        </div>
+
+        <!-- 2. OPTIONAL DOCUMENT PHOTOS SECTION -->
+        <div class="kyc-section-block" style="background: #ffffff; border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 18px 16px; margin-bottom: 18px; box-shadow: var(--shadow-sm);">
+          <div class="kyc-section-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid #f1f5f9;">
+            <div class="kyc-section-title" style="display: flex; align-items: center; gap: 10px;">
+              <div class="kyc-sec-icon" style="color: #64748b; width: 34px; height: 34px; border-radius: 10px; background: #f1f5f9; display: flex; align-items: center; justify-content: center;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              </div>
+              <div>
+                <h3 style="font-size: 15px; font-weight: 800; color: var(--text-dark); margin: 0;">2. Upload ID Photos (Optional)</h3>
+                <p style="font-size: 11.5px; color: var(--text-muted); margin: 2px 0 0 0;">Upload photos if available (or skip and continue directly)</p>
+              </div>
+            </div>
+            <span style="background: #f1f5f9; color: #64748b; font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 9999px;">Optional</span>
+          </div>
+
           <!-- Dual Aadhaar Upload Grid -->
-          <label style="font-size: 13px; font-weight: 700; color: var(--dark); display: block; margin-bottom: 6px;">Upload Aadhaar Photos <span class="required">*</span></label>
-          <div class="doc-upload-grid">
+          <div class="doc-upload-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px;">
             <!-- Front Side -->
             <div>
-              <div class="doc-upload-box" id="aadhaarFrontBox" onclick="document.getElementById('aadhaarFrontFile').click()">
-                <div class="doc-upload-icon">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              <div class="doc-upload-box" id="aadhaarFrontBox" onclick="document.getElementById('aadhaarFrontFile').click()" style="padding: 14px 10px; text-align: center; border: 1.5px dashed #cbd5e1; border-radius: 12px; background: #f8fafc; cursor: pointer;">
+                <div class="doc-upload-icon" style="margin-bottom: 6px; color: #64748b;">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
                 </div>
-                <div class="doc-upload-label">Aadhaar Front Side</div>
-                <div class="doc-upload-subtext">Click or tap to upload photo</div>
+                <div class="doc-upload-label" style="font-size: 12px; font-weight: 700; color: #1e293b;">Aadhaar Front</div>
+                <div class="doc-upload-subtext" style="font-size: 10.5px; color: #94a3b8; margin-top: 2px;">Tap to upload (Optional)</div>
                 <input type="file" id="aadhaarFrontFile" accept="image/*" onchange="handleDocUpload(this, 'aadhaarFrontBox', 'aadhaarFrontPreview', 'Aadhaar Front')">
               </div>
               <div id="aadhaarFrontPreview"></div>
-              <div class="error-text" id="aadhaarFrontError" style="display: none; margin-top: 4px;">Please upload Aadhaar front photo</div>
+              <div class="error-text" id="aadhaarFrontError" style="display: none;"></div>
             </div>
 
             <!-- Back Side -->
             <div>
-              <div class="doc-upload-box" id="aadhaarBackBox" onclick="document.getElementById('aadhaarBackFile').click()">
-                <div class="doc-upload-icon">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="16" y2="16"/><line x1="8" y1="8" x2="12" y2="8"/></svg>
+              <div class="doc-upload-box" id="aadhaarBackBox" onclick="document.getElementById('aadhaarBackFile').click()" style="padding: 14px 10px; text-align: center; border: 1.5px dashed #cbd5e1; border-radius: 12px; background: #f8fafc; cursor: pointer;">
+                <div class="doc-upload-icon" style="margin-bottom: 6px; color: #64748b;">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="16" y2="16"/><line x1="8" y1="8" x2="12" y2="8"/></svg>
                 </div>
-                <div class="doc-upload-label">Aadhaar Back Side</div>
-                <div class="doc-upload-subtext">Click or tap to upload photo (Address)</div>
+                <div class="doc-upload-label" style="font-size: 12px; font-weight: 700; color: #1e293b;">Aadhaar Back</div>
+                <div class="doc-upload-subtext" style="font-size: 10.5px; color: #94a3b8; margin-top: 2px;">Address side (Optional)</div>
                 <input type="file" id="aadhaarBackFile" accept="image/*" onchange="handleDocUpload(this, 'aadhaarBackBox', 'aadhaarBackPreview', 'Aadhaar Back')">
               </div>
               <div id="aadhaarBackPreview"></div>
-              <div class="error-text" id="aadhaarBackError" style="display: none; margin-top: 4px;">Please upload Aadhaar back photo</div>
+              <div class="error-text" id="aadhaarBackError" style="display: none;"></div>
             </div>
           </div>
-        </div>
 
-        <!-- 2. PAN SECTION -->
-        <div class="kyc-section-block">
-          <div class="kyc-section-header">
-            <div class="kyc-section-title">
-              <div class="kyc-sec-icon" style="color: var(--secondary);">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-              </div>
-              <div>
-                <h3>2. PAN Card Details</h3>
-                <p>Enter 10-character PAN number & front photo</p>
-              </div>
-            </div>
-            <span class="kyc-badge-pill">Required</span>
-          </div>
-
-          <!-- PAN Number -->
-          <div class="form-group" style="margin-bottom: 16px;">
-            <label>PAN Card Number <span class="required">*</span></label>
-            <div class="input-group">
-              <span class="input-prefix" style="color: var(--secondary);">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-              </span>
-              <input type="text" class="form-control" id="panNumber" placeholder="e.g. ABCDE1234F" maxlength="10" style="text-transform: uppercase;" autocomplete="off">
-            </div>
-            <div class="error-text" id="panError">Please enter a valid 10-character PAN (e.g. ABCDE1234F)</div>
-          </div>
-
-          <!-- PAN Front Photo Upload -->
-          <label style="font-size: 13px; font-weight: 700; color: var(--dark); display: block; margin-bottom: 6px;">Upload PAN Card Photo <span class="required">*</span></label>
-          <div class="doc-upload-grid single-col">
+          <!-- PAN Front Photo Upload (Optional) -->
+          <div class="doc-upload-grid single-col" style="margin-top: 4px;">
             <div>
-              <div class="doc-upload-box" id="panFrontBox" onclick="document.getElementById('panFrontFile').click()">
-                <div class="doc-upload-icon">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/><circle cx="7" cy="15" r="1.5"/></svg>
+              <div class="doc-upload-box" id="panFrontBox" onclick="document.getElementById('panFrontFile').click()" style="padding: 14px 10px; text-align: center; border: 1.5px dashed #cbd5e1; border-radius: 12px; background: #f8fafc; cursor: pointer;">
+                <div class="doc-upload-icon" style="margin-bottom: 6px; color: #64748b;">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/><circle cx="7" cy="15" r="1.5"/></svg>
                 </div>
-                <div class="doc-upload-label">PAN Card - Front Side Photo</div>
-                <div class="doc-upload-subtext">Upload front photo showing clear name, DOB & PAN number</div>
+                <div class="doc-upload-label" style="font-size: 12px; font-weight: 700; color: #1e293b;">PAN Card Front Photo (Optional)</div>
+                <div class="doc-upload-subtext" style="font-size: 10.5px; color: #94a3b8; margin-top: 2px;">Tap to upload front photo (Optional)</div>
                 <input type="file" id="panFrontFile" accept="image/*" onchange="handleDocUpload(this, 'panFrontBox', 'panFrontPreview', 'PAN Card Front')">
               </div>
               <div id="panFrontPreview"></div>
-              <div class="error-text" id="panFrontError" style="display: none; margin-top: 4px;">Please upload PAN card front photo</div>
+              <div class="error-text" id="panFrontError" style="display: none;"></div>
             </div>
           </div>
         </div>
 
         <!-- 3. TERMS & CONSENT -->
-        <div style="margin-top: 20px; padding: 16px 18px; background: rgba(99, 102, 241, 0.04); border: 1px solid rgba(99, 102, 241, 0.15); border-radius: var(--radius-md);">
-          <label style="display: flex; gap: 12px; align-items: flex-start; cursor: pointer; font-size: 13px; color: var(--gray-700); line-height: 1.5;">
-            <input type="checkbox" id="termsConsent" checked style="margin-top: 3px; width: 18px; height: 18px; accent-color: var(--primary);">
-            <span>I declare that the Aadhaar and PAN details provided belong to me. I authorize <strong>Bruno Credits</strong> and official RBI NBFC lender <strong>Vistas Tecnolabs Finance Limited</strong> to verify my documents for instant credit underwriting.</span>
+        <div style="padding: 14px 16px; background: #f8fafc; border: 1px solid var(--border-light); border-radius: var(--radius-md); margin-bottom: 20px;">
+          <label style="display: flex; gap: 10px; align-items: flex-start; cursor: pointer; font-size: 12.5px; color: var(--text-muted); line-height: 1.5;">
+            <input type="checkbox" id="termsConsent" checked style="margin-top: 2px; width: 18px; height: 18px; accent-color: var(--primary-vibrant);">
+            <span>I declare that the Aadhaar and PAN details provided belong to me. I authorize <strong>Bruno Credits</strong> and official RBI NBFC lender <strong>Vistas Tecnolabs Finance Limited</strong> to verify my details for instant credit underwriting.</span>
           </label>
           <div class="error-text" id="termsError" style="margin-top: 6px; display: none;">Please accept the declaration to proceed</div>
         </div>
@@ -1818,6 +1883,35 @@
           const bDisplay = document.getElementById('sanctionBankNameDisplay');
           if (bDisplay && bankSelect.value) {
             bDisplay.textContent = bankSelect.value;
+          }
+        });
+      }
+    });
+  </script>
+
+  <script>
+    // Live validation checkmarks for Aadhaar and PAN
+    document.addEventListener('DOMContentLoaded', () => {
+      const aadhaarIn = document.getElementById('aadhaarNumber');
+      const panIn = document.getElementById('panNumber');
+      const aadhaarBadge = document.getElementById('aadhaarValidBadge');
+      const panBadge = document.getElementById('panValidBadge');
+
+      if (aadhaarIn) {
+        aadhaarIn.addEventListener('input', () => {
+          const val = aadhaarIn.value.replace(/\D/g, '');
+          if (aadhaarBadge) {
+            aadhaarBadge.style.display = (val.length === 12) ? 'inline-flex' : 'none';
+          }
+        });
+      }
+
+      if (panIn) {
+        panIn.addEventListener('input', () => {
+          const val = panIn.value.trim().toUpperCase();
+          const regex = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
+          if (panBadge) {
+            panBadge.style.display = regex.test(val) ? 'inline-flex' : 'none';
           }
         });
       }
