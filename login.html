@@ -7,6 +7,16 @@
   <meta name="theme-color" content="#0d1338">
   <title>Login | Bruno Credits - Instant Personal Loan</title>
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    @keyframes otpShake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-6px); }
+      40%, 80% { transform: translateX(6px); }
+    }
+    .otp-input.shake {
+      animation: otpShake 0.4s ease-in-out;
+    }
+  </style>
 </head>
 <body>
 
@@ -100,6 +110,7 @@
             <input type="text" class="otp-input" maxlength="1" data-index="4" inputmode="numeric">
             <input type="text" class="otp-input" maxlength="1" data-index="5" inputmode="numeric">
           </div>
+          <div id="otpErrorMsg" style="display: none; color: #ef4444; font-size: 12px; font-weight: 700; text-align: center; margin: 8px 0; padding: 7px 12px; background: rgba(239, 68, 68, 0.08); border-radius: 8px; border: 1px solid rgba(239, 68, 68, 0.2);"></div>
 
           <!-- Timer in small text -->
           <div class="login-otp-timer">
@@ -256,7 +267,9 @@
       }
     }
 
-    // ---- Send OTP (Firebase Real SMS with zero DLT, fallback to ApexAPI) ----
+    let currentOtpSessionToken = '';
+
+    // ---- Send OTP via NinzaSMS Gateway ----
     async function sendLoginOTP() {
       const mobile = loginMobile.value.trim();
       
@@ -276,6 +289,7 @@
       try {
         const res = await window.ApexAPI.sendOtp(mobile);
         if (res && res.success) {
+          currentOtpSessionToken = res.sessionToken || '';
           document.getElementById('mobileSection').style.display = 'none';
           document.getElementById('loginOtpSection').style.display = 'block';
 
@@ -304,8 +318,16 @@
     // ---- Setup OTP Inputs ----
     function setupLoginOTPInputs() {
       const otpInputs = document.querySelectorAll('.otp-input');
+      const errEl = document.getElementById('otpErrorMsg');
+
       otpInputs.forEach((input, index) => {
         input.addEventListener('input', (e) => {
+          if (errEl) errEl.style.display = 'none';
+          otpInputs.forEach(inp => {
+            inp.style.borderColor = '';
+            inp.style.background = '';
+          });
+
           const val = e.target.value.replace(/\D/g, '');
           e.target.value = val.slice(0, 1);
           if (val && index < 5) {
@@ -320,6 +342,7 @@
         });
         input.addEventListener('paste', (e) => {
           e.preventDefault();
+          if (errEl) errEl.style.display = 'none';
           const paste = (e.clipboardData || window.clipboardData).getData('text').replace(/\D/g, '');
           for (let i = 0; i < Math.min(paste.length, 6); i++) {
             otpInputs[i].value = paste[i];
@@ -349,6 +372,9 @@
     // ---- Resend OTP ----
     async function resendLoginOTP() {
       const mobile = loginMobile.value.trim();
+      const errEl = document.getElementById('otpErrorMsg');
+      if (errEl) errEl.style.display = 'none';
+
       document.querySelectorAll('.otp-input').forEach(input => {
         input.value = '';
         input.style.borderColor = 'var(--gray-300)';
@@ -360,6 +386,7 @@
       try {
         const res = await window.ApexAPI.resendOtp(mobile);
         if (res && res.success) {
+          currentOtpSessionToken = res.sessionToken || currentOtpSessionToken;
           console.log('[NinzaSMS] Resent OTP successfully');
         }
       } catch (e) {
@@ -372,13 +399,36 @@
       window.location.href = 'dashboard.html';
     }
 
-    // ---- Verify OTP ----
+    // ---- Show Wrong OTP Error UI ----
+    function showOtpError(msg) {
+      const errEl = document.getElementById('otpErrorMsg');
+      if (errEl) {
+        errEl.textContent = '❌ ' + (msg || 'Galat OTP daala gaya hai. Kripya phone par aaya sahi OTP dalein.');
+        errEl.style.display = 'block';
+      }
+      const otpInputs = document.querySelectorAll('.otp-input');
+      otpInputs.forEach(inp => {
+        inp.value = '';
+        inp.style.borderColor = '#ef4444';
+        inp.style.background = 'rgba(239, 68, 68, 0.05)';
+        inp.classList.add('shake');
+      });
+      setTimeout(() => {
+        otpInputs.forEach(inp => inp.classList.remove('shake'));
+      }, 450);
+      if (otpInputs[0]) otpInputs[0].focus();
+    }
+
+    // ---- Strictly Verify OTP (Proceeds ONLY if correct) ----
     async function verifyLoginOTP() {
       const otpInputs = document.querySelectorAll('.otp-input');
       let entered = '';
       otpInputs.forEach(inp => entered += inp.value);
 
-      if (entered.length !== 6) return;
+      if (entered.length !== 6) {
+        showOtpError('Kripya pura 6-digit OTP code enter karein.');
+        return;
+      }
 
       const btn = document.getElementById('verifyLoginOtp');
       btn.innerHTML = '<span class="spinner"></span> Verifying...';
@@ -387,7 +437,7 @@
       const mobile = loginMobile.value.trim();
 
       try {
-        const res = await window.ApexAPI.verifyOtp(mobile, entered);
+        const res = await window.ApexAPI.verifyOtp(mobile, entered, currentOtpSessionToken);
         if (res && res.success) {
           clearInterval(loginOtpTimer);
 
@@ -402,12 +452,13 @@
             window.location.href = 'dashboard.html';
           }, 1200);
         } else {
-          alert((res && res.message) || 'Galat OTP daala gaya hai ya expire ho chuka hai. Kripya phone par aaya sahi OTP dalein.');
+          // STRICT REJECTION: Wrong OTP entered
+          showOtpError((res && res.message) || 'Galat OTP daala gaya hai ya expire ho chuka hai. Kripya phone par aaya sahi OTP dalein.');
           btn.innerHTML = 'Verify & Continue →';
           btn.disabled = false;
         }
       } catch (err) {
-        alert('Verification error. Please try again.');
+        showOtpError('Verification error. Please try again.');
         btn.innerHTML = 'Verify & Continue →';
         btn.disabled = false;
       }

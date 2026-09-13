@@ -74,16 +74,17 @@ window.ApexAPI = {
     }
   },
 
-  async verifyOtp(mobile, otp) {
+  async verifyOtp(mobile, otp, sessionToken = '') {
     try {
       const res = await fetch(`${window.APP_CONFIG.API_BASE_URL}/auth/verify-otp`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ mobile, otp })
+        body: JSON.stringify({ mobile, otp, sessionToken })
       });
       return await res.json();
     } catch (e) {
-      return { success: true, token: 'token_' + Date.now(), user: { mobile } };
+      console.error('[API] verifyOtp failed:', e);
+      return { success: false, message: 'Server connection error. Please try again.' };
     }
   },
 

@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const https = require('https');
+const crypto = require('crypto');
+
+const AUTH_SECRET = process.env.AUTH_SECRET || 'bruno_nbfc_secure_session_secret_2026_ninzasms';
 
 // NinzaSMS Configuration (Primary Non-DLT Live SMS Gateway)
 const NINZASMS_API_KEY = process.env.NINZASMS_API_KEY || 'NINZASMS90367f9de0894cec3ed4c6ca9d3fba6b03f45567936636500f79';
@@ -158,8 +161,15 @@ router.post('/send-otp', async (req, res) => {
 
   const masked = mobile.slice(0, 2) + '••••' + mobile.slice(-4);
   const otpCode = String(Math.floor(100000 + Math.random() * 900000));
-  activeOtps.set(mobile, { otp: otpCode, expiresAt: Date.now() + (5 * 60 * 1000), attempts: 0 });
+  const expiresAt = Date.now() + (5 * 60 * 1000);
+  activeOtps.set(mobile, { otp: otpCode, expiresAt, attempts: 0 });
   console.log(`[AUTH] Generated OTP for +91 ${mobile}: ${otpCode}`);
+
+  // Create HMAC session token for serverless verification
+  const hmac = crypto.createHmac('sha256', AUTH_SECRET)
+    .update(`${mobile}:${otpCode}:${expiresAt}`)
+    .digest('hex');
+  const sessionToken = `${expiresAt}.${hmac}`;
 
   // 1. Try NinzaSMS First (Primary Direct Non-DLT Gateway)
   if (NINZASMS_API_KEY && NINZASMS_SENDER_ID) {
@@ -174,6 +184,7 @@ router.post('/send-otp', async (req, res) => {
           provider: 'NINZASMS_LIVE',
           message: `OTP sent via NinzaSMS to +91 ${masked}`,
           maskedNumber: '+91 ' + masked,
+          sessionToken,
           timerSeconds: 30,
           balance: ninzaRes.body.balance
         });
@@ -198,6 +209,7 @@ router.post('/send-otp', async (req, res) => {
           provider: 'FAST2SMS_LIVE',
           message: `OTP sent via Fast2SMS to +91 ${masked}`,
           maskedNumber: '+91 ' + masked,
+          sessionToken,
           timerSeconds: 30
         });
       }
@@ -218,6 +230,7 @@ router.post('/send-otp', async (req, res) => {
           provider: 'MSG91_LIVE',
           message: `OTP sent via MSG91 to +91 ${masked}`,
           maskedNumber: '+91 ' + masked,
+          sessionToken,
           timerSeconds: 30
         });
       }
@@ -233,6 +246,7 @@ router.post('/send-otp', async (req, res) => {
     provider: 'BACKUP',
     message: `OTP sent to +91 ${masked}`,
     maskedNumber: '+91 ' + masked,
+    sessionToken,
     timerSeconds: 30
   });
 });
@@ -249,8 +263,14 @@ router.post('/resend-otp', async (req, res) => {
 
   const masked = mobile.slice(0, 2) + '••••' + mobile.slice(-4);
   const newOtp = String(Math.floor(100000 + Math.random() * 900000));
-  activeOtps.set(mobile, { otp: newOtp, expiresAt: Date.now() + (5 * 60 * 1000), attempts: 0 });
+  const expiresAt = Date.now() + (5 * 60 * 1000);
+  activeOtps.set(mobile, { otp: newOtp, expiresAt, attempts: 0 });
   console.log(`[AUTH] Resending OTP for +91 ${mobile}: ${newOtp}`);
+
+  const hmac = crypto.createHmac('sha256', AUTH_SECRET)
+    .update(`${mobile}:${newOtp}:${expiresAt}`)
+    .digest('hex');
+  const sessionToken = `${expiresAt}.${hmac}`;
 
   if (NINZASMS_API_KEY && NINZASMS_SENDER_ID) {
     try {
@@ -261,6 +281,7 @@ router.post('/resend-otp', async (req, res) => {
           provider: 'NINZASMS_LIVE',
           message: `OTP resent via NinzaSMS to +91 ${masked}`,
           maskedNumber: '+91 ' + masked,
+          sessionToken,
           timerSeconds: 30
         });
       }
@@ -273,35 +294,58 @@ router.post('/resend-otp', async (req, res) => {
     success: true,
     provider: 'BACKUP',
     message: `OTP resent to +91 ${masked}`,
+    sessionToken,
     timerSeconds: 30
   });
 });
 
 /**
  * POST /api/auth/verify-otp
- * Verifies submitted OTP
+ * Strictly verifies submitted OTP against generated code (No backdoor bypass)
  */
 router.post('/verify-otp', async (req, res) => {
-  const { mobile, otp } = req.body;
+  const { mobile, otp, sessionToken } = req.body;
   if (!mobile || !otp) {
     return res.status(400).json({ success: false, message: 'Mobile number and OTP are required' });
   }
 
+  const cleanOtp = String(otp).trim();
   let isVerified = false;
 
-  // 1. Check generated OTP in-memory store (NinzaSMS & local)
-  const record = activeOtps.get(mobile);
-  if (record && record.otp === String(otp).trim() && Date.now() < record.expiresAt) {
-    isVerified = true;
-  } else if (otp === '123456') {
-    // Universal testing master code
-    isVerified = true;
+  // 1. Verify via cryptographic HMAC token (Guaranteed across all serverless instances)
+  if (sessionToken && typeof sessionToken === 'string' && sessionToken.includes('.')) {
+    try {
+      const [expStr, hmac] = sessionToken.split('.');
+      const expiresAt = parseInt(expStr, 10);
+      if (Date.now() <= expiresAt) {
+        const expectedHmac = crypto.createHmac('sha256', AUTH_SECRET)
+          .update(`${mobile}:${cleanOtp}:${expiresAt}`)
+          .digest('hex');
+        if (crypto.timingSafeEqual(Buffer.from(hmac, 'hex'), Buffer.from(expectedHmac, 'hex'))) {
+          isVerified = true;
+          console.log(`[AUTH] Successfully verified +91 ${mobile} via HMAC token`);
+        }
+      } else {
+        console.warn(`[AUTH] HMAC session token expired for +91 ${mobile}`);
+      }
+    } catch (e) {
+      console.warn('[AUTH] Token verification error:', e.message);
+    }
   }
 
-  // 2. Check MSG91 verification if configured
+  // 2. Fallback check: in-memory store
+  if (!isVerified) {
+    const record = activeOtps.get(mobile);
+    if (record && record.otp === cleanOtp && Date.now() < record.expiresAt) {
+      isVerified = true;
+      console.log(`[AUTH] Successfully verified +91 ${mobile} via in-memory store`);
+    }
+  }
+
+  // 3. Fallback check: MSG91 verification if configured
   if (!isVerified && MSG91_AUTH_KEY && MSG91_AUTH_KEY.length >= 16) {
     try {
-      const verifyUrl = `https://control.msg91.com/api/v5/otp/verify?otp=${encodeURIComponent(otp)}&mobile=91${mobile}&authkey=${encodeURIComponent(MSG91_AUTH_KEY)}`;
+      const verifyUrl = `https://control.msg91.com/api/v5/otp/verify?otp=${encodeURIComponent(cleanOtp)}&mobile=91${mobile}&authkey=${encodeURIComponent(MSG91_AUTH_KEY)}`;
       const response = await callMsg91(verifyUrl, 'GET');
       if (response.body && (response.body.type === 'success' || response.body.message === 'OTP verified success fully')) {
         isVerified = true;
@@ -311,8 +355,12 @@ router.post('/verify-otp', async (req, res) => {
     }
   }
 
+  // Strict: Reject any wrong OTP
   if (!isVerified) {
-    return res.status(401).json({ success: false, message: 'Invalid or expired OTP. Please enter the correct 6-digit code.' });
+    return res.status(401).json({ 
+      success: false, 
+      message: 'Galat OTP daala gaya hai ya expire ho chuka hai. Kripya phone par aaya sahi OTP dalein.' 
+    });
   }
 
   activeOtps.delete(mobile);
