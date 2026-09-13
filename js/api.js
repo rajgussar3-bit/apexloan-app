@@ -54,9 +54,8 @@ window.ApexAPI = {
     } catch (e) {
       console.warn('[API] send-otp failed:', e);
       return {
-        success: true,
-        message: 'OTP sent',
-        maskedNumber: '+91 ' + mobile.slice(0, 2) + '••••' + mobile.slice(-4)
+        success: false,
+        message: 'Server connection error. Please try again.'
       };
     }
   },
@@ -70,7 +69,7 @@ window.ApexAPI = {
       });
       return await res.json();
     } catch (e) {
-      return { success: true, message: 'OTP resent' };
+      return { success: false, message: 'Server connection error. Please try again.' };
     }
   },
 

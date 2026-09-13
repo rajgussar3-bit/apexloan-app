@@ -190,6 +190,13 @@ router.post('/send-otp', async (req, res) => {
         });
       } else {
         console.warn('[NINZASMS] Non-success response:', ninzaRes ? ninzaRes.body : 'empty');
+        if (ninzaRes && (ninzaRes.statusCode === 402 || (ninzaRes.body && (ninzaRes.body.msg || '').toLowerCase().includes('insufficient balance')))) {
+          return res.status(402).json({
+            success: false,
+            provider: 'NINZASMS',
+            message: 'NinzaSMS me balance khatam (0) ho gaya hai. Kripya ninzasms.in.net par jakar recharge karein tabhi SMS aayega.'
+          });
+        }
       }
     } catch (err) {
       console.error('[NINZASMS] Error:', err.message);
@@ -283,6 +290,12 @@ router.post('/resend-otp', async (req, res) => {
           maskedNumber: '+91 ' + masked,
           sessionToken,
           timerSeconds: 30
+        });
+      } else if (ninzaRes && (ninzaRes.statusCode === 402 || (ninzaRes.body && (ninzaRes.body.msg || '').toLowerCase().includes('insufficient balance')))) {
+        return res.status(402).json({
+          success: false,
+          provider: 'NINZASMS',
+          message: 'NinzaSMS me balance khatam (0) ho gaya hai. Kripya ninzasms.in.net par jakar recharge karein tabhi SMS aayega.'
         });
       }
     } catch (err) {
