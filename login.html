@@ -2,290 +2,915 @@
 <html lang="hi-IN">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <meta name="description" content="Bruno Credits - Instant personal loans powered by Vistas Tecnolabs Finance Limited. Login securely with OTP.">
-  <meta name="theme-color" content="#0d1338">
-  <title>Login | Bruno Credits - Instant Personal Loan</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <meta name="description" content="Bruno Credits - Instant personal loans powered by Vistas Tecnolabs Finance Limited (RBI Regd. NBFC). Login securely with OTP.">
+  <meta name="theme-color" content="#060814">
+  <title>Sign In | Bruno Credits - Instant Personal Loan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  
   <style>
+    /* ========================================
+       PREMIUM FINTECH LUXURY THEME & MOBILE FIXES
+       ======================================== */
+    :root {
+      --fin-bg: #060814;
+      --fin-card-bg: rgba(12, 17, 36, 0.88);
+      --fin-card-border: rgba(255, 255, 255, 0.1);
+      --fin-text-primary: #ffffff;
+      --fin-text-secondary: #94a3b8;
+      --fin-text-muted: #64748b;
+      --fin-accent-indigo: #6366f1;
+      --fin-accent-cyan: #06b6d4;
+      --fin-accent-emerald: #10b981;
+      --fin-accent-rose: #f43f5e;
+      --fin-glow: rgba(99, 102, 241, 0.15);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--fin-bg);
+      color: var(--fin-text-primary);
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    .fin-page {
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      background: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.16) 0%, transparent 60%),
+                  radial-gradient(circle at 10% 30%, rgba(6, 182, 212, 0.08) 0%, transparent 50%),
+                  radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.08) 0%, transparent 50%),
+                  #060814;
+      padding-bottom: 40px;
+    }
+
+    /* Ambient background orbs */
+    .ambient-orb {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      filter: blur(80px);
+      z-index: 0;
+    }
+    .orb-1 {
+      top: -120px;
+      right: -80px;
+      width: 380px;
+      height: 380px;
+      background: rgba(99, 102, 241, 0.18);
+    }
+    .orb-2 {
+      bottom: 50px;
+      left: -100px;
+      width: 320px;
+      height: 320px;
+      background: rgba(16, 185, 129, 0.12);
+    }
+
+    /* Top Navigation */
+    .fin-topbar {
+      width: 100%;
+      max-width: 1200px;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      z-index: 10;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .brand-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.5px;
+    }
+    .brand-title span {
+      background: linear-gradient(135deg, #6366f1 0%, #06b6d4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .brand-tag {
+      font-size: 11px;
+      font-weight: 600;
+      color: #94a3b8;
+      display: block;
+      letter-spacing: 0.2px;
+    }
+
+    .rbi-badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #10b981;
+      backdrop-filter: blur(10px);
+    }
+    .pulse-dot {
+      width: 7px;
+      height: 7px;
+      background: #10b981;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #10b981;
+      animation: pulseRadar 2s infinite;
+    }
+    @keyframes pulseRadar {
+      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6); }
+      70% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+
+    /* Main Container */
+    .fin-main {
+      width: 100%;
+      max-width: 460px;
+      padding: 0 16px;
+      position: relative;
+      z-index: 10;
+      margin: 10px auto 0;
+    }
+
+    /* Elite Glass Card */
+    .fin-card {
+      background: var(--fin-card-bg);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      border: 1px solid var(--fin-card-border);
+      border-radius: 24px;
+      padding: 34px 28px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.75),
+                  0 0 0 1px rgba(255, 255, 255, 0.06),
+                  0 0 35px rgba(99, 102, 241, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    /* Top luminous accent line */
+    .fin-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #4f46e5 0%, #06b6d4 50%, #10b981 100%);
+    }
+
+    /* Card Header */
+    .card-meta-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      background: rgba(99, 102, 241, 0.12);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #818cf8;
+      letter-spacing: 0.3px;
+      margin-bottom: 16px;
+    }
+
+    .fin-card-header h1 {
+      font-size: 24px;
+      font-weight: 800;
+      color: #ffffff;
+      margin: 0 0 8px;
+      letter-spacing: -0.5px;
+      line-height: 1.25;
+    }
+    .fin-card-header p {
+      font-size: 14px;
+      color: var(--fin-text-secondary);
+      margin: 0 0 24px;
+      line-height: 1.5;
+    }
+
+    /* Input Field Container */
+    .input-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #94a3b8;
+      margin-bottom: 8px;
+    }
+    .input-label .required {
+      color: var(--fin-accent-rose);
+    }
+
+    .phone-input-wrapper {
+      display: flex;
+      align-items: center;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1.5px solid rgba(255, 255, 255, 0.12);
+      border-radius: 14px;
+      padding: 4px;
+      transition: all 0.25s ease;
+      position: relative;
+    }
+    .phone-input-wrapper:focus-within {
+      border-color: #6366f1;
+      background: rgba(15, 23, 42, 0.95);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25), 0 0 20px rgba(99, 102, 241, 0.15);
+    }
+
+    .country-chip {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 15px;
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      user-select: none;
+    }
+
+    .phone-input-field {
+      flex: 1;
+      min-width: 0;
+      background: transparent;
+      border: none;
+      outline: none;
+      padding: 12px 14px;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #ffffff;
+      font-family: inherit;
+    }
+    .phone-input-field::placeholder {
+      color: #475569;
+      font-weight: 500;
+      letter-spacing: 0;
+    }
+
+    .phone-valid-indicator {
+      display: none;
+      padding-right: 12px;
+      color: #10b981;
+      animation: fadeIn 0.2s ease;
+    }
+
+    .error-hint {
+      display: none;
+      color: var(--fin-accent-rose);
+      font-size: 12px;
+      font-weight: 600;
+      margin-top: 8px;
+      padding-left: 4px;
+    }
+
+    /* Modern Primary CTA Button */
+    .fin-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      height: 52px;
+      margin-top: 20px;
+      background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
+      color: #ffffff;
+      border: none;
+      border-radius: 14px;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0.2px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.4), 0 0 20px rgba(6, 182, 212, 0.2);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .fin-btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px -5px rgba(79, 70, 229, 0.5), 0 0 30px rgba(6, 182, 212, 0.3);
+    }
+    .fin-btn:active:not(:disabled) {
+      transform: translateY(0);
+    }
+    .fin-btn:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
+
+    /* Shimmer effect on button */
+    .fin-btn::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        60deg,
+        transparent,
+        rgba(255, 255, 255, 0.15),
+        transparent
+      );
+      transform: rotate(30deg);
+      transition: all 0.7s;
+    }
+    .fin-btn:hover::after {
+      left: 100%;
+    }
+
+    /* ========================================
+       OTP INPUTS - 100% MOBILE RESPONSIVE
+       ======================================== */
+    .otp-header-box {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 12px 14px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .otp-header-text {
+      font-size: 13px;
+      color: #94a3b8;
+    }
+    .otp-header-text strong {
+      color: #ffffff;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    .btn-edit-number {
+      background: none;
+      border: none;
+      color: #818cf8;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 6px;
+      transition: background 0.2s;
+    }
+    .btn-edit-number:hover {
+      background: rgba(129, 140, 248, 0.1);
+    }
+
+    /* THE CRITICAL MOBILE FIX: Flex with zero min-width and auto clamping */
+    .otp-inputs-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: clamp(6px, 1.8vw, 10px);
+      width: 100%;
+      max-width: 360px;
+      margin: 18px auto;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    .otp-tile {
+      flex: 1 1 0px;
+      min-width: 0;
+      max-width: 50px;
+      height: clamp(48px, 12.5vw, 56px);
+      padding: 0;
+      margin: 0;
+      font-size: clamp(20px, 5.5vw, 24px);
+      font-weight: 800;
+      font-family: 'JetBrains Mono', monospace, sans-serif;
+      text-align: center;
+      color: #ffffff;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1.5px solid rgba(255, 255, 255, 0.14);
+      border-radius: 12px;
+      outline: none;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      box-sizing: border-box;
+    }
+
+    .otp-tile:focus {
+      border-color: #06b6d4;
+      background: rgba(30, 41, 59, 0.9);
+      box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.25), 0 0 16px rgba(6, 182, 212, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .otp-tile.shake {
+      border-color: #f43f5e !important;
+      background: rgba(244, 63, 94, 0.08) !important;
+      animation: otpShake 0.4s ease-in-out;
+    }
+
     @keyframes otpShake {
       0%, 100% { transform: translateX(0); }
       20%, 60% { transform: translateX(-6px); }
       40%, 80% { transform: translateX(6px); }
     }
-    .otp-input.shake {
-      animation: otpShake 0.4s ease-in-out;
+
+    /* Error Message Banner */
+    .otp-error-card {
+      display: none;
+      background: rgba(244, 63, 94, 0.1);
+      border: 1px solid rgba(244, 63, 94, 0.3);
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #fecdd3;
+      text-align: center;
+      margin: 12px 0 6px;
+      animation: fadeIn 0.2s ease;
+    }
+
+    /* Resend timer & actions */
+    .otp-action-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 14px 0 20px;
+      font-size: 13px;
+      color: #94a3b8;
+    }
+    .resend-timer-badge {
+      font-weight: 700;
+      color: #38bdf8;
+      background: rgba(56, 189, 248, 0.08);
+      padding: 4px 10px;
+      border-radius: 20px;
+      border: 1px solid rgba(56, 189, 248, 0.2);
+    }
+    .resend-active-btn {
+      color: #10b981;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .resend-active-btn:hover {
+      text-decoration: underline;
+    }
+
+    /* Verified Splash Animation */
+    .verified-splash {
+      display: none;
+      text-align: center;
+      padding: 24px 12px;
+    }
+    .verified-icon-circle {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 16px;
+      background: rgba(16, 185, 129, 0.15);
+      border: 2px solid #10b981;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #10b981;
+      box-shadow: 0 0 30px rgba(16, 185, 129, 0.35);
+      animation: scaleCheck 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    @keyframes scaleCheck {
+      0% { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .verified-splash h3 {
+      font-size: 20px;
+      font-weight: 800;
+      color: #ffffff;
+      margin: 0 0 6px;
+    }
+    .verified-splash p {
+      font-size: 13px;
+      color: #94a3b8;
+      margin: 0 0 20px;
+    }
+    .verified-progress {
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+    .verified-progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #10b981, #06b6d4);
+      border-radius: 9999px;
+      animation: fillBar 1.2s ease forwards;
+    }
+    @keyframes fillBar {
+      0% { width: 0%; }
+      100% { width: 100%; }
+    }
+
+    /* ========================================
+       INSTITUTIONAL TRUST SIGNALS GRID
+       ======================================== */
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      width: 100%;
+      max-width: 460px;
+      margin: 20px auto 0;
+      padding: 0;
+    }
+    .trust-card {
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 14px;
+      padding: 14px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      transition: border-color 0.2s;
+    }
+    .trust-card:hover {
+      border-color: rgba(99, 102, 241, 0.3);
+    }
+    .trust-card-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+    .trust-card-icon {
+      width: 22px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .trust-card p {
+      margin: 0;
+      font-size: 11px;
+      color: #64748b;
+      line-height: 1.4;
+    }
+
+    /* ========================================
+       LEGAL COMPLIANCE FOOTER
+       ======================================== */
+    .fin-footer {
+      width: 100%;
+      max-width: 540px;
+      margin: 28px auto 0;
+      padding: 0 16px;
+      text-align: center;
+      position: relative;
+      z-index: 10;
+    }
+    .fin-footer-disclaimer {
+      font-size: 11px;
+      color: #475569;
+      line-height: 1.6;
+      margin-bottom: 14px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding-top: 16px;
+    }
+    .fin-footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px;
+      font-size: 12px;
+    }
+    .fin-footer-links a {
+      color: #64748b;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .fin-footer-links a:hover {
+      color: #94a3b8;
+    }
+
+    /* Small spinner */
+    .spinner {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top-color: #ffffff;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Responsive overrides for ultra-small mobile screens */
+    @media (max-width: 380px) {
+      .fin-card {
+        padding: 24px 16px;
+        border-radius: 20px;
+      }
+      .fin-card-header h1 {
+        font-size: 21px;
+      }
+      .otp-inputs-row {
+        gap: 5px;
+      }
+      .otp-tile {
+        height: 48px;
+        font-size: 19px;
+      }
+      .trust-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 <body>
 
-  <!-- Login Page -->
-  <div class="login-page">
+  <!-- Ambient background glow -->
+  <div class="ambient-orb orb-1"></div>
+  <div class="ambient-orb orb-2"></div>
 
-    <!-- Background decoration -->
-    <div class="login-bg-decor"></div>
-    <div class="login-bg-decor2"></div>
+  <div class="fin-page">
 
-    <!-- Top Bar -->
-    <div class="login-topbar">
-      <a href="index.html" class="nav-logo bruno-brand-logo">
-        <div class="logo-mark">
-          <svg width="34" height="34" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" class="bruno-logo-svg">
-            <defs>
-              <linearGradient id="brunoShieldGradLog" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#0b0f24" />
-                <stop offset="100%" stop-color="#050714" />
-              </linearGradient>
-              <linearGradient id="brunoNeonGradLog1" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#4f46e5" />
-                <stop offset="50%" stop-color="#6366f1" />
-                <stop offset="100%" stop-color="#06b6d4" />
-              </linearGradient>
-              <linearGradient id="brunoNeonGradLog2" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#06b6d4" />
-                <stop offset="50%" stop-color="#10b981" />
-                <stop offset="100%" stop-color="#34d399" />
-              </linearGradient>
-            </defs>
-            <rect width="36" height="36" rx="10" fill="url(#brunoShieldGradLog)" stroke="rgba(99, 102, 241, 0.35)" stroke-width="1.2"/>
-            <path d="M9 8.5C9 7.67157 9.67157 7 10.5 7H14.5C15.3284 7 16 7.67157 16 8.5V27.5C16 28.3284 15.3284 29 14.5 29H10.5C9.67157 29 9 28.3284 9 27.5V8.5Z" fill="url(#brunoNeonGradLog1)" />
-            <path d="M15 7H22.5C25.5376 7 28 9.46243 28 12.5C28 15.5376 25.5376 18 22.5 18H15V7Z" fill="url(#brunoNeonGradLog1)" />
-            <path d="M16 10.5H22C23.1046 10.5 24 11.3954 24 12.5C24 13.6046 23.1046 14.5 22 14.5H16V10.5Z" fill="#070a1a" />
-            <path d="M15 17.5H23.5C26.8137 17.5 29.5 20.1863 29.5 23.5C29.5 26.8137 26.8137 29.5 23.5 29.5H15V17.5Z" fill="url(#brunoNeonGradLog2)" />
-            <path d="M16 21H23C24.3807 21 25.5 22.1193 25.5 23.5C25.5 24.8807 24.3807 26 23 26H16V21Z" fill="#070a1a" />
-            <circle cx="16" cy="17.75" r="1.5" fill="#ffffff" />
-          </svg>
-        </div>
-        <div class="logo-text-group">
-          <span class="brand-title">Bruno<span class="brand-highlight">Credits</span></span>
-          <span class="brand-sub">NBFC • Vistas Tecnolabs</span>
+    <!-- Top Navigation Bar -->
+    <header class="fin-topbar">
+      <a href="index.html" class="nav-brand">
+        <!-- 3D Crystalline Neon Logo -->
+        <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#0b0f24" />
+              <stop offset="100%" stop-color="#050714" />
+            </linearGradient>
+            <linearGradient id="neonGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#4f46e5" />
+              <stop offset="50%" stop-color="#6366f1" />
+              <stop offset="100%" stop-color="#06b6d4" />
+            </linearGradient>
+            <linearGradient id="neonGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#06b6d4" />
+              <stop offset="50%" stop-color="#10b981" />
+              <stop offset="100%" stop-color="#34d399" />
+            </linearGradient>
+          </defs>
+          <rect width="36" height="36" rx="10" fill="url(#shieldGrad)" stroke="rgba(99, 102, 241, 0.4)" stroke-width="1.2"/>
+          <path d="M9 8.5C9 7.67 9.67 7 10.5 7H14.5C15.33 7 16 7.67 16 8.5V27.5C16 28.33 15.33 29 14.5 29H10.5C9.67 29 9 28.33 9 27.5V8.5Z" fill="url(#neonGrad1)" />
+          <path d="M15 7H22.5C25.54 7 28 9.46 28 12.5C28 15.54 25.54 18 22.5 18H15V7Z" fill="url(#neonGrad1)" />
+          <path d="M16 10.5H22C23.1 10.5 24 11.4 24 12.5C24 13.6 23.1 14.5 22 14.5H16V10.5Z" fill="#070a1a" />
+          <path d="M15 17.5H23.5C26.81 17.5 29.5 20.19 29.5 23.5C29.5 26.81 26.81 29.5 23.5 29.5H15V17.5Z" fill="url(#neonGrad2)" />
+          <path d="M16 21H23C24.38 21 25.5 22.12 25.5 23.5C25.5 24.88 24.38 26 23 26H16V21Z" fill="#070a1a" />
+          <circle cx="16" cy="17.75" r="1.5" fill="#ffffff" />
+        </svg>
+        <div>
+          <div class="brand-title">Bruno<span>Credits</span></div>
+          <span class="brand-tag">Vistas Tecnolabs Finance Ltd</span>
         </div>
       </a>
-    </div>
 
-    <!-- Main Card -->
-    <div class="login-wrapper">
-      <div class="login-card">
+      <!-- Live RBI Registration Badge -->
+      <div class="rbi-badge-pill">
+        <span class="pulse-dot"></span>
+        <span>RBI Regd. NBFC</span>
+      </div>
+    </header>
+
+    <!-- Main Form Section -->
+    <main class="fin-main">
+      <div class="fin-card">
         
-        <!-- Trust badge -->
-        <div class="login-trust-badge" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: var(--radius-full); background: rgba(10, 14, 39, 0.04); border: 1px solid rgba(10, 14, 39, 0.1); font-size: 11px; font-weight: 700; color: var(--primary);">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M3 10h18M5 10v11M9 10v11M15 10v11M19 10v11M12 2L2 7h20L12 2z"/></svg>
-          <span>Powered by Vistas Tecnolabs Finance Limited (RBI Reg. NBFC)</span>
+        <!-- Value Prop Badge -->
+        <div class="card-meta-badge">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          <span>Instant Credit Line up to ₹1,00,000</span>
         </div>
 
         <!-- Header -->
-        <div class="login-header">
-          <h1>Welcome to Bruno Credits</h1>
-          <p>Instant personal loans from <strong>₹1,000</strong> to <strong>₹1,00,000</strong>. Enter your registered mobile number:</p>
+        <div class="fin-card-header">
+          <h1>Sign In to Your Account</h1>
+          <p>Access pre-approved credit limits, manage active loans & track instant disbursals securely.</p>
         </div>
 
-        <!-- Mobile Input Section -->
+        <!-- Mobile Step (Step 1) -->
         <div id="mobileSection">
-          <div class="form-group">
-            <label>Mobile Number <span class="required">*</span></label>
-            <div class="input-group">
-              <span class="input-prefix" style="font-weight: 700; color: var(--primary); padding: 0 12px;">+91</span>
-              <input type="tel" class="form-control login-mobile-input" id="loginMobile" placeholder="Enter 10-digit mobile number" maxlength="10" inputmode="numeric" autocomplete="tel">
+          <label class="input-label" for="loginMobile">
+            Registered Mobile Number <span class="required">*</span>
+          </label>
+          <div class="phone-input-wrapper" id="phoneInputContainer">
+            <div class="country-chip">
+              <span>🇮🇳</span>
+              <span>+91</span>
             </div>
-            <div class="error-text" id="mobileError">Please enter a valid 10-digit mobile number</div>
+            <input 
+              type="tel" 
+              class="phone-input-field" 
+              id="loginMobile" 
+              placeholder="98765 43210" 
+              maxlength="10" 
+              inputmode="numeric" 
+              autocomplete="tel-national" 
+              autofocus
+            >
+            <div class="phone-valid-indicator" id="phoneValidIcon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
           </div>
-          <div id="recaptcha-container"></div>
-          <button class="btn btn-secondary btn-block btn-lg login-btn" id="sendLoginOtp" onclick="sendLoginOTP()" style="font-weight: 800;">
-            Get OTP →
+          <div class="error-hint" id="mobileError">Please enter a valid 10-digit mobile number</div>
+
+          <button class="fin-btn" id="sendLoginOtp" onclick="sendLoginOTP()">
+            <span>Get Verification Code</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </button>
         </div>
 
-        <!-- OTP Section (hidden initially) -->
+        <!-- OTP Step (Step 2, hidden initially) -->
         <div id="loginOtpSection" style="display: none;">
-          <div class="login-otp-info">
-            <p>OTP sent to <strong id="maskedNumber">+91 98****3210</strong></p>
+          <div class="otp-header-box">
+            <div class="otp-header-text">
+              Code sent to <strong id="maskedNumber">+91 98••••3210</strong>
+            </div>
+            <button class="btn-edit-number" onclick="changeNumber()">
+              Edit ✏️
+            </button>
           </div>
 
-          <div class="otp-container">
-            <input type="text" class="otp-input" maxlength="1" data-index="0" inputmode="numeric">
-            <input type="text" class="otp-input" maxlength="1" data-index="1" inputmode="numeric">
-            <input type="text" class="otp-input" maxlength="1" data-index="2" inputmode="numeric">
-            <input type="text" class="otp-input" maxlength="1" data-index="3" inputmode="numeric">
-            <input type="text" class="otp-input" maxlength="1" data-index="4" inputmode="numeric">
-            <input type="text" class="otp-input" maxlength="1" data-index="5" inputmode="numeric">
-          </div>
-          <div id="otpErrorMsg" style="display: none; color: #ef4444; font-size: 12px; font-weight: 700; text-align: center; margin: 8px 0; padding: 7px 12px; background: rgba(239, 68, 68, 0.08); border-radius: 8px; border: 1px solid rgba(239, 68, 68, 0.2);"></div>
-
-          <!-- Timer in small text -->
-          <div class="login-otp-timer">
-            Resend OTP in <span class="timer" id="loginTimer">00:30</span>
+          <!-- The 6 Flexible OTP Columns (No Overflow on Mobile) -->
+          <div class="otp-inputs-row">
+            <input type="text" class="otp-tile" maxlength="1" data-index="0" inputmode="numeric" autocomplete="one-time-code">
+            <input type="text" class="otp-tile" maxlength="1" data-index="1" inputmode="numeric">
+            <input type="text" class="otp-tile" maxlength="1" data-index="2" inputmode="numeric">
+            <input type="text" class="otp-tile" maxlength="1" data-index="3" inputmode="numeric">
+            <input type="text" class="otp-tile" maxlength="1" data-index="4" inputmode="numeric">
+            <input type="text" class="otp-tile" maxlength="1" data-index="5" inputmode="numeric">
           </div>
 
-          <button class="btn btn-secondary btn-block btn-lg login-btn" id="verifyLoginOtp" onclick="verifyLoginOTP()" style="font-weight: 800;">
-            Verify & Continue →
+          <!-- Error card -->
+          <div class="otp-error-card" id="otpErrorMsg"></div>
+
+          <!-- Timer and Resend -->
+          <div class="otp-action-bar">
+            <div id="timerContainer">
+              Resend OTP in <span class="resend-timer-badge" id="loginTimer">00:30</span>
+            </div>
+          </div>
+
+          <button class="fin-btn" id="verifyLoginOtp" onclick="verifyLoginOTP()">
+            <span>Verify & Access Account</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </button>
-
-          <button class="login-change-number" onclick="changeNumber()">← Change Number</button>
         </div>
 
-        <!-- Verified Section (hidden) -->
-        <div id="loginVerifiedSection" style="display: none;">
-          <div class="login-verified-box">
-            <div class="login-verified-icon" style="color: var(--secondary); display: flex; justify-content: center; margin-bottom: 12px;">
-              <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-            </div>
-            <h3>Mobile Verified!</h3>
-            <p>Redirecting to loan application...</p>
-            <div class="login-loader">
-              <div class="login-loader-bar"></div>
-            </div>
+        <!-- Verified Splash (Step 3) -->
+        <div class="verified-splash" id="loginVerifiedSection">
+          <div class="verified-icon-circle">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <h3>Authentication Successful!</h3>
+          <p>Opening your pre-approved credit dashboard...</p>
+          <div class="verified-progress">
+            <div class="verified-progress-bar"></div>
           </div>
         </div>
 
       </div>
 
-      <!-- Trust Signals -->
-      <div class="login-trust-row">
-        <div class="trust-item">
-          <span style="display: flex; justify-content: center; margin-bottom: 6px; color: var(--primary);">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          </span>
-          <span>Bank-Grade<br>Security</span>
+      <!-- Trust Signals Grid -->
+      <div class="trust-grid">
+        <div class="trust-card">
+          <div class="trust-card-header">
+            <div class="trust-card-icon" style="color: #6366f1;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M3 10h18M5 10v11M9 10v11M15 10v11M19 10v11M12 2L2 7h20L12 2z"/></svg>
+            </div>
+            <span>RBI Regulated</span>
+          </div>
+          <p>NBFC Partner: Vistas Tecnolabs Finance Ltd (#N-13.02456)</p>
         </div>
-        <div class="trust-item">
-          <span style="display: flex; justify-content: center; margin-bottom: 6px; color: var(--secondary);">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-          </span>
-          <span>Instant<br>Approval</span>
+
+        <div class="trust-card">
+          <div class="trust-card-header">
+            <div class="trust-card-icon" style="color: #06b6d4;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </div>
+            <span>Bank-Grade 256-Bit</span>
+          </div>
+          <p>End-to-end encrypted protocol with zero third-party data sharing</p>
         </div>
-        <div class="trust-item">
-          <span style="display: flex; justify-content: center; margin-bottom: 6px; color: var(--primary);">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M3 10h18M5 10v11M9 10v11M15 10v11M19 10v11M12 2L2 7h20L12 2z"/></svg>
-          </span>
-          <span>RBI<br>Registered</span>
+
+        <div class="trust-card">
+          <div class="trust-card-header">
+            <div class="trust-card-icon" style="color: #10b981;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            </div>
+            <span>30-Min Disbursal</span>
+          </div>
+          <p>Instant transfer to your verified savings account via IMPS/NEFT</p>
         </div>
-        <div class="trust-item">
-          <span style="display: flex; justify-content: center; margin-bottom: 6px; color: var(--accent);">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-          </span>
-          <span>No Hidden<br>Charges</span>
+
+        <div class="trust-card">
+          <div class="trust-card-header">
+            <div class="trust-card-icon" style="color: #f59e0b;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <span>Zero Collateral</span>
+          </div>
+          <p>100% digital KYC with zero physical paperwork or branch visits</p>
         </div>
       </div>
 
-      <!-- Transparency Notice -->
-      <div class="login-transparency">
-        <h4 style="display: flex; align-items: center; gap: 8px;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <span>Your Data is Safe With Us</span>
-        </h4>
-        <ul>
-          <li>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00d287" stroke-width="2.5" style="display:inline-block; vertical-align:middle; margin-right:4px;"><polyline points="20 6 9 17 4 12"/></svg>
-            We never share your data with unauthorized third parties
-          </li>
-          <li>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00d287" stroke-width="2.5" style="display:inline-block; vertical-align:middle; margin-right:4px;"><polyline points="20 6 9 17 4 12"/></svg>
-            All communications are end-to-end 256-bit encrypted
-          </li>
-          <li>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00d287" stroke-width="2.5" style="display:inline-block; vertical-align:middle; margin-right:4px;"><polyline points="20 6 9 17 4 12"/></svg>
-            You can delete or manage your data anytime
-          </li>
-          <li>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00d287" stroke-width="2.5" style="display:inline-block; vertical-align:middle; margin-right:4px;"><polyline points="20 6 9 17 4 12"/></svg>
-            100% Compliant with RBI Digital Lending Guidelines 2024
-          </li>
-        </ul>
-      </div>
-
-      <!-- Footer -->
-      <div class="login-footer">
-        <p>Bruno Credits · Official Lending Partner: Vistas Tecnolabs Finance Limited | NBFC Reg: N-13.02456</p>
-        <p style="margin-top: 4px;"><a href="#">Privacy Policy</a> · <a href="#">Terms</a> · <a href="#">Grievance</a></p>
-      </div>
-    </div>
+      <!-- Legal Compliance Footer -->
+      <footer class="fin-footer">
+        <div class="fin-footer-disclaimer">
+          Bruno Credits operates as a digital lending platform partnering with Vistas Tecnolabs Finance Limited, a Non-Banking Financial Company (NBFC) registered with the Reserve Bank of India (RBI). All credit underwriting, interest terms, and loan agreements strictly adhere to the RBI Digital Lending Guidelines 2024.
+        </div>
+        <div class="fin-footer-links">
+          <a href="#">Privacy Policy</a>
+          <span>·</span>
+          <a href="#">Terms & Conditions</a>
+          <span>·</span>
+          <a href="#">Fair Practice Code</a>
+          <span>·</span>
+          <a href="#">Grievance Redressal</a>
+        </div>
+      </footer>
+    </main>
 
   </div>
-
-  <!-- Firebase SDKs (v10 compat for direct browser support) -->
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 
   <script src="js/config.js"></script>
   <script src="js/api.js"></script>
   <script>
-    // ---- Mobile input: digits only ----
+    // ---- Elements ----
     const loginMobile = document.getElementById('loginMobile');
+    const mobileError = document.getElementById('mobileError');
+    const phoneValidIcon = document.getElementById('phoneValidIcon');
+    let loginOtpTimer = null;
+    let currentOtpSessionToken = '';
+
+    // ---- Mobile input validation & formatting ----
     loginMobile.addEventListener('input', (e) => {
-      e.target.value = e.target.value.replace(/\D/g, '').slice(0, 10);
-      // Clear error on typing
-      document.getElementById('mobileError').style.display = 'none';
-      loginMobile.classList.remove('error');
+      const val = e.target.value.replace(/\D/g, '').slice(0, 10);
+      e.target.value = val;
+
+      // Hide error
+      mobileError.style.display = 'none';
+
+      // Indicator
+      if (val.length === 10 && /^[6-9]/.test(val)) {
+        phoneValidIcon.style.display = 'block';
+      } else {
+        phoneValidIcon.style.display = 'none';
+      }
     });
 
-    // Enter key to send OTP
+    // Enter key sends OTP
     loginMobile.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') sendLoginOTP();
     });
 
-    let loginOtpTimer = null;
-    let loginGeneratedOTP = '';
-    let firebaseAuth = null;
-    let recaptchaVerifier = null;
-    window.confirmationResult = null;
-
-    // ---- Initialize Firebase Authentication ----
-    try {
-      if (typeof firebase !== 'undefined' && window.APP_CONFIG && window.APP_CONFIG.FIREBASE) {
-        if (!firebase.apps.length) {
-          firebase.initializeApp(window.APP_CONFIG.FIREBASE);
-        }
-        firebaseAuth = firebase.auth();
-        firebaseAuth.useDeviceLanguage();
-      }
-    } catch (e) {
-      console.warn('[Firebase] Init warning:', e);
-    }
-
-    function getRecaptchaVerifier() {
-      if (!recaptchaVerifier && firebaseAuth) {
-        recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
-          'size': 'invisible',
-          'callback': (response) => {
-            // reCAPTCHA solved
-          },
-          'expired-callback': () => {
-            resetRecaptcha();
-          }
-        });
-      }
-      return recaptchaVerifier;
-    }
-
-    function resetRecaptcha() {
-      if (recaptchaVerifier) {
-        try {
-          recaptchaVerifier.clear();
-        } catch (e) {}
-        recaptchaVerifier = null;
-      }
-    }
-
-    let currentOtpSessionToken = '';
-
     // ---- Send OTP via NinzaSMS Gateway ----
     async function sendLoginOTP() {
       const mobile = loginMobile.value.trim();
-      
-      // Validate
+
       if (mobile.length !== 10 || !/^[6-9]/.test(mobile)) {
-        document.getElementById('mobileError').style.display = 'block';
-        loginMobile.classList.add('error');
+        mobileError.style.display = 'block';
         loginMobile.focus();
         return;
       }
 
       const btn = document.getElementById('sendLoginOtp');
-      btn.innerHTML = '<span class="spinner"></span> Sending OTP...';
+      btn.innerHTML = '<span class="spinner"></span> <span>Sending Code...</span>';
       btn.disabled = true;
 
-      // Direct Live OTP via NinzaSMS Gateway (Zero DLT, Instant)
       try {
         const res = await window.ApexAPI.sendOtp(mobile);
         if (res && res.success) {
@@ -294,77 +919,90 @@
           document.getElementById('loginOtpSection').style.display = 'block';
 
           const masked = res.maskedNumber || ('+91 ' + mobile.slice(0, 2) + '••••' + mobile.slice(-4));
-          const infoEl = document.querySelector('.login-otp-info');
-          infoEl.innerHTML = `
-            <p>📲 Live SMS OTP sent to <strong id="maskedNumber">${masked}</strong></p>
-            <p style="font-size: 11px; color: var(--secondary); margin-top: 4px;">Delivered via NinzaSMS Gateway. Check your SMS inbox:</p>
-          `;
+          document.getElementById('maskedNumber').textContent = masked;
 
           startLoginTimer(res.timerSeconds || 30);
           setupLoginOTPInputs();
         } else {
           alert((res && res.message) || 'OTP bhejne me samasya aayi. Kripya punah prayas karein.');
-          btn.innerHTML = 'Get OTP →';
+          btn.innerHTML = '<span>Get Verification Code</span> <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
           btn.disabled = false;
         }
       } catch (err) {
-        console.error('Error sending OTP:', err);
-        btn.innerHTML = 'Get OTP →';
+        console.error('Send OTP error:', err);
+        btn.innerHTML = '<span>Get Verification Code</span> <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
         btn.disabled = false;
         alert('Could not send OTP. Please check your connection and try again.');
       }
     }
 
-    // ---- Setup OTP Inputs ----
+    // ---- Setup OTP Inputs with Auto-Advance, Paste & Backspace ----
     function setupLoginOTPInputs() {
-      const otpInputs = document.querySelectorAll('.otp-input');
+      const tiles = document.querySelectorAll('.otp-tile');
       const errEl = document.getElementById('otpErrorMsg');
 
-      otpInputs.forEach((input, index) => {
-        input.addEventListener('input', (e) => {
+      tiles.forEach((tile, index) => {
+        tile.addEventListener('input', (e) => {
           if (errEl) errEl.style.display = 'none';
-          otpInputs.forEach(inp => {
-            inp.style.borderColor = '';
-            inp.style.background = '';
-          });
+          tiles.forEach(t => t.classList.remove('shake'));
 
           const val = e.target.value.replace(/\D/g, '');
           e.target.value = val.slice(0, 1);
+
           if (val && index < 5) {
-            otpInputs[index + 1].focus();
+            tiles[index + 1].focus();
+          }
+          if (Array.from(tiles).every(t => t.value.length === 1)) {
+            verifyLoginOTP();
           }
         });
-        input.addEventListener('keydown', (e) => {
+
+        tile.addEventListener('keydown', (e) => {
           if (e.key === 'Backspace' && !e.target.value && index > 0) {
-            otpInputs[index - 1].focus();
+            tiles[index - 1].focus();
           }
-          if (e.key === 'Enter') verifyLoginOTP();
+          if (e.key === 'Enter') {
+            verifyLoginOTP();
+          }
         });
-        input.addEventListener('paste', (e) => {
+
+        tile.addEventListener('paste', (e) => {
           e.preventDefault();
           if (errEl) errEl.style.display = 'none';
           const paste = (e.clipboardData || window.clipboardData).getData('text').replace(/\D/g, '');
           for (let i = 0; i < Math.min(paste.length, 6); i++) {
-            otpInputs[i].value = paste[i];
+            tiles[i].value = paste[i];
+          }
+          if (paste.length >= 6) {
+            tiles[5].focus();
+            verifyLoginOTP();
+          } else if (paste.length > 0) {
+            tiles[Math.min(paste.length, 5)].focus();
           }
         });
       });
-      otpInputs[0].focus();
+
+      tiles[0].focus();
     }
 
-    // ---- Timer ----
+    // ---- Countdown Timer ----
     function startLoginTimer(sec = 30) {
       let seconds = sec;
       const timerEl = document.getElementById('loginTimer');
+      const timerContainer = document.getElementById('timerContainer');
 
       clearInterval(loginOtpTimer);
       loginOtpTimer = setInterval(() => {
         seconds--;
-        timerEl.textContent = `00:${String(seconds).padStart(2, '0')}`;
+        if (timerEl) {
+          timerEl.textContent = `00:${String(seconds).padStart(2, '0')}`;
+        }
 
         if (seconds <= 0) {
           clearInterval(loginOtpTimer);
-          timerEl.innerHTML = '<a href="#" onclick="resendLoginOTP(); return false;" style="color: var(--accent); font-weight: 600; text-decoration: underline;">Resend OTP</a>';
+          if (timerContainer) {
+            timerContainer.innerHTML = '<a href="#" class="resend-active-btn" onclick="resendLoginOTP(); return false;">🔄 Resend New Code</a>';
+          }
         }
       }, 1000);
     }
@@ -375,12 +1013,15 @@
       const errEl = document.getElementById('otpErrorMsg');
       if (errEl) errEl.style.display = 'none';
 
-      document.querySelectorAll('.otp-input').forEach(input => {
-        input.value = '';
-        input.style.borderColor = 'var(--gray-300)';
-        input.style.background = 'var(--white)';
+      document.querySelectorAll('.otp-tile').forEach(tile => {
+        tile.value = '';
+        tile.classList.remove('shake');
       });
 
+      const timerContainer = document.getElementById('timerContainer');
+      if (timerContainer) {
+        timerContainer.innerHTML = 'Resend OTP in <span class="resend-timer-badge" id="loginTimer">00:30</span>';
+      }
       startLoginTimer(30);
 
       try {
@@ -394,36 +1035,29 @@
       }
     }
 
-    // ---- Check Persistent Login Session ----
-    if (localStorage.getItem('apexloan_logged_in') === 'true') {
-      window.location.href = 'dashboard.html';
-    }
-
-    // ---- Show Wrong OTP Error UI ----
+    // ---- Display Wrong OTP Error UI ----
     function showOtpError(msg) {
       const errEl = document.getElementById('otpErrorMsg');
       if (errEl) {
         errEl.textContent = '❌ ' + (msg || 'Galat OTP daala gaya hai. Kripya phone par aaya sahi OTP dalein.');
         errEl.style.display = 'block';
       }
-      const otpInputs = document.querySelectorAll('.otp-input');
-      otpInputs.forEach(inp => {
-        inp.value = '';
-        inp.style.borderColor = '#ef4444';
-        inp.style.background = 'rgba(239, 68, 68, 0.05)';
-        inp.classList.add('shake');
+      const tiles = document.querySelectorAll('.otp-tile');
+      tiles.forEach(tile => {
+        tile.value = '';
+        tile.classList.add('shake');
       });
       setTimeout(() => {
-        otpInputs.forEach(inp => inp.classList.remove('shake'));
+        tiles.forEach(tile => tile.classList.remove('shake'));
       }, 450);
-      if (otpInputs[0]) otpInputs[0].focus();
+      if (tiles[0]) tiles[0].focus();
     }
 
-    // ---- Strictly Verify OTP (Proceeds ONLY if correct) ----
+    // ---- Strictly Verify OTP ----
     async function verifyLoginOTP() {
-      const otpInputs = document.querySelectorAll('.otp-input');
+      const tiles = document.querySelectorAll('.otp-tile');
       let entered = '';
-      otpInputs.forEach(inp => entered += inp.value);
+      tiles.forEach(tile => entered += tile.value);
 
       if (entered.length !== 6) {
         showOtpError('Kripya pura 6-digit OTP code enter karein.');
@@ -431,7 +1065,7 @@
       }
 
       const btn = document.getElementById('verifyLoginOtp');
-      btn.innerHTML = '<span class="spinner"></span> Verifying...';
+      btn.innerHTML = '<span class="spinner"></span> <span>Verifying...</span>';
       btn.disabled = true;
 
       const mobile = loginMobile.value.trim();
@@ -452,46 +1086,46 @@
             window.location.href = 'dashboard.html';
           }, 1200);
         } else {
-          // STRICT REJECTION: Wrong OTP entered
           showOtpError((res && res.message) || 'Galat OTP daala gaya hai ya expire ho chuka hai. Kripya phone par aaya sahi OTP dalein.');
-          btn.innerHTML = 'Verify & Continue →';
+          btn.innerHTML = '<span>Verify & Access Account</span> <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
           btn.disabled = false;
         }
       } catch (err) {
         showOtpError('Verification error. Please try again.');
-        btn.innerHTML = 'Verify & Continue →';
+        btn.innerHTML = '<span>Verify & Access Account</span> <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
         btn.disabled = false;
       }
     }
 
-    // ---- Change Number ----
+    // ---- Change Number Button ----
     function changeNumber() {
       clearInterval(loginOtpTimer);
-      window.confirmationResult = null;
-      resetRecaptcha();
       document.getElementById('loginOtpSection').style.display = 'none';
       document.getElementById('mobileSection').style.display = 'block';
-      
+
       const btn = document.getElementById('sendLoginOtp');
-      btn.innerHTML = 'Get OTP →';
+      btn.innerHTML = '<span>Get Verification Code</span> <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
       btn.disabled = false;
 
-      document.querySelectorAll('.otp-input').forEach(input => {
-        input.value = '';
-        input.style.borderColor = 'var(--gray-300)';
-        input.style.background = 'var(--white)';
+      document.querySelectorAll('.otp-tile').forEach(tile => {
+        tile.value = '';
+        tile.classList.remove('shake');
       });
 
       loginMobile.focus();
     }
 
-    // ---- Auto-focus on load ----
+    // ---- Auto Redirect if already logged in ----
+    if (localStorage.getItem('apexloan_logged_in') === 'true') {
+      window.location.href = 'dashboard.html';
+    }
+
+    // ---- Auto focus on load ----
     window.addEventListener('load', () => {
       if (localStorage.getItem('apexloan_logged_in') !== 'true') {
         loginMobile.focus();
       }
     });
   </script>
-
 </body>
 </html>
