@@ -519,6 +519,22 @@ function updateSliderFill(slider) {
 window.nextStep = function() {
   if (!validateStep(currentStep)) return;
 
+  // Intercept Step 3: Run 3-second high-tech AI Scanner HUD before advancing to Step 4
+  if (currentStep === 3 && !window.kycScanCompleted) {
+    if (typeof window.start3SecondKycScan === 'function') {
+      window.start3SecondKycScan(() => {
+        window.kycScanCompleted = true;
+        window.aadhaarVerified = true;
+        window.panVerified = true;
+        currentStep = 4;
+        updateUI();
+        saveFormData();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+      return;
+    }
+  }
+
   if (currentStep < totalSteps) {
     currentStep++;
     updateUI();
@@ -624,27 +640,104 @@ function validateStep(step) {
   }
 
   if (step === 3) {
-    // KYC validation
-    const aadhaarVerified = window.aadhaarVerified || false;
-    const manualAadhaarUploaded = document.getElementById('aadhaarFrontFile')?.files.length > 0 &&
-                                   document.getElementById('aadhaarBackFile')?.files.length > 0;
-    const panVerified = window.panVerified || false;
-    const panUploaded = document.getElementById('panFile')?.files.length > 0;
-    const termsAccepted = document.getElementById('termsConsent')?.checked;
+    let step3Valid = true;
 
-    if (!aadhaarVerified && !manualAadhaarUploaded) {
-      alert('Please complete Aadhaar verification via OTP or upload Aadhaar card images');
-      return false;
+    // 1. Aadhaar Number Validation (12 digits)
+    const aadhaarInput = document.getElementById('aadhaarNumber');
+    const aadhaarVal = aadhaarInput ? aadhaarInput.value.replace(/\D/g, '') : '';
+    const aadhaarErr = document.getElementById('aadhaarError');
+    if (aadhaarVal.length !== 12) {
+      if (aadhaarInput) {
+        const group = aadhaarInput.closest('.form-group');
+        if (group) group.classList.add('has-error');
+      }
+      if (aadhaarErr) aadhaarErr.style.display = 'block';
+      step3Valid = false;
+    } else {
+      if (aadhaarInput) {
+        const group = aadhaarInput.closest('.form-group');
+        if (group) group.classList.remove('has-error');
+      }
+      if (aadhaarErr) aadhaarErr.style.display = 'none';
     }
 
-    if (!panVerified && !panUploaded) {
-      alert('Please verify your PAN number or upload PAN card image');
-      return false;
+    // 2. Aadhaar Front Upload Check
+    const aadhaarFrontFile = document.getElementById('aadhaarFrontFile');
+    const aadhaarFrontBox = document.getElementById('aadhaarFrontBox');
+    const aadhaarFrontErr = document.getElementById('aadhaarFrontError');
+    const hasAadhaarFront = (aadhaarFrontFile?.files && aadhaarFrontFile.files.length > 0) || window.kycDocs?.aadhaarFront;
+    if (!hasAadhaarFront) {
+      if (aadhaarFrontBox) aadhaarFrontBox.classList.add('has-error');
+      if (aadhaarFrontErr) aadhaarFrontErr.style.display = 'block';
+      step3Valid = false;
+    } else {
+      if (aadhaarFrontBox) aadhaarFrontBox.classList.remove('has-error');
+      if (aadhaarFrontErr) aadhaarFrontErr.style.display = 'none';
     }
 
-    if (!termsAccepted) {
-      const termsErr = document.getElementById('termsError');
+    // 3. Aadhaar Back Upload Check
+    const aadhaarBackFile = document.getElementById('aadhaarBackFile');
+    const aadhaarBackBox = document.getElementById('aadhaarBackBox');
+    const aadhaarBackErr = document.getElementById('aadhaarBackError');
+    const hasAadhaarBack = (aadhaarBackFile?.files && aadhaarBackFile.files.length > 0) || window.kycDocs?.aadhaarBack;
+    if (!hasAadhaarBack) {
+      if (aadhaarBackBox) aadhaarBackBox.classList.add('has-error');
+      if (aadhaarBackErr) aadhaarBackErr.style.display = 'block';
+      step3Valid = false;
+    } else {
+      if (aadhaarBackBox) aadhaarBackBox.classList.remove('has-error');
+      if (aadhaarBackErr) aadhaarBackErr.style.display = 'none';
+    }
+
+    // 4. PAN Number Validation (10 chars uppercase alphanumeric)
+    const panInput = document.getElementById('panNumber');
+    const panVal = panInput ? panInput.value.trim().toUpperCase() : '';
+    const panRegex = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
+    const panErr = document.getElementById('panError');
+    if (!panRegex.test(panVal)) {
+      if (panInput) {
+        const group = panInput.closest('.form-group');
+        if (group) group.classList.add('has-error');
+      }
+      if (panErr) panErr.style.display = 'block';
+      step3Valid = false;
+    } else {
+      if (panInput) {
+        const group = panInput.closest('.form-group');
+        if (group) group.classList.remove('has-error');
+      }
+      if (panErr) panErr.style.display = 'none';
+    }
+
+    // 5. PAN Front Upload Check
+    const panFrontFile = document.getElementById('panFrontFile');
+    const panFrontBox = document.getElementById('panFrontBox');
+    const panFrontErr = document.getElementById('panFrontError');
+    const hasPanFront = (panFrontFile?.files && panFrontFile.files.length > 0) || window.kycDocs?.panFront;
+    if (!hasPanFront) {
+      if (panFrontBox) panFrontBox.classList.add('has-error');
+      if (panFrontErr) panFrontErr.style.display = 'block';
+      step3Valid = false;
+    } else {
+      if (panFrontBox) panFrontBox.classList.remove('has-error');
+      if (panFrontErr) panFrontErr.style.display = 'none';
+    }
+
+    // 6. Terms Consent
+    const termsConsent = document.getElementById('termsConsent');
+    const termsErr = document.getElementById('termsError');
+    if (termsConsent && !termsConsent.checked) {
       if (termsErr) termsErr.style.display = 'block';
+      step3Valid = false;
+    } else if (termsErr) {
+      termsErr.style.display = 'none';
+    }
+
+    if (!step3Valid) {
+      const firstError = document.querySelector('#step3 .has-error');
+      if (firstError) {
+        firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
       return false;
     }
   }

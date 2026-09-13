@@ -1,281 +1,177 @@
-/* ========================================
-   ApexLoan - KYC Verification Logic
-   Aadhaar OTP, PAN Verification (Mock)
-   ======================================== */
+/* =========================================================
+   Bruno Credits - KYC Document Upload & AI Verification Controller
+   Aadhaar (Front + Back) & PAN (Front) + 3-Second Scanning HUD
+   ========================================================= */
 
 // ---- State ----
 window.aadhaarVerified = false;
 window.panVerified = false;
-let otpTimerInterval = null;
-let generatedOTP = '';
-
-
-// ---- Toggle KYC Cards ----
-window.toggleKycCard = function(cardId) {
-  const card = document.getElementById(cardId);
-  if (!card) return;
-  card.classList.toggle('open');
+window.kycScanCompleted = false;
+window.kycDocs = {
+  aadhaarFront: null,
+  aadhaarBack: null,
+  panFront: null
 };
 
-
-// ==============================
-// AADHAAR OTP VERIFICATION
-// ==============================
-
-window.sendAadhaarOTP = function() {
-  const aadhaarInput = document.getElementById('aadhaarNumber');
-  const aadhaarNum = aadhaarInput.value.replace(/\s/g, '');
-
-  // Validate 12 digits
-  if (aadhaarNum.length !== 12 || !/^\d{12}$/.test(aadhaarNum)) {
-    setError('aadhaarNumber');
-    return;
+// ---- Document Upload Handler with Instant Image Preview ----
+window.handleDocUpload = function(input, boxId, previewId, docLabel) {
+  if (!input || !input.files || input.files.length === 0) return;
+  
+  const file = input.files[0];
+  const box = document.getElementById(boxId);
+  const preview = document.getElementById(previewId);
+  
+  // Clear any existing error state
+  if (box) {
+    box.classList.remove('has-error');
+    box.classList.add('has-file');
+    const labelEl = box.querySelector('.doc-upload-label');
+    if (labelEl) labelEl.textContent = `${docLabel} ✓`;
+    const subtextEl = box.querySelector('.doc-upload-subtext');
+    if (subtextEl) subtextEl.textContent = 'File attached (tap to replace)';
   }
-  clearError('aadhaarNumber');
 
-  const sendBtn = document.getElementById('sendOtpBtn');
-  const otpSection = document.getElementById('otpSection');
+  // Update kycDocs state
+  if (boxId.includes('aadhaarFront')) window.kycDocs.aadhaarFront = file.name;
+  if (boxId.includes('aadhaarBack')) window.kycDocs.aadhaarBack = file.name;
+  if (boxId.includes('panFront')) window.kycDocs.panFront = file.name;
 
-  // Show loading
-  sendBtn.innerHTML = '<span class="spinner"></span> Sending OTP...';
-  sendBtn.disabled = true;
+  // Hide error text
+  const errEl = document.getElementById(boxId.replace('Box', 'Error'));
+  if (errEl) errEl.style.display = 'none';
 
-  // Simulate API call (2 seconds delay)
-  setTimeout(() => {
-    // Generate mock OTP
-    generatedOTP = String(Math.floor(100000 + Math.random() * 900000));
-
-    // Show OTP section
-    otpSection.style.display = 'block';
-
-    // Update button
-    sendBtn.innerHTML = 'OTP Sent ✓';
-    sendBtn.classList.remove('btn-primary');
-    sendBtn.classList.add('btn-secondary');
-
-    // Show mock OTP hint (for demo purposes)
-    showStatus('aadhaarStatus', 'pending', `📱 OTP sent! (Demo OTP: ${generatedOTP})`);
-
-    // Start timer
-    startOTPTimer();
-
-    // Focus first OTP input
-    const firstOtp = document.querySelector('.otp-input[data-index="0"]');
-    if (firstOtp) firstOtp.focus();
-
-    // Setup OTP input handlers
-    setupOTPInputs();
-
-  }, 2000);
+  // Render Image Preview Thumbnail
+  if (preview) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const fileSizeKb = Math.round(file.size / 1024);
+      preview.innerHTML = `
+        <div class="doc-preview-wrapper">
+          <img src="${e.target.result}" class="doc-thumb-img" alt="${docLabel}">
+          <div class="doc-file-info">
+            <div class="doc-file-name">${file.name}</div>
+            <div class="doc-file-meta">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>${docLabel} Attached (${fileSizeKb} KB)</span>
+            </div>
+          </div>
+          <button type="button" class="btn-retake-doc" onclick="window.reuploadDoc('${input.id}')">Change</button>
+        </div>
+      `;
+    };
+    reader.readAsDataURL(file);
+  }
 };
 
+window.reuploadDoc = function(inputId) {
+  const el = document.getElementById(inputId);
+  if (el) el.click();
+};
 
-function setupOTPInputs() {
-  const otpInputs = document.querySelectorAll('.otp-input');
-
-  otpInputs.forEach((input, index) => {
-    // Remove existing listeners by cloning
-    const newInput = input.cloneNode(true);
-    input.parentNode.replaceChild(newInput, input);
-
-    newInput.addEventListener('input', (e) => {
-      const val = e.target.value.replace(/\D/g, '');
-      e.target.value = val.slice(0, 1);
-
-      if (val && index < otpInputs.length - 1) {
-        document.querySelectorAll('.otp-input')[index + 1].focus();
-      }
-    });
-
-    newInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Backspace' && !e.target.value && index > 0) {
-        document.querySelectorAll('.otp-input')[index - 1].focus();
-      }
-    });
-
-    newInput.addEventListener('paste', (e) => {
-      e.preventDefault();
-      const paste = (e.clipboardData || window.clipboardData).getData('text').replace(/\D/g, '');
-      const currentInputs = document.querySelectorAll('.otp-input');
-      for (let i = 0; i < Math.min(paste.length, 6); i++) {
-        currentInputs[i].value = paste[i];
-      }
-      if (paste.length >= 6) {
-        currentInputs[5].focus();
-      }
-    });
-  });
-}
-
-
-function startOTPTimer() {
-  let seconds = 30;
-  const timerEl = document.getElementById('otpTimer');
-  const resendBtn = document.getElementById('resendOtpBtn');
-
-  resendBtn.disabled = true;
-
-  clearInterval(otpTimerInterval);
-
-  otpTimerInterval = setInterval(() => {
-    seconds--;
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    timerEl.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
-
-    if (seconds <= 0) {
-      clearInterval(otpTimerInterval);
-      timerEl.textContent = '00:00';
-      resendBtn.disabled = false;
-
-      // Reset send button
-      const sendBtn = document.getElementById('sendOtpBtn');
-      sendBtn.innerHTML = 'Resend OTP';
-      sendBtn.disabled = false;
-      sendBtn.classList.remove('btn-secondary');
-      sendBtn.classList.add('btn-primary');
-    }
-  }, 1000);
-}
-
-
-window.verifyAadhaarOTP = function() {
-  const otpInputs = document.querySelectorAll('.otp-input');
-  let enteredOTP = '';
-  otpInputs.forEach(input => {
-    enteredOTP += input.value;
-  });
-
-  if (enteredOTP.length !== 6) {
-    showStatus('aadhaarStatus', 'error', '❌ Please enter complete 6-digit OTP');
+// ---- 3-Second High-Tech AI Verification Scanner Routine ----
+window.start3SecondKycScan = function(onComplete) {
+  const overlay = document.getElementById('kycScanningOverlay');
+  if (!overlay) {
+    if (typeof onComplete === 'function') onComplete();
     return;
   }
 
-  const verifyBtn = document.getElementById('verifyOtpBtn');
-  verifyBtn.innerHTML = '<span class="spinner"></span> Verifying...';
-  verifyBtn.disabled = true;
+  // Reset elements
+  const progressBar = document.getElementById('scannerProgressBar');
+  const headline = document.getElementById('scannerHeadline');
+  const subtext = document.getElementById('scannerSubtext');
+  const chipText = document.getElementById('scannerStatusChipText');
+  const check1 = document.getElementById('scanCheck1');
+  const check2 = document.getElementById('scanCheck2');
+  const check3 = document.getElementById('scanCheck3');
+  const icon1 = document.getElementById('scanCheckIcon1');
+  const icon2 = document.getElementById('scanCheckIcon2');
+  const icon3 = document.getElementById('scanCheckIcon3');
 
-  // Simulate verification (1.5 seconds)
+  // Initial State (0ms)
+  overlay.style.display = 'flex';
+  if (progressBar) progressBar.style.width = '20%';
+  if (headline) headline.textContent = 'Verifying Documents...';
+  if (subtext) subtext.textContent = 'Scanning Aadhaar & PAN security holograms & micro-text...';
+  if (chipText) chipText.textContent = 'AI OCR SCAN IN PROGRESS';
+
+  if (check1) { check1.className = 'scan-check-item active'; }
+  if (check2) { check2.className = 'scan-check-item'; }
+  if (check3) { check3.className = 'scan-check-item'; }
+  if (icon1) icon1.textContent = '1';
+  if (icon2) icon2.textContent = '2';
+  if (icon3) icon3.textContent = '3';
+
+  // Phase 2 (1100ms)
   setTimeout(() => {
-    if (enteredOTP === generatedOTP) {
-      // Success
-      window.aadhaarVerified = true;
-      clearInterval(otpTimerInterval);
+    if (progressBar) progressBar.style.width = '65%';
+    if (headline) headline.textContent = 'Government Gateway Matching...';
+    if (subtext) subtext.textContent = 'Querying NSDL PAN database & UIDAI Aadhaar registry...';
+    if (chipText) chipText.textContent = 'CENTRAL REGISTRY QUERY';
 
-      showStatus('aadhaarStatus', 'success', '✅ Aadhaar verified successfully!');
+    if (check1) { check1.className = 'scan-check-item done'; }
+    if (icon1) icon1.textContent = '✓';
+    if (check2) { check2.className = 'scan-check-item active'; }
+  }, 1100);
 
-      verifyBtn.innerHTML = 'Verified ✓';
-      verifyBtn.classList.remove('btn-success');
-      verifyBtn.style.background = 'var(--success)';
-      verifyBtn.style.color = 'white';
-      verifyBtn.disabled = true;
-
-      // Disable aadhaar input
-      document.getElementById('aadhaarNumber').readOnly = true;
-      document.getElementById('aadhaarNumber').classList.add('success');
-      document.getElementById('sendOtpBtn').style.display = 'none';
-
-      // Disable OTP inputs
-      otpInputs.forEach(input => {
-        input.readOnly = true;
-        input.style.borderColor = 'var(--success)';
-        input.style.background = 'rgba(39, 174, 96, 0.05)';
-      });
-
-      // Auto-open PAN card section
-      setTimeout(() => {
-        const panCardEl = document.getElementById('panCard');
-        if (panCardEl && !panCardEl.classList.contains('open')) {
-          panCardEl.classList.add('open');
-          panCardEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-      }, 500);
-
-    } else {
-      // Failed
-      showStatus('aadhaarStatus', 'error', '❌ Invalid OTP. Please try again.');
-      verifyBtn.innerHTML = 'Verify OTP ✓';
-      verifyBtn.disabled = false;
-
-      // Shake animation
-      otpInputs.forEach(input => {
-        input.style.borderColor = 'var(--danger)';
-        input.value = '';
-      });
-      otpInputs[0].focus();
-
-      setTimeout(() => {
-        otpInputs.forEach(input => {
-          input.style.borderColor = 'var(--gray-300)';
-        });
-      }, 1500);
-    }
-  }, 1500);
-};
-
-
-// ==============================
-// PAN VERIFICATION
-// ==============================
-
-window.verifyPAN = function() {
-  const panInput = document.getElementById('panNumber');
-  const panNum = panInput.value.trim().toUpperCase();
-
-  // PAN format: ABCDE1234F
-  const panRegex = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
-  if (!panRegex.test(panNum)) {
-    setError('panNumber');
-    return;
-  }
-  clearError('panNumber');
-
-  const verifyBtn = document.getElementById('verifyPanBtn');
-  verifyBtn.innerHTML = '<span class="spinner"></span> Verifying PAN...';
-  verifyBtn.disabled = true;
-
-  // Simulate PAN verification API (2 seconds)
+  // Phase 3 (2200ms)
   setTimeout(() => {
+    if (progressBar) progressBar.style.width = '100%';
+    if (headline) headline.textContent = 'Documents Verified! ✓';
+    if (subtext) subtext.textContent = 'Aadhaar & PAN 100% matched. Sanction underwriting cleared.';
+    if (chipText) chipText.textContent = 'KYC VERIFIED & APPROVED';
+
+    if (check2) { check2.className = 'scan-check-item done'; }
+    if (icon2) icon2.textContent = '✓';
+    if (check3) { check3.className = 'scan-check-item done'; }
+    if (icon3) icon3.textContent = '✓';
+  }, 2200);
+
+  // Phase 4: Finish at exactly 3000ms (3 seconds)
+  setTimeout(() => {
+    overlay.style.display = 'none';
+    window.aadhaarVerified = true;
     window.panVerified = true;
-
-    // Get name from personal info for comparison
-    const fullName = document.getElementById('fullName')?.value.trim() || 'Name Not Available';
-
-    // Mock PAN holder name (in real app, this comes from NSDL API)
-    const panHolderName = fullName.toUpperCase();
-
-    // Show PAN holder name
-    const panNameGroup = document.getElementById('panNameGroup');
-    const panHolderNameInput = document.getElementById('panHolderName');
-    panNameGroup.style.display = 'block';
-    panHolderNameInput.value = panHolderName;
-
-    // Name match check
-    const nameFromForm = fullName.toUpperCase().trim();
-    const nameFromPAN = panHolderName.trim();
-
-    if (nameFromForm === nameFromPAN || nameFromPAN.includes(nameFromForm) || nameFromForm.includes(nameFromPAN)) {
-      document.getElementById('panNameMatch').style.display = 'flex';
-      document.getElementById('panNameMismatch').style.display = 'none';
-    } else {
-      document.getElementById('panNameMatch').style.display = 'none';
-      document.getElementById('panNameMismatch').style.display = 'flex';
+    window.kycScanCompleted = true;
+    if (typeof onComplete === 'function') {
+      onComplete();
     }
-
-    // Update button
-    verifyBtn.innerHTML = 'PAN Verified ✓';
-    verifyBtn.style.background = 'var(--success)';
-    verifyBtn.style.color = 'white';
-    verifyBtn.disabled = true;
-
-    // Mark PAN input as verified
-    panInput.readOnly = true;
-    panInput.classList.add('success');
-
-    showStatus('panStatus', 'success', '✅ PAN verification successful!');
-
-  }, 2000);
+  }, 3000);
 };
+
+// ---- Document Auto-Formatters & Event Listeners ----
+document.addEventListener('DOMContentLoaded', () => {
+  // Aadhaar Auto-Format: XXXX XXXX XXXX
+  const aadhaarInput = document.getElementById('aadhaarNumber');
+  if (aadhaarInput) {
+    aadhaarInput.addEventListener('input', (e) => {
+      let val = e.target.value.replace(/\D/g, '').slice(0, 12);
+      let formatted = '';
+      for (let i = 0; i < val.length; i++) {
+        if (i > 0 && i % 4 === 0) formatted += ' ';
+        formatted += val[i];
+      }
+      e.target.value = formatted;
+      if (val.length === 12) {
+        const group = aadhaarInput.closest('.form-group');
+        if (group) group.classList.remove('has-error');
+      }
+    });
+  }
+
+  // PAN Auto-Uppercase: 10 chars
+  const panInput = document.getElementById('panNumber');
+  if (panInput) {
+    panInput.addEventListener('input', (e) => {
+      let val = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 10);
+      e.target.value = val;
+      if (/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(val)) {
+        const group = panInput.closest('.form-group');
+        if (group) group.classList.remove('has-error');
+      }
+    });
+  }
+});
 
 
 // ==============================

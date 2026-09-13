@@ -15,21 +15,35 @@
     <div class="container nav-content">
       <a href="index.html" class="nav-logo bruno-brand-logo">
         <div class="logo-mark">
-          <svg width="30" height="30" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg width="34" height="34" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" class="bruno-logo-svg">
             <defs>
-              <linearGradient id="brunoGradNav" x1="0%" y1="0%" x2="100%" y2="100%">
+              <linearGradient id="brunoShieldGradApply" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#0b0f24" />
+                <stop offset="100%" stop-color="#050714" />
+              </linearGradient>
+              <linearGradient id="brunoNeonGradApply1" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stop-color="#4f46e5" />
-                <stop offset="100%" stop-color="#00b894" />
+                <stop offset="50%" stop-color="#6366f1" />
+                <stop offset="100%" stop-color="#06b6d4" />
+              </linearGradient>
+              <linearGradient id="brunoNeonGradApply2" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#06b6d4" />
+                <stop offset="50%" stop-color="#10b981" />
+                <stop offset="100%" stop-color="#34d399" />
               </linearGradient>
             </defs>
-            <rect width="32" height="32" rx="8" fill="#0d1338"/>
-            <path d="M9 7H17.5C19.9853 7 22 9.01472 22 11.5C22 13.4357 20.7767 15.0863 19.0536 15.7176C21.3213 16.2941 23 18.3496 23 20.8C23 23.6719 20.6719 26 17.8 26H9V7Z" fill="url(#brunoGradNav)"/>
-            <path d="M12.5 10.5V14.5H16.8C17.9046 14.5 18.8 13.6046 18.8 12.5C18.8 11.3954 17.9046 10.5 16.8 10.5H12.5ZM12.5 18V22.5H17.4C18.6703 22.5 19.7 21.4703 19.7 20.2C19.7 18.9297 18.6703 17.9 17.4 17.9H12.5V18Z" fill="#ffffff"/>
+            <rect width="36" height="36" rx="10" fill="url(#brunoShieldGradApply)" stroke="rgba(99, 102, 241, 0.35)" stroke-width="1.2"/>
+            <path d="M9 8.5C9 7.67157 9.67157 7 10.5 7H14.5C15.3284 7 16 7.67157 16 8.5V27.5C16 28.3284 15.3284 29 14.5 29H10.5C9.67157 29 9 28.3284 9 27.5V8.5Z" fill="url(#brunoNeonGradApply1)" />
+            <path d="M15 7H22.5C25.5376 7 28 9.46243 28 12.5C28 15.5376 25.5376 18 22.5 18H15V7Z" fill="url(#brunoNeonGradApply1)" />
+            <path d="M16 10.5H22C23.1046 10.5 24 11.3954 24 12.5C24 13.6046 23.1046 14.5 22 14.5H16V10.5Z" fill="#070a1a" />
+            <path d="M15 17.5H23.5C26.8137 17.5 29.5 20.1863 29.5 23.5C29.5 26.8137 26.8137 29.5 23.5 29.5H15V17.5Z" fill="url(#brunoNeonGradApply2)" />
+            <path d="M16 21H23C24.3807 21 25.5 22.1193 25.5 23.5C25.5 24.8807 24.3807 26 23 26H16V21Z" fill="#070a1a" />
+            <circle cx="16" cy="17.75" r="1.5" fill="#ffffff" />
           </svg>
         </div>
         <div class="logo-text-group">
           <span class="brand-title">Bruno<span class="brand-highlight">Credits</span></span>
-          <span class="brand-sub">NBFC: Vistas Tecnolabs</span>
+          <span class="brand-sub">NBFC • Vistas Tecnolabs</span>
         </div>
       </a>
       <div class="nav-links">
@@ -393,193 +407,127 @@
       <div class="step-header">
         <h2 style="display: flex; align-items: center; justify-content: center; gap: 8px;">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
-          KYC Verification
+          Digital KYC & Document Upload
         </h2>
-        <p>Instant digital paperless identity verification as per RBI guidelines</p>
+        <p>Paperless Aadhaar & PAN verification for instant credit sanction</p>
       </div>
 
-      <div class="kyc-methods">
+      <div class="kyc-streamlined-card">
 
-        <!-- Aadhaar OTP Verification -->
-        <div class="kyc-card open" id="aadhaarOtpCard">
-          <div class="kyc-card-header" onclick="toggleKycCard('aadhaarOtpCard')">
-            <div class="kyc-title">
-              <div class="kyc-icon aadhaar-icon">
+        <!-- 1. AADHAAR SECTION -->
+        <div class="kyc-section-block">
+          <div class="kyc-section-header">
+            <div class="kyc-section-title">
+              <div class="kyc-sec-icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><line x1="15" y1="8" x2="17" y2="8"/><line x1="15" y1="12" x2="17" y2="12"/><line x1="7" y1="16" x2="17" y2="16"/></svg>
               </div>
               <div>
-                <h4>Aadhaar OTP Verification</h4>
-                <div class="kyc-subtitle">Verify instantly with Aadhaar-linked mobile</div>
+                <h3>1. Aadhaar Card Details</h3>
+                <p>Enter 12-digit number & upload front and back photos</p>
               </div>
             </div>
-            <span class="kyc-toggle-icon">▼</span>
+            <span class="kyc-badge-pill">Required</span>
           </div>
-          <div class="kyc-card-body">
-            <div class="form-group">
-              <label>Aadhaar Number <span class="required">*</span></label>
-              <input type="text" class="form-control" id="aadhaarNumber" placeholder="XXXX XXXX XXXX" maxlength="14">
-              <div class="error-text">Please enter a valid 12-digit Aadhaar number</div>
-            </div>
-            <button class="btn btn-primary btn-block" id="sendOtpBtn" onclick="sendAadhaarOTP()">
-              Send OTP
-            </button>
 
-            <!-- OTP Section (hidden initially) -->
-            <div id="otpSection" style="display: none; margin-top: 20px;">
-              <div class="kyc-divider">
-                <span>Enter OTP</span>
-              </div>
-              <p style="text-align: center; font-size: 13px; color: var(--gray-700); margin-bottom: 8px;">
-                OTP sent to Aadhaar-linked mobile number
-              </p>
-              <div class="otp-container">
-                <input type="text" class="otp-input" maxlength="1" data-index="0" inputmode="numeric">
-                <input type="text" class="otp-input" maxlength="1" data-index="1" inputmode="numeric">
-                <input type="text" class="otp-input" maxlength="1" data-index="2" inputmode="numeric">
-                <input type="text" class="otp-input" maxlength="1" data-index="3" inputmode="numeric">
-                <input type="text" class="otp-input" maxlength="1" data-index="4" inputmode="numeric">
-                <input type="text" class="otp-input" maxlength="1" data-index="5" inputmode="numeric">
-              </div>
-              <div class="otp-timer">
-                Resend OTP in <span class="timer" id="otpTimer">00:30</span>
-                <br>
-                <button class="resend-otp" id="resendOtpBtn" disabled onclick="sendAadhaarOTP()">Resend OTP</button>
-              </div>
-              <button class="btn btn-success btn-block" id="verifyOtpBtn" onclick="verifyAadhaarOTP()">
-                Verify OTP ✓
-              </button>
+          <!-- Aadhaar Number -->
+          <div class="form-group" style="margin-bottom: 16px;">
+            <label>Aadhaar Number <span class="required">*</span></label>
+            <div class="input-group">
+              <span class="input-prefix" style="color: var(--primary);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><line x1="15" y1="8" x2="17" y2="8"/><line x1="15" y1="12" x2="17" y2="12"/><line x1="7" y1="16" x2="17" y2="16"/></svg>
+              </span>
+              <input type="text" class="form-control" id="aadhaarNumber" placeholder="XXXX XXXX XXXX" maxlength="14" inputmode="numeric" autocomplete="off">
             </div>
-
-            <!-- Aadhaar Verification Status -->
-            <div id="aadhaarStatus"></div>
+            <div class="error-text" id="aadhaarError">Please enter a valid 12-digit Aadhaar number</div>
           </div>
-        </div>
 
-        <div class="kyc-divider">
-          <span>OR</span>
-        </div>
-
-        <!-- Manual Aadhaar Upload -->
-        <div class="kyc-card" id="aadhaarManualCard">
-          <div class="kyc-card-header" onclick="toggleKycCard('aadhaarManualCard')">
-            <div class="kyc-title">
-              <div class="kyc-icon aadhaar-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-              </div>
-              <div>
-                <h4>Manual Aadhaar Upload</h4>
-                <div class="kyc-subtitle">Upload Aadhaar card front & back images</div>
-              </div>
-            </div>
-            <span class="kyc-toggle-icon">▼</span>
-          </div>
-          <div class="kyc-card-body">
-            <!-- Aadhaar Front -->
-            <div class="form-group">
-              <label>Aadhaar Card - Front Side <span class="required">*</span></label>
-              <div class="file-upload-area" id="aadhaarFrontUpload" onclick="document.getElementById('aadhaarFrontFile').click()">
-                <div class="upload-icon">
-                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          <!-- Dual Aadhaar Upload Grid -->
+          <label style="font-size: 13px; font-weight: 700; color: var(--dark); display: block; margin-bottom: 6px;">Upload Aadhaar Photos <span class="required">*</span></label>
+          <div class="doc-upload-grid">
+            <!-- Front Side -->
+            <div>
+              <div class="doc-upload-box" id="aadhaarFrontBox" onclick="document.getElementById('aadhaarFrontFile').click()">
+                <div class="doc-upload-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
                 </div>
-                <div class="upload-text">Upload Aadhaar Front</div>
-                <div class="upload-hint">JPG, PNG (Max 5MB)</div>
-                <input type="file" id="aadhaarFrontFile" accept=".jpg,.jpeg,.png" onchange="handleFileUpload(this, 'aadhaarFrontUpload', 'aadhaarFrontPreview')">
+                <div class="doc-upload-label">Aadhaar Front Side</div>
+                <div class="doc-upload-subtext">Click or tap to upload photo</div>
+                <input type="file" id="aadhaarFrontFile" accept="image/*" onchange="handleDocUpload(this, 'aadhaarFrontBox', 'aadhaarFrontPreview', 'Aadhaar Front')">
               </div>
               <div id="aadhaarFrontPreview"></div>
+              <div class="error-text" id="aadhaarFrontError" style="display: none; margin-top: 4px;">Please upload Aadhaar front photo</div>
             </div>
 
-            <!-- Aadhaar Back -->
-            <div class="form-group">
-              <label>Aadhaar Card - Back Side <span class="required">*</span></label>
-              <div class="file-upload-area" id="aadhaarBackUpload" onclick="document.getElementById('aadhaarBackFile').click()">
-                <div class="upload-icon">
-                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <!-- Back Side -->
+            <div>
+              <div class="doc-upload-box" id="aadhaarBackBox" onclick="document.getElementById('aadhaarBackFile').click()">
+                <div class="doc-upload-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="16" y2="16"/><line x1="8" y1="8" x2="12" y2="8"/></svg>
                 </div>
-                <div class="upload-text">Upload Aadhaar Back</div>
-                <div class="upload-hint">JPG, PNG (Max 5MB)</div>
-                <input type="file" id="aadhaarBackFile" accept=".jpg,.jpeg,.png" onchange="handleFileUpload(this, 'aadhaarBackUpload', 'aadhaarBackPreview')">
+                <div class="doc-upload-label">Aadhaar Back Side</div>
+                <div class="doc-upload-subtext">Click or tap to upload photo (Address)</div>
+                <input type="file" id="aadhaarBackFile" accept="image/*" onchange="handleDocUpload(this, 'aadhaarBackBox', 'aadhaarBackPreview', 'Aadhaar Back')">
               </div>
               <div id="aadhaarBackPreview"></div>
+              <div class="error-text" id="aadhaarBackError" style="display: none; margin-top: 4px;">Please upload Aadhaar back photo</div>
             </div>
-
-            <div id="manualAadhaarStatus"></div>
           </div>
         </div>
 
-        <!-- PAN Verification -->
-        <div class="kyc-card" id="panCard">
-          <div class="kyc-card-header" onclick="toggleKycCard('panCard')">
-            <div class="kyc-title">
-              <div class="kyc-icon pan-icon">
+        <!-- 2. PAN SECTION -->
+        <div class="kyc-section-block">
+          <div class="kyc-section-header">
+            <div class="kyc-section-title">
+              <div class="kyc-sec-icon" style="color: var(--secondary);">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
               </div>
               <div>
-                <h4>PAN Card Verification</h4>
-                <div class="kyc-subtitle">Verify PAN for tax & credit bureau underwriting</div>
+                <h3>2. PAN Card Details</h3>
+                <p>Enter 10-character PAN number & front photo</p>
               </div>
             </div>
-            <span class="kyc-toggle-icon">▼</span>
+            <span class="kyc-badge-pill">Required</span>
           </div>
-          <div class="kyc-card-body">
-            <!-- PAN Number -->
-            <div class="form-group">
-              <label>PAN Number <span class="required">*</span></label>
-              <input type="text" class="form-control" id="panNumber" placeholder="e.g. ABCDE1234F" maxlength="10" style="text-transform: uppercase;">
-              <div class="error-text">Please enter a valid PAN (e.g. ABCDE1234F)</div>
-            </div>
 
-            <button class="btn btn-primary btn-block" id="verifyPanBtn" onclick="verifyPAN()">
-              Verify PAN
-            </button>
-
-            <!-- PAN Holder Name (auto-filled) -->
-            <div class="form-group" id="panNameGroup" style="display: none; margin-top: 16px;">
-              <label>PAN Holder Name</label>
-              <input type="text" class="form-control success" id="panHolderName" readonly>
-              <div class="verification-status success" id="panNameMatch" style="display: none;">
-                <span class="status-icon">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                </span>
-                <span>Name matches with your personal information</span>
-              </div>
-              <div class="verification-status error" id="panNameMismatch" style="display: none;">
-                <span class="status-icon">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-                </span>
-                <span>Name does not match. Please verify your details.</span>
-              </div>
+          <!-- PAN Number -->
+          <div class="form-group" style="margin-bottom: 16px;">
+            <label>PAN Card Number <span class="required">*</span></label>
+            <div class="input-group">
+              <span class="input-prefix" style="color: var(--secondary);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+              </span>
+              <input type="text" class="form-control" id="panNumber" placeholder="e.g. ABCDE1234F" maxlength="10" style="text-transform: uppercase;" autocomplete="off">
             </div>
+            <div class="error-text" id="panError">Please enter a valid 10-character PAN (e.g. ABCDE1234F)</div>
+          </div>
 
-            <!-- PAN Upload -->
-            <div class="kyc-divider" style="margin-top: 16px;">
-              <span>Upload PAN</span>
-            </div>
-            <div class="form-group">
-              <label>PAN Card Image <span class="required">*</span></label>
-              <div class="file-upload-area" id="panUploadArea" onclick="document.getElementById('panFile').click()">
-                <div class="upload-icon">
-                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          <!-- PAN Front Photo Upload -->
+          <label style="font-size: 13px; font-weight: 700; color: var(--dark); display: block; margin-bottom: 6px;">Upload PAN Card Photo <span class="required">*</span></label>
+          <div class="doc-upload-grid single-col">
+            <div>
+              <div class="doc-upload-box" id="panFrontBox" onclick="document.getElementById('panFrontFile').click()">
+                <div class="doc-upload-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/><circle cx="7" cy="15" r="1.5"/></svg>
                 </div>
-                <div class="upload-text">Upload PAN Card</div>
-                <div class="upload-hint">JPG, PNG (Max 5MB)</div>
-                <input type="file" id="panFile" accept=".jpg,.jpeg,.png" onchange="handleFileUpload(this, 'panUploadArea', 'panPreview')">
+                <div class="doc-upload-label">PAN Card - Front Side Photo</div>
+                <div class="doc-upload-subtext">Upload front photo showing clear name, DOB & PAN number</div>
+                <input type="file" id="panFrontFile" accept="image/*" onchange="handleDocUpload(this, 'panFrontBox', 'panFrontPreview', 'PAN Card Front')">
               </div>
-              <div id="panPreview"></div>
+              <div id="panFrontPreview"></div>
+              <div class="error-text" id="panFrontError" style="display: none; margin-top: 4px;">Please upload PAN card front photo</div>
             </div>
-
-            <div id="panStatus"></div>
           </div>
         </div>
 
-      </div>
+        <!-- 3. TERMS & CONSENT -->
+        <div style="margin-top: 20px; padding: 16px 18px; background: rgba(99, 102, 241, 0.04); border: 1px solid rgba(99, 102, 241, 0.15); border-radius: var(--radius-md);">
+          <label style="display: flex; gap: 12px; align-items: flex-start; cursor: pointer; font-size: 13px; color: var(--gray-700); line-height: 1.5;">
+            <input type="checkbox" id="termsConsent" checked style="margin-top: 3px; width: 18px; height: 18px; accent-color: var(--primary);">
+            <span>I declare that the Aadhaar and PAN details provided belong to me. I authorize <strong>Bruno Credits</strong> and official RBI NBFC lender <strong>Vistas Tecnolabs Finance Limited</strong> to verify my documents for instant credit underwriting.</span>
+          </label>
+          <div class="error-text" id="termsError" style="margin-top: 6px; display: none;">Please accept the declaration to proceed</div>
+        </div>
 
-      <!-- Terms & Consent -->
-      <div style="margin-top: 28px; padding: 20px; background: var(--gray-100); border-radius: var(--radius-md);">
-        <label style="display: flex; gap: 12px; align-items: flex-start; cursor: pointer; font-size: 13px; color: var(--gray-700);">
-          <input type="checkbox" id="termsConsent" style="margin-top: 3px; width: 18px; height: 18px; accent-color: var(--primary);">
-          <span>I agree to the <a href="#" style="color: var(--primary); font-weight: 600;">Terms & Conditions</a>, <a href="#" style="color: var(--primary); font-weight: 600;">Privacy Policy</a>, and consent to KYC verification as per RBI guidelines. I authorize Bruno Credits to access my Aadhaar & PAN details for verification purposes.</span>
-        </label>
-        <div class="error-text" id="termsError" style="margin-top: 6px;">Please accept the terms to continue</div>
       </div>
     </div>
 
@@ -884,6 +832,53 @@
     <button class="btn btn-success" id="submitBtn" onclick="submitApplication()" style="display: none;">
       Submit Application ✓
     </button>
+  </div>
+
+  <!-- ==================== 3-SECOND AI KYC SCANNER HUD OVERLAY ==================== -->
+  <div class="kyc-scanner-overlay" id="kycScanningOverlay" style="display: none;">
+    <div class="kyc-scanner-card">
+      <div class="scanner-radar-visual">
+        <div class="scanner-radar-ring"></div>
+        <div class="scanner-laser-beam"></div>
+        <div class="scanner-docs-row">
+          <div class="scanner-doc-badge">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><line x1="15" y1="8" x2="17" y2="8"/><line x1="15" y1="12" x2="17" y2="12"/><line x1="7" y1="16" x2="17" y2="16"/></svg>
+            <span>AADHAAR</span>
+          </div>
+          <div class="scanner-doc-badge">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/><circle cx="7" cy="15" r="1.5"/></svg>
+            <span>PAN CARD</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="scanner-status-chip">
+        <span class="pulse-cyan-dot"></span>
+        <span id="scannerStatusChipText">AI VERIFICATION IN PROGRESS</span>
+      </div>
+
+      <h3 class="scanner-headline" id="scannerHeadline">Verifying Documents...</h3>
+      <p class="scanner-subtext" id="scannerSubtext">Scanning Aadhaar & PAN security layers with Central Registry...</p>
+
+      <div class="scanner-progress-track">
+        <div class="scanner-progress-bar" id="scannerProgressBar"></div>
+      </div>
+
+      <div class="scanner-checkpoints">
+        <div class="scan-check-item active" id="scanCheck1">
+          <span class="check-icon" id="scanCheckIcon1">1</span>
+          <span>Hologram & Micro-text Authenticity</span>
+        </div>
+        <div class="scan-check-item" id="scanCheck2">
+          <span class="check-icon" id="scanCheckIcon2">2</span>
+          <span>NSDL / UIDAI Central Records Match</span>
+        </div>
+        <div class="scan-check-item" id="scanCheck3">
+          <span class="check-icon" id="scanCheckIcon3">3</span>
+          <span>NBFC Sanction Approval Clearance</span>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Disbursal Fee Payment Modal -->
