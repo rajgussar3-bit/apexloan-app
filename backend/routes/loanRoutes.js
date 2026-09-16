@@ -67,16 +67,65 @@ router.post('/calculate', (req, res) => {
   });
 });
 
-router.post('/disburse', (req, res) => {
-  const { loanAmount, accountNumber, bankName, ifscCode, feePaid = true } = req.body;
+const ApplicationsStore = require('../data/applicationsStore');
 
-  const refNum = 'VT-AL-' + Date.now().toString(36).toUpperCase().slice(-6);
+router.post('/submit-application', (req, res) => {
+  try {
+    const data = req.body;
+    if (!data.mobile) {
+      return res.status(400).json({ success: false, message: 'Mobile number is required' });
+    }
+    const application = ApplicationsStore.saveOrUpdate(data);
+    res.json({
+      success: true,
+      message: 'Application submitted and synced with operations desk',
+      application
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+router.get('/status/:mobile', (req, res) => {
+  try {
+    const mobile = req.params.mobile;
+    const application = ApplicationsStore.getByMobile(mobile);
+    if (!application) {
+      return res.json({ success: false, exists: false, message: 'No active application found' });
+    }
+    res.json({
+      success: true,
+      exists: true,
+      application
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+router.post('/disburse', (req, res) => {
+  const { loanAmount, accountNumber, bankName, ifscCode, feePaid = true, mobile, refNum } = req.body;
+
+  const finalRefNum = refNum || ('VT-AL-' + Date.now().toString(36).toUpperCase().slice(-6));
   const etaMs = Date.now() + (30 * 60 * 1000);
+
+  if (mobile) {
+    ApplicationsStore.saveOrUpdate({
+      mobile,
+      refNum: finalRefNum,
+      loanAmount: loanAmount || 16420,
+      bankName: bankName || 'Bank',
+      accountNumber: accountNumber || '',
+      ifscCode: ifscCode || '',
+      feePaid: true,
+      status: 'SANCTIONED'
+    });
+  }
 
   res.json({
     success: true,
     status: 'DISBURSAL_PROCESSING',
-    refNum,
+    refNum: finalRefNum,
     loanAmount: loanAmount || 16420,
     lender: 'Vistas Tecnolabs Finance Limited',
     bankDetails: {

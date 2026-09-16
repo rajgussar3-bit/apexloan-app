@@ -15,6 +15,10 @@
       "dest": "/dashboard.html"
     },
     {
+      "src": "/admin",
+      "dest": "/admin.html"
+    },
+    {
       "src": "/(.*)",
       "dest": "/$1"
     }

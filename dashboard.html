@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="hi-IN">
+<html lang="en-IN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
@@ -1428,6 +1428,8 @@
   </div>
 
   <!-- JavaScript Logic -->
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
   <script>
     // State
     let selectedRepayMode = 'upcoming'; // 'upcoming' or 'full'
@@ -1437,6 +1439,82 @@
     document.addEventListener('DOMContentLoaded', () => {
       initDashboardData();
     });
+
+    function renderActiveLoanFromData(activeLoan) {
+      if (!activeLoan) return;
+
+      const principal = Number(activeLoan.approvedLimit || activeLoan.loanAmount || activeLoan.selectedAmount || activeLoan.creditLimit || 50000);
+      const emi = Number(activeLoan.monthlyEmi || 2613);
+      const tenure = Number(activeLoan.selectedTenure || 6);
+      const total = Number(activeLoan.totalRepayment || (emi * tenure));
+
+      const heroLimitEl = document.getElementById('heroLimitDisplay');
+      if (heroLimitEl) heroLimitEl.textContent = '₹ ' + principal.toLocaleString('en-IN');
+      
+      const summaryEl = document.getElementById('activeLoanSummaryText');
+      if (summaryEl) {
+        if (activeLoan.status === 'DISBURSED') {
+          summaryEl.innerHTML = '<span style="color: #10b981; font-weight: 800;">✓ Disbursed</span> · ₹' + principal.toLocaleString('en-IN');
+        } else {
+          summaryEl.textContent = '₹' + principal.toLocaleString('en-IN') + ' Active Loan';
+        }
+      }
+      
+      // My Loans Card values
+      const loanCardPrincipal = document.getElementById('loanCardPrincipal');
+      if (loanCardPrincipal) loanCardPrincipal.textContent = '₹ ' + principal.toLocaleString('en-IN');
+      const innerEmiAmountText = document.getElementById('innerEmiAmountText');
+      if (innerEmiAmountText) innerEmiAmountText.textContent = '₹ ' + emi.toLocaleString('en-IN');
+      const upcomingEmiAmountLabel = document.getElementById('upcomingEmiAmountLabel');
+      if (upcomingEmiAmountLabel) upcomingEmiAmountLabel.textContent = '₹ ' + emi.toLocaleString('en-IN');
+      const fullRepayAmountLabel = document.getElementById('fullRepayAmountLabel');
+      if (fullRepayAmountLabel) fullRepayAmountLabel.textContent = '₹ ' + total.toLocaleString('en-IN');
+      const topbarAmountDisplay = document.getElementById('topbarAmountDisplay');
+      if (topbarAmountDisplay) topbarAmountDisplay.textContent = '₹ ' + emi.toLocaleString('en-IN');
+      const payNowBtnText = document.getElementById('payNowBtnText');
+      if (payNowBtnText) payNowBtnText.textContent = 'PAY NOW | ₹ ' + emi.toLocaleString('en-IN');
+      
+      const breakdownPrincipal = document.getElementById('breakdownPrincipal');
+      if (breakdownPrincipal) breakdownPrincipal.textContent = '₹ ' + principal.toLocaleString('en-IN');
+      const breakdownTotal = document.getElementById('breakdownTotal');
+      if (breakdownTotal) breakdownTotal.textContent = '₹ ' + total.toLocaleString('en-IN');
+
+      currentPendingAmount = emi;
+      fullPendingAmount = total;
+
+      // Render Disbursal Confirmation Notification Bar if marked Disbursed
+      let disbursalBanner = document.getElementById('liveDisbursalAlertBanner');
+      if (activeLoan.status === 'DISBURSED') {
+        const utrText = activeLoan.disbursalTxnId ? (' · UTR: ' + activeLoan.disbursalTxnId) : '';
+        if (!disbursalBanner) {
+          disbursalBanner = document.createElement('div');
+          disbursalBanner.id = 'liveDisbursalAlertBanner';
+          disbursalBanner.style.cssText = 'background: linear-gradient(135deg, #064e3b, #047857); color: #ffffff; padding: 14px 18px; border-radius: 16px; margin-bottom: 18px; border: 1px solid #10b981; box-shadow: 0 4px 16px rgba(16, 185, 129, 0.25); display: flex; align-items: center; justify-content: space-between; gap: 12px;';
+          const container = document.querySelector('.dash-content-container') || document.getElementById('tabHome');
+          if (container) container.insertBefore(disbursalBanner, container.firstChild);
+        }
+        disbursalBanner.innerHTML = `
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <div style="width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; font-size: 18px;">✓</div>
+            <div>
+              <div style="font-size: 13.5px; font-weight: 800;">Funds Disbursed to Your Bank!</div>
+              <div style="font-size: 11.5px; opacity: 0.9; margin-top: 2px;">₹\${principal.toLocaleString('en-IN')}\${utrText} · Direct Settlement Completed</div>
+            </div>
+          </div>
+          <span style="background: rgba(255,255,255,0.2); font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 9999px;">DISBURSED</span>
+        `;
+      }
+
+      // Progress bar in step card
+      const progressFill = document.getElementById('dashProgressFill');
+      if (progressFill) progressFill.style.width = '100%';
+      document.querySelectorAll('.step-item-node').forEach(node => {
+        node.classList.add('completed');
+        node.classList.remove('active');
+        const bubble = node.querySelector('.step-node-bubble');
+        if (bubble) bubble.textContent = '✓';
+      });
+    }
 
     function initDashboardData() {
       const mobile = localStorage.getItem('apexloan_mobile') || '';
@@ -1456,48 +1534,53 @@
       if (profileAvatarLg) profileAvatarLg.textContent = firstChar;
       if (mobileEl && mobile) mobileEl.textContent = '+91 ' + mobile.slice(0, 5) + ' ' + mobile.slice(5);
 
-      // Check active loan
+      // 1. Initial render from local cache
       let activeLoan = null;
       try {
         activeLoan = JSON.parse(localStorage.getItem('apexloan_active_loan') || localStorage.getItem('apexloan_sanctioned_offer') || 'null');
       } catch (e) {}
 
       if (activeLoan) {
-        const principal = activeLoan.approvedLimit || activeLoan.loanAmount || 50000;
-        const emi = activeLoan.monthlyEmi || 2613;
-        const tenure = activeLoan.selectedTenure || 6;
-        const total = activeLoan.totalRepayment || (emi * tenure);
-
-        document.getElementById('heroLimitDisplay').textContent = '₹ ' + principal.toLocaleString('en-IN');
-        document.getElementById('activeLoanSummaryText').textContent = '₹' + principal.toLocaleString('en-IN') + ' Active Loan';
-        
-        // My Loans Card values
-        document.getElementById('loanCardPrincipal').textContent = '₹ ' + principal.toLocaleString('en-IN');
-        document.getElementById('innerEmiAmountText').textContent = '₹ ' + emi.toLocaleString('en-IN');
-        document.getElementById('upcomingEmiAmountLabel').textContent = '₹ ' + emi.toLocaleString('en-IN');
-        document.getElementById('fullRepayAmountLabel').textContent = '₹ ' + total.toLocaleString('en-IN');
-        document.getElementById('topbarAmountDisplay').textContent = '₹ ' + emi.toLocaleString('en-IN');
-        document.getElementById('payNowBtnText').textContent = 'PAY NOW | ₹ ' + emi.toLocaleString('en-IN');
-        
-        document.getElementById('breakdownPrincipal').textContent = '₹ ' + principal.toLocaleString('en-IN');
-        document.getElementById('breakdownTotal').textContent = '₹ ' + total.toLocaleString('en-IN');
-
-        currentPendingAmount = emi;
-        fullPendingAmount = total;
-
-        // Progress bar in step card
-        document.getElementById('dashProgressFill').style.width = '100%';
-        document.querySelectorAll('.step-item-node').forEach(node => {
-          node.classList.add('completed');
-          node.classList.remove('active');
-          const bubble = node.querySelector('.step-node-bubble');
-          if (bubble) bubble.textContent = '✓';
-        });
+        renderActiveLoanFromData(activeLoan);
       } else {
-        // Default presentation values matching Photo 5 & Photo 4
         document.getElementById('heroLimitDisplay').textContent = '₹ 50,000';
         document.getElementById('activeLoanSummaryText').textContent = '₹0 Currently Active Loan';
       }
+
+      // 2. Fetch live updates from Employee Desk backend
+      function syncFromBackend() {
+        if (!mobile || !window.ApexAPI || typeof window.ApexAPI.getLoanStatus !== 'function') return;
+        window.ApexAPI.getLoanStatus(mobile).then(res => {
+          if (res && res.success && res.application) {
+            const serverApp = res.application;
+            let currentLocal = null;
+            try { currentLocal = JSON.parse(localStorage.getItem('apexloan_active_loan') || 'null'); } catch(e){}
+
+            const updatedOffer = {
+              ...(currentLocal || {}),
+              creditLimit: serverApp.creditLimit || serverApp.selectedAmount || currentLocal?.creditLimit || 50000,
+              selectedAmount: serverApp.selectedAmount || serverApp.creditLimit || currentLocal?.selectedAmount || 50000,
+              loanAmount: serverApp.selectedAmount || serverApp.creditLimit || 50000,
+              status: serverApp.status,
+              disbursalTxnId: serverApp.disbursalTxnId || '',
+              disbursedAt: serverApp.disbursedAt || null,
+              disbursedAmount: serverApp.disbursedAmount || serverApp.selectedAmount || serverApp.creditLimit || 50000,
+              monthlyEmi: serverApp.monthlyEmi || currentLocal?.monthlyEmi || 6249,
+              selectedTenure: serverApp.selectedTenure || currentLocal?.selectedTenure || 9,
+              bankName: serverApp.bankName || currentLocal?.bankName || 'State Bank of India',
+              accountNumber: serverApp.accountNumber || currentLocal?.accountNumber || '',
+              adminRemarks: serverApp.adminRemarks || ''
+            };
+
+            localStorage.setItem('apexloan_active_loan', JSON.stringify(updatedOffer));
+            renderActiveLoanFromData(updatedOffer);
+          }
+        }).catch(err => console.warn('[DASHBOARD] Sync error:', err));
+      }
+
+      syncFromBackend();
+      // Poll every 12 seconds for immediate employee update reflection
+      setInterval(syncFromBackend, 12000);
     }
 
     // Switch Tabs

@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="description" content="Bruno Credits - Employee Operations & Disbursal Control Center. Powered by Vistas Tecnolabs Finance Limited.">
+  <meta name="theme-color" content="#070d24">
+  <title>Employee Control Dashboard | Bruno Credits - Vistas Tecnolabs</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    :root {
+      --admin-bg: #070d24;
+      --admin-card: #0d1738;
+      --admin-card-hover: #132252;
+      --admin-border: #1e2c5a;
+      --admin-border-light: #2c3e7a;
+      --admin-accent: #3b82f6;
+      --admin-success: #10b981;
+      --admin-amber: #f59e0b;
+      --admin-red: #ef4444;
+      --admin-text: #f8fafc;
+      --admin-text-muted: #94a3b8;
+    }
+
+    * { box-sizing: border-box; }
+    body.admin-body {
+      background: var(--admin-bg);
+      color: var(--admin-text);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+
+    /* Top Navigation Bar */
+    .admin-navbar {
+      background: rgba(13, 23, 56, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--admin-border);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .admin-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: #ffffff;
+    }
+
+    .admin-brand-title {
+      font-size: 17px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+
+    .admin-brand-tag {
+      font-size: 11px;
+      color: #38bdf8;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-weight: 700;
+    }
+
+    .admin-nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .status-live-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--admin-success);
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-weight: 700;
+    }
+
+    .status-dot-pulse {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--admin-success);
+      box-shadow: 0 0 8px var(--admin-success);
+      animation: pulse 1.8s infinite;
+    }
+
+    .btn-staff-logout {
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.25);
+      color: #fca5a5;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-staff-logout:hover {
+      background: rgba(239, 68, 68, 0.25);
+      color: #ffffff;
+    }
+
+    /* Layout Container */
+    .admin-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+    }
+
+    /* KPI Cards Grid */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .kpi-card {
+      background: var(--admin-card);
+      border: 1px solid var(--admin-border);
+      border-radius: 16px;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .kpi-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--admin-border-light);
+    }
+    .kpi-card.highlight {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.12), rgba(13, 23, 56, 0.9));
+      border-color: rgba(245, 158, 11, 0.35);
+    }
+
+    .kpi-title {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--admin-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+    .kpi-value {
+      font-size: 26px;
+      font-weight: 900;
+      color: #ffffff;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .kpi-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #60a5fa;
+    }
+
+    /* Filter & Search Bar */
+    .toolbar-box {
+      background: var(--admin-card);
+      border: 1px solid var(--admin-border);
+      border-radius: 16px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .search-input-group {
+      position: relative;
+      flex: 1;
+      min-width: 280px;
+    }
+    .search-icon-prefix {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--admin-text-muted);
+      pointer-events: none;
+    }
+    .admin-search-input {
+      width: 100%;
+      height: 44px;
+      padding-left: 42px;
+      padding-right: 14px;
+      background: #09102b;
+      border: 1px solid var(--admin-border);
+      border-radius: 10px;
+      color: #ffffff;
+      font-size: 13.5px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .admin-search-input:focus {
+      border-color: var(--admin-accent);
+    }
+
+    .filter-tabs {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+
+    .filter-btn {
+      background: #09102b;
+      border: 1px solid var(--admin-border);
+      color: var(--admin-text-muted);
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .filter-btn:hover {
+      color: #ffffff;
+      border-color: var(--admin-border-light);
+    }
+    .filter-btn.active {
+      background: var(--admin-accent);
+      border-color: var(--admin-accent);
+      color: #ffffff;
+    }
+
+    .btn-refresh {
+      background: #09102b;
+      border: 1px solid var(--admin-border);
+      color: #ffffff;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 12.5px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+    .btn-refresh:hover {
+      background: #132252;
+    }
+
+    /* Table Styling */
+    .table-responsive-card {
+      background: var(--admin-card);
+      border: 1px solid var(--admin-border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 13px;
+    }
+
+    .admin-table th {
+      background: #09102b;
+      color: var(--admin-text-muted);
+      font-weight: 700;
+      font-size: 11.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--admin-border);
+      white-space: nowrap;
+    }
+
+    .admin-table td {
+      padding: 16px;
+      border-bottom: 1px solid var(--admin-border);
+      vertical-align: middle;
+      color: #cbd5e1;
+    }
+    .admin-table tbody tr {
+      transition: background 0.15s;
+    }
+    .admin-table tbody tr:hover {
+      background: var(--admin-card-hover);
+    }
+
+    /* Status Badges */
+    .badge-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+    }
+    .badge-status.sanctioned {
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      color: #fbbf24;
+    }
+    .badge-status.disbursed {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: #34d399;
+    }
+    .badge-status.pending {
+      background: rgba(99, 102, 241, 0.15);
+      border: 1px solid rgba(99, 102, 241, 0.35);
+      color: #818cf8;
+    }
+    .badge-status.rejected {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      color: #f87171;
+    }
+
+    .btn-action-control {
+      background: linear-gradient(135deg, #1d4ed8, #2563eb);
+      color: #ffffff;
+      border: none;
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn-action-control:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+    }
+
+    /* Modal / Drawer */
+    .admin-modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(3, 7, 18, 0.85);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 16px;
+    }
+    .admin-modal-overlay.active {
+      display: flex;
+    }
+
+    .admin-modal-card {
+      background: #0d1738;
+      border: 1px solid var(--admin-border-light);
+      border-radius: 20px;
+      width: 100%;
+      max-width: 820px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      position: relative;
+      padding: 26px 28px;
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.08);
+      border: none;
+      color: #ffffff;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+    .modal-close-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .modal-section-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: #38bdf8;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin: 18px 0 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .details-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      background: #09102b;
+      padding: 16px;
+      border-radius: 12px;
+      border: 1px solid var(--admin-border);
+    }
+    .detail-item label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--admin-text-muted);
+      text-transform: uppercase;
+      margin-bottom: 3px;
+    }
+    .detail-item .val {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #ffffff;
+      font-family: 'JetBrains Mono', 'Plus Jakarta Sans', monospace;
+      word-break: break-all;
+    }
+
+    .copy-chip {
+      background: rgba(59, 130, 246, 0.15);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      color: #93c5fd;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      cursor: pointer;
+      margin-left: 6px;
+    }
+    .copy-chip:hover {
+      background: rgba(59, 130, 246, 0.3);
+    }
+
+    /* Disbursal Action Box */
+    .disbursal-action-box {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(9, 16, 43, 0.95));
+      border: 1.5px solid rgba(16, 185, 129, 0.35);
+      border-radius: 16px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+
+    .admin-form-group {
+      margin-bottom: 14px;
+    }
+    .admin-form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      color: #cbd5e1;
+      margin-bottom: 6px;
+    }
+    .admin-input, .admin-select {
+      width: 100%;
+      height: 44px;
+      background: #080d26;
+      border: 1.5px solid var(--admin-border);
+      border-radius: 10px;
+      padding: 0 14px;
+      color: #ffffff;
+      font-size: 14px;
+      font-family: 'JetBrains Mono', 'Plus Jakarta Sans', sans-serif;
+      outline: none;
+    }
+    .admin-input:focus, .admin-select:focus {
+      border-color: #10b981;
+    }
+
+    .btn-submit-save {
+      background: linear-gradient(135deg, #059669, #10b981);
+      color: #ffffff;
+      border: none;
+      width: 100%;
+      height: 48px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 16px;
+      transition: transform 0.15s;
+    }
+    .btn-submit-save:hover {
+      transform: translateY(-1px);
+    }
+
+    /* Lock Screen Modal */
+    .lock-card {
+      background: #0d1738;
+      border: 1px solid var(--admin-border-light);
+      border-radius: 24px;
+      padding: 36px 32px;
+      width: 100%;
+      max-width: 420px;
+      text-align: center;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7);
+    }
+    .lock-pin-input {
+      letter-spacing: 12px;
+      font-size: 26px;
+      text-align: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 900;
+      height: 54px;
+      border-radius: 12px;
+      background: #080d26;
+      border: 2px solid var(--admin-border);
+      color: #ffffff;
+      width: 100%;
+      margin: 20px 0 16px;
+      outline: none;
+    }
+    .lock-pin-input:focus {
+      border-color: #38bdf8;
+    }
+
+    /* Toast Notification */
+    .toast-notice {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #10b981;
+      color: #ffffff;
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-size: 13.5px;
+      font-weight: 700;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      z-index: 2000;
+      display: none;
+      animation: slideIn 0.3s ease;
+    }
+    @keyframes slideIn {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body class="admin-body">
+
+  <!-- ==================== EMPLOYEE PASSCODE LOCK SCREEN ==================== -->
+  <div class="admin-modal-overlay" id="staffLockModal" style="display: flex;">
+    <div class="lock-card">
+      <div style="width: 56px; height: 56px; border-radius: 16px; background: rgba(59, 130, 246, 0.15); color: #60a5fa; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </div>
+      <h2 style="font-size: 20px; font-weight: 800; margin: 0 0 6px;">Employee Access Portal</h2>
+      <p style="font-size: 12.5px; color: var(--admin-text-muted); margin: 0;">Enter staff authorization PIN to manage borrower applications & bank disbursals.</p>
+      
+      <form id="passcodeForm" onsubmit="handleStaffAuth(event)">
+        <input type="password" id="staffPinInput" class="lock-pin-input" maxlength="8" placeholder="••••" autocomplete="off" autofocus>
+        <div id="authErrorMsg" style="color: #f87171; font-size: 12.5px; font-weight: 700; display: none; margin-bottom: 12px;"></div>
+        <button type="submit" id="btnUnlockDesk" class="btn-submit-save" style="background: linear-gradient(135deg, #1d4ed8, #2563eb); margin-top: 0;">
+          Unlock Operations Desk
+        </button>
+      </form>
+      <div style="margin-top: 18px; font-size: 11.5px; color: #64748b;">
+        Authorized NBFC Personnel Only · Vistas Tecnolabs Finance Limited
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MAIN EMPLOYEE OPERATIONS DESK ==================== -->
+  <div id="mainDashboardView" style="display: none;">
+    <!-- Navbar -->
+    <header class="admin-navbar">
+      <a href="#" class="admin-brand">
+        <div style="width: 34px; height: 34px; border-radius: 10px; background: linear-gradient(135deg, #1d4ed8, #3b82f6); display: flex; align-items: center; justify-content: center; color: white; font-weight: 900; font-size: 16px;">B</div>
+        <div>
+          <div class="admin-brand-title">Bruno Credits <span style="font-weight: 400; opacity: 0.7;">Operations Desk</span></div>
+          <div style="font-size: 10px; color: #94a3b8;">Lender: Vistas Tecnolabs Finance Limited (RBI Regd. NBFC)</div>
+        </div>
+      </a>
+
+      <div class="admin-nav-actions">
+        <div class="status-live-pill">
+          <span class="status-dot-pulse"></span>
+          <span>LIVE DESK SYNC</span>
+        </div>
+        <span class="admin-brand-tag" id="officerBadge">OFFICER: VT-8791</span>
+        <button type="button" class="btn-staff-logout" onclick="handleLogout()">Sign Out</button>
+      </div>
+    </header>
+
+    <main class="admin-container">
+      <!-- KPI Metrics -->
+      <section class="kpi-grid">
+        <div class="kpi-card">
+          <div>
+            <div class="kpi-title">Total Applications</div>
+            <div class="kpi-value" id="kpiTotalApps">0</div>
+          </div>
+          <div class="kpi-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          </div>
+        </div>
+
+        <div class="kpi-card highlight">
+          <div>
+            <div class="kpi-title" style="color: #fbbf24;">Pending Disbursal</div>
+            <div class="kpi-value" id="kpiPendingDisbursal" style="color: #fbbf24;">0</div>
+          </div>
+          <div class="kpi-icon" style="color: #fbbf24; background: rgba(245, 158, 11, 0.1);">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div>
+            <div class="kpi-title">Total Capital Disbursed</div>
+            <div class="kpi-value" id="kpiTotalDisbursed">₹ 0</div>
+          </div>
+          <div class="kpi-icon" style="color: #34d399; background: rgba(16, 185, 129, 0.1);">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div>
+            <div class="kpi-title">Approved Sanctions</div>
+            <div class="kpi-value" id="kpiSanctionedCount">0</div>
+          </div>
+          <div class="kpi-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+        </div>
+      </section>
+
+      <!-- Toolbar: Search & Filter -->
+      <div class="toolbar-box">
+        <div class="search-input-group">
+          <svg class="search-icon-prefix" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="adminSearchInput" class="admin-search-input" placeholder="Search by Borrower Name, Mobile, PAN, Aadhaar, or App ID..." oninput="handleSearch()">
+        </div>
+
+        <div class="filter-tabs">
+          <button class="filter-btn active" data-filter="ALL" onclick="setFilter('ALL', this)">All</button>
+          <button class="filter-btn" data-filter="SANCTIONED" onclick="setFilter('SANCTIONED', this)">Ready for Disbursal</button>
+          <button class="filter-btn" data-filter="DISBURSED" onclick="setFilter('DISBURSED', this)">Disbursed ✓</button>
+          <button class="filter-btn" data-filter="PENDING_REVIEW" onclick="setFilter('PENDING_REVIEW', this)">Under Review</button>
+          <button class="filter-btn" data-filter="REJECTED" onclick="setFilter('REJECTED', this)">Rejected</button>
+        </div>
+
+        <button type="button" class="btn-refresh" onclick="loadApplications(true)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+          <span>Refresh</span>
+        </button>
+      </div>
+
+      <!-- Applications Table -->
+      <div class="table-responsive-card">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>App ID & Date</th>
+              <th>Borrower Details</th>
+              <th>Govt IDs (PAN & Aadhaar)</th>
+              <th>Bank Settlement (For Wire)</th>
+              <th>Loan Amount & EMI</th>
+              <th>Fee Status</th>
+              <th>Current Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="applicationsTableBody">
+            <tr>
+              <td colspan="8" style="text-align: center; padding: 40px; color: var(--admin-text-muted);">
+                Loading borrower applications...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+
+  <!-- ==================== BORROWER DETAIL & DISBURSAL CONTROL DRAWER/MODAL ==================== -->
+  <div class="admin-modal-overlay" id="appControlModal">
+    <div class="admin-modal-card">
+      <button type="button" class="modal-close-btn" onclick="closeControlModal()" aria-label="Close">✕</button>
+
+      <div style="display: flex; align-items: center; justify-content: space-between; padding-bottom: 14px; border-bottom: 1px solid var(--admin-border); margin-bottom: 16px;">
+        <div>
+          <h2 style="font-size: 19px; font-weight: 800; margin: 0 0 4px;" id="modalBorrowerName">Borrower Name</h2>
+          <div style="font-size: 12px; color: var(--admin-text-muted);">
+            App ID: <strong id="modalAppId" style="color: #60a5fa;">APP-0000</strong> · Ref: <span id="modalRefNum">VT-AL-0000</span>
+          </div>
+        </div>
+        <div id="modalStatusBadge"></div>
+      </div>
+
+      <!-- Section 1: Borrower Profile -->
+      <div class="modal-section-title">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span>1. Personal & Employment Information</span>
+      </div>
+      <div class="details-grid">
+        <div class="detail-item">
+          <label>Mobile Number</label>
+          <div class="val" id="modalMobile">+91 00000 00000</div>
+        </div>
+        <div class="detail-item">
+          <label>Email Address</label>
+          <div class="val" id="modalEmail">-</div>
+        </div>
+        <div class="detail-item">
+          <label>Date of Birth & Gender</label>
+          <div class="val" id="modalDobGender">-</div>
+        </div>
+        <div class="detail-item">
+          <label>Employment & Income</label>
+          <div class="val" id="modalEmpIncome">-</div>
+        </div>
+        <div class="detail-item" style="grid-column: 1 / -1;">
+          <label>Current Residential Address</label>
+          <div class="val" id="modalAddress">-</div>
+        </div>
+      </div>
+
+      <!-- Section 2: KYC Details -->
+      <div class="modal-section-title">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><line x1="15" y1="8" x2="17" y2="8"/><line x1="15" y1="12" x2="17" y2="12"/><line x1="7" y1="16" x2="17" y2="16"/></svg>
+        <span>2. Verified Government KYC Identifiers</span>
+      </div>
+      <div class="details-grid">
+        <div class="detail-item">
+          <label>Aadhaar Card Number (UIDAI)</label>
+          <div class="val">
+            <span id="modalAadhaar">-</span>
+            <button type="button" class="copy-chip" onclick="copyText('modalAadhaar')">Copy</button>
+          </div>
+        </div>
+        <div class="detail-item">
+          <label>PAN Card Number (NSDL)</label>
+          <div class="val">
+            <span id="modalPan">-</span>
+            <button type="button" class="copy-chip" onclick="copyText('modalPan')">Copy</button>
+          </div>
+        </div>
+        <div class="detail-item">
+          <label>Loan Purpose</label>
+          <div class="val" id="modalPurpose">Personal</div>
+        </div>
+      </div>
+
+      <!-- Section 3: Bank Settlement Details (Everything to Disburse) -->
+      <div class="modal-section-title" style="color: #34d399;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        <span>3. Bank Disbursal Coordinates (Required for NEFT / RTGS / IMPS Wire)</span>
+      </div>
+      <div class="details-grid" style="border-color: rgba(16, 185, 129, 0.35);">
+        <div class="detail-item">
+          <label>Bank Name</label>
+          <div class="val" id="modalBankName" style="color: #34d399;">-</div>
+        </div>
+        <div class="detail-item">
+          <label>Full Bank Account Number</label>
+          <div class="val">
+            <span id="modalAccountNumber" style="color: #34d399; font-size: 15px;">-</span>
+            <button type="button" class="copy-chip" onclick="copyText('modalAccountNumber')">Copy Account</button>
+          </div>
+        </div>
+        <div class="detail-item">
+          <label>Bank IFSC Code</label>
+          <div class="val">
+            <span id="modalIfscCode" style="color: #34d399; font-size: 15px;">-</span>
+            <button type="button" class="copy-chip" onclick="copyText('modalIfscCode')">Copy IFSC</button>
+          </div>
+        </div>
+        <div class="detail-item">
+          <label>Disbursal Fee Status</label>
+          <div class="val" id="modalFeeStatus">-</div>
+        </div>
+      </div>
+
+      <!-- Section 4: Employee Disbursal Controls & Actions -->
+      <form id="controlActionForm" onsubmit="saveApplicationUpdates(event)" class="disbursal-action-box">
+        <h3 style="margin: 0 0 14px; font-size: 15px; font-weight: 800; color: #ffffff; display: flex; align-items: center; gap: 8px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>Employee Action: Update Status & Disburse Loan</span>
+        </h3>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px;">
+          <!-- Status Selector -->
+          <div class="admin-form-group">
+            <label for="ctrlStatus">Loan Status</label>
+            <select id="ctrlStatus" class="admin-select">
+              <option value="SANCTIONED">Ready for Disbursal (Sanctioned)</option>
+              <option value="DISBURSED">DISBURSED (Funds Wired to Bank)</option>
+              <option value="PENDING_REVIEW">Under Review / Verification</option>
+              <option value="ON_HOLD">On Hold (Pending Further Verification)</option>
+              <option value="REJECTED">Application Rejected</option>
+            </select>
+          </div>
+
+          <!-- Disbursal UTR / Transaction Reference Number -->
+          <div class="admin-form-group">
+            <label for="ctrlUtr">Bank Disbursal UTR / Txn Ref ID (IMPS/RTGS)</label>
+            <input type="text" id="ctrlUtr" class="admin-input" placeholder="e.g. UTR92837461928 / CMS91823" style="text-transform: uppercase;">
+          </div>
+
+          <!-- Approved Amount / Disbursal Amount -->
+          <div class="admin-form-group">
+            <label for="ctrlAmount">Disbursed / Sanctioned Amount (₹)</label>
+            <input type="number" id="ctrlAmount" class="admin-input" step="500" placeholder="50000">
+          </div>
+
+          <!-- Tenure -->
+          <div class="admin-form-group">
+            <label for="ctrlTenure">Tenure (Months)</label>
+            <select id="ctrlTenure" class="admin-select">
+              <option value="3">3 Months</option>
+              <option value="6">6 Months</option>
+              <option value="9">9 Months</option>
+              <option value="12">12 Months</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Staff Remarks -->
+        <div class="admin-form-group" style="margin-top: 6px;">
+          <label for="ctrlRemarks">Internal Operations Remarks & Notes</label>
+          <input type="text" id="ctrlRemarks" class="admin-input" placeholder="e.g. Funds dispatched via SBI Corporate Banking. UTR shared with customer.">
+        </div>
+
+        <button type="submit" id="btnSaveUpdates" class="btn-submit-save">
+          <span>Save Changes & Reflect Instantly on Borrower App →</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="adminToast" class="toast-notice"></div>
+
+  <!-- Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script>
+    let allApplications = [];
+    let currentFilter = 'ALL';
+    let currentSelectedApp = null;
+    let autoRefreshTimer = null;
+
+    // ---- Auth Flow ----
+    document.addEventListener('DOMContentLoaded', () => {
+      const isAuth = sessionStorage.getItem('apexloan_staff_auth') === 'true' || localStorage.getItem('apexloan_staff_auth') === 'true';
+      if (isAuth) {
+        showMainDashboard();
+      } else {
+        document.getElementById('staffLockModal').style.display = 'flex';
+        document.getElementById('mainDashboardView').style.display = 'none';
+      }
+    });
+
+    async function handleStaffAuth(e) {
+      e.preventDefault();
+      const pin = document.getElementById('staffPinInput').value.trim();
+      const errEl = document.getElementById('authErrorMsg');
+      const btn = document.getElementById('btnUnlockDesk');
+
+      btn.disabled = true;
+      btn.innerHTML = 'Verifying Passcode...';
+
+      try {
+        const res = await window.ApexAPI.adminLogin(pin);
+        if (res && res.success) {
+          sessionStorage.setItem('apexloan_staff_auth', 'true');
+          localStorage.setItem('apexloan_staff_auth', 'true');
+          showMainDashboard();
+        } else {
+          errEl.textContent = (res && res.message) || 'Invalid employee passcode.';
+          errEl.style.display = 'block';
+          btn.disabled = false;
+          btn.innerHTML = 'Unlock Operations Desk';
+        }
+      } catch (err) {
+        errEl.textContent = 'Connection error. Please try again.';
+        errEl.style.display = 'block';
+        btn.disabled = false;
+        btn.innerHTML = 'Unlock Operations Desk';
+      }
+    }
+
+    function showMainDashboard() {
+      document.getElementById('staffLockModal').style.display = 'none';
+      document.getElementById('mainDashboardView').style.display = 'block';
+      loadApplications();
+      // Auto-refresh applications every 15 seconds
+      if (autoRefreshTimer) clearInterval(autoRefreshTimer);
+      autoRefreshTimer = setInterval(() => loadApplications(false), 15000);
+    }
+
+    function handleLogout() {
+      sessionStorage.removeItem('apexloan_staff_auth');
+      localStorage.removeItem('apexloan_staff_auth');
+      window.location.reload();
+    }
+
+    // ---- Load Applications ----
+    async function loadApplications(showNotice = false) {
+      try {
+        const res = await window.ApexAPI.adminGetApplications();
+        if (res && res.success) {
+          allApplications = res.applications || [];
+          renderKpis(res.stats);
+          renderApplicationsTable();
+          if (showNotice) showToast('Data refreshed successfully');
+        } else {
+          console.warn('[ADMIN] Failed to load applications:', res);
+        }
+      } catch (err) {
+        console.error('[ADMIN] Error loading applications:', err);
+      }
+    }
+
+    function renderKpis(stats) {
+      if (!stats) return;
+      document.getElementById('kpiTotalApps').textContent = stats.total || allApplications.length;
+      document.getElementById('kpiPendingDisbursal').textContent = stats.pendingDisbursal || 0;
+      document.getElementById('kpiTotalDisbursed').textContent = '₹ ' + (stats.totalDisbursed || 0).toLocaleString('en-IN');
+      document.getElementById('kpiSanctionedCount').textContent = stats.sanctionedCount || 0;
+    }
+
+    function renderApplicationsTable() {
+      const tbody = document.getElementById('applicationsTableBody');
+      if (!tbody) return;
+
+      const q = (document.getElementById('adminSearchInput')?.value || '').toLowerCase().trim();
+
+      const filtered = allApplications.filter(app => {
+        // Status filter
+        if (currentFilter !== 'ALL' && app.status !== currentFilter) return false;
+
+        // Search query filter
+        if (q) {
+          const hay = [
+            app.id || '',
+            app.refNum || '',
+            app.fullName || '',
+            app.mobile || '',
+            app.panNumber || '',
+            app.aadhaarNumber || '',
+            app.bankName || '',
+            app.accountNumber || ''
+          ].join(' ').toLowerCase();
+          return hay.includes(q);
+        }
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="8" style="text-align: center; padding: 40px; color: var(--admin-text-muted);">
+              No borrower applications found matching your criteria.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(app => {
+        const principal = Number(app.disbursedAmount || app.selectedAmount || app.creditLimit || 50000);
+        const emi = Number(app.monthlyEmi || 6249);
+        const tenure = Number(app.selectedTenure || 9);
+        
+        let statusBadgeClass = 'pending';
+        let statusLabel = app.status || 'PENDING_REVIEW';
+        if (app.status === 'SANCTIONED') {
+          statusBadgeClass = 'sanctioned';
+          statusLabel = 'READY FOR DISBURSAL';
+        } else if (app.status === 'DISBURSED') {
+          statusBadgeClass = 'disbursed';
+          statusLabel = 'DISBURSED ✓';
+        } else if (app.status === 'REJECTED') {
+          statusBadgeClass = 'rejected';
+          statusLabel = 'REJECTED';
+        }
+
+        const dateStr = app.updatedAt ? new Date(app.updatedAt).toLocaleDateString('en-IN', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '-';
+
+        return `
+          <tr>
+            <td>
+              <div style="font-weight: 800; color: #ffffff; font-family: monospace;">${app.id || 'APP-XXXX'}</div>
+              <div style="font-size: 11px; color: #64748b; margin-top: 2px;">${dateStr}</div>
+            </td>
+            <td>
+              <div style="font-weight: 800; color: #ffffff;">${app.fullName || 'Borrower'}</div>
+              <div style="font-size: 11.5px; color: #94a3b8; font-family: monospace;">+91 ${app.mobile || '-'}</div>
+            </td>
+            <td>
+              <div style="font-family: monospace; font-size: 12px; color: #f1f5f9;">PAN: <strong>${app.panNumber || '-'}</strong></div>
+              <div style="font-family: monospace; font-size: 11px; color: #94a3b8; margin-top: 2px;">UID: ${app.aadhaarNumber || '-'}</div>
+            </td>
+            <td>
+              <div style="font-weight: 700; color: #34d399;">${app.bankName || 'Bank'}</div>
+              <div style="font-family: monospace; font-size: 12px; color: #f1f5f9;">A/c: <strong>${app.accountNumber || '-'}</strong></div>
+              <div style="font-family: monospace; font-size: 11px; color: #94a3b8;">IFSC: ${app.ifscCode || '-'}</div>
+            </td>
+            <td>
+              <div style="font-weight: 800; font-size: 14px; color: #ffffff;">₹ ${principal.toLocaleString('en-IN')}</div>
+              <div style="font-size: 11px; color: #94a3b8;">₹${emi.toLocaleString('en-IN')}/mo (${tenure}M)</div>
+            </td>
+            <td>
+              ${app.feePaid 
+                ? '<span style="color: #34d399; font-weight: 800; font-size: 11px; background: rgba(16,185,129,0.15); padding: 2px 8px; border-radius: 6px;">PAID ✓</span>' 
+                : '<span style="color: #94a3b8; font-size: 11px;">PENDING</span>'}
+            </td>
+            <td>
+              <span class="badge-status ${statusBadgeClass}">${statusLabel}</span>
+              ${app.disbursalTxnId ? `<div style="font-size: 10px; font-family: monospace; color: #34d399; margin-top: 3px;">UTR: ${app.disbursalTxnId}</div>` : ''}
+            </td>
+            <td>
+              <button type="button" class="btn-action-control" onclick="openControlModal('${app.id}')">
+                <span>Control</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // ---- Drawer / Control Modal ----
+    function openControlModal(id) {
+      const app = allApplications.find(a => a.id === id);
+      if (!app) return;
+      currentSelectedApp = app;
+
+      document.getElementById('modalBorrowerName').textContent = app.fullName || 'Borrower';
+      document.getElementById('modalAppId').textContent = app.id || '-';
+      document.getElementById('modalRefNum').textContent = app.refNum || '-';
+      document.getElementById('modalMobile').textContent = '+91 ' + (app.mobile || '-');
+      document.getElementById('modalEmail').textContent = app.email || '-';
+      document.getElementById('modalDobGender').textContent = (app.dob || '-') + ' · ' + (app.gender || '-');
+      document.getElementById('modalEmpIncome').textContent = (app.empType || 'Salaried') + ' · ₹' + (Number(app.monthlyIncome || 0)).toLocaleString('en-IN') + '/mo (' + (app.companyName || 'Employer') + ')';
+      document.getElementById('modalAddress').textContent = (app.address || '-') + (app.pincode ? (' - ' + app.pincode) : '');
+
+      document.getElementById('modalAadhaar').textContent = app.aadhaarNumber || '-';
+      document.getElementById('modalPan').textContent = app.panNumber || '-';
+      document.getElementById('modalPurpose').textContent = app.loanPurpose || 'Personal';
+
+      document.getElementById('modalBankName').textContent = app.bankName || 'State Bank of India';
+      document.getElementById('modalAccountNumber').textContent = app.accountNumber || '-';
+      document.getElementById('modalIfscCode').textContent = app.ifscCode || '-';
+      document.getElementById('modalFeeStatus').innerHTML = app.feePaid 
+        ? '<span style="color: #34d399; font-weight: 800;">Fee Verified (₹' + (app.feeAmount || 199) + ') · Ref: ' + (app.feePaymentId || 'Completed') + '</span>'
+        : '<span style="color: #f59e0b;">Pending Fee Verification</span>';
+
+      // Status badge in modal
+      const badgeEl = document.getElementById('modalStatusBadge');
+      badgeEl.innerHTML = `<span class="badge-status ${(app.status === 'DISBURSED' ? 'disbursed' : (app.status === 'SANCTIONED' ? 'sanctioned' : 'pending'))}">${app.status || 'PENDING'}</span>`;
+
+      // Pre-fill action form
+      document.getElementById('ctrlStatus').value = app.status || 'SANCTIONED';
+      document.getElementById('ctrlUtr').value = app.disbursalTxnId || '';
+      document.getElementById('ctrlAmount').value = Number(app.disbursedAmount || app.selectedAmount || app.creditLimit || 50000);
+      document.getElementById('ctrlTenure').value = String(app.selectedTenure || 9);
+      document.getElementById('ctrlRemarks').value = app.adminRemarks || '';
+
+      document.getElementById('appControlModal').classList.add('active');
+    }
+
+    function closeControlModal() {
+      document.getElementById('appControlModal').classList.remove('active');
+      currentSelectedApp = null;
+    }
+
+    async function saveApplicationUpdates(e) {
+      e.preventDefault();
+      if (!currentSelectedApp) return;
+
+      const btn = document.getElementById('btnSaveUpdates');
+      btn.disabled = true;
+      btn.innerHTML = 'Saving & Syncing with Borrower App...';
+
+      const status = document.getElementById('ctrlStatus').value;
+      const disbursalTxnId = document.getElementById('ctrlUtr').value.trim();
+      const disbursedAmount = Number(document.getElementById('ctrlAmount').value) || currentSelectedApp.creditLimit;
+      const selectedTenure = Number(document.getElementById('ctrlTenure').value) || 9;
+      const adminRemarks = document.getElementById('ctrlRemarks').value.trim();
+
+      // Recalculate monthly EMI based on chosen amount and tenure
+      const annualRate = (disbursedAmount <= 25000) ? 24.0 : 18.0;
+      const monthlyRate = annualRate / (12 * 100);
+      const monthlyEmi = Math.round(
+        disbursedAmount * monthlyRate * Math.pow(1 + monthlyRate, selectedTenure) /
+        (Math.pow(1 + monthlyRate, selectedTenure) - 1)
+      );
+
+      const updates = {
+        status,
+        disbursalTxnId,
+        disbursedAmount,
+        creditLimit: disbursedAmount,
+        selectedAmount: disbursedAmount,
+        selectedTenure,
+        monthlyEmi,
+        adminRemarks
+      };
+
+      try {
+        const res = await window.ApexAPI.adminUpdateApplication(currentSelectedApp.id, updates);
+        if (res && res.success) {
+          showToast('✓ Application updated! Changes are live on borrower app.');
+          closeControlModal();
+          loadApplications(false);
+        } else {
+          alert((res && res.message) || 'Update failed');
+        }
+      } catch (err) {
+        alert('Error updating application: ' + err.message);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = 'Save Changes & Reflect Instantly on Borrower App →';
+      }
+    }
+
+    // ---- Filter & Search Handlers ----
+    function setFilter(filter, el) {
+      currentFilter = filter;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      if (el) el.classList.add('active');
+      renderApplicationsTable();
+    }
+
+    function handleSearch() {
+      renderApplicationsTable();
+    }
+
+    function copyText(elementId) {
+      const el = document.getElementById(elementId);
+      if (!el) return;
+      const text = el.textContent.trim();
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('Copied to clipboard: ' + text);
+      });
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('adminToast');
+      if (!toast) return;
+      toast.textContent = msg;
+      toast.style.display = 'block';
+      setTimeout(() => {
+        toast.style.display = 'none';
+      }, 3500);
+    }
+  </script>
+</body>
+</html>

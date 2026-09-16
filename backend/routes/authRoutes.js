@@ -194,7 +194,7 @@ router.post('/send-otp', async (req, res) => {
           return res.status(402).json({
             success: false,
             provider: 'NINZASMS',
-            message: 'NinzaSMS me balance khatam (0) ho gaya hai. Kripya ninzasms.in.net par jakar recharge karein tabhi SMS aayega.'
+            message: 'SMS gateway balance insufficient. Please recharge SMS credits on ninzasms.in.net.'
           });
         }
       }
@@ -295,7 +295,7 @@ router.post('/resend-otp', async (req, res) => {
         return res.status(402).json({
           success: false,
           provider: 'NINZASMS',
-          message: 'NinzaSMS me balance khatam (0) ho gaya hai. Kripya ninzasms.in.net par jakar recharge karein tabhi SMS aayega.'
+          message: 'SMS gateway balance insufficient. Please recharge SMS credits on ninzasms.in.net.'
         });
       }
     } catch (err) {
@@ -372,7 +372,7 @@ router.post('/verify-otp', async (req, res) => {
   if (!isVerified) {
     return res.status(401).json({ 
       success: false, 
-      message: 'Galat OTP daala gaya hai ya expire ho chuka hai. Kripya phone par aaya sahi OTP dalein.' 
+      message: 'Incorrect or expired OTP. Please enter the valid code sent to your phone.' 
     });
   }
 

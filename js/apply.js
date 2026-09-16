@@ -31,6 +31,53 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // ---- Real-Time Application Sync with Employee Backoffice Desk ----
+  window.syncApplicationToBackend = function(offerData) {
+    try {
+      const mobile = localStorage.getItem('apexloan_mobile') || document.getElementById('mobile')?.value || offerData?.mobile || '';
+      if (!mobile) return;
+
+      const data = {
+        mobile,
+        fullName: document.getElementById('fullName')?.value || localStorage.getItem('apexloan_fullname') || offerData?.fullName || '',
+        email: document.getElementById('email')?.value || offerData?.email || '',
+        dob: document.getElementById('dob')?.value || offerData?.dob || '',
+        gender: document.getElementById('gender')?.value || offerData?.gender || '',
+        address: document.getElementById('address')?.value || offerData?.address || '',
+        pincode: document.getElementById('pincode')?.value || offerData?.pincode || '',
+        empType: document.getElementById('empType')?.value || offerData?.empType || '',
+        monthlyIncome: Number(document.getElementById('income')?.value || offerData?.monthlyIncome || 35000),
+        companyName: document.getElementById('companyName')?.value || offerData?.companyName || '',
+        experience: document.getElementById('experience')?.value || offerData?.experience || '',
+        loanPurpose: document.getElementById('loanPurposeSelect')?.value || document.getElementById('loanPurpose')?.value || offerData?.loanPurpose || 'Personal',
+        aadhaarNumber: document.getElementById('aadhaarNumber')?.value || offerData?.aadhaarNumber || '',
+        panNumber: document.getElementById('panNumber')?.value || offerData?.panNumber || '',
+        bankName: document.getElementById('bankName')?.value || offerData?.bankName || 'State Bank of India',
+        accountNumber: document.getElementById('accountNumber')?.value || offerData?.accountNumber || '',
+        ifscCode: document.getElementById('ifscCode')?.value || offerData?.ifscCode || '',
+        requestedAmount: Number(offerData?.selectedAmount || offerData?.creditLimit || 50000),
+        creditLimit: Number(offerData?.creditLimit || 50000),
+        selectedAmount: Number(offerData?.selectedAmount || offerData?.creditLimit || 50000),
+        selectedTenure: Number(offerData?.selectedTenure || 9),
+        monthlyEmi: Number(offerData?.monthlyEmi || 6249),
+        feeAmount: Number(offerData?.disbursalFee || offerData?.feeAmount || 199),
+        feePaid: !!offerData?.feePaid,
+        feePaymentId: offerData?.feePaymentId || '',
+        feePaidAt: offerData?.feePaidAt || null,
+        refNum: offerData?.refNum || ('VT-AL-' + Date.now().toString(36).toUpperCase().slice(-6)),
+        status: offerData?.status || 'SANCTIONED'
+      };
+
+      if (window.ApexAPI && typeof window.ApexAPI.submitApplication === 'function') {
+        window.ApexAPI.submitApplication(data).then(res => {
+          console.log('[SYNC] Application synced with employee desk:', res);
+        });
+      }
+    } catch (err) {
+      console.warn('[SYNC] Error syncing application:', err);
+    }
+  };
+
   // ---- Restore saved data ----
   restoreFormData();
 
@@ -400,7 +447,7 @@ window.setCustomAmountPreset = function(preset) {
 
 // User can optionally re-apply from scratch
 window.startFreshApplication = function() {
-  if (confirm('Kya aap sach me naya loan application shuru karna chahte hain? Aapka purana approved offer reset ho jayega.')) {
+  if (confirm('Are you sure you want to start a fresh loan application? Your previously approved offer will be reset.')) {
     localStorage.removeItem('apexloan_sanctioned_offer');
     localStorage.removeItem('apexloan_active_loan');
     localStorage.removeItem('apexloan_form_data');
@@ -982,6 +1029,7 @@ window.verifyBankAndCalculateLimit = function() {
 
               // Save to localStorage immediately so user never loses their approved limit!
               localStorage.setItem('apexloan_sanctioned_offer', JSON.stringify(decision));
+              if (typeof window.syncApplicationToBackend === 'function') window.syncApplicationToBackend(decision);
 
               // Pre-populate Sanction Card DOM safely
               const sanctionAmtEl = document.getElementById('sanctionedAmountDisplay');
@@ -1032,6 +1080,7 @@ window.verifyBankAndCalculateLimit = function() {
             };
             window.sanctionedOffer = fallbackDecision;
             localStorage.setItem('apexloan_sanctioned_offer', JSON.stringify(fallbackDecision));
+            if (typeof window.syncApplicationToBackend === 'function') window.syncApplicationToBackend(fallbackDecision);
             window.selectSanctionTenure(12);
             showGiftBoxReveal(fallbackDecision);
           }
@@ -1347,6 +1396,7 @@ window.selectSanctionTenure = function(months) {
 
   // Save for dashboard access
   localStorage.setItem('apexloan_sanctioned_offer', JSON.stringify(window.sanctionedOffer));
+  if (typeof window.syncApplicationToBackend === 'function') window.syncApplicationToBackend(window.sanctionedOffer);
 
   // Update DOM elements
   const emiEl = document.getElementById('sanctionEmiDisplay');
@@ -1442,6 +1492,7 @@ function finalizeDisbursalActivation(offer, fee, paymentId) {
   // Persist in localStorage
   localStorage.setItem('apexloan_active_loan', JSON.stringify(offer));
   localStorage.removeItem('apexloan_form_data');
+  if (typeof window.syncApplicationToBackend === 'function') window.syncApplicationToBackend(offer);
 
   setTimeout(() => {
     window.closeDisbursalFeeModal();

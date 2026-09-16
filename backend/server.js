@@ -48,6 +48,10 @@ app.get('/dashboard', (req, res) => {
   res.sendFile(path.join(rootDir, 'dashboard.html'));
 });
 
+app.get(['/admin', '/admin.html'], (req, res) => {
+  res.sendFile(path.join(rootDir, 'admin.html'));
+});
+
 app.get('/api', (req, res) => {
   res.json({
     app: 'Bruno Credits NBFC Core API',
@@ -86,10 +90,12 @@ app.get('/api/health', (req, res) => {
 const authRoutes = require('./routes/authRoutes');
 const loanRoutes = require('./routes/loanRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
+const adminRoutes = require('./routes/adminRoutes');
 
 app.use('/api/auth', authRoutes);
 app.use('/api/loan', loanRoutes);
 app.use('/api/payment', paymentRoutes);
+app.use('/api/admin', adminRoutes);
 
 app.use((req, res) => {
   res.status(404).json({ error: 'Endpoint not found', path: req.path });

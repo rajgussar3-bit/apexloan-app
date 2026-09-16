@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="hi-IN">
+<html lang="en-IN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
@@ -793,7 +793,7 @@
           startLoginTimer(res.timerSeconds || 30);
           setupLoginOTPInputs();
         } else {
-          alert((res && res.message) || 'OTP bhejne me samasya aayi. Kripya punah prayas karein.');
+          alert((res && res.message) || 'Unable to send OTP. Please try again.');
           btn.innerHTML = '<span>Get Verification Code</span> <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
           btn.disabled = false;
         }
@@ -908,7 +908,7 @@
     function showOtpError(msg) {
       const errEl = document.getElementById('otpErrorMsg');
       if (errEl) {
-        errEl.textContent = '❌ ' + (msg || 'Galat OTP daala gaya hai. Kripya phone par aaya sahi OTP dalein.');
+        errEl.textContent = '❌ ' + (msg || 'Invalid verification code. Please enter the correct 6-digit OTP sent to your phone.');
         errEl.style.display = 'block';
       }
       const tiles = document.querySelectorAll('.otp-tile');
@@ -929,7 +929,7 @@
       tiles.forEach(tile => entered += tile.value);
 
       if (entered.length !== 6) {
-        showOtpError('Kripya pura 6-digit OTP code enter karein.');
+        showOtpError('Please enter the complete 6-digit OTP code.');
         return;
       }
 
@@ -955,7 +955,7 @@
             window.location.href = 'dashboard.html';
           }, 1200);
         } else {
-          showOtpError((res && res.message) || 'Galat OTP daala gaya hai ya expire ho chuka hai. Kripya phone par aaya sahi OTP dalein.');
+          showOtpError((res && res.message) || 'Incorrect or expired OTP. Please enter the valid code sent to your phone.');
           btn.innerHTML = '<span>Verify & Access Account</span> <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
           btn.disabled = false;
         }
