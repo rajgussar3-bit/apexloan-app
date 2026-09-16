@@ -99,6 +99,7 @@ app.use('/api/admin', adminRoutes);
 
 const SettingsStore = require('./data/settingsStore');
 app.get('/api/settings', (req, res) => {
+  res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
   res.json({ success: true, settings: SettingsStore.get() });
 });
 

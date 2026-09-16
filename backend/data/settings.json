@@ -1,6 +1,12 @@
 {
+  "brandName": "Bruno Credits",
+  "lenderName": "Vistas Tecnolabs Finance Limited",
+  "rbiLicense": "B-14.02528",
+  "supportPhone": "1800-209-4321",
+  "supportEmail": "support@brunocredits.in",
   "themeColor": "#0d2b82",
   "themeGradient": "linear-gradient(180deg, #09206d 0%, #0e2f8d 70%, #103bb3 100%)",
+  "accentColor": "#10b981",
   "sanctionCardColor": "#0d2b82",
   "btnColor": "linear-gradient(135deg, #0d2b82 0%, #103bb3 100%)",
   "btnHeight": "52px",
@@ -10,8 +16,58 @@
   "defaultCreditLimit": 50000,
   "interestRate": 24,
   "disbursalFee": 199,
-  "brandName": "Bruno Credits",
-  "lenderName": "Vistas Tecnolabs Finance Limited",
-  "rbiLicense": "B-14.02528",
-  "supportPhone": "1800-209-4321"
+  "step1": {
+    "title": "Personal Information",
+    "subtitle": "Tell us about yourself to check pre-approved loan eligibility",
+    "showLoanSlider": true,
+    "showEmail": true,
+    "showGender": true,
+    "showAddress": true,
+    "btnLabel": "Continue to Work Details →",
+    "btnColor": "#0d2b82",
+    "btnHeight": "52px",
+    "btnRadius": "14px"
+  },
+  "step2": {
+    "title": "Employment & Income",
+    "subtitle": "Provide your work profile for instant credit assessment",
+    "showCompany": true,
+    "showDesignation": true,
+    "showExperience": true,
+    "minSalary": 15000,
+    "btnLabel": "Proceed to KYC Verification →",
+    "btnColor": "#0d2b82",
+    "btnHeight": "52px",
+    "btnRadius": "14px"
+  },
+  "step3": {
+    "title": "KYC Verification",
+    "subtitle": "Paperless instant verification via UIDAI & NSDL",
+    "showPhotoUploads": false,
+    "enableAiScannerHud": true,
+    "btnLabel": "Verify & Check Credit Sanction →",
+    "btnColor": "#0d2b82",
+    "btnHeight": "52px",
+    "btnRadius": "14px"
+  },
+  "step4": {
+    "title": "Bank Details & Sanction Approval",
+    "subtitle": "Direct disbursal into your bank account within 30 minutes",
+    "enablePennyDrop": true,
+    "enableGiftBox": true,
+    "defaultLimit": 50000,
+    "interestRate": 24,
+    "disbursalFee": 199,
+    "btnLabel": "Continue with loan amount",
+    "btnColor": "#0d2b82",
+    "btnHeight": "52px",
+    "btnRadius": "14px"
+  },
+  "dashboard": {
+    "showAnnouncement": true,
+    "announcementText": "⚡ Instant Bank Disbursal is active for all approved borrowers via IMPS / RTGS.",
+    "showKfsButton": true,
+    "showSupportBox": true
+  },
+  "updatedAt": "2026-09-16T16:41:41.658Z"
 }

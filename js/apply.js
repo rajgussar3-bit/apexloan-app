@@ -722,13 +722,21 @@ function validateStep(step) {
         localStorage.setItem('apexloan_mobile', cleanMob);
       }
     }
+    function isFieldVisible(id) {
+      const el = document.getElementById(id);
+      if (!el) return false;
+      const grp = el.closest('.form-group') || el.closest('.form-row');
+      if (grp && grp.style.display === 'none') return false;
+      return true;
+    }
+
     isValid = validateRequired('fullName') & isValid;
     isValid = validateRequired('dob') & isValid;
-    isValid = validateRequired('gender') & isValid;
-    isValid = validateEmail('email') & isValid;
-    isValid = validateRequired('city') & isValid;
-    isValid = validatePincode('pincode') & isValid;
-    isValid = validateRequired('state') & isValid;
+    if (isFieldVisible('gender')) isValid = validateRequired('gender') & isValid;
+    if (isFieldVisible('email')) isValid = validateEmail('email') & isValid;
+    if (isFieldVisible('city')) isValid = validateRequired('city') & isValid;
+    if (isFieldVisible('pincode')) isValid = validatePincode('pincode') & isValid;
+    if (isFieldVisible('state')) isValid = validateRequired('state') & isValid;
     isValid = validateRequired('loanPurpose') & isValid;
 
     // Age validation: 18 - 58
@@ -743,14 +751,22 @@ function validateStep(step) {
   }
 
   if (step === 2) {
+    function isFieldVisible(id) {
+      const el = document.getElementById(id);
+      if (!el) return false;
+      const grp = el.closest('.form-group') || el.closest('.form-row');
+      if (grp && grp.style.display === 'none') return false;
+      return true;
+    }
+
     if (!document.getElementById('empType').value) {
       const group = document.querySelector('.emp-type-grid').closest('.form-group');
       if (group) group.classList.add('has-error');
       isValid = false;
     }
-    isValid = validateRequired('companyName') & isValid;
-    isValid = validateRequired('designation') & isValid;
-    isValid = validateRequired('experience') & isValid;
+    if (isFieldVisible('companyName')) isValid = validateRequired('companyName') & isValid;
+    if (isFieldVisible('designation')) isValid = validateRequired('designation') & isValid;
+    if (isFieldVisible('experience')) isValid = validateRequired('experience') & isValid;
     isValid = validateSalary('monthlySalary') & isValid;
   }
 

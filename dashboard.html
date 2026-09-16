@@ -1093,8 +1093,14 @@
         </div>
       </div>
 
-      <!-- Main Dashboard Content -->
+            <!-- Main Dashboard Content -->
       <div class="dash-content">
+
+        <!-- Live Operations Announcement Banner (Managed by Admin Customizer) -->
+        <div id="dashAnnouncementBanner" style="display: flex; align-items: center; gap: 10px; background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(59, 130, 246, 0.1)); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 12px; padding: 12px 16px; margin-bottom: 16px; color: #10b981; font-weight: 700; font-size: 13px;">
+          <span style="font-size: 18px;">⚡</span>
+          <span id="dashAnnouncementText">Instant Bank Disbursal is active for all approved borrowers via IMPS / RTGS.</span>
+        </div>
 
         <!-- Trending Strip (Photo 5) -->
         <div class="trending-strip-card" onclick="handleTrendingClick()">
@@ -1824,5 +1830,6 @@
     }
   </script>
 
+  <script src="js/settingsApplier.js"></script>
 </body>
 </html>

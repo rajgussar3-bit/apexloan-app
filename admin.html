@@ -573,6 +573,65 @@
       to { transform: translateY(0); opacity: 1; }
     }
   </style>
+
+  <style>
+    /* Phase & Feature Customizer Styles */
+    .subtab-btn {
+      padding: 8px 16px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 12.5px;
+      cursor: pointer;
+      border: 1px solid #334155;
+      background: #1e293b;
+      color: #94a3b8;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .subtab-btn.active {
+      background: #3b82f6;
+      border-color: #60a5fa;
+      color: #ffffff;
+    }
+    .ctrl-label {
+      font-size: 12px;
+      font-weight: 800;
+      color: #f1f5f9;
+      display: block;
+      margin-bottom: 5px;
+    }
+    .toggle-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      color: #cbd5e1;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .toggle-row input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+      accent-color: #10b981;
+    }
+    .phase-pill-btn {
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 800;
+      border: 1px solid #334155;
+      background: #1e293b;
+      color: #94a3b8;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .phase-pill-btn.active {
+      background: #1d4ed8;
+      border-color: #3b82f6;
+      color: #ffffff;
+    }
+  </style>
 </head>
 <body class="admin-body">
 
@@ -725,41 +784,291 @@
         </div>
       </div>
 
-      <!-- VIEW 2: APP & SANCTION CUSTOMIZER -->
+            <!-- VIEW 2: APP & SANCTION CUSTOMIZER (FULL PHASE & FEATURE STUDIO) -->
       <div id="viewCustomizer" style="display: none;">
+        <!-- Studio Inner Sub-Navigation -->
+        <div style="display: flex; gap: 8px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 8px;" class="customizer-subnav">
+          <button type="button" id="subtabGlobal" onclick="switchCustomizerTab('global')" class="subtab-btn active">🏢 Branding & Theme</button>
+          <button type="button" id="subtabStep1" onclick="switchCustomizerTab('step1')" class="subtab-btn">👤 Phase 1: Personal</button>
+          <button type="button" id="subtabStep2" onclick="switchCustomizerTab('step2')" class="subtab-btn">💼 Phase 2: Employment</button>
+          <button type="button" id="subtabStep3" onclick="switchCustomizerTab('step3')" class="subtab-btn">🪪 Phase 3: KYC & Docs</button>
+          <button type="button" id="subtabStep4" onclick="switchCustomizerTab('step4')" class="subtab-btn">🏛️ Phase 4: Bank & Sanction</button>
+          <button type="button" id="subtabDash" onclick="switchCustomizerTab('dash')" class="subtab-btn">📊 Customer Dashboard</button>
+        </div>
+
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 24px; align-items: start;">
-          <!-- Left Column: Controls -->
+          <!-- Left Column: Phase Controls -->
           <div style="background: var(--admin-card-bg); border: 1px solid var(--admin-border); border-radius: 16px; padding: 24px;">
-            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; border-bottom: 1px solid var(--admin-border); padding-bottom: 14px;">
-              <div>
-                <h2 style="font-size: 18px; font-weight: 800; color: #ffffff; margin: 0 0 4px;">System & Sanction Customizer</h2>
-                <div style="font-size: 12px; color: var(--admin-text-muted);">Configure sanction card styling, button sizes, colors and default loan limits</div>
+
+            <!-- ==================== PANEL 1: GLOBAL BRANDING & THEME ==================== -->
+            <div id="panelGlobal" class="customizer-panel">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; border-bottom: 1px solid var(--admin-border); padding-bottom: 12px;">
+                <div>
+                  <h3 style="font-size: 17px; font-weight: 800; color: #ffffff; margin: 0 0 4px;">🏢 App Branding & Global Theme</h3>
+                  <div style="font-size: 12px; color: var(--admin-text-muted);">Change app name, lender name, support coordinates and global colors</div>
+                </div>
+                <span style="background: rgba(16, 185, 129, 0.15); color: #34d399; font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 6px;">GLOBAL</span>
               </div>
-              <span style="background: rgba(16, 185, 129, 0.15); color: #34d399; font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 6px;">LIVE REAL-TIME</span>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px;">
+                <div>
+                  <label class="ctrl-label">App / Brand Name</label>
+                  <input type="text" id="cfgBrandName" class="admin-input" value="Bruno Credits" oninput="updateLivePreview()">
+                </div>
+                <div>
+                  <label class="ctrl-label">RBI License No.</label>
+                  <input type="text" id="cfgRbiLicense" class="admin-input" value="B-14.02528">
+                </div>
+              </div>
+
+              <div style="margin-bottom: 16px;">
+                <label class="ctrl-label">Regulated NBFC Partner Name</label>
+                <input type="text" id="cfgLenderName" class="admin-input" value="Vistas Tecnolabs Finance Limited" oninput="updateLivePreview()">
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 18px;">
+                <div>
+                  <label class="ctrl-label">Customer Support Phone</label>
+                  <input type="text" id="cfgPhone" class="admin-input" value="1800-209-4321">
+                </div>
+                <div>
+                  <label class="ctrl-label">Support Email Address</label>
+                  <input type="email" id="cfgSupportEmail" class="admin-input" value="support@brunocredits.in">
+                </div>
+              </div>
+
+              <div style="margin-bottom: 18px;">
+                <label class="ctrl-label">Primary Theme Color & Presets</label>
+                <div style="display: flex; gap: 8px; margin-bottom: 10px; flex-wrap: wrap;">
+                  <button type="button" onclick="setThemePreset('#0d2b82')" style="background: #0d2b82; color: #fff; border: 1.5px solid #3b82f6; border-radius: 8px; padding: 6px 12px; font-size: 11px; font-weight: 800; cursor: pointer;">Cobalt Blue</button>
+                  <button type="button" onclick="setThemePreset('#059669')" style="background: #059669; color: #fff; border: 1px solid #10b981; border-radius: 8px; padding: 6px 12px; font-size: 11px; font-weight: 800; cursor: pointer;">Emerald Green</button>
+                  <button type="button" onclick="setThemePreset('#0f172a')" style="background: #0f172a; color: #fff; border: 1px solid #475569; border-radius: 8px; padding: 6px 12px; font-size: 11px; font-weight: 800; cursor: pointer;">Dark Slate</button>
+                  <button type="button" onclick="setThemePreset('#4338ca')" style="background: #4338ca; color: #fff; border: 1px solid #6366f1; border-radius: 8px; padding: 6px 12px; font-size: 11px; font-weight: 800; cursor: pointer;">Royal Indigo</button>
+                  <button type="button" onclick="setThemePreset('#991b1b')" style="background: #991b1b; color: #fff; border: 1px solid #ef4444; border-radius: 8px; padding: 6px 12px; font-size: 11px; font-weight: 800; cursor: pointer;">Crimson Red</button>
+                </div>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                  <input type="color" id="cfgSanctionColor" value="#0d2b82" onchange="updateLivePreview()" style="width: 44px; height: 38px; border: none; border-radius: 8px; cursor: pointer; background: transparent;">
+                  <input type="text" id="cfgSanctionColorHex" value="#0d2b82" oninput="onHexInputChange(this.value)" class="admin-input" style="font-family: monospace; font-weight: 700; width: 140px;">
+                </div>
+              </div>
             </div>
 
-            <!-- 1. Sanction Card Theme & Accent Color -->
-            <div style="margin-bottom: 22px;">
-              <label style="font-size: 13px; font-weight: 800; color: #f1f5f9; display: block; margin-bottom: 8px;">1. Sanction Card Theme Color</label>
-              <div style="display: flex; gap: 8px; margin-bottom: 10px; flex-wrap: wrap;">
-                <button type="button" onclick="setThemePreset('#0d2b82')" style="background: #0d2b82; color: #fff; border: 1.5px solid #3b82f6; border-radius: 8px; padding: 6px 12px; font-size: 11px; font-weight: 800; cursor: pointer;">Cobalt Blue</button>
-                <button type="button" onclick="setThemePreset('#059669')" style="background: #059669; color: #fff; border: 1px solid #10b981; border-radius: 8px; padding: 6px 12px; font-size: 11px; font-weight: 800; cursor: pointer;">Emerald Green</button>
-                <button type="button" onclick="setThemePreset('#0f172a')" style="background: #0f172a; color: #fff; border: 1px solid #475569; border-radius: 8px; padding: 6px 12px; font-size: 11px; font-weight: 800; cursor: pointer;">Dark Slate</button>
-                <button type="button" onclick="setThemePreset('#4338ca')" style="background: #4338ca; color: #fff; border: 1px solid #6366f1; border-radius: 8px; padding: 6px 12px; font-size: 11px; font-weight: 800; cursor: pointer;">Royal Indigo</button>
-                <button type="button" onclick="setThemePreset('#991b1b')" style="background: #991b1b; color: #fff; border: 1px solid #ef4444; border-radius: 8px; padding: 6px 12px; font-size: 11px; font-weight: 800; cursor: pointer;">Crimson Red</button>
+            <!-- ==================== PANEL 2: PHASE 1 (PERSONAL INFO) ==================== -->
+            <div id="panelStep1" class="customizer-panel" style="display: none;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; border-bottom: 1px solid var(--admin-border); padding-bottom: 12px;">
+                <div>
+                  <h3 style="font-size: 17px; font-weight: 800; color: #ffffff; margin: 0 0 4px;">👤 Phase 1: Personal Information</h3>
+                  <div style="font-size: 12px; color: var(--admin-text-muted);">Configure fields, header text, and button for Step 1</div>
+                </div>
+                <span style="background: rgba(59, 130, 246, 0.15); color: #60a5fa; font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 6px;">STEP 1</span>
               </div>
-              <div style="display: flex; align-items: center; gap: 10px;">
-                <input type="color" id="cfgSanctionColor" value="#0d2b82" onchange="updateLivePreview()" style="width: 44px; height: 38px; border: none; border-radius: 8px; cursor: pointer; background: transparent;">
-                <input type="text" id="cfgSanctionColorHex" value="#0d2b82" oninput="onHexInputChange(this.value)" class="admin-input" style="font-family: monospace; font-weight: 700; width: 140px;">
+
+              <div style="margin-bottom: 14px;">
+                <label class="ctrl-label">Phase 1 Title</label>
+                <input type="text" id="cfgStep1Title" class="admin-input" value="Personal Information" oninput="updateLivePreview()">
+              </div>
+              <div style="margin-bottom: 18px;">
+                <label class="ctrl-label">Phase 1 Subtitle</label>
+                <input type="text" id="cfgStep1Subtitle" class="admin-input" value="Tell us about yourself to check pre-approved loan eligibility" oninput="updateLivePreview()">
+              </div>
+
+              <div style="background: #0f172a; border: 1px solid var(--admin-border); border-radius: 12px; padding: 14px; margin-bottom: 18px;">
+                <div style="font-size: 12px; font-weight: 800; color: #94a3b8; text-transform: uppercase; margin-bottom: 10px;">Field Visibility Toggles</div>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                  <label class="toggle-row">
+                    <span>Desired Loan Amount & EMI Slider</span>
+                    <input type="checkbox" id="cfgStep1ShowSlider" checked onchange="updateLivePreview()">
+                  </label>
+                  <label class="toggle-row">
+                    <span>Email Address Input Field</span>
+                    <input type="checkbox" id="cfgStep1ShowEmail" checked onchange="updateLivePreview()">
+                  </label>
+                  <label class="toggle-row">
+                    <span>Gender Selection Field</span>
+                    <input type="checkbox" id="cfgStep1ShowGender" checked onchange="updateLivePreview()">
+                  </label>
+                  <label class="toggle-row">
+                    <span>Residential City, State & Pincode</span>
+                    <input type="checkbox" id="cfgStep1ShowAddress" checked onchange="updateLivePreview()">
+                  </label>
+                </div>
+              </div>
+
+              <div style="border-top: 1px solid var(--admin-border); padding-top: 14px; margin-bottom: 14px;">
+                <label class="ctrl-label">Step 1 Action Button CTA Text</label>
+                <input type="text" id="cfgStep1BtnLabel" class="admin-input" value="Continue to Work Details →" oninput="updateLivePreview()">
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                <div>
+                  <label class="ctrl-label">Button Height</label>
+                  <select id="cfgStep1BtnHeight" class="admin-select" onchange="updateLivePreview()">
+                    <option value="46px">Compact (46px)</option>
+                    <option value="52px" selected>Standard (52px)</option>
+                    <option value="60px">Large Bold (60px)</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="ctrl-label">Corner Radius</label>
+                  <select id="cfgStep1BtnRadius" class="admin-select" onchange="updateLivePreview()">
+                    <option value="8px">Subtle (8px)</option>
+                    <option value="14px" selected>Modern (14px)</option>
+                    <option value="9999px">Pill / Capsule</option>
+                  </select>
+                </div>
               </div>
             </div>
 
-            <!-- 2. Action Button Size & Border Radius -->
-            <div style="margin-bottom: 22px;">
-              <label style="font-size: 13px; font-weight: 800; color: #f1f5f9; display: block; margin-bottom: 8px;">2. Action Button Sizing & Shape</label>
+            <!-- ==================== PANEL 3: PHASE 2 (EMPLOYMENT & INCOME) ==================== -->
+            <div id="panelStep2" class="customizer-panel" style="display: none;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; border-bottom: 1px solid var(--admin-border); padding-bottom: 12px;">
+                <div>
+                  <h3 style="font-size: 17px; font-weight: 800; color: #ffffff; margin: 0 0 4px;">💼 Phase 2: Employment & Income</h3>
+                  <div style="font-size: 12px; color: var(--admin-text-muted);">Configure employment fields, salary threshold, and buttons</div>
+                </div>
+                <span style="background: rgba(59, 130, 246, 0.15); color: #60a5fa; font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 6px;">STEP 2</span>
+              </div>
+
+              <div style="margin-bottom: 14px;">
+                <label class="ctrl-label">Phase 2 Title</label>
+                <input type="text" id="cfgStep2Title" class="admin-input" value="Employment & Income" oninput="updateLivePreview()">
+              </div>
+              <div style="margin-bottom: 18px;">
+                <label class="ctrl-label">Phase 2 Subtitle</label>
+                <input type="text" id="cfgStep2Subtitle" class="admin-input" value="Provide your work profile for instant credit assessment" oninput="updateLivePreview()">
+              </div>
+
+              <div style="background: #0f172a; border: 1px solid var(--admin-border); border-radius: 12px; padding: 14px; margin-bottom: 18px;">
+                <div style="font-size: 12px; font-weight: 800; color: #94a3b8; text-transform: uppercase; margin-bottom: 10px;">Field Visibility Toggles</div>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                  <label class="toggle-row">
+                    <span>Company Name Field</span>
+                    <input type="checkbox" id="cfgStep2ShowCompany" checked onchange="updateLivePreview()">
+                  </label>
+                  <label class="toggle-row">
+                    <span>Designation / Role Field</span>
+                    <input type="checkbox" id="cfgStep2ShowDesignation" checked onchange="updateLivePreview()">
+                  </label>
+                  <label class="toggle-row">
+                    <span>Total Experience Dropdown</span>
+                    <input type="checkbox" id="cfgStep2ShowExperience" checked onchange="updateLivePreview()">
+                  </label>
+                </div>
+              </div>
+
+              <div style="margin-bottom: 18px;">
+                <label class="ctrl-label">Minimum Monthly Salary Requirement (₹)</label>
+                <input type="number" id="cfgStep2MinSalary" class="admin-input" value="15000" step="1000">
+              </div>
+
+              <div style="border-top: 1px solid var(--admin-border); padding-top: 14px; margin-bottom: 14px;">
+                <label class="ctrl-label">Step 2 Action Button CTA Text</label>
+                <input type="text" id="cfgStep2BtnLabel" class="admin-input" value="Proceed to KYC Verification →" oninput="updateLivePreview()">
+              </div>
+            </div>
+
+            <!-- ==================== PANEL 4: PHASE 3 (KYC & VERIFICATION) ==================== -->
+            <div id="panelStep3" class="customizer-panel" style="display: none;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; border-bottom: 1px solid var(--admin-border); padding-bottom: 12px;">
+                <div>
+                  <h3 style="font-size: 17px; font-weight: 800; color: #ffffff; margin: 0 0 4px;">🪪 Phase 3: KYC & Verification</h3>
+                  <div style="font-size: 12px; color: var(--admin-text-muted);">Configure Aadhaar, PAN, photo uploads and AI Scanner HUD</div>
+                </div>
+                <span style="background: rgba(59, 130, 246, 0.15); color: #60a5fa; font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 6px;">STEP 3</span>
+              </div>
+
+              <div style="margin-bottom: 14px;">
+                <label class="ctrl-label">Phase 3 Title</label>
+                <input type="text" id="cfgStep3Title" class="admin-input" value="Digital KYC Verification" oninput="updateLivePreview()">
+              </div>
+              <div style="margin-bottom: 18px;">
+                <label class="ctrl-label">Phase 3 Subtitle</label>
+                <input type="text" id="cfgStep3Subtitle" class="admin-input" value="Paperless Aadhaar & PAN verification for instant credit sanction" oninput="updateLivePreview()">
+              </div>
+
+              <div style="background: #0f172a; border: 1px solid var(--admin-border); border-radius: 12px; padding: 14px; margin-bottom: 18px;">
+                <div style="font-size: 12px; font-weight: 800; color: #94a3b8; text-transform: uppercase; margin-bottom: 10px;">KYC Feature & Upload Toggles</div>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                  <label class="toggle-row">
+                    <span>Show Document Photo Upload Boxes (Aadhaar & PAN)</span>
+                    <input type="checkbox" id="cfgStep3ShowPhotos" onchange="updateLivePreview()">
+                  </label>
+                  <label class="toggle-row">
+                    <span>Enable 3-Second High-Tech AI KYC Scanner HUD</span>
+                    <input type="checkbox" id="cfgStep3AiScanner" checked onchange="updateLivePreview()">
+                  </label>
+                </div>
+              </div>
+
+              <div style="border-top: 1px solid var(--admin-border); padding-top: 14px; margin-bottom: 14px;">
+                <label class="ctrl-label">Step 3 Action Button CTA Text</label>
+                <input type="text" id="cfgStep3BtnLabel" class="admin-input" value="Verify & Check Credit Sanction →" oninput="updateLivePreview()">
+              </div>
+            </div>
+
+            <!-- ==================== PANEL 5: PHASE 4 (BANK & SANCTION) ==================== -->
+            <div id="panelStep4" class="customizer-panel" style="display: none;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; border-bottom: 1px solid var(--admin-border); padding-bottom: 12px;">
+                <div>
+                  <h3 style="font-size: 17px; font-weight: 800; color: #ffffff; margin: 0 0 4px;">🏛️ Phase 4: Bank Details & Sanction</h3>
+                  <div style="font-size: 12px; color: var(--admin-text-muted);">Configure sanction card, credit limit, interest, fee & button</div>
+                </div>
+                <span style="background: rgba(16, 185, 129, 0.15); color: #34d399; font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 6px;">STEP 4</span>
+              </div>
+
+              <div style="margin-bottom: 14px;">
+                <label class="ctrl-label">Phase 4 Title</label>
+                <input type="text" id="cfgStep4Title" class="admin-input" value="Bank Verification & Loan Sanction" oninput="updateLivePreview()">
+              </div>
+              <div style="margin-bottom: 18px;">
+                <label class="ctrl-label">Phase 4 Subtitle</label>
+                <input type="text" id="cfgStep4Subtitle" class="admin-input" value="Enter bank account where your approved loan funds will be disbursed" oninput="updateLivePreview()">
+              </div>
+
+              <div style="background: #0f172a; border: 1px solid var(--admin-border); border-radius: 12px; padding: 14px; margin-bottom: 18px;">
+                <div style="font-size: 12px; font-weight: 800; color: #94a3b8; text-transform: uppercase; margin-bottom: 10px;">Interactive Feature Toggles</div>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                  <label class="toggle-row">
+                    <span>Enable NPCI Penny Drop 3-Stage Animation</span>
+                    <input type="checkbox" id="cfgStep4PennyDrop" checked onchange="updateLivePreview()">
+                  </label>
+                  <label class="toggle-row">
+                    <span>Enable Celebratory Gift Box Reveal Animation</span>
+                    <input type="checkbox" id="cfgStep4GiftBox" checked onchange="updateLivePreview()">
+                  </label>
+                </div>
+              </div>
+
+              <!-- Financial Parameters -->
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 18px;">
+                <div>
+                  <label class="ctrl-label">Default Credit Limit (₹)</label>
+                  <input type="number" id="cfgDefaultLimit" class="admin-input" value="50000" step="1000" oninput="updateLivePreview()">
+                </div>
+                <div>
+                  <label class="ctrl-label">Interest Rate (% p.a.)</label>
+                  <input type="number" id="cfgInterestRate" class="admin-input" value="24" step="0.5" oninput="updateLivePreview()">
+                </div>
+                <div>
+                  <label class="ctrl-label">Disbursal Fee (₹)</label>
+                  <input type="number" id="cfgDisbursalFee" class="admin-input" value="199" step="50" oninput="updateLivePreview()">
+                </div>
+                <div>
+                  <label class="ctrl-label">Sanction Hero Color</label>
+                  <div style="display: flex; align-items: center; gap: 6px;">
+                    <input type="color" id="cfgHeroColor" value="#0d2b82" onchange="updateLivePreview()" style="width: 36px; height: 36px; border: none; border-radius: 6px; cursor: pointer; background: transparent;">
+                    <input type="text" id="cfgHeroColorHex" value="#0d2b82" oninput="onHeroHexChange(this.value)" class="admin-input" style="font-family: monospace; font-size: 11px;">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Sanction Action Button -->
+              <div style="border-top: 1px solid var(--admin-border); padding-top: 14px; margin-bottom: 14px;">
+                <label class="ctrl-label">Sanction Action Button CTA Text</label>
+                <input type="text" id="cfgBtnLabel" class="admin-input" value="Continue with loan amount" oninput="updateLivePreview()">
+              </div>
               <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
                 <div>
-                  <span style="font-size: 11px; color: #94a3b8; display: block; margin-bottom: 4px;">Button Height / Size</span>
+                  <label class="ctrl-label">Button Height</label>
                   <select id="cfgBtnHeight" class="admin-select" onchange="updateLivePreview()">
                     <option value="46px">Compact (46px)</option>
                     <option value="52px" selected>Standard (52px)</option>
@@ -767,7 +1076,7 @@
                   </select>
                 </div>
                 <div>
-                  <span style="font-size: 11px; color: #94a3b8; display: block; margin-bottom: 4px;">Corner Radius</span>
+                  <label class="ctrl-label">Corner Radius</label>
                   <select id="cfgBtnRadius" class="admin-select" onchange="updateLivePreview()">
                     <option value="8px">Subtle Rounded (8px)</option>
                     <option value="14px" selected>Modern Fintech (14px)</option>
@@ -775,98 +1084,209 @@
                   </select>
                 </div>
               </div>
-
-              <!-- Button Color & Text -->
-              <div style="margin-bottom: 12px;">
-                <span style="font-size: 11px; color: #94a3b8; display: block; margin-bottom: 4px;">Button Background Color</span>
+              <div>
+                <label class="ctrl-label">Button Background Color</label>
                 <div style="display: flex; align-items: center; gap: 10px;">
                   <input type="color" id="cfgBtnColor" value="#0d2b82" onchange="updateLivePreview()" style="width: 44px; height: 38px; border: none; border-radius: 8px; cursor: pointer; background: transparent;">
                   <input type="text" id="cfgBtnColorHex" value="#0d2b82" oninput="onBtnHexChange(this.value)" class="admin-input" style="font-family: monospace; font-weight: 700; width: 140px;">
                 </div>
               </div>
+            </div>
 
-              <div>
-                <span style="font-size: 11px; color: #94a3b8; display: block; margin-bottom: 4px;">Button CTA Label</span>
-                <input type="text" id="cfgBtnLabel" class="admin-input" value="Continue with loan amount" oninput="updateLivePreview()" placeholder="e.g. Continue with loan amount">
+            <!-- ==================== PANEL 6: DASHBOARD & LIVE BANNERS ==================== -->
+            <div id="panelDash" class="customizer-panel" style="display: none;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; border-bottom: 1px solid var(--admin-border); padding-bottom: 12px;">
+                <div>
+                  <h3 style="font-size: 17px; font-weight: 800; color: #ffffff; margin: 0 0 4px;">📊 Customer Dashboard & Banners</h3>
+                  <div style="font-size: 12px; color: var(--admin-text-muted);">Configure live customer announcement banner and feature cards</div>
+                </div>
+                <span style="background: rgba(16, 185, 129, 0.15); color: #34d399; font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 6px;">PORTAL</span>
+              </div>
+
+              <div style="background: #0f172a; border: 1px solid var(--admin-border); border-radius: 12px; padding: 14px; margin-bottom: 18px;">
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                  <label class="toggle-row">
+                    <span>Show Live Announcement Banner on Dashboard</span>
+                    <input type="checkbox" id="cfgDashShowAnnouncement" checked onchange="updateLivePreview()">
+                  </label>
+                  <label class="toggle-row">
+                    <span>Show RBI Key Fact Statement (KFS) Button</span>
+                    <input type="checkbox" id="cfgDashShowKfs" checked onchange="updateLivePreview()">
+                  </label>
+                  <label class="toggle-row">
+                    <span>Show Customer Support & Escalation Card</span>
+                    <input type="checkbox" id="cfgDashShowSupport" checked onchange="updateLivePreview()">
+                  </label>
+                </div>
+              </div>
+
+              <div style="margin-bottom: 16px;">
+                <label class="ctrl-label">Announcement Banner Text</label>
+                <input type="text" id="cfgDashAnnouncementText" class="admin-input" value="⚡ Instant Bank Disbursal is active for all approved borrowers via IMPS / RTGS." oninput="updateLivePreview()">
               </div>
             </div>
 
-            <!-- 3. Default Loan Sanction Parameters -->
-            <div style="margin-bottom: 22px;">
-              <label style="font-size: 13px; font-weight: 800; color: #f1f5f9; display: block; margin-bottom: 8px;">3. Global Credit Sanction Limits</label>
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-                <div>
-                  <span style="font-size: 11px; color: #94a3b8; display: block; margin-bottom: 4px;">Default Approved Limit (₹)</span>
-                  <input type="number" id="cfgDefaultLimit" class="admin-input" value="50000" step="1000" oninput="updateLivePreview()">
-                </div>
-                <div>
-                  <span style="font-size: 11px; color: #94a3b8; display: block; margin-bottom: 4px;">Interest Rate (% p.a.)</span>
-                  <input type="number" id="cfgInterestRate" class="admin-input" value="24" step="0.5">
-                </div>
-                <div>
-                  <span style="font-size: 11px; color: #94a3b8; display: block; margin-bottom: 4px;">Disbursal Fee (₹)</span>
-                  <input type="number" id="cfgDisbursalFee" class="admin-input" value="199" step="50">
-                </div>
-                <div>
-                  <span style="font-size: 11px; color: #94a3b8; display: block; margin-bottom: 4px;">Helpline Phone</span>
-                  <input type="text" id="cfgPhone" class="admin-input" value="1800-209-4321">
-                </div>
-              </div>
-            </div>
-
-            <button type="button" class="btn-submit-save" id="btnSaveSystemSettings" onclick="saveSystemCustomization()" style="width: 100%; margin-top: 10px;">
-              💾 Save Changes & Apply Live to Customer App
+            <!-- Save Action Button -->
+            <button type="button" class="btn-submit-save" id="btnSaveSystemSettings" onclick="saveSystemCustomization()" style="width: 100%; margin-top: 18px; font-size: 15px; padding: 15px;">
+              💾 Save All Changes & Reflect Instantly on Live App
             </button>
           </div>
 
-          <!-- Right Column: Live Mockup Preview -->
+          <!-- Right Column: Interactive Multi-Phase Mobile Mockup -->
           <div style="background: var(--admin-card-bg); border: 1px solid var(--admin-border); border-radius: 16px; padding: 24px;">
             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
               <h3 style="font-size: 16px; font-weight: 800; color: #ffffff; margin: 0;">Live Customer App Preview</h3>
-              <span style="font-size: 11px; color: #64748b;">Live Preview of /apply</span>
+              <div style="display: flex; gap: 4px;" class="preview-phase-pills">
+                <button type="button" onclick="setPreviewPhase('step1')" id="prevTabStep1" class="phase-pill-btn">Step 1</button>
+                <button type="button" onclick="setPreviewPhase('step2')" id="prevTabStep2" class="phase-pill-btn">Step 2</button>
+                <button type="button" onclick="setPreviewPhase('step3')" id="prevTabStep3" class="phase-pill-btn">Step 3</button>
+                <button type="button" onclick="setPreviewPhase('step4')" id="prevTabStep4" class="phase-pill-btn active">Step 4</button>
+                <button type="button" onclick="setPreviewPhase('dash')" id="prevTabDash" class="phase-pill-btn">Dash</button>
+              </div>
             </div>
 
-            <!-- Preview Card -->
-            <div id="mockupSanctionCard" style="max-width: 420px; margin: 0 auto; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); background: #ffffff; color: #0f172a;">
-              <!-- Mockup Hero -->
-              <div id="mockupHeroTop" style="background: #0d2b82; padding: 22px; color: #ffffff; text-align: center; transition: background 0.2s;">
-                <div style="font-size: 12px; font-weight: 700; opacity: 0.85; text-transform: uppercase; letter-spacing: 0.5px;">Approved limit</div>
-                <div id="mockupLimitAmount" style="font-size: 32px; font-weight: 900; margin-top: 4px; letter-spacing: -0.5px;">₹ 50,000</div>
+            <!-- Phone Frame -->
+            <div style="max-width: 400px; margin: 0 auto; border: 8px solid #334155; border-radius: 36px; overflow: hidden; background: #0f172a; box-shadow: 0 20px 40px rgba(0,0,0,0.6);">
+              <!-- Phone Status Bar -->
+              <div style="background: #1e293b; padding: 8px 16px; display: flex; justify-content: space-between; align-items: center; font-size: 10px; color: #94a3b8; font-weight: 700;">
+                <span id="mockupClock">9:41 AM</span>
+                <span id="mockupBrandTag" style="color: #60a5fa;">Bruno Credits</span>
+                <span>●●● 5G 100%</span>
               </div>
-              <!-- Mockup Body -->
-              <div style="padding: 20px;">
-                <label style="font-size: 12px; font-weight: 800; color: #334155; display: block; margin-bottom: 6px;">Choose your Loan amount</label>
-                <div id="mockupSelectAmount" style="border: 1.5px solid #cbd5e1; border-radius: 10px; padding: 10px 14px; font-weight: 800; font-size: 14px; color: #0f172a; margin-bottom: 14px;">
-                  ₹ 50,000
+
+              <!-- Phone Content Container -->
+              <div style="padding: 16px; min-height: 480px; background: #0f172a; color: #ffffff;">
+
+                <!-- PREVIEW: STEP 1 (PERSONAL) -->
+                <div id="mockupViewStep1" style="display: none;">
+                  <div style="text-align: center; margin-bottom: 14px;">
+                    <div id="mockStep1Title" style="font-weight: 800; font-size: 16px; color: #ffffff;">Personal Information</div>
+                    <div id="mockStep1Subtitle" style="font-size: 11px; color: #94a3b8; margin-top: 3px;">Tell us about yourself to check pre-approved loan eligibility</div>
+                  </div>
+                  <div style="background: #1e293b; border-radius: 12px; padding: 14px; margin-bottom: 12px; font-size: 12px;">
+                    <div style="color: #94a3b8; font-size: 11px; margin-bottom: 4px;">Mobile Number</div>
+                    <div style="font-weight: 700; color: #ffffff; font-family: monospace;">+91 98112 23344 ✓</div>
+                  </div>
+                  <div id="mockStep1EmailBox" style="background: #1e293b; border-radius: 12px; padding: 14px; margin-bottom: 12px; font-size: 12px;">
+                    <div style="color: #94a3b8; font-size: 11px; margin-bottom: 4px;">Email Address</div>
+                    <div style="color: #cbd5e1;">user@example.com</div>
+                  </div>
+                  <div id="mockStep1CalcBox" style="background: #1e293b; border-radius: 12px; padding: 14px; margin-bottom: 14px; text-align: center;">
+                    <div style="font-size: 11px; color: #94a3b8;">Desired Loan Amount</div>
+                    <div style="font-size: 20px; font-weight: 900; color: #38bdf8; margin: 4px 0;">₹ 50,000</div>
+                    <div style="font-size: 11px; color: #94a3b8;">~₹4,497/mo (12 Months)</div>
+                  </div>
+                  <button type="button" id="mockStep1Btn" style="width: 100%; height: 52px; background: #0d2b82; color: #ffffff; border: none; border-radius: 14px; font-weight: 800; font-size: 14px;">
+                    Continue to Work Details →
+                  </button>
                 </div>
 
-                <label style="font-size: 12px; font-weight: 800; color: #334155; display: block; margin-bottom: 6px;">Choose EMI's plan</label>
-                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 16px;">
-                  <div style="border: 1px solid #e2e8f0; border-radius: 10px; padding: 8px 4px; text-align: center;">
-                    <div style="font-size: 11px; font-weight: 700; color: #64748b;">6 Months</div>
-                    <div style="font-size: 11.5px; font-weight: 800; color: #0f172a; margin-top: 2px;">₹9,120/mo</div>
+                <!-- PREVIEW: STEP 2 (EMPLOYMENT) -->
+                <div id="mockupViewStep2" style="display: none;">
+                  <div style="text-align: center; margin-bottom: 14px;">
+                    <div id="mockStep2Title" style="font-weight: 800; font-size: 16px; color: #ffffff;">Employment & Income</div>
+                    <div id="mockStep2Subtitle" style="font-size: 11px; color: #94a3b8; margin-top: 3px;">Provide your work profile for instant credit assessment</div>
                   </div>
-                  <div id="mockupActiveEmiPill" style="border: 1.5px solid #0d2b82; background: #eff6ff; border-radius: 10px; padding: 8px 4px; text-align: center;">
-                    <div style="font-size: 11px; font-weight: 800; color: #0d2b82;">9 Months</div>
-                    <div style="font-size: 11.5px; font-weight: 800; color: #0d2b82; margin-top: 2px;">₹6,249/mo</div>
+                  <div style="background: #1e293b; border-radius: 12px; padding: 14px; margin-bottom: 12px;">
+                    <div style="color: #94a3b8; font-size: 11px; margin-bottom: 4px;">Employment Type</div>
+                    <div style="color: #34d399; font-weight: 700; font-size: 13px;">Salaried Professional</div>
                   </div>
-                  <div style="border: 1px solid #e2e8f0; border-radius: 10px; padding: 8px 4px; text-align: center;">
-                    <div style="font-size: 11px; font-weight: 700; color: #64748b;">12 Months</div>
-                    <div style="font-size: 11.5px; font-weight: 800; color: #0f172a; margin-top: 2px;">₹5,000/mo</div>
+                  <div id="mockStep2CompanyBox" style="background: #1e293b; border-radius: 12px; padding: 14px; margin-bottom: 12px;">
+                    <div style="color: #94a3b8; font-size: 11px; margin-bottom: 4px;">Company / Employer</div>
+                    <div style="color: #ffffff; font-weight: 700; font-size: 13px;">Infosys BPM Ltd</div>
+                  </div>
+                  <div style="background: #1e293b; border-radius: 12px; padding: 14px; margin-bottom: 14px;">
+                    <div style="color: #94a3b8; font-size: 11px; margin-bottom: 4px;">Monthly Net Salary</div>
+                    <div style="color: #38bdf8; font-weight: 800; font-size: 16px;">₹ 35,000 / mo</div>
+                  </div>
+                  <button type="button" id="mockStep2Btn" style="width: 100%; height: 52px; background: #0d2b82; color: #ffffff; border: none; border-radius: 14px; font-weight: 800; font-size: 14px;">
+                    Proceed to KYC Verification →
+                  </button>
+                </div>
+
+                <!-- PREVIEW: STEP 3 (KYC) -->
+                <div id="mockupViewStep3" style="display: none;">
+                  <div style="text-align: center; margin-bottom: 14px;">
+                    <div id="mockStep3Title" style="font-weight: 800; font-size: 16px; color: #ffffff;">Digital KYC Verification</div>
+                    <div id="mockStep3Subtitle" style="font-size: 11px; color: #94a3b8; margin-top: 3px;">Paperless Aadhaar & PAN verification</div>
+                  </div>
+                  <div style="background: #1e293b; border-radius: 12px; padding: 14px; margin-bottom: 12px;">
+                    <div style="color: #94a3b8; font-size: 11px; margin-bottom: 4px;">Aadhaar Card (UIDAI)</div>
+                    <div style="color: #ffffff; font-weight: 700; font-family: monospace;">7829 4512 8839 ✓</div>
+                  </div>
+                  <div style="background: #1e293b; border-radius: 12px; padding: 14px; margin-bottom: 12px;">
+                    <div style="color: #94a3b8; font-size: 11px; margin-bottom: 4px;">PAN Card (NSDL)</div>
+                    <div style="color: #ffffff; font-weight: 700; font-family: monospace;">ABCDE1234F ✓</div>
+                  </div>
+                  <div id="mockStep3PhotoBox" style="background: rgba(59, 130, 246, 0.1); border: 1.5px dashed #3b82f6; border-radius: 12px; padding: 14px; text-align: center; margin-bottom: 14px; display: none;">
+                    <div style="font-size: 12px; font-weight: 700; color: #60a5fa;">📷 Photo Upload Section (Active)</div>
+                    <div style="font-size: 10.5px; color: #94a3b8; margin-top: 2px;">Front & Back Document Upload</div>
+                  </div>
+                  <button type="button" id="mockStep3Btn" style="width: 100%; height: 52px; background: #0d2b82; color: #ffffff; border: none; border-radius: 14px; font-weight: 800; font-size: 14px;">
+                    Verify & Check Credit Sanction →
+                  </button>
+                </div>
+
+                <!-- PREVIEW: STEP 4 (SANCTION OFFER) -->
+                <div id="mockupViewStep4">
+                  <!-- Sanction Card Mockup -->
+                  <div id="mockupSanctionCard" style="border-radius: 18px; overflow: hidden; background: #ffffff; color: #0f172a; box-shadow: 0 10px 25px rgba(0,0,0,0.4);">
+                    <div id="mockupHeroTop" style="background: #0d2b82; padding: 18px; color: #ffffff; text-align: center; transition: background 0.2s;">
+                      <div style="font-size: 11px; font-weight: 700; opacity: 0.85; text-transform: uppercase;">Approved limit</div>
+                      <div id="mockupLimitAmount" style="font-size: 28px; font-weight: 900; margin-top: 3px;">₹ 50,000</div>
+                    </div>
+                    <div style="padding: 16px;">
+                      <div style="font-size: 11px; font-weight: 800; color: #64748b; margin-bottom: 4px;">Choose your Loan amount</div>
+                      <div id="mockupSelectAmount" style="border: 1.5px solid #cbd5e1; border-radius: 10px; padding: 8px 12px; font-weight: 800; font-size: 13.5px; color: #0f172a; margin-bottom: 12px;">
+                        ₹ 50,000
+                      </div>
+                      <div style="font-size: 11px; font-weight: 800; color: #64748b; margin-bottom: 4px;">Choose EMI's plan</div>
+                      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 14px;">
+                        <div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 6px 2px; text-align: center;">
+                          <div style="font-size: 10px; color: #64748b;">6M</div>
+                          <div style="font-size: 10.5px; font-weight: 800; color: #0f172a;">₹9,120</div>
+                        </div>
+                        <div id="mockupActiveEmiPill" style="border: 1.5px solid #0d2b82; background: #eff6ff; border-radius: 8px; padding: 6px 2px; text-align: center;">
+                          <div style="font-size: 10px; font-weight: 800; color: #0d2b82;">9M</div>
+                          <div style="font-size: 10.5px; font-weight: 800; color: #0d2b82;">₹6,249</div>
+                        </div>
+                        <div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 6px 2px; text-align: center;">
+                          <div style="font-size: 10px; color: #64748b;">12M</div>
+                          <div style="font-size: 10.5px; font-weight: 800; color: #0f172a;">₹5,000</div>
+                        </div>
+                      </div>
+                      <button type="button" id="mockupActionBtn" style="width: 100%; height: 50px; background: #0d2b82; color: #ffffff; border: none; border-radius: 14px; font-weight: 800; font-size: 14px;">
+                        Continue with loan amount
+                      </button>
+                    </div>
                   </div>
                 </div>
 
-                <!-- Mockup Action Button -->
-                <button type="button" id="mockupActionBtn" style="width: 100%; height: 52px; background: #0d2b82; color: #ffffff; border: none; border-radius: 14px; font-weight: 800; font-size: 15px; cursor: pointer; transition: all 0.2s;">
-                  Continue with loan amount
-                </button>
+                <!-- PREVIEW: DASHBOARD -->
+                <div id="mockupViewDash" style="display: none;">
+                  <div id="mockDashBanner" style="background: rgba(16, 185, 129, 0.15); border: 1px solid #10b981; border-radius: 10px; padding: 10px; font-size: 11px; color: #34d399; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 6px;">
+                    <span>⚡</span>
+                    <span id="mockDashBannerText">Instant Bank Disbursal is active for all approved borrowers.</span>
+                  </div>
+                  <div style="background: linear-gradient(135deg, #1e3a8a, #0d2b82); border-radius: 16px; padding: 16px; margin-bottom: 12px; color: #fff;">
+                    <div style="font-size: 11px; opacity: 0.8;">Active Approved Limit</div>
+                    <div style="font-size: 24px; font-weight: 900; margin: 4px 0;">₹ 50,000</div>
+                    <div style="display: flex; justify-content: space-between; font-size: 11px; opacity: 0.85;">
+                      <span>Status: DISBURSED ✓</span>
+                      <span>Tenure: 9 Months</span>
+                    </div>
+                  </div>
+                  <div id="mockDashKfsBox" style="background: #1e293b; border-radius: 12px; padding: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
+                    <div style="font-size: 12px; font-weight: 700; color: #ffffff;">Key Fact Statement (KFS)</div>
+                    <span style="background: #ef4444; color: #fff; font-size: 10px; font-weight: 800; padding: 2px 6px; border-radius: 4px;">PDF</span>
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>
         </div>
       </div>
-    </main>
-  </div>
 
   <!-- ==================== BORROWER DETAIL & DISBURSAL CONTROL DRAWER/MODAL ==================== -->
   <div class="admin-modal-overlay" id="appControlModal">
@@ -1423,7 +1843,39 @@
       }
     }
 
-    // ---- Customizer Engine ----
+    // ---- Subtab Switcher: Phase Control Panels ----
+    let activeCustomizerTab = 'global';
+    function switchCustomizerTab(tab) {
+      activeCustomizerTab = tab;
+      const tabs = ['global', 'step1', 'step2', 'step3', 'step4', 'dash'];
+      tabs.forEach(t => {
+        const btn = document.getElementById('subtab' + t.charAt(0).toUpperCase() + t.slice(1));
+        const panel = document.getElementById('panel' + t.charAt(0).toUpperCase() + t.slice(1));
+        if (btn) btn.classList.toggle('active', t === tab);
+        if (panel) panel.style.display = (t === tab) ? 'block' : 'none';
+      });
+
+      // Synchronize preview phase when switching tabs
+      if (tab === 'step1' || tab === 'step2' || tab === 'step3' || tab === 'step4' || tab === 'dash') {
+        setPreviewPhase(tab);
+      }
+    }
+
+    // ---- Mobile Mockup Phase Switcher ----
+    let activePreviewPhase = 'step4';
+    function setPreviewPhase(phase) {
+      activePreviewPhase = phase;
+      const phases = ['step1', 'step2', 'step3', 'step4', 'dash'];
+      phases.forEach(p => {
+        const tabBtn = document.getElementById('prevTab' + p.charAt(0).toUpperCase() + p.slice(1));
+        const viewEl = document.getElementById('mockupView' + p.charAt(0).toUpperCase() + p.slice(1));
+        if (tabBtn) tabBtn.classList.toggle('active', p === phase);
+        if (viewEl) viewEl.style.display = (p === phase) ? 'block' : 'none';
+      });
+      updateLivePreview();
+    }
+
+    // ---- Customizer Engine: Load & Sync ----
     let currentSystemSettings = null;
 
     async function loadSettingsIntoCustomizer() {
@@ -1435,63 +1887,73 @@
             settings = res.settings;
           }
         }
-        if (!settings) {
-          settings = {
-            themeColor: '#0d2b82',
-            sanctionCardColor: '#0d2b82',
-            btnColor: '#0d2b82',
-            btnHeight: '52px',
-            btnRadius: '14px',
-            btnFontSize: '15px',
-            btnLabel: 'Continue with loan amount',
-            defaultCreditLimit: 50000,
-            interestRate: 24,
-            disbursalFee: 199,
-            helplinePhone: '1800-209-4321'
-          };
-        }
-        currentSystemSettings = settings;
+        currentSystemSettings = settings || {};
 
-        const color = settings.sanctionCardColor || settings.themeColor || '#0d2b82';
-        const colorInput = document.getElementById('cfgSanctionColor');
-        const colorHex = document.getElementById('cfgSanctionColorHex');
-        if (colorInput) colorInput.value = color;
-        if (colorHex) colorHex.value = color;
+        // Panel 1: Global
+        setVal('cfgBrandName', settings?.brandName || 'Bruno Credits');
+        setVal('cfgLenderName', settings?.lenderName || 'Vistas Tecnolabs Finance Limited');
+        setVal('cfgRbiLicense', settings?.rbiLicense || 'B-14.02528');
+        setVal('cfgPhone', settings?.supportPhone || '1800-209-4321');
+        setVal('cfgSupportEmail', settings?.supportEmail || 'support@brunocredits.in');
+        
+        const color = settings?.sanctionCardColor || settings?.themeColor || '#0d2b82';
+        setVal('cfgSanctionColor', color);
+        setVal('cfgSanctionColorHex', color);
 
-        const btnColor = settings.btnColor || color;
-        const btnColorInput = document.getElementById('cfgBtnColor');
-        const btnColorHex = document.getElementById('cfgBtnColorHex');
-        if (btnColorInput) btnColorInput.value = btnColor;
-        if (btnColorHex) btnColorHex.value = btnColor;
+        // Panel 2: Step 1
+        const st1 = settings?.step1 || {};
+        setVal('cfgStep1Title', st1.title || 'Personal Information');
+        setVal('cfgStep1Subtitle', st1.subtitle || 'Tell us about yourself to check pre-approved loan eligibility');
+        setChecked('cfgStep1ShowSlider', st1.showLoanSlider !== false);
+        setChecked('cfgStep1ShowEmail', st1.showEmail !== false);
+        setChecked('cfgStep1ShowGender', st1.showGender !== false);
+        setChecked('cfgStep1ShowAddress', st1.showAddress !== false);
+        setVal('cfgStep1BtnLabel', st1.btnLabel || 'Continue to Work Details →');
+        setVal('cfgStep1BtnHeight', st1.btnHeight || '52px');
+        setVal('cfgStep1BtnRadius', st1.btnRadius || '14px');
 
-        if (settings.btnHeight) {
-          const el = document.getElementById('cfgBtnHeight');
-          if (el) el.value = settings.btnHeight;
-        }
-        if (settings.btnRadius) {
-          const el = document.getElementById('cfgBtnRadius');
-          if (el) el.value = settings.btnRadius;
-        }
-        if (settings.btnLabel) {
-          const el = document.getElementById('cfgBtnLabel');
-          if (el) el.value = settings.btnLabel;
-        }
-        if (settings.defaultCreditLimit) {
-          const el = document.getElementById('cfgDefaultLimit');
-          if (el) el.value = settings.defaultCreditLimit;
-        }
-        if (settings.interestRate) {
-          const el = document.getElementById('cfgInterestRate');
-          if (el) el.value = settings.interestRate;
-        }
-        if (settings.disbursalFee) {
-          const el = document.getElementById('cfgDisbursalFee');
-          if (el) el.value = settings.disbursalFee;
-        }
-        if (settings.helplinePhone) {
-          const el = document.getElementById('cfgPhone');
-          if (el) el.value = settings.helplinePhone;
-        }
+        // Panel 3: Step 2
+        const st2 = settings?.step2 || {};
+        setVal('cfgStep2Title', st2.title || 'Employment & Income');
+        setVal('cfgStep2Subtitle', st2.subtitle || 'Provide your work profile for instant credit assessment');
+        setChecked('cfgStep2ShowCompany', st2.showCompany !== false);
+        setChecked('cfgStep2ShowDesignation', st2.showDesignation !== false);
+        setChecked('cfgStep2ShowExperience', st2.showExperience !== false);
+        setVal('cfgStep2MinSalary', st2.minSalary || 15000);
+        setVal('cfgStep2BtnLabel', st2.btnLabel || 'Proceed to KYC Verification →');
+
+        // Panel 4: Step 3
+        const st3 = settings?.step3 || {};
+        setVal('cfgStep3Title', st3.title || 'Digital KYC Verification');
+        setVal('cfgStep3Subtitle', st3.subtitle || 'Paperless Aadhaar & PAN verification for instant credit sanction');
+        setChecked('cfgStep3ShowPhotos', st3.showPhotoUploads === true);
+        setChecked('cfgStep3AiScanner', st3.enableAiScannerHud !== false);
+        setVal('cfgStep3BtnLabel', st3.btnLabel || 'Verify & Check Credit Sanction →');
+
+        // Panel 5: Step 4
+        const st4 = settings?.step4 || {};
+        setVal('cfgStep4Title', st4.title || 'Bank Verification & Loan Sanction');
+        setVal('cfgStep4Subtitle', st4.subtitle || 'Enter bank account where your approved loan funds will be disbursed');
+        setChecked('cfgStep4PennyDrop', st4.enablePennyDrop !== false);
+        setChecked('cfgStep4GiftBox', st4.enableGiftBox !== false);
+        setVal('cfgDefaultLimit', st4.defaultLimit || settings?.defaultCreditLimit || 50000);
+        setVal('cfgInterestRate', st4.interestRate || settings?.interestRate || 24);
+        setVal('cfgDisbursalFee', st4.disbursalFee || settings?.disbursalFee || 199);
+        setVal('cfgHeroColor', color);
+        setVal('cfgHeroColorHex', color);
+        setVal('cfgBtnLabel', st4.btnLabel || settings?.btnLabel || 'Continue with loan amount');
+        setVal('cfgBtnHeight', st4.btnHeight || settings?.btnHeight || '52px');
+        setVal('cfgBtnRadius', st4.btnRadius || settings?.btnRadius || '14px');
+        const btnColor = st4.btnColor || settings?.btnColor || color;
+        setVal('cfgBtnColor', btnColor);
+        setVal('cfgBtnColorHex', btnColor);
+
+        // Panel 6: Dash
+        const dash = settings?.dashboard || {};
+        setChecked('cfgDashShowAnnouncement', dash.showAnnouncement !== false);
+        setChecked('cfgDashShowKfs', dash.showKfsButton !== false);
+        setChecked('cfgDashShowSupport', dash.showSupportBox !== false);
+        setVal('cfgDashAnnouncementText', dash.announcementText || '⚡ Instant Bank Disbursal is active for all approved borrowers via IMPS / RTGS.');
 
         updateLivePreview();
       } catch (err) {
@@ -1499,45 +1961,115 @@
       }
     }
 
+    function setVal(id, val) {
+      const el = document.getElementById(id);
+      if (el) el.value = val;
+    }
+    function setChecked(id, checked) {
+      const el = document.getElementById(id);
+      if (el) el.checked = !!checked;
+    }
+
     function setThemePreset(hex) {
-      const colorInput = document.getElementById('cfgSanctionColor');
-      const colorHex = document.getElementById('cfgSanctionColorHex');
-      const btnColorInput = document.getElementById('cfgBtnColor');
-      const btnColorHex = document.getElementById('cfgBtnColorHex');
-      if (colorInput) colorInput.value = hex;
-      if (colorHex) colorHex.value = hex;
-      if (btnColorInput) btnColorInput.value = hex;
-      if (btnColorHex) btnColorHex.value = hex;
+      setVal('cfgSanctionColor', hex);
+      setVal('cfgSanctionColorHex', hex);
+      setVal('cfgHeroColor', hex);
+      setVal('cfgHeroColorHex', hex);
+      setVal('cfgBtnColor', hex);
+      setVal('cfgBtnColorHex', hex);
       updateLivePreview();
     }
 
     function onHexInputChange(val) {
       if (/^#[0-9A-Fa-f]{6}$/.test(val)) {
-        const colorInput = document.getElementById('cfgSanctionColor');
-        if (colorInput) colorInput.value = val;
+        setVal('cfgSanctionColor', val);
         updateLivePreview();
       }
     }
-
+    function onHeroHexChange(val) {
+      if (/^#[0-9A-Fa-f]{6}$/.test(val)) {
+        setVal('cfgHeroColor', val);
+        updateLivePreview();
+      }
+    }
     function onBtnHexChange(val) {
       if (/^#[0-9A-Fa-f]{6}$/.test(val)) {
-        const btnColorInput = document.getElementById('cfgBtnColor');
-        if (btnColorInput) btnColorInput.value = val;
+        setVal('cfgBtnColor', val);
         updateLivePreview();
       }
     }
 
+    // ---- Reactive Live Mockup Updates ----
     function updateLivePreview() {
-      const sanctionColor = document.getElementById('cfgSanctionColor')?.value || '#0d2b82';
-      const btnColor = document.getElementById('cfgBtnColor')?.value || sanctionColor;
-      const btnHeight = document.getElementById('cfgBtnHeight')?.value || '52px';
-      const btnRadius = document.getElementById('cfgBtnRadius')?.value || '14px';
-      const btnLabel = document.getElementById('cfgBtnLabel')?.value || 'Continue with loan amount';
-      const defaultLimit = Number(document.getElementById('cfgDefaultLimit')?.value) || 50000;
+      const brand = document.getElementById('cfgBrandName')?.value || 'Bruno Credits';
+      const brandTag = document.getElementById('mockupBrandTag');
+      if (brandTag) brandTag.textContent = brand;
 
+      const themeColor = document.getElementById('cfgSanctionColor')?.value || '#0d2b82';
+
+      // 1. Step 1 Mockup
+      const s1Title = document.getElementById('mockStep1Title');
+      if (s1Title) s1Title.textContent = document.getElementById('cfgStep1Title')?.value || 'Personal Information';
+
+      const s1Sub = document.getElementById('mockStep1Subtitle');
+      if (s1Sub) s1Sub.textContent = document.getElementById('cfgStep1Subtitle')?.value || '';
+
+      const s1Slider = document.getElementById('cfgStep1ShowSlider')?.checked;
+      const s1CalcBox = document.getElementById('mockStep1CalcBox');
+      if (s1CalcBox) s1CalcBox.style.display = s1Slider ? 'block' : 'none';
+
+      const s1Email = document.getElementById('cfgStep1ShowEmail')?.checked;
+      const s1EmailBox = document.getElementById('mockStep1EmailBox');
+      if (s1EmailBox) s1EmailBox.style.display = s1Email ? 'block' : 'none';
+
+      const s1Btn = document.getElementById('mockStep1Btn');
+      if (s1Btn) {
+        s1Btn.textContent = document.getElementById('cfgStep1BtnLabel')?.value || 'Continue →';
+        s1Btn.style.background = themeColor;
+        s1Btn.style.height = document.getElementById('cfgStep1BtnHeight')?.value || '52px';
+        s1Btn.style.borderRadius = document.getElementById('cfgStep1BtnRadius')?.value || '14px';
+      }
+
+      // 2. Step 2 Mockup
+      const s2Title = document.getElementById('mockStep2Title');
+      if (s2Title) s2Title.textContent = document.getElementById('cfgStep2Title')?.value || 'Employment & Income';
+
+      const s2Sub = document.getElementById('mockStep2Subtitle');
+      if (s2Sub) s2Sub.textContent = document.getElementById('cfgStep2Subtitle')?.value || '';
+
+      const s2Comp = document.getElementById('cfgStep2ShowCompany')?.checked;
+      const s2CompBox = document.getElementById('mockStep2CompanyBox');
+      if (s2CompBox) s2CompBox.style.display = s2Comp ? 'block' : 'none';
+
+      const s2Btn = document.getElementById('mockStep2Btn');
+      if (s2Btn) {
+        s2Btn.textContent = document.getElementById('cfgStep2BtnLabel')?.value || 'Proceed →';
+        s2Btn.style.background = themeColor;
+      }
+
+      // 3. Step 3 Mockup
+      const s3Title = document.getElementById('mockStep3Title');
+      if (s3Title) s3Title.textContent = document.getElementById('cfgStep3Title')?.value || 'Digital KYC';
+
+      const s3Sub = document.getElementById('mockStep3Subtitle');
+      if (s3Sub) s3Sub.textContent = document.getElementById('cfgStep3Subtitle')?.value || '';
+
+      const s3Photos = document.getElementById('cfgStep3ShowPhotos')?.checked;
+      const s3PhotoBox = document.getElementById('mockStep3PhotoBox');
+      if (s3PhotoBox) s3PhotoBox.style.display = s3Photos ? 'block' : 'none';
+
+      const s3Btn = document.getElementById('mockStep3Btn');
+      if (s3Btn) {
+        s3Btn.textContent = document.getElementById('cfgStep3BtnLabel')?.value || 'Verify →';
+        s3Btn.style.background = themeColor;
+      }
+
+      // 4. Step 4 Mockup
       const heroTop = document.getElementById('mockupHeroTop');
-      if (heroTop) heroTop.style.background = sanctionColor;
+      const heroColor = document.getElementById('cfgHeroColor')?.value || themeColor;
+      if (heroTop) heroTop.style.background = heroColor;
 
+      const defaultLimit = Number(document.getElementById('cfgDefaultLimit')?.value) || 50000;
       const limitEl = document.getElementById('mockupLimitAmount');
       if (limitEl) limitEl.textContent = '₹ ' + defaultLimit.toLocaleString('en-IN');
 
@@ -1546,54 +2078,130 @@
 
       const activePill = document.getElementById('mockupActiveEmiPill');
       if (activePill) {
-        activePill.style.borderColor = sanctionColor;
-        activePill.querySelectorAll('div').forEach(d => d.style.color = sanctionColor);
+        activePill.style.borderColor = heroColor;
+        activePill.querySelectorAll('div').forEach(d => d.style.color = heroColor);
       }
 
       const actionBtn = document.getElementById('mockupActionBtn');
       if (actionBtn) {
-        actionBtn.style.background = btnColor;
-        actionBtn.style.height = btnHeight;
-        actionBtn.style.borderRadius = btnRadius;
-        actionBtn.textContent = btnLabel;
+        actionBtn.style.background = document.getElementById('cfgBtnColor')?.value || themeColor;
+        actionBtn.style.height = document.getElementById('cfgBtnHeight')?.value || '50px';
+        actionBtn.style.borderRadius = document.getElementById('cfgBtnRadius')?.value || '14px';
+        actionBtn.textContent = document.getElementById('cfgBtnLabel')?.value || 'Continue with loan amount';
       }
+
+      // 5. Dash Mockup
+      const showAnnounce = document.getElementById('cfgDashShowAnnouncement')?.checked;
+      const dashBanner = document.getElementById('mockDashBanner');
+      if (dashBanner) dashBanner.style.display = showAnnounce ? 'flex' : 'none';
+
+      const dashAnnounceText = document.getElementById('cfgDashAnnouncementText')?.value || '';
+      const mockAnnounceEl = document.getElementById('mockDashBannerText');
+      if (mockAnnounceEl) mockAnnounceEl.textContent = dashAnnounceText;
+
+      const showKfs = document.getElementById('cfgDashShowKfs')?.checked;
+      const mockKfsBox = document.getElementById('mockDashKfsBox');
+      if (mockKfsBox) mockKfsBox.style.display = showKfs ? 'flex' : 'none';
     }
 
+    // ---- Save All Changes & Apply Live ----
     async function saveSystemCustomization() {
       const btn = document.getElementById('btnSaveSystemSettings');
       if (btn) {
         btn.disabled = true;
-        btn.innerHTML = 'Saving Settings...';
+        btn.innerHTML = 'Saving All Changes to Live App...';
       }
 
-      const sanctionColor = document.getElementById('cfgSanctionColor')?.value || '#0d2b82';
-      const btnColor = document.getElementById('cfgBtnColor')?.value || sanctionColor;
+      const themeColor = document.getElementById('cfgSanctionColor')?.value || '#0d2b82';
+      const heroColor = document.getElementById('cfgHeroColor')?.value || themeColor;
+      const btnColor = document.getElementById('cfgBtnColor')?.value || themeColor;
       const btnHeight = document.getElementById('cfgBtnHeight')?.value || '52px';
       const btnRadius = document.getElementById('cfgBtnRadius')?.value || '14px';
       const btnLabel = document.getElementById('cfgBtnLabel')?.value?.trim() || 'Continue with loan amount';
-      const defaultCreditLimit = Number(document.getElementById('cfgDefaultLimit')?.value) || 50000;
+      const defaultLimit = Number(document.getElementById('cfgDefaultLimit')?.value) || 50000;
       const interestRate = Number(document.getElementById('cfgInterestRate')?.value) || 24;
       const disbursalFee = Number(document.getElementById('cfgDisbursalFee')?.value) || 199;
-      const helplinePhone = document.getElementById('cfgPhone')?.value?.trim() || '1800-209-4321';
 
-      const updatedSettings = {
-        themeColor: sanctionColor,
-        sanctionCardColor: sanctionColor,
+      const fullSettingsPayload = {
+        brandName: document.getElementById('cfgBrandName')?.value?.trim() || 'Bruno Credits',
+        lenderName: document.getElementById('cfgLenderName')?.value?.trim() || 'Vistas Tecnolabs Finance Limited',
+        rbiLicense: document.getElementById('cfgRbiLicense')?.value?.trim() || 'B-14.02528',
+        supportPhone: document.getElementById('cfgPhone')?.value?.trim() || '1800-209-4321',
+        supportEmail: document.getElementById('cfgSupportEmail')?.value?.trim() || 'support@brunocredits.in',
+        themeColor,
+        sanctionCardColor: heroColor,
         btnColor,
         btnHeight,
         btnRadius,
-        btnFontSize: btnHeight === '60px' ? '16px' : (btnHeight === '46px' ? '14px' : '15px'),
+        btnFontSize: btnHeight === '60px' ? '16px' : '15px',
         btnLabel,
-        defaultCreditLimit,
+        defaultCreditLimit: defaultLimit,
         interestRate,
         disbursalFee,
-        helplinePhone
+
+        step1: {
+          title: document.getElementById('cfgStep1Title')?.value?.trim() || 'Personal Information',
+          subtitle: document.getElementById('cfgStep1Subtitle')?.value?.trim() || 'Tell us about yourself to check pre-approved loan eligibility',
+          showLoanSlider: document.getElementById('cfgStep1ShowSlider')?.checked,
+          showEmail: document.getElementById('cfgStep1ShowEmail')?.checked,
+          showGender: document.getElementById('cfgStep1ShowGender')?.checked,
+          showAddress: document.getElementById('cfgStep1ShowAddress')?.checked,
+          btnLabel: document.getElementById('cfgStep1BtnLabel')?.value?.trim() || 'Continue to Work Details →',
+          btnColor: themeColor,
+          btnHeight: document.getElementById('cfgStep1BtnHeight')?.value || '52px',
+          btnRadius: document.getElementById('cfgStep1BtnRadius')?.value || '14px'
+        },
+
+        step2: {
+          title: document.getElementById('cfgStep2Title')?.value?.trim() || 'Employment & Income',
+          subtitle: document.getElementById('cfgStep2Subtitle')?.value?.trim() || 'Provide your work profile for instant credit assessment',
+          showCompany: document.getElementById('cfgStep2ShowCompany')?.checked,
+          showDesignation: document.getElementById('cfgStep2ShowDesignation')?.checked,
+          showExperience: document.getElementById('cfgStep2ShowExperience')?.checked,
+          minSalary: Number(document.getElementById('cfgStep2MinSalary')?.value) || 15000,
+          btnLabel: document.getElementById('cfgStep2BtnLabel')?.value?.trim() || 'Proceed to KYC Verification →',
+          btnColor: themeColor,
+          btnHeight: '52px',
+          btnRadius: '14px'
+        },
+
+        step3: {
+          title: document.getElementById('cfgStep3Title')?.value?.trim() || 'Digital KYC Verification',
+          subtitle: document.getElementById('cfgStep3Subtitle')?.value?.trim() || 'Paperless Aadhaar & PAN verification for instant credit sanction',
+          showPhotoUploads: document.getElementById('cfgStep3ShowPhotos')?.checked,
+          enableAiScannerHud: document.getElementById('cfgStep3AiScanner')?.checked,
+          btnLabel: document.getElementById('cfgStep3BtnLabel')?.value?.trim() || 'Verify & Check Credit Sanction →',
+          btnColor: themeColor,
+          btnHeight: '52px',
+          btnRadius: '14px'
+        },
+
+        step4: {
+          title: document.getElementById('cfgStep4Title')?.value?.trim() || 'Bank Verification & Loan Sanction',
+          subtitle: document.getElementById('cfgStep4Subtitle')?.value?.trim() || 'Enter bank account where your approved loan funds will be disbursed',
+          enablePennyDrop: document.getElementById('cfgStep4PennyDrop')?.checked,
+          enableGiftBox: document.getElementById('cfgStep4GiftBox')?.checked,
+          defaultLimit,
+          interestRate,
+          disbursalFee,
+          btnLabel,
+          btnColor,
+          btnHeight,
+          btnRadius
+        },
+
+        dashboard: {
+          showAnnouncement: document.getElementById('cfgDashShowAnnouncement')?.checked,
+          announcementText: document.getElementById('cfgDashAnnouncementText')?.value?.trim() || '',
+          showKfsButton: document.getElementById('cfgDashShowKfs')?.checked,
+          showSupportBox: document.getElementById('cfgDashShowSupport')?.checked
+        }
       };
 
       try {
-        const res = await window.ApexAPI.adminUpdateSettings(updatedSettings);
+        const res = await window.ApexAPI.adminUpdateSettings(fullSettingsPayload);
         if (res && res.success) {
-          showToast('✓ Customization saved! Live changes applied across customer app.');
+          showToast('✓ All changes saved! Live settings updated across the entire customer app.');
         } else {
           alert((res && res.message) || 'Failed to save settings.');
         }
@@ -1602,10 +2210,10 @@
       } finally {
         if (btn) {
           btn.disabled = false;
-          btn.innerHTML = '💾 Save Changes & Apply Live to Customer App';
+          btn.innerHTML = '💾 Save All Changes & Reflect Instantly on Live App';
         }
       }
     }
-  </script>
+    </script>
 </body>
 </html>

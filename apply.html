@@ -898,9 +898,9 @@
       <div class="step-header">
         <h2 style="display: flex; align-items: center; justify-content: center; gap: 8px;">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          Personal Information
+          <span id="step1Title">Personal Information</span>
         </h2>
-        <p>Tell us about yourself to check pre-approved loan eligibility</p>
+        <p id="step1Subtitle">Tell us about yourself to check pre-approved loan eligibility</p>
       </div>
 
       <!-- Mobile Number Field (Primary Identity & Backoffice Sync) -->
@@ -1019,7 +1019,7 @@
       </div>
 
       <!-- Compact Desired Loan Amount Selector -->
-      <div class="form-group" style="margin-top: 14px;">
+      <div class="form-group" id="step1LoanCalcBox" style="margin-top: 14px;">
         <label>Desired Loan Amount <span class="required">*</span></label>
         <div class="loan-slider-container">
           <div class="loan-amount-display">
@@ -1050,9 +1050,9 @@
       <div class="step-header">
         <h2 style="display: flex; align-items: center; justify-content: center; gap: 8px;">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-          Employment & Income
+          <span id="step2Title">Employment & Income</span>
         </h2>
-        <p>Help us understand your income for instant underwrite approval</p>
+        <p id="step2Subtitle">Help us understand your income for instant underwrite approval</p>
       </div>
 
       <!-- Employment Type -->
@@ -1149,9 +1149,9 @@
       <div class="step-header">
         <h2 style="display: flex; align-items: center; justify-content: center; gap: 8px;">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
-          Digital KYC Verification
+          <span id="step3Title">Digital KYC Verification</span>
         </h2>
-        <p>Paperless Aadhaar & PAN verification for instant credit sanction</p>
+        <p id="step3Subtitle">Paperless Aadhaar & PAN verification for instant credit sanction</p>
       </div>
 
       <div class="kyc-streamlined-card">
@@ -1211,7 +1211,7 @@
         </div>
 
         <!-- 2. OPTIONAL DOCUMENT PHOTOS SECTION -->
-        <div class="kyc-section-block" style="background: #ffffff; border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 18px 16px; margin-bottom: 18px; box-shadow: var(--shadow-sm);">
+        <div class="kyc-section-block" id="step3PhotoUploadSection" style="display: none; background: #ffffff; border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 18px 16px; margin-bottom: 18px; box-shadow: var(--shadow-sm);">
           <div class="kyc-section-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid #f1f5f9;">
             <div class="kyc-section-title" style="display: flex; align-items: center; gap: 10px;">
               <div class="kyc-sec-icon" style="color: #64748b; width: 34px; height: 34px; border-radius: 10px; background: #f1f5f9; display: flex; align-items: center; justify-content: center;">
@@ -1290,9 +1290,9 @@
       <div class="step-header">
         <h2 style="display: flex; align-items: center; justify-content: center; gap: 8px;">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M3 10h18M5 10v11M9 10v11M15 10v11M19 10v11M12 2L2 7h20L12 2z"/></svg>
-          Bank Verification & Loan Sanction
+          <span id="step4Title">Bank Verification & Loan Sanction</span>
         </h2>
-        <p>Enter bank account where your approved loan funds will be disbursed</p>
+        <p id="step4Subtitle">Enter bank account where your approved loan funds will be disbursed</p>
       </div>
 
       <!-- Bank Form Card -->
@@ -2084,5 +2084,6 @@
     };
   </script>
 
+  <script src="js/settingsApplier.js"></script>
 </body>
 </html>
