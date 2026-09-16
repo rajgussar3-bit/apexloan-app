@@ -1,0 +1,17 @@
+{
+  "themeColor": "#0d2b82",
+  "themeGradient": "linear-gradient(180deg, #09206d 0%, #0e2f8d 70%, #103bb3 100%)",
+  "sanctionCardColor": "#0d2b82",
+  "btnColor": "linear-gradient(135deg, #0d2b82 0%, #103bb3 100%)",
+  "btnHeight": "52px",
+  "btnRadius": "14px",
+  "btnFontSize": "15px",
+  "btnLabel": "Continue with loan amount",
+  "defaultCreditLimit": 50000,
+  "interestRate": 24,
+  "disbursalFee": 199,
+  "brandName": "Bruno Credits",
+  "lenderName": "Vistas Tecnolabs Finance Limited",
+  "rbiLicense": "B-14.02528",
+  "supportPhone": "1800-209-4321"
+}

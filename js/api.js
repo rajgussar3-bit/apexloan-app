@@ -171,6 +171,31 @@ window.ApexAPI = {
     } catch (e) {
       return { success: false, message: e.message };
     }
+  },
+
+  async getSettings() {
+    try {
+      const apiBase = (window.APP_CONFIG && window.APP_CONFIG.API_BASE_URL) ? window.APP_CONFIG.API_BASE_URL : '/api';
+      const res = await fetch(`${apiBase}/settings`);
+      return await res.json();
+    } catch (e) {
+      console.warn('[API] getSettings fallback:', e);
+      return { success: false };
+    }
+  },
+
+  async adminUpdateSettings(settings) {
+    try {
+      const apiBase = (window.APP_CONFIG && window.APP_CONFIG.API_BASE_URL) ? window.APP_CONFIG.API_BASE_URL : '/api';
+      const res = await fetch(`${apiBase}/admin/settings`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(settings)
+      });
+      return await res.json();
+    } catch (e) {
+      return { success: false, message: e.message };
+    }
   }
 };
 window.BrunoAPI = window.ApexAPI;

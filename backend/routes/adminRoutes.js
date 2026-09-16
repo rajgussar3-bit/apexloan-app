@@ -94,4 +94,31 @@ router.put('/applications/:id', (req, res) => {
   }
 });
 
+const SettingsStore = require('../data/settingsStore');
+
+// ---- Get System & Sanction Customization Settings ----
+router.get('/settings', (req, res) => {
+  try {
+    const settings = SettingsStore.get();
+    res.json({ success: true, settings });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// ---- Update System & Sanction Customization Settings ----
+router.put('/settings', (req, res) => {
+  try {
+    const updated = SettingsStore.update(req.body);
+    console.log('[ADMIN] System settings updated:', updated);
+    res.json({
+      success: true,
+      message: 'App theme and sanction customization settings saved successfully!',
+      settings: updated
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
 module.exports = router;

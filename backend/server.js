@@ -97,6 +97,11 @@ app.use('/api/loan', loanRoutes);
 app.use('/api/payment', paymentRoutes);
 app.use('/api/admin', adminRoutes);
 
+const SettingsStore = require('./data/settingsStore');
+app.get('/api/settings', (req, res) => {
+  res.json({ success: true, settings: SettingsStore.get() });
+});
+
 app.use((req, res) => {
   res.status(404).json({ error: 'Endpoint not found', path: req.path });
 });

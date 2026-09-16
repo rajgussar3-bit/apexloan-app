@@ -621,93 +621,249 @@
     </header>
 
     <main class="admin-container">
-      <!-- KPI Metrics -->
-      <section class="kpi-grid">
-        <div class="kpi-card">
-          <div>
-            <div class="kpi-title">Total Applications</div>
-            <div class="kpi-value" id="kpiTotalApps">0</div>
-          </div>
-          <div class="kpi-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-          </div>
-        </div>
-
-        <div class="kpi-card highlight">
-          <div>
-            <div class="kpi-title" style="color: #fbbf24;">Pending Disbursal</div>
-            <div class="kpi-value" id="kpiPendingDisbursal" style="color: #fbbf24;">0</div>
-          </div>
-          <div class="kpi-icon" style="color: #fbbf24; background: rgba(245, 158, 11, 0.1);">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          </div>
-        </div>
-
-        <div class="kpi-card">
-          <div>
-            <div class="kpi-title">Total Capital Disbursed</div>
-            <div class="kpi-value" id="kpiTotalDisbursed">₹ 0</div>
-          </div>
-          <div class="kpi-icon" style="color: #34d399; background: rgba(16, 185, 129, 0.1);">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-          </div>
-        </div>
-
-        <div class="kpi-card">
-          <div>
-            <div class="kpi-title">Approved Sanctions</div>
-            <div class="kpi-value" id="kpiSanctionedCount">0</div>
-          </div>
-          <div class="kpi-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-          </div>
-        </div>
-      </section>
-
-      <!-- Toolbar: Search & Filter -->
-      <div class="toolbar-box">
-        <div class="search-input-group">
-          <svg class="search-icon-prefix" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <input type="text" id="adminSearchInput" class="admin-search-input" placeholder="Search by Borrower Name, Mobile, PAN, Aadhaar, or App ID..." oninput="handleSearch()">
-        </div>
-
-        <div class="filter-tabs">
-          <button class="filter-btn active" data-filter="ALL" onclick="setFilter('ALL', this)">All</button>
-          <button class="filter-btn" data-filter="SANCTIONED" onclick="setFilter('SANCTIONED', this)">Ready for Disbursal</button>
-          <button class="filter-btn" data-filter="DISBURSED" onclick="setFilter('DISBURSED', this)">Disbursed ✓</button>
-          <button class="filter-btn" data-filter="PENDING_REVIEW" onclick="setFilter('PENDING_REVIEW', this)">Under Review</button>
-          <button class="filter-btn" data-filter="REJECTED" onclick="setFilter('REJECTED', this)">Rejected</button>
-        </div>
-
-        <button type="button" class="btn-refresh" onclick="loadApplications(true)">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
-          <span>Refresh</span>
+      <!-- Top Navigation Tabs: Borrower Applications vs App Customizer -->
+      <div style="display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap;">
+        <button type="button" id="tabBtnApps" onclick="switchAdminView('apps')" style="display: flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 12px; font-weight: 800; font-size: 13.5px; cursor: pointer; border: 1.5px solid #3b82f6; background: #1d4ed8; color: #ffffff; transition: all 0.2s;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg>
+          <span>Borrower Loan Applications</span>
+        </button>
+        <button type="button" id="tabBtnCustomizer" onclick="switchAdminView('customizer')" style="display: flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 12px; font-weight: 800; font-size: 13.5px; cursor: pointer; border: 1px solid #334155; background: #1e293b; color: #94a3b8; transition: all 0.2s;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          <span>🎨 App & Sanction Customizer (Theme, Buttons, Colors & Limits)</span>
         </button>
       </div>
 
-      <!-- Applications Table -->
-      <div class="table-responsive-card">
-        <table class="admin-table">
-          <thead>
-            <tr>
-              <th>App ID & Date</th>
-              <th>Borrower Details</th>
-              <th>Govt IDs (PAN & Aadhaar)</th>
-              <th>Bank Settlement (For Wire)</th>
-              <th>Loan Amount & EMI</th>
-              <th>Fee Status</th>
-              <th>Current Status</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody id="applicationsTableBody">
-            <tr>
-              <td colspan="8" style="text-align: center; padding: 40px; color: var(--admin-text-muted);">
-                Loading borrower applications...
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <!-- VIEW 1: BORROWER APPLICATIONS -->
+      <div id="viewApplications">
+        <!-- KPI Metrics -->
+        <section class="kpi-grid">
+          <div class="kpi-card">
+            <div>
+              <div class="kpi-title">Total Applications</div>
+              <div class="kpi-value" id="kpiTotalApps">0</div>
+            </div>
+            <div class="kpi-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+          </div>
+
+          <div class="kpi-card highlight">
+            <div>
+              <div class="kpi-title" style="color: #fbbf24;">Pending Disbursal</div>
+              <div class="kpi-value" id="kpiPendingDisbursal" style="color: #fbbf24;">0</div>
+            </div>
+            <div class="kpi-icon" style="color: #fbbf24; background: rgba(245, 158, 11, 0.1);">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+          </div>
+
+          <div class="kpi-card">
+            <div>
+              <div class="kpi-title">Total Capital Disbursed</div>
+              <div class="kpi-value" id="kpiTotalDisbursed">₹ 0</div>
+            </div>
+            <div class="kpi-icon" style="color: #34d399; background: rgba(16, 185, 129, 0.1);">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </div>
+          </div>
+
+          <div class="kpi-card">
+            <div>
+              <div class="kpi-title">Approved Sanctions</div>
+              <div class="kpi-value" id="kpiSanctionedCount">0</div>
+            </div>
+            <div class="kpi-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+          </div>
+        </section>
+
+        <!-- Toolbar: Search & Filter -->
+        <div class="toolbar-box">
+          <div class="search-input-group">
+            <svg class="search-icon-prefix" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="adminSearchInput" class="admin-search-input" placeholder="Search by Borrower Name, Mobile, PAN, Aadhaar, or App ID..." oninput="handleSearch()">
+          </div>
+
+          <div class="filter-tabs">
+            <button class="filter-btn active" data-filter="ALL" onclick="setFilter('ALL', this)">All</button>
+            <button class="filter-btn" data-filter="SANCTIONED" onclick="setFilter('SANCTIONED', this)">Ready for Disbursal</button>
+            <button class="filter-btn" data-filter="DISBURSED" onclick="setFilter('DISBURSED', this)">Disbursed ✓</button>
+            <button class="filter-btn" data-filter="PENDING_REVIEW" onclick="setFilter('PENDING_REVIEW', this)">Under Review</button>
+            <button class="filter-btn" data-filter="REJECTED" onclick="setFilter('REJECTED', this)">Rejected</button>
+          </div>
+
+          <button type="button" class="btn-refresh" onclick="loadApplications(true)">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+            <span>Refresh</span>
+          </button>
+        </div>
+
+        <!-- Applications Table -->
+        <div class="table-responsive-card">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>App ID & Date</th>
+                <th>Borrower Details</th>
+                <th>Govt IDs (PAN & Aadhaar)</th>
+                <th>Bank Settlement (For Wire)</th>
+                <th>Loan Amount & EMI</th>
+                <th>Fee Status</th>
+                <th>Current Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="applicationsTableBody">
+              <tr>
+                <td colspan="8" style="text-align: center; padding: 40px; color: var(--admin-text-muted);">
+                  Loading borrower applications...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- VIEW 2: APP & SANCTION CUSTOMIZER -->
+      <div id="viewCustomizer" style="display: none;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 24px; align-items: start;">
+          <!-- Left Column: Controls -->
+          <div style="background: var(--admin-card-bg); border: 1px solid var(--admin-border); border-radius: 16px; padding: 24px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; border-bottom: 1px solid var(--admin-border); padding-bottom: 14px;">
+              <div>
+                <h2 style="font-size: 18px; font-weight: 800; color: #ffffff; margin: 0 0 4px;">System & Sanction Customizer</h2>
+                <div style="font-size: 12px; color: var(--admin-text-muted);">Configure sanction card styling, button sizes, colors and default loan limits</div>
+              </div>
+              <span style="background: rgba(16, 185, 129, 0.15); color: #34d399; font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 6px;">LIVE REAL-TIME</span>
+            </div>
+
+            <!-- 1. Sanction Card Theme & Accent Color -->
+            <div style="margin-bottom: 22px;">
+              <label style="font-size: 13px; font-weight: 800; color: #f1f5f9; display: block; margin-bottom: 8px;">1. Sanction Card Theme Color</label>
+              <div style="display: flex; gap: 8px; margin-bottom: 10px; flex-wrap: wrap;">
+                <button type="button" onclick="setThemePreset('#0d2b82')" style="background: #0d2b82; color: #fff; border: 1.5px solid #3b82f6; border-radius: 8px; padding: 6px 12px; font-size: 11px; font-weight: 800; cursor: pointer;">Cobalt Blue</button>
+                <button type="button" onclick="setThemePreset('#059669')" style="background: #059669; color: #fff; border: 1px solid #10b981; border-radius: 8px; padding: 6px 12px; font-size: 11px; font-weight: 800; cursor: pointer;">Emerald Green</button>
+                <button type="button" onclick="setThemePreset('#0f172a')" style="background: #0f172a; color: #fff; border: 1px solid #475569; border-radius: 8px; padding: 6px 12px; font-size: 11px; font-weight: 800; cursor: pointer;">Dark Slate</button>
+                <button type="button" onclick="setThemePreset('#4338ca')" style="background: #4338ca; color: #fff; border: 1px solid #6366f1; border-radius: 8px; padding: 6px 12px; font-size: 11px; font-weight: 800; cursor: pointer;">Royal Indigo</button>
+                <button type="button" onclick="setThemePreset('#991b1b')" style="background: #991b1b; color: #fff; border: 1px solid #ef4444; border-radius: 8px; padding: 6px 12px; font-size: 11px; font-weight: 800; cursor: pointer;">Crimson Red</button>
+              </div>
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <input type="color" id="cfgSanctionColor" value="#0d2b82" onchange="updateLivePreview()" style="width: 44px; height: 38px; border: none; border-radius: 8px; cursor: pointer; background: transparent;">
+                <input type="text" id="cfgSanctionColorHex" value="#0d2b82" oninput="onHexInputChange(this.value)" class="admin-input" style="font-family: monospace; font-weight: 700; width: 140px;">
+              </div>
+            </div>
+
+            <!-- 2. Action Button Size & Border Radius -->
+            <div style="margin-bottom: 22px;">
+              <label style="font-size: 13px; font-weight: 800; color: #f1f5f9; display: block; margin-bottom: 8px;">2. Action Button Sizing & Shape</label>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+                <div>
+                  <span style="font-size: 11px; color: #94a3b8; display: block; margin-bottom: 4px;">Button Height / Size</span>
+                  <select id="cfgBtnHeight" class="admin-select" onchange="updateLivePreview()">
+                    <option value="46px">Compact (46px)</option>
+                    <option value="52px" selected>Standard (52px)</option>
+                    <option value="60px">Large Bold (60px)</option>
+                  </select>
+                </div>
+                <div>
+                  <span style="font-size: 11px; color: #94a3b8; display: block; margin-bottom: 4px;">Corner Radius</span>
+                  <select id="cfgBtnRadius" class="admin-select" onchange="updateLivePreview()">
+                    <option value="8px">Subtle Rounded (8px)</option>
+                    <option value="14px" selected>Modern Fintech (14px)</option>
+                    <option value="9999px">Full Capsule / Pill</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Button Color & Text -->
+              <div style="margin-bottom: 12px;">
+                <span style="font-size: 11px; color: #94a3b8; display: block; margin-bottom: 4px;">Button Background Color</span>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                  <input type="color" id="cfgBtnColor" value="#0d2b82" onchange="updateLivePreview()" style="width: 44px; height: 38px; border: none; border-radius: 8px; cursor: pointer; background: transparent;">
+                  <input type="text" id="cfgBtnColorHex" value="#0d2b82" oninput="onBtnHexChange(this.value)" class="admin-input" style="font-family: monospace; font-weight: 700; width: 140px;">
+                </div>
+              </div>
+
+              <div>
+                <span style="font-size: 11px; color: #94a3b8; display: block; margin-bottom: 4px;">Button CTA Label</span>
+                <input type="text" id="cfgBtnLabel" class="admin-input" value="Continue with loan amount" oninput="updateLivePreview()" placeholder="e.g. Continue with loan amount">
+              </div>
+            </div>
+
+            <!-- 3. Default Loan Sanction Parameters -->
+            <div style="margin-bottom: 22px;">
+              <label style="font-size: 13px; font-weight: 800; color: #f1f5f9; display: block; margin-bottom: 8px;">3. Global Credit Sanction Limits</label>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                <div>
+                  <span style="font-size: 11px; color: #94a3b8; display: block; margin-bottom: 4px;">Default Approved Limit (₹)</span>
+                  <input type="number" id="cfgDefaultLimit" class="admin-input" value="50000" step="1000" oninput="updateLivePreview()">
+                </div>
+                <div>
+                  <span style="font-size: 11px; color: #94a3b8; display: block; margin-bottom: 4px;">Interest Rate (% p.a.)</span>
+                  <input type="number" id="cfgInterestRate" class="admin-input" value="24" step="0.5">
+                </div>
+                <div>
+                  <span style="font-size: 11px; color: #94a3b8; display: block; margin-bottom: 4px;">Disbursal Fee (₹)</span>
+                  <input type="number" id="cfgDisbursalFee" class="admin-input" value="199" step="50">
+                </div>
+                <div>
+                  <span style="font-size: 11px; color: #94a3b8; display: block; margin-bottom: 4px;">Helpline Phone</span>
+                  <input type="text" id="cfgPhone" class="admin-input" value="1800-209-4321">
+                </div>
+              </div>
+            </div>
+
+            <button type="button" class="btn-submit-save" id="btnSaveSystemSettings" onclick="saveSystemCustomization()" style="width: 100%; margin-top: 10px;">
+              💾 Save Changes & Apply Live to Customer App
+            </button>
+          </div>
+
+          <!-- Right Column: Live Mockup Preview -->
+          <div style="background: var(--admin-card-bg); border: 1px solid var(--admin-border); border-radius: 16px; padding: 24px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+              <h3 style="font-size: 16px; font-weight: 800; color: #ffffff; margin: 0;">Live Customer App Preview</h3>
+              <span style="font-size: 11px; color: #64748b;">Live Preview of /apply</span>
+            </div>
+
+            <!-- Preview Card -->
+            <div id="mockupSanctionCard" style="max-width: 420px; margin: 0 auto; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); background: #ffffff; color: #0f172a;">
+              <!-- Mockup Hero -->
+              <div id="mockupHeroTop" style="background: #0d2b82; padding: 22px; color: #ffffff; text-align: center; transition: background 0.2s;">
+                <div style="font-size: 12px; font-weight: 700; opacity: 0.85; text-transform: uppercase; letter-spacing: 0.5px;">Approved limit</div>
+                <div id="mockupLimitAmount" style="font-size: 32px; font-weight: 900; margin-top: 4px; letter-spacing: -0.5px;">₹ 50,000</div>
+              </div>
+              <!-- Mockup Body -->
+              <div style="padding: 20px;">
+                <label style="font-size: 12px; font-weight: 800; color: #334155; display: block; margin-bottom: 6px;">Choose your Loan amount</label>
+                <div id="mockupSelectAmount" style="border: 1.5px solid #cbd5e1; border-radius: 10px; padding: 10px 14px; font-weight: 800; font-size: 14px; color: #0f172a; margin-bottom: 14px;">
+                  ₹ 50,000
+                </div>
+
+                <label style="font-size: 12px; font-weight: 800; color: #334155; display: block; margin-bottom: 6px;">Choose EMI's plan</label>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 16px;">
+                  <div style="border: 1px solid #e2e8f0; border-radius: 10px; padding: 8px 4px; text-align: center;">
+                    <div style="font-size: 11px; font-weight: 700; color: #64748b;">6 Months</div>
+                    <div style="font-size: 11.5px; font-weight: 800; color: #0f172a; margin-top: 2px;">₹9,120/mo</div>
+                  </div>
+                  <div id="mockupActiveEmiPill" style="border: 1.5px solid #0d2b82; background: #eff6ff; border-radius: 10px; padding: 8px 4px; text-align: center;">
+                    <div style="font-size: 11px; font-weight: 800; color: #0d2b82;">9 Months</div>
+                    <div style="font-size: 11.5px; font-weight: 800; color: #0d2b82; margin-top: 2px;">₹6,249/mo</div>
+                  </div>
+                  <div style="border: 1px solid #e2e8f0; border-radius: 10px; padding: 8px 4px; text-align: center;">
+                    <div style="font-size: 11px; font-weight: 700; color: #64748b;">12 Months</div>
+                    <div style="font-size: 11.5px; font-weight: 800; color: #0f172a; margin-top: 2px;">₹5,000/mo</div>
+                  </div>
+                </div>
+
+                <!-- Mockup Action Button -->
+                <button type="button" id="mockupActionBtn" style="width: 100%; height: 52px; background: #0d2b82; color: #ffffff; border: none; border-radius: 14px; font-weight: 800; font-size: 15px; cursor: pointer; transition: all 0.2s;">
+                  Continue with loan amount
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </main>
   </div>
@@ -811,6 +967,24 @@
         </div>
       </div>
 
+      <!-- KFS Document Action for Staff -->
+      <div style="margin: 16px 0; background: rgba(13, 43, 130, 0.25); border: 1px solid rgba(59, 130, 246, 0.4); border-radius: 12px; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div style="width: 36px; height: 36px; border-radius: 8px; background: #ef4444; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 11px;">PDF</div>
+          <div>
+            <div style="font-size: 13.5px; font-weight: 800; color: #ffffff; display: flex; align-items: center; gap: 6px;">
+              <span>Key Fact Statement (KFS)</span>
+              <span style="background: rgba(16,185,129,0.2); color: #34d399; font-size: 9.5px; font-weight: 800; padding: 1px 6px; border-radius: 4px;">RBI COMPLIANT</span>
+            </div>
+            <div style="font-size: 11px; color: #94a3b8; margin-top: 1px;">Generate, view & print official loan disclosure PDF</div>
+          </div>
+        </div>
+        <button type="button" onclick="viewCurrentBorrowerKfs()" style="background: #1e3a8a; border: 1px solid #3b82f6; color: #ffffff; padding: 7px 14px; font-size: 12px; font-weight: 800; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 6px; white-space: nowrap;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          <span>View KFS (PDF)</span>
+        </button>
+      </div>
+
       <!-- Section 4: Employee Disbursal Controls & Actions -->
       <form id="controlActionForm" onsubmit="saveApplicationUpdates(event)" class="disbursal-action-box">
         <h3 style="margin: 0 0 14px; font-size: 15px; font-weight: 800; color: #ffffff; display: flex; align-items: center; gap: 8px;">
@@ -874,6 +1048,8 @@
   <!-- Scripts -->
   <script src="js/config.js"></script>
   <script src="js/api.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="js/kfs.js"></script>
   <script>
     let allApplications = [];
     let currentFilter = 'ALL';
@@ -1106,6 +1282,36 @@
       currentSelectedApp = null;
     }
 
+    // View official RBI Key Fact Statement (KFS) in PDF Viewer for current borrower
+    function viewCurrentBorrowerKfs() {
+      if (!currentSelectedApp) {
+        showToast('No borrower application selected');
+        return;
+      }
+      const app = currentSelectedApp;
+      const kfsData = {
+        ...app,
+        fullName: app.fullName || 'Borrower',
+        mobile: app.mobile || '',
+        panNumber: app.panNumber || '-',
+        aadhaarNumber: app.aadhaarNumber || '-',
+        bankName: app.bankName || 'State Bank of India',
+        accountNumber: app.accountNumber || '-',
+        ifscCode: app.ifscCode || '-',
+        selectedAmount: Number(app.disbursedAmount || app.selectedAmount || app.creditLimit || 50000),
+        selectedTenure: Number(app.selectedTenure || 9),
+        monthlyEmi: Number(app.monthlyEmi || 6249),
+        status: app.status || 'SANCTIONED',
+        disbursalTxnId: app.disbursalTxnId || ''
+      };
+
+      if (window.KfsEngine && typeof window.KfsEngine.openPdfViewer === 'function') {
+        window.KfsEngine.openPdfViewer(kfsData);
+      } else {
+        showToast('KFS document engine is initializing. Please try again.');
+      }
+    }
+
     async function saveApplicationUpdates(e) {
       e.preventDefault();
       if (!currentSelectedApp) return;
@@ -1185,6 +1391,220 @@
       setTimeout(() => {
         toast.style.display = 'none';
       }, 3500);
+    }
+
+    // ---- View Switcher: Applications vs Customizer ----
+    function switchAdminView(view) {
+      const isApps = view === 'apps';
+      const viewApps = document.getElementById('viewApplications');
+      const viewCust = document.getElementById('viewCustomizer');
+      if (viewApps) viewApps.style.display = isApps ? 'block' : 'none';
+      if (viewCust) viewCust.style.display = isApps ? 'none' : 'block';
+
+      const tabApps = document.getElementById('tabBtnApps');
+      const tabCust = document.getElementById('tabBtnCustomizer');
+      if (tabApps && tabCust) {
+        if (isApps) {
+          tabApps.style.background = '#1d4ed8';
+          tabApps.style.borderColor = '#3b82f6';
+          tabApps.style.color = '#ffffff';
+          tabCust.style.background = '#1e293b';
+          tabCust.style.borderColor = '#334155';
+          tabCust.style.color = '#94a3b8';
+        } else {
+          tabCust.style.background = '#1d4ed8';
+          tabCust.style.borderColor = '#3b82f6';
+          tabCust.style.color = '#ffffff';
+          tabApps.style.background = '#1e293b';
+          tabApps.style.borderColor = '#334155';
+          tabApps.style.color = '#94a3b8';
+          loadSettingsIntoCustomizer();
+        }
+      }
+    }
+
+    // ---- Customizer Engine ----
+    let currentSystemSettings = null;
+
+    async function loadSettingsIntoCustomizer() {
+      try {
+        let settings = null;
+        if (window.ApexAPI && typeof window.ApexAPI.getSettings === 'function') {
+          const res = await window.ApexAPI.getSettings();
+          if (res && res.success && res.settings) {
+            settings = res.settings;
+          }
+        }
+        if (!settings) {
+          settings = {
+            themeColor: '#0d2b82',
+            sanctionCardColor: '#0d2b82',
+            btnColor: '#0d2b82',
+            btnHeight: '52px',
+            btnRadius: '14px',
+            btnFontSize: '15px',
+            btnLabel: 'Continue with loan amount',
+            defaultCreditLimit: 50000,
+            interestRate: 24,
+            disbursalFee: 199,
+            helplinePhone: '1800-209-4321'
+          };
+        }
+        currentSystemSettings = settings;
+
+        const color = settings.sanctionCardColor || settings.themeColor || '#0d2b82';
+        const colorInput = document.getElementById('cfgSanctionColor');
+        const colorHex = document.getElementById('cfgSanctionColorHex');
+        if (colorInput) colorInput.value = color;
+        if (colorHex) colorHex.value = color;
+
+        const btnColor = settings.btnColor || color;
+        const btnColorInput = document.getElementById('cfgBtnColor');
+        const btnColorHex = document.getElementById('cfgBtnColorHex');
+        if (btnColorInput) btnColorInput.value = btnColor;
+        if (btnColorHex) btnColorHex.value = btnColor;
+
+        if (settings.btnHeight) {
+          const el = document.getElementById('cfgBtnHeight');
+          if (el) el.value = settings.btnHeight;
+        }
+        if (settings.btnRadius) {
+          const el = document.getElementById('cfgBtnRadius');
+          if (el) el.value = settings.btnRadius;
+        }
+        if (settings.btnLabel) {
+          const el = document.getElementById('cfgBtnLabel');
+          if (el) el.value = settings.btnLabel;
+        }
+        if (settings.defaultCreditLimit) {
+          const el = document.getElementById('cfgDefaultLimit');
+          if (el) el.value = settings.defaultCreditLimit;
+        }
+        if (settings.interestRate) {
+          const el = document.getElementById('cfgInterestRate');
+          if (el) el.value = settings.interestRate;
+        }
+        if (settings.disbursalFee) {
+          const el = document.getElementById('cfgDisbursalFee');
+          if (el) el.value = settings.disbursalFee;
+        }
+        if (settings.helplinePhone) {
+          const el = document.getElementById('cfgPhone');
+          if (el) el.value = settings.helplinePhone;
+        }
+
+        updateLivePreview();
+      } catch (err) {
+        console.error('Error loading settings:', err);
+      }
+    }
+
+    function setThemePreset(hex) {
+      const colorInput = document.getElementById('cfgSanctionColor');
+      const colorHex = document.getElementById('cfgSanctionColorHex');
+      const btnColorInput = document.getElementById('cfgBtnColor');
+      const btnColorHex = document.getElementById('cfgBtnColorHex');
+      if (colorInput) colorInput.value = hex;
+      if (colorHex) colorHex.value = hex;
+      if (btnColorInput) btnColorInput.value = hex;
+      if (btnColorHex) btnColorHex.value = hex;
+      updateLivePreview();
+    }
+
+    function onHexInputChange(val) {
+      if (/^#[0-9A-Fa-f]{6}$/.test(val)) {
+        const colorInput = document.getElementById('cfgSanctionColor');
+        if (colorInput) colorInput.value = val;
+        updateLivePreview();
+      }
+    }
+
+    function onBtnHexChange(val) {
+      if (/^#[0-9A-Fa-f]{6}$/.test(val)) {
+        const btnColorInput = document.getElementById('cfgBtnColor');
+        if (btnColorInput) btnColorInput.value = val;
+        updateLivePreview();
+      }
+    }
+
+    function updateLivePreview() {
+      const sanctionColor = document.getElementById('cfgSanctionColor')?.value || '#0d2b82';
+      const btnColor = document.getElementById('cfgBtnColor')?.value || sanctionColor;
+      const btnHeight = document.getElementById('cfgBtnHeight')?.value || '52px';
+      const btnRadius = document.getElementById('cfgBtnRadius')?.value || '14px';
+      const btnLabel = document.getElementById('cfgBtnLabel')?.value || 'Continue with loan amount';
+      const defaultLimit = Number(document.getElementById('cfgDefaultLimit')?.value) || 50000;
+
+      const heroTop = document.getElementById('mockupHeroTop');
+      if (heroTop) heroTop.style.background = sanctionColor;
+
+      const limitEl = document.getElementById('mockupLimitAmount');
+      if (limitEl) limitEl.textContent = '₹ ' + defaultLimit.toLocaleString('en-IN');
+
+      const selectAmtEl = document.getElementById('mockupSelectAmount');
+      if (selectAmtEl) selectAmtEl.textContent = '₹ ' + defaultLimit.toLocaleString('en-IN');
+
+      const activePill = document.getElementById('mockupActiveEmiPill');
+      if (activePill) {
+        activePill.style.borderColor = sanctionColor;
+        activePill.querySelectorAll('div').forEach(d => d.style.color = sanctionColor);
+      }
+
+      const actionBtn = document.getElementById('mockupActionBtn');
+      if (actionBtn) {
+        actionBtn.style.background = btnColor;
+        actionBtn.style.height = btnHeight;
+        actionBtn.style.borderRadius = btnRadius;
+        actionBtn.textContent = btnLabel;
+      }
+    }
+
+    async function saveSystemCustomization() {
+      const btn = document.getElementById('btnSaveSystemSettings');
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = 'Saving Settings...';
+      }
+
+      const sanctionColor = document.getElementById('cfgSanctionColor')?.value || '#0d2b82';
+      const btnColor = document.getElementById('cfgBtnColor')?.value || sanctionColor;
+      const btnHeight = document.getElementById('cfgBtnHeight')?.value || '52px';
+      const btnRadius = document.getElementById('cfgBtnRadius')?.value || '14px';
+      const btnLabel = document.getElementById('cfgBtnLabel')?.value?.trim() || 'Continue with loan amount';
+      const defaultCreditLimit = Number(document.getElementById('cfgDefaultLimit')?.value) || 50000;
+      const interestRate = Number(document.getElementById('cfgInterestRate')?.value) || 24;
+      const disbursalFee = Number(document.getElementById('cfgDisbursalFee')?.value) || 199;
+      const helplinePhone = document.getElementById('cfgPhone')?.value?.trim() || '1800-209-4321';
+
+      const updatedSettings = {
+        themeColor: sanctionColor,
+        sanctionCardColor: sanctionColor,
+        btnColor,
+        btnHeight,
+        btnRadius,
+        btnFontSize: btnHeight === '60px' ? '16px' : (btnHeight === '46px' ? '14px' : '15px'),
+        btnLabel,
+        defaultCreditLimit,
+        interestRate,
+        disbursalFee,
+        helplinePhone
+      };
+
+      try {
+        const res = await window.ApexAPI.adminUpdateSettings(updatedSettings);
+        if (res && res.success) {
+          showToast('✓ Customization saved! Live changes applied across customer app.');
+        } else {
+          alert((res && res.message) || 'Failed to save settings.');
+        }
+      } catch (err) {
+        alert('Error saving settings: ' + err.message);
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = '💾 Save Changes & Apply Live to Customer App';
+        }
+      }
     }
   </script>
 </body>

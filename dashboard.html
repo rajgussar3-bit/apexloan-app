@@ -1229,6 +1229,23 @@
           </div>
         </div>
 
+        <!-- RBI Key Fact Statement (KFS) Quick Strip -->
+        <div class="kfs-home-strip" onclick="openBorrowerKfs()" style="background: #ffffff; border: 1px solid var(--border-light); border-radius: 14px; padding: 14px 16px; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; box-shadow: var(--shadow-sm); transition: transform 0.15s;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div style="width: 38px; height: 38px; border-radius: 10px; background: #fee2e2; color: #dc2626; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 12px; letter-spacing: 0.5px;">PDF</div>
+            <div>
+              <div style="font-size: 13.5px; font-weight: 800; color: var(--text-dark); display: flex; align-items: center; gap: 6px;">
+                <span>Key Fact Statement (KFS)</span>
+                <span style="background: rgba(16, 185, 129, 0.15); color: #059669; font-size: 9.5px; font-weight: 800; padding: 1px 6px; border-radius: 4px;">RBI MANDATORY</span>
+              </div>
+              <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">Official digital loan agreement, APR & schedule</div>
+            </div>
+          </div>
+          <div style="font-size: 11px; font-weight: 800; color: var(--primary-blue-vibrant); background: var(--primary-blue-light); padding: 6px 10px; border-radius: 6px; white-space: nowrap;">
+            VIEW PDF ›
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -1330,6 +1347,23 @@
           </div>
         </div>
 
+        <!-- Official RBI KFS Document Card in My Loans -->
+        <div class="kfs-cta-card" onclick="openBorrowerKfs()" style="background: linear-gradient(135deg, #09206d 0%, #103bb3 100%); color: #ffffff; border-radius: 16px; padding: 16px 18px; margin-bottom: 24px; box-shadow: 0 4px 18px rgba(13, 43, 130, 0.22); cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 14px; transition: transform 0.15s;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div style="width: 42px; height: 42px; border-radius: 12px; background: rgba(255,255,255,0.18); display: flex; align-items: center; justify-content: center; font-size: 22px;">📄</div>
+            <div>
+              <div style="font-size: 14px; font-weight: 800; display: flex; align-items: center; gap: 6px;">
+                <span>Key Fact Statement (KFS)</span>
+                <span style="background: #10b981; color: #ffffff; font-size: 9.5px; font-weight: 800; padding: 2px 6px; border-radius: 4px;">RBI MANDATORY</span>
+              </div>
+              <div style="font-size: 11px; opacity: 0.9; margin-top: 3px;">Auto-generated loan schedule, APR & terms in PDF</div>
+            </div>
+          </div>
+          <button type="button" style="background: #ffffff; color: #0d2b82; border: none; font-size: 11.5px; font-weight: 800; padding: 8px 12px; border-radius: 8px; white-space: nowrap; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.15);">
+            VIEW PDF ›
+          </button>
+        </div>
+
       </div>
 
       <!-- Floating Pay Now Bottom Bar -->
@@ -1381,6 +1415,14 @@
             <span style="color: var(--text-muted); font-size: 14px;">›</span>
           </div>
 
+          <div class="menu-item-row" onclick="openBorrowerKfs()">
+            <div class="menu-left-meta">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary-blue-vibrant)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+              <span>Key Fact Statement (KFS PDF)</span>
+            </div>
+            <span style="color: #10b981; font-size: 11px; font-weight: 800; background: #ecfdf5; padding: 2px 8px; border-radius: 6px;">RBI KFS ›</span>
+          </div>
+
           <div class="menu-item-row" onclick="alert('Lending Partner: Vistas Tecnolabs Finance Limited\nRBI Regd. NBFC License: B-14.02528\nRegistered with Reserve Bank of India.')">
             <div class="menu-left-meta">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary-blue-vibrant)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
@@ -1430,6 +1472,8 @@
   <!-- JavaScript Logic -->
   <script src="js/config.js"></script>
   <script src="js/api.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="js/kfs.js"></script>
   <script>
     // State
     let selectedRepayMode = 'upcoming'; // 'upcoming' or 'full'
@@ -1735,6 +1779,39 @@
       } catch (err) {
         console.warn('Payment fallback simulation:', err);
         onPaymentSuccess('pay_sim_' + Date.now().toString(36));
+      }
+    }
+
+    // Open RBI Key Fact Statement (KFS) in PDF Viewer
+    function openBorrowerKfs() {
+      let activeLoan = null;
+      try {
+        activeLoan = JSON.parse(localStorage.getItem('apexloan_active_loan') || localStorage.getItem('apexloan_sanctioned_offer') || 'null');
+      } catch(e) {}
+
+      const mobile = localStorage.getItem('apexloan_mobile') || '';
+      const fullName = localStorage.getItem('apexloan_fullname') || localStorage.getItem('apexloan_borrower_name') || 'SUBIPRA C.';
+
+      const kfsData = {
+        ...(activeLoan || {}),
+        fullName: fullName,
+        mobile: mobile,
+        panNumber: localStorage.getItem('apexloan_pan') || 'ABCDE1234F',
+        aadhaarNumber: localStorage.getItem('apexloan_aadhaar') || 'XXXX-XXXX-8921',
+        bankName: activeLoan?.bankName || localStorage.getItem('apexloan_bank_name') || 'State Bank of India',
+        accountNumber: activeLoan?.accountNumber || localStorage.getItem('apexloan_acc_num') || '••••••••5995',
+        ifscCode: activeLoan?.ifscCode || localStorage.getItem('apexloan_ifsc') || 'SBIN0001234',
+        selectedAmount: activeLoan?.selectedAmount || activeLoan?.creditLimit || activeLoan?.loanAmount || 50000,
+        selectedTenure: activeLoan?.selectedTenure || 9,
+        monthlyEmi: activeLoan?.monthlyEmi || 6249,
+        status: activeLoan?.status || 'SANCTIONED',
+        disbursalTxnId: activeLoan?.disbursalTxnId || ''
+      };
+
+      if (window.KfsEngine && typeof window.KfsEngine.openPdfViewer === 'function') {
+        window.KfsEngine.openPdfViewer(kfsData);
+      } else {
+        alert('KFS document engine is initializing. Please tap again in a moment.');
       }
     }
 

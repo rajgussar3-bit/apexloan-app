@@ -903,19 +903,15 @@
         <p>Tell us about yourself to check pre-approved loan eligibility</p>
       </div>
 
-      <!-- Verified Mobile Number Badge -->
+      <!-- Mobile Number Field (Primary Identity & Backoffice Sync) -->
       <div class="form-group" style="margin-bottom: 20px;">
-        <label>Verified Mobile Number (Primary Identity)</label>
-        <div style="display: flex; align-items: center; justify-content: space-between; background: rgba(16, 185, 129, 0.08); border: 1.5px solid rgba(16, 185, 129, 0.3); padding: 12px 16px; border-radius: 14px;">
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <span style="font-size: 18px;">🇮🇳</span>
-            <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700; color: #ffffff; font-size: 15px;" id="applyVerifiedMobileDisplay">+91 98••••••10</span>
-          </div>
-          <span style="font-size: 11px; font-weight: 800; color: #10b981; background: rgba(16, 185, 129, 0.15); padding: 4px 10px; border-radius: 9999px; display: inline-flex; align-items: center; gap: 4px;">
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-            OTP Verified
-          </span>
+        <label>Mobile Number (Primary Identity) <span class="required">*</span></label>
+        <div class="input-group">
+          <span class="input-prefix" style="color: #ffffff; font-weight: 800; font-size: 15px;">🇮🇳 +91</span>
+          <input type="tel" class="form-control" id="mobile" placeholder="Enter 10-digit mobile number" maxlength="10" autocomplete="tel" required style="font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 16px; letter-spacing: 0.8px;">
+          <span class="input-suffix" style="color: #10b981; font-weight: 800; font-size: 11px; background: rgba(16, 185, 129, 0.12); padding: 4px 8px; border-radius: 6px;" id="mobileVerifiedPill">✓ VERIFIED</span>
         </div>
+        <div class="error-text" id="mobileError">Please enter a valid 10-digit mobile number</div>
       </div>
 
       <!-- Full Name -->
@@ -1490,6 +1486,21 @@
             <div class="v-bank-change-link" onclick="handleChangeAccount()">Change account ^</div>
           </div>
 
+          <!-- RBI Key Fact Statement (KFS) Disclosure CTA -->
+          <div class="kfs-sanction-cta" onclick="openSanctionKfs()" style="margin: 14px 0 12px 0; background: #f8fafc; border: 1.5px dashed #0d2b82; border-radius: 12px; padding: 12px 14px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; transition: background 0.2s;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <div style="width: 34px; height: 34px; border-radius: 8px; background: #fee2e2; color: #dc2626; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 11px;">PDF</div>
+              <div>
+                <div style="font-size: 12.5px; font-weight: 800; color: #0d2b82; display: flex; align-items: center; gap: 6px;">
+                  <span>Review Key Fact Statement (KFS)</span>
+                  <span style="background: rgba(16,185,129,0.15); color: #059669; font-size: 9px; font-weight: 800; padding: 1px 5px; border-radius: 4px;">RBI MANDATORY</span>
+                </div>
+                <div style="font-size: 10.5px; color: #64748b; margin-top: 1px;">APR breakdown, upfront fees & repayment schedule in PDF</div>
+              </div>
+            </div>
+            <span style="color: #0d2b82; font-size: 11px; font-weight: 800; background: #e0e7ff; padding: 5px 10px; border-radius: 6px; white-space: nowrap;">VIEW PDF ›</span>
+          </div>
+
           <!-- Continue Button -->
           <button type="button" class="btn-continue-loan" id="acceptLoanBtn" onclick="openDisbursalFeeModal()">
             Continue with loan amount
@@ -1777,34 +1788,153 @@
   <script src="js/api.js"></script>
   <script src="js/apply.js"></script>
   <script src="js/kyc.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="js/kfs.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', () => {
       const mob = localStorage.getItem('apexloan_mobile');
-      if (mob) {
-        const el = document.getElementById('applyVerifiedMobileDisplay');
-        if (el) {
-          el.textContent = '+91 ' + mob.slice(0, 2) + '••••' + mob.slice(-4);
+      const mobileInput = document.getElementById('mobile');
+      if (mob && mobileInput) {
+        mobileInput.value = mob.slice(-10);
+      }
+      if (mobileInput) {
+        mobileInput.addEventListener('input', () => {
+          const clean = mobileInput.value.replace(/\D/g, '').slice(0, 10);
+          mobileInput.value = clean;
+          if (clean.length === 10) {
+            localStorage.setItem('apexloan_mobile', clean);
+            if (typeof window.syncApplicationToBackend === 'function') {
+              window.syncApplicationToBackend();
+            }
+          }
+        });
+      }
+
+      // Fetch live admin customization settings
+      const apiBase = (window.APP_CONFIG && window.APP_CONFIG.API_BASE_URL) ? window.APP_CONFIG.API_BASE_URL : '/api';
+      fetch(`${apiBase}/settings`).then(r => r.json()).then(res => {
+        if (res && res.success && res.settings) {
+          applySystemSettings(res.settings);
         }
+      }).catch(e => console.warn('[SETTINGS] Fetch:', e));
+
+      // Fetch existing application from server if mobile exists
+      if (mob && window.ApexAPI && typeof window.ApexAPI.getLoanStatus === 'function') {
+        window.ApexAPI.getLoanStatus(mob).then(res => {
+          if (res && res.success && res.application) {
+            const serverApp = res.application;
+            const assignedLimit = Number(serverApp.creditLimit || serverApp.selectedAmount || 50000);
+            window.setApprovedLoanLimit(assignedLimit, serverApp.selectedAmount || assignedLimit);
+          }
+        }).catch(e => console.warn('[SYNC] Initial status:', e));
       }
     });
+
+    function applySystemSettings(s) {
+      if (!s) return;
+      const root = document.documentElement;
+      if (s.themeColor) root.style.setProperty('--primary', s.themeColor);
+      if (s.sanctionCardColor) {
+        const topHero = document.querySelector('.sanction-hero-top');
+        if (topHero) topHero.style.background = s.sanctionCardColor;
+      }
+      if (s.btnColor) {
+        const btn = document.getElementById('acceptLoanBtn');
+        if (btn) btn.style.background = s.btnColor;
+      }
+      if (s.btnHeight) {
+        const btn = document.getElementById('acceptLoanBtn');
+        if (btn) btn.style.height = s.btnHeight;
+      }
+      if (s.btnRadius) {
+        const btn = document.getElementById('acceptLoanBtn');
+        if (btn) btn.style.borderRadius = s.btnRadius;
+      }
+      if (s.btnFontSize) {
+        const btn = document.getElementById('acceptLoanBtn');
+        if (btn) btn.style.fontSize = s.btnFontSize;
+      }
+      if (s.btnLabel) {
+        const btn = document.getElementById('acceptLoanBtn');
+        if (btn) btn.textContent = s.btnLabel;
+      }
+      if (s.defaultCreditLimit) {
+        window.globalDefaultCreditLimit = Number(s.defaultCreditLimit);
+      }
+    }
   </script>
 
   <script>
-    // Photo 1 & Photo 2 Helper interactions
-    window.handleSelectLoanAmount = function(val) {
-      const amt = parseInt(val, 10);
+    // Unified Dynamic Approved Loan Limit Manager
+    window.setApprovedLoanLimit = function(approvedLimit, userSelectedAmt) {
+      approvedLimit = Number(approvedLimit) || (window.globalDefaultCreditLimit || 50000);
+      let selected = Number(userSelectedAmt) || approvedLimit;
+      if (selected > approvedLimit) selected = approvedLimit;
+
+      // 1. Update the Hero Ceiling text
       const heroCeiling = document.getElementById('sanctionMaxCeilingDisplay');
+      if (heroCeiling) heroCeiling.textContent = '₹ ' + approvedLimit.toLocaleString('en-IN');
+
+      // 2. Dynamically populate customLoanAmountSelect options <= approvedLimit
+      const selectEl = document.getElementById('customLoanAmountSelect');
+      if (selectEl) {
+        const opts = [approvedLimit];
+        if (approvedLimit >= 30000) {
+          opts.push(Math.round(approvedLimit * 0.75 / 500) * 500);
+          opts.push(Math.round(approvedLimit * 0.50 / 500) * 500);
+          opts.push(Math.round(approvedLimit * 0.25 / 500) * 500);
+        } else if (approvedLimit >= 15000) {
+          opts.push(Math.round(approvedLimit * 0.80 / 500) * 500);
+          opts.push(Math.round(approvedLimit * 0.60 / 500) * 500);
+          opts.push(10000);
+        } else {
+          opts.push(Math.max(5000, Math.round(approvedLimit * 0.70)));
+          opts.push(5000);
+        }
+        const unique = Array.from(new Set(opts)).filter(v => v > 0).sort((a, b) => b - a);
+        selectEl.innerHTML = unique.map(amt => `
+          <option value="${amt}" ${amt === selected ? 'selected' : ''}>₹ ${amt.toLocaleString('en-IN')}</option>
+        `).join('');
+      }
+
+      // 3. Update in-memory offer
+      if (!window.sanctionedOffer) window.sanctionedOffer = {};
+      window.sanctionedOffer.creditLimit = approvedLimit;
+      window.sanctionedOffer.selectedAmount = selected;
+
+      // 4. Update EMIs
+      updatePlanEmiCalculations(selected);
+
+      // 5. Update Ticket voucher
       const ticketAmt = document.getElementById('ticketAmountDisplay');
       const modalAppr = document.getElementById('modalApprovedAmount');
-      if (heroCeiling) heroCeiling.textContent = '₹ ' + amt.toLocaleString('en-IN');
-      if (ticketAmt) ticketAmt.textContent = '₹ ' + amt.toLocaleString('en-IN') + '.00';
-      if (modalAppr) modalAppr.textContent = '₹' + amt.toLocaleString('en-IN');
+      if (ticketAmt) ticketAmt.textContent = '₹ ' + selected.toLocaleString('en-IN') + '.00';
+      if (modalAppr) modalAppr.textContent = '₹' + selected.toLocaleString('en-IN');
+
+      // 6. Sync to backend
+      if (typeof window.syncApplicationToBackend === 'function') {
+        window.syncApplicationToBackend(window.sanctionedOffer);
+      }
+    };
+
+    window.handleSelectLoanAmount = function(val) {
+      const amt = parseInt(val, 10);
+      const maxLimit = window.sanctionedOffer?.creditLimit || 50000;
+      const safeAmt = Math.min(amt, maxLimit);
+
+      const ticketAmt = document.getElementById('ticketAmountDisplay');
+      const modalAppr = document.getElementById('modalApprovedAmount');
+      if (ticketAmt) ticketAmt.textContent = '₹ ' + safeAmt.toLocaleString('en-IN') + '.00';
+      if (modalAppr) modalAppr.textContent = '₹' + safeAmt.toLocaleString('en-IN');
 
       if (window.sanctionedOffer) {
-        window.sanctionedOffer.selectedAmount = amt;
-        window.sanctionedOffer.creditLimit = amt;
+        window.sanctionedOffer.selectedAmount = safeAmt;
       }
-      updatePlanEmiCalculations(amt);
+      updatePlanEmiCalculations(safeAmt);
+      if (typeof window.syncApplicationToBackend === 'function') {
+        window.syncApplicationToBackend(window.sanctionedOffer);
+      }
     };
 
     function updatePlanEmiCalculations(principal) {
@@ -1844,6 +1974,9 @@
       const selectEl = document.getElementById('customLoanAmountSelect');
       const amt = selectEl ? parseInt(selectEl.value, 10) : 50000;
       updatePlanEmiCalculations(amt);
+      if (typeof window.syncApplicationToBackend === 'function') {
+        window.syncApplicationToBackend(window.sanctionedOffer);
+      }
     };
 
     function handleChangeAccount() {
@@ -1916,6 +2049,39 @@
         });
       }
     });
+
+    // Auto-generate and view KFS in PDF Viewer during sanction stage
+    window.openSanctionKfs = function() {
+      const offer = window.sanctionedOffer || {};
+      const mobile = localStorage.getItem('apexloan_mobile') || '';
+      const fullName = document.getElementById('fullName')?.value || localStorage.getItem('apexloan_fullname') || 'SUBIPRA C.';
+      const pan = document.getElementById('panNumber')?.value || localStorage.getItem('apexloan_pan') || 'ABCDE1234F';
+      const aadhaar = document.getElementById('aadhaarNumber')?.value || localStorage.getItem('apexloan_aadhaar') || 'XXXX-XXXX-8921';
+      const bankName = document.getElementById('bankNameSelect')?.value || document.getElementById('sanctionBankNameDisplay')?.textContent || 'State Bank of India';
+      const accNum = document.getElementById('accountNumber')?.value || '••••5995';
+      const ifsc = document.getElementById('ifscCode')?.value || 'SBIN0001234';
+
+      const kfsData = {
+        ...offer,
+        fullName: fullName,
+        mobile: mobile,
+        panNumber: pan,
+        aadhaarNumber: aadhaar,
+        bankName: bankName,
+        accountNumber: accNum,
+        ifscCode: ifsc,
+        selectedAmount: offer.selectedAmount || offer.creditLimit || 50000,
+        selectedTenure: offer.selectedTenure || 9,
+        monthlyEmi: offer.monthlyEmi || 6249,
+        status: 'SANCTIONED'
+      };
+
+      if (window.KfsEngine && typeof window.KfsEngine.openPdfViewer === 'function') {
+        window.KfsEngine.openPdfViewer(kfsData);
+      } else {
+        alert('KFS generation engine is initializing. Please try again in a moment.');
+      }
+    };
   </script>
 
 </body>
