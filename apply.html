@@ -70,7 +70,7 @@
 
     /* Top Royal Navbar */
     .navbar {
-      background: linear-gradient(180deg, #09206d 0%, #103bb3 100%) !important;
+      background: var(--header-gradient, linear-gradient(180deg, #09206d 0%, #103bb3 100%)) !important;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
       padding: calc(env(safe-area-inset-top, 0px) + 14px) 20px 18px 20px !important;
       color: #ffffff;
@@ -263,17 +263,6 @@
     .input-group .form-control {
       padding-left: 48px !important;
     }
-    #mobileInputWrapper:focus-within {
-      border-color: #103bb3 !important;
-      box-shadow: 0 0 0 3px rgba(16, 59, 179, 0.15) !important;
-    }
-    .form-group.has-error #mobileInputWrapper {
-      border-color: #ef4444 !important;
-      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15) !important;
-    }
-    .form-group.has-error #mobileError {
-      display: block !important;
-    }
     .kyc-num-input {
       font-family: 'JetBrains Mono', 'Plus Jakarta Sans', monospace !important;
       font-size: 16px !important;
@@ -347,19 +336,19 @@
 
     /* Buttons */
     .btn-primary, .btn-secondary, .btn-success, .btn-next, .btn-premium-glow {
-      background: linear-gradient(135deg, #0d2b82 0%, #103bb3 100%) !important;
+      background: var(--btn-custom-bg, var(--gradient-primary, linear-gradient(135deg, #0d2b82 0%, #103bb3 100%)));
       color: #ffffff !important;
       font-weight: 800 !important;
-      border-radius: 14px !important;
-      height: 50px;
+      border-radius: var(--btn-custom-radius, 14px);
+      height: var(--btn-custom-height, 50px);
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
       border: none !important;
       cursor: pointer;
-      box-shadow: 0 6px 20px rgba(13, 43, 130, 0.22) !important;
-      transition: transform 0.2s, box-shadow 0.2s !important;
+      box-shadow: 0 6px 20px rgba(13, 43, 130, 0.22);
+      transition: transform 0.2s, box-shadow 0.2s;
     }
     .btn-primary:active, .btn-secondary:active, .btn-success:active, .btn-next:active {
       transform: scale(0.98);
@@ -377,7 +366,7 @@
     }
 
     .sanction-hero-top {
-      background: linear-gradient(180deg, #09206d 0%, #0d2e85 60%, #103bb3 100%);
+      background: var(--sanction-hero-bg, linear-gradient(180deg, #09206d 0%, #0d2e85 60%, #103bb3 100%));
       border-radius: 20px 20px 0 0;
       padding: 24px 20px;
       color: #ffffff;
@@ -542,11 +531,11 @@
     }
 
     .btn-continue-loan {
-      background: linear-gradient(135deg, #0d2b82 0%, #103bb3 100%);
+      background: var(--sanction-btn-bg, var(--primary, #0d2b82));
       color: #ffffff;
       border: none;
-      border-radius: 14px;
-      height: 52px;
+      border-radius: var(--sanction-btn-radius, 14px);
+      height: var(--sanction-btn-height, 52px);
       width: 100%;
       font-size: 15px;
       font-weight: 800;
@@ -914,34 +903,9 @@
         <p id="step1Subtitle">Tell us about yourself to check pre-approved loan eligibility</p>
       </div>
 
-      <!-- Mobile Number Field (Primary Identity & Backoffice Sync) -->
-      <div class="form-group" style="margin-bottom: 20px;">
-        <label id="lbl_mobile">Mobile Number (Primary Identity) <span class="required">*</span></label>
-        <div class="phone-input-wrapper" id="mobileInputWrapper" style="display: flex; align-items: center; background: #ffffff; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 4px 6px; transition: all 0.2s ease;">
-          <div class="country-chip" style="display: flex; align-items: center; gap: 6px; padding: 8px 12px; background: #f1f5f9; border-radius: 9px; font-weight: 800; font-size: 14px; color: #0f172a; user-select: none;">
-            <span>🇮🇳</span>
-            <span style="color: #0f172a; font-weight: 800;">+91</span>
-          </div>
-          <input 
-            type="tel" 
-            class="phone-input-field" 
-            id="mobile" 
-            placeholder="Enter 10-digit mobile number" 
-            maxlength="15" 
-            inputmode="numeric" 
-            autocomplete="tel-national" 
-            style="flex: 1; min-width: 0; background: transparent; border: none; outline: none; padding: 10px 12px; font-size: 16px; font-weight: 800; letter-spacing: 0.8px; color: #0f172a; font-family: 'JetBrains Mono', monospace;"
-          >
-          <div id="mobileVerifiedPill" style="display: none; align-items: center; gap: 4px; color: #10b981; font-weight: 800; font-size: 11px; background: rgba(16, 185, 129, 0.12); padding: 6px 10px; border-radius: 6px; margin-right: 6px; white-space: nowrap;">
-            ✓ VERIFIED
-          </div>
-        </div>
-        <div class="error-text" id="mobileError" style="display: none; color: #ef4444; font-size: 12px; font-weight: 700; margin-top: 6px;">Please enter a valid 10-digit mobile number</div>
-      </div>
-
       <!-- Full Name -->
       <div class="form-group">
-        <label>Full Name (as per Aadhaar) <span class="required">*</span></label>
+        <label id="lbl_fullName">Full Name (as per Aadhaar) <span class="required">*</span></label>
         <input type="text" class="form-control" id="fullName" placeholder="e.g. Rajesh Kumar Sharma" autocomplete="name">
         <div class="error-text">Please enter your full name</div>
       </div>
@@ -949,12 +913,12 @@
       <!-- DOB & Gender -->
       <div class="form-row">
         <div class="form-group">
-          <label>Date of Birth <span class="required">*</span></label>
+          <label id="lbl_dob">Date of Birth <span class="required">*</span></label>
           <input type="date" class="form-control" id="dob">
           <div class="error-text">Please enter your date of birth</div>
         </div>
         <div class="form-group">
-          <label>Gender <span class="required">*</span></label>
+          <label id="lbl_gender">Gender <span class="required">*</span></label>
           <select class="form-control" id="gender">
             <option value="">Select Gender</option>
             <option value="male">Male</option>
@@ -967,7 +931,7 @@
 
       <!-- Email -->
       <div class="form-group">
-        <label>Email Address <span class="required">*</span></label>
+        <label id="lbl_email">Email Address <span class="required">*</span></label>
         <input type="email" class="form-control" id="email" placeholder="e.g. rajesh@email.com" autocomplete="email">
         <div class="error-text">Please enter a valid email address</div>
       </div>
@@ -992,20 +956,20 @@
 
       <div class="form-row">
         <div class="form-group">
-          <label>PIN Code <span class="required">*</span></label>
+          <label id="lbl_pincode">PIN Code <span class="required">*</span></label>
           <input type="text" class="form-control" id="pincode" placeholder="e.g. 400001" maxlength="6" inputmode="numeric">
           <div id="pincodeLocationBadge" style="display:none; font-size: 11.5px; font-weight: 700; color: #10b981; margin-top: 5px; transition: all 0.2s;"></div>
           <div class="error-text">Please enter a valid 6-digit PIN code</div>
         </div>
         <div class="form-group">
-          <label>City <span class="required">*</span></label>
+          <label id="lbl_city">City <span class="required">*</span></label>
           <input type="text" class="form-control" id="city" placeholder="Auto-fills from PIN code">
           <div class="error-text">Please enter your city</div>
         </div>
       </div>
 
       <div class="form-group">
-        <label>State <span class="required">*</span></label>
+        <label id="lbl_state">State <span class="required">*</span></label>
         <select class="form-control" id="state">
           <option value="">Select State</option>
           <option value="AN">Andaman & Nicobar</option>
@@ -1046,7 +1010,7 @@
 
       <!-- Compact Desired Loan Amount Selector -->
       <div class="form-group" id="step1LoanCalcBox" style="margin-top: 14px;">
-        <label>Desired Loan Amount <span class="required">*</span></label>
+        <label id="lbl_loanSlider">Desired Loan Amount <span class="required">*</span></label>
         <div class="loan-slider-container">
           <div class="loan-amount-display">
             <span class="loan-slider-label">Amount Required:</span>
@@ -1083,7 +1047,7 @@
 
       <!-- Employment Type -->
       <div class="form-group">
-        <label>Employment Type <span class="required">*</span></label>
+        <label id="lbl_empType">Employment Type <span class="required">*</span></label>
         <div class="emp-type-grid">
           <div class="emp-type-card" data-type="salaried" onclick="selectEmpType(this)">
             <div class="emp-icon">
@@ -1116,7 +1080,7 @@
 
       <!-- Company Name -->
       <div class="form-group">
-        <label>Company / Business Name <span class="required">*</span></label>
+        <label id="lbl_companyName">Company / Business Name <span class="required">*</span></label>
         <input type="text" class="form-control" id="companyName" placeholder="e.g. Tata Consultancy Services">
         <div class="error-text">Please enter company name</div>
       </div>
@@ -1124,12 +1088,12 @@
       <!-- Designation & Experience -->
       <div class="form-row">
         <div class="form-group">
-          <label>Designation <span class="required">*</span></label>
+          <label id="lbl_designation">Designation <span class="required">*</span></label>
           <input type="text" class="form-control" id="designation" placeholder="e.g. Software Engineer">
           <div class="error-text">Please enter your designation</div>
         </div>
         <div class="form-group">
-          <label>Work Experience <span class="required">*</span></label>
+          <label id="lbl_experience">Work Experience <span class="required">*</span></label>
           <select class="form-control" id="experience">
             <option value="">Select Experience</option>
             <option value="0-1">Less than 1 year</option>
@@ -1144,7 +1108,7 @@
 
       <!-- Monthly Salary -->
       <div class="form-group">
-        <label>Monthly Income / Salary <span class="required">*</span></label>
+        <label id="lbl_monthlySalary">Monthly Income / Salary <span class="required">*</span></label>
         <div class="input-group">
           <span class="input-prefix">₹</span>
           <input type="number" class="form-control" id="monthlySalary" placeholder="e.g. 35000" min="0">
@@ -1157,7 +1121,7 @@
 
       <!-- Salary Slip -->
       <div class="form-group">
-        <label>Upload Salary Slip (Optional)</label>
+        <label id="lbl_salarySlip">Upload Salary Slip (Optional)</label>
         <div class="file-upload-area" id="salarySlipUpload" onclick="document.getElementById('salarySlipFile').click()">
           <div class="upload-icon">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
@@ -1199,7 +1163,7 @@
 
           <!-- Aadhaar Number (Field 1) -->
           <div class="form-group" style="margin-bottom: 16px;">
-            <label style="font-size: 12.5px; font-weight: 800; color: var(--text-dark); display: flex; justify-content: space-between; margin-bottom: 6px;">
+            <label id="lbl_aadhaarNumber" style="font-size: 12.5px; font-weight: 800; color: var(--text-dark); display: flex; justify-content: space-between; margin-bottom: 6px;">
               <span>Aadhaar Card Number <span class="required" style="color: var(--accent-red);">*</span></span>
               <span style="font-size: 11px; font-weight: 600; color: var(--text-muted);">UIDAI 12 Digits</span>
             </label>
@@ -1218,7 +1182,7 @@
 
           <!-- PAN Card Number (Field 2 - DIRECTLY BELOW AADHAAR) -->
           <div class="form-group" style="margin-bottom: 4px;">
-            <label style="font-size: 12.5px; font-weight: 800; color: var(--text-dark); display: flex; justify-content: space-between; margin-bottom: 6px;">
+            <label id="lbl_panNumber" style="font-size: 12.5px; font-weight: 800; color: var(--text-dark); display: flex; justify-content: space-between; margin-bottom: 6px;">
               <span>PAN Card Number <span class="required" style="color: var(--accent-red);">*</span></span>
               <span style="font-size: 11px; font-weight: 600; color: var(--text-muted);">NSDL 10 Chars</span>
             </label>
@@ -1325,7 +1289,7 @@
       <div class="bank-form-card" id="bankFormCard">
         <!-- 1. Account Number -->
         <div class="form-group">
-          <label>Bank Account Number <span class="required">*</span></label>
+          <label id="lbl_accountNumber">Bank Account Number <span class="required">*</span></label>
           <div class="input-group">
             <span class="input-prefix" style="color: var(--primary);">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg>
@@ -1340,7 +1304,7 @@
 
         <!-- 2. Re-enter Account Number -->
         <div class="form-group">
-          <label>Re-enter Bank Account Number <span class="required">*</span></label>
+          <label id="lbl_confirmAccountNumber">Re-enter Bank Account Number <span class="required">*</span></label>
           <div class="input-group">
             <span class="input-prefix" style="color: var(--secondary);">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
@@ -1353,7 +1317,7 @@
 
         <!-- 3. IFSC Code -->
         <div class="form-group">
-          <label>Bank IFSC Code <span class="required">*</span></label>
+          <label id="lbl_ifscCode">Bank IFSC Code <span class="required">*</span></label>
           <div class="input-group">
             <span class="input-prefix" style="color: var(--primary);">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M3 10h18M5 10v11M9 10v11M15 10v11M19 10v11M12 2L2 7h20L12 2z"/></svg>
@@ -1369,7 +1333,7 @@
 
         <!-- Bank Name -->
         <div class="form-group">
-          <label>Bank Name <span class="required">*</span></label>
+          <label id="lbl_bankName">Bank Name <span class="required">*</span></label>
           <select class="form-control" id="bankName">
             <option value="">Select Bank</option>
             <option value="State Bank of India">State Bank of India (SBI)</option>
@@ -1837,65 +1801,8 @@
       return clean;
     };
 
-    function handleMobileInputEvent() {
-      const mobileInput = document.getElementById('mobile');
-      if (!mobileInput) return;
-      const clean = window.formatAndSyncMobile(mobileInput.value);
-      if (mobileInput.value !== clean) {
-        mobileInput.value = clean;
-      }
-      const pill = document.getElementById('mobileVerifiedPill');
-      const errEl = document.getElementById('mobileError');
-      const grp = mobileInput.closest('.form-group');
-
-      if (clean.length === 10 && /^[6-9]/.test(clean)) {
-        if (pill) pill.style.display = 'inline-flex';
-        if (errEl) errEl.style.display = 'none';
-        if (grp) grp.classList.remove('has-error');
-        localStorage.setItem('apexloan_mobile', clean);
-        if (typeof window.syncApplicationToBackend === 'function') {
-          window.syncApplicationToBackend();
-        }
-      } else {
-        if (pill) pill.style.display = 'none';
-        if (clean.length > 0 && clean.length < 10) {
-          if (grp) grp.classList.remove('has-error');
-          if (errEl) errEl.style.display = 'none';
-        }
-      }
-    }
-
     document.addEventListener('DOMContentLoaded', () => {
       const mob = localStorage.getItem('apexloan_mobile');
-      const mobileInput = document.getElementById('mobile');
-      if (mobileInput) {
-        if (mob) {
-          const clean = window.formatAndSyncMobile(mob);
-          mobileInput.value = clean;
-          if (clean.length === 10 && /^[6-9]/.test(clean)) {
-            const pill = document.getElementById('mobileVerifiedPill');
-            if (pill) pill.style.display = 'inline-flex';
-          }
-        }
-
-        mobileInput.addEventListener('input', handleMobileInputEvent);
-        mobileInput.addEventListener('change', handleMobileInputEvent);
-        mobileInput.addEventListener('paste', () => {
-          setTimeout(handleMobileInputEvent, 10);
-        });
-        mobileInput.addEventListener('blur', () => {
-          const clean = window.formatAndSyncMobile(mobileInput.value);
-          const grp = mobileInput.closest('.form-group');
-          const errEl = document.getElementById('mobileError');
-          if (clean.length > 0 && (clean.length !== 10 || !/^[6-9]/.test(clean))) {
-            if (grp) grp.classList.add('has-error');
-            if (errEl) {
-              errEl.textContent = 'Please enter a valid 10-digit mobile number starting with 6, 7, 8, or 9';
-              errEl.style.display = 'block';
-            }
-          }
-        });
-      }
 
       // Initialize central settings manager
       if (window.ApexSettingsManager && typeof window.ApexSettingsManager.init === 'function') {
@@ -1918,35 +1825,6 @@
       if (!s) return;
       if (window.ApexSettingsManager && typeof window.ApexSettingsManager.apply === 'function') {
         window.ApexSettingsManager.apply(s);
-      }
-      const root = document.documentElement;
-      if (s.themeColor) root.style.setProperty('--primary', s.themeColor);
-      if (s.sanctionCardColor) {
-        const topHero = document.querySelector('.sanction-hero-top');
-        if (topHero) topHero.style.background = s.sanctionCardColor;
-      }
-      if (s.btnColor) {
-        const btn = document.getElementById('acceptLoanBtn');
-        if (btn) btn.style.background = s.btnColor;
-      }
-      if (s.btnHeight) {
-        const btn = document.getElementById('acceptLoanBtn');
-        if (btn) btn.style.height = s.btnHeight;
-      }
-      if (s.btnRadius) {
-        const btn = document.getElementById('acceptLoanBtn');
-        if (btn) btn.style.borderRadius = s.btnRadius;
-      }
-      if (s.btnFontSize) {
-        const btn = document.getElementById('acceptLoanBtn');
-        if (btn) btn.style.fontSize = s.btnFontSize;
-      }
-      if (s.btnLabel) {
-        const btn = document.getElementById('acceptLoanBtn');
-        if (btn) btn.textContent = s.btnLabel;
-      }
-      if (s.defaultCreditLimit) {
-        window.globalDefaultCreditLimit = Number(s.defaultCreditLimit);
       }
     }
   </script>

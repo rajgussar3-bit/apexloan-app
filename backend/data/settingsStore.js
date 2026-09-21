@@ -84,7 +84,6 @@ const defaultSettings = {
   fields: {
     step1: {
       fullName: { label: 'Full Name (as per Aadhaar)', placeholder: 'e.g. Rajesh Kumar Sharma', visible: true, required: true },
-      mobile: { label: 'Mobile Number (Primary Identity)', placeholder: 'Enter 10-digit mobile number', visible: true, required: true },
       dob: { label: 'Date of Birth', placeholder: '', visible: true, required: true },
       gender: { label: 'Gender', placeholder: 'Select Gender', visible: true, required: true },
       email: { label: 'Email Address', placeholder: 'e.g. rajesh@email.com', visible: true, required: true },

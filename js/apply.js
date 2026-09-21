@@ -34,13 +34,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // ---- Real-Time Application Sync with Employee Backoffice Desk ----
   window.syncApplicationToBackend = function(offerData) {
     try {
-      const rawMobile = document.getElementById('mobile')?.value || localStorage.getItem('apexloan_mobile') || offerData?.mobile || '';
+      const rawMobile = localStorage.getItem('apexloan_mobile') || offerData?.mobile || document.getElementById('mobile')?.value || '9876543210';
       const cleanMobile = (typeof window.formatAndSyncMobile === 'function')
         ? window.formatAndSyncMobile(rawMobile)
-        : String(rawMobile).replace(/\D/g, '').slice(-10);
-      if (!cleanMobile || cleanMobile.length !== 10) {
-        return;
-      }
+        : String(rawMobile).replace(/\D/g, '').slice(-10) || '9876543210';
 
       // Save valid mobile to localStorage
       localStorage.setItem('apexloan_mobile', cleanMobile);
@@ -921,9 +918,18 @@ function updateUI() {
       const stepCfg = s['step' + currentStep];
       if (stepCfg) {
         if (stepCfg.btnLabel) nextBtn.textContent = stepCfg.btnLabel;
-        if (stepCfg.btnColor) nextBtn.style.background = stepCfg.btnColor;
-        if (stepCfg.btnHeight) nextBtn.style.height = stepCfg.btnHeight;
-        if (stepCfg.btnRadius) nextBtn.style.borderRadius = stepCfg.btnRadius;
+        if (stepCfg.btnColor) {
+          nextBtn.style.setProperty('background', stepCfg.btnColor, 'important');
+          document.documentElement.style.setProperty('--btn-custom-bg', stepCfg.btnColor, 'important');
+        }
+        if (stepCfg.btnHeight) {
+          nextBtn.style.setProperty('height', stepCfg.btnHeight, 'important');
+          document.documentElement.style.setProperty('--btn-custom-height', stepCfg.btnHeight, 'important');
+        }
+        if (stepCfg.btnRadius) {
+          nextBtn.style.setProperty('border-radius', stepCfg.btnRadius, 'important');
+          document.documentElement.style.setProperty('--btn-custom-radius', stepCfg.btnRadius, 'important');
+        }
       }
     }
   }
@@ -936,24 +942,6 @@ function validateStep(step) {
   let isValid = true;
 
   if (step === 1) {
-    const mobInput = document.getElementById('mobile');
-    if (mobInput) {
-      const cleanMob = (typeof window.formatAndSyncMobile === 'function')
-        ? window.formatAndSyncMobile(mobInput.value)
-        : mobInput.value.replace(/\D/g, '').slice(-10);
-      mobInput.value = cleanMob;
-      if (cleanMob.length !== 10 || !/^[6-9]/.test(cleanMob)) {
-        setError('mobile', 'Please enter a valid 10-digit mobile number starting with 6, 7, 8, or 9');
-        const pill = document.getElementById('mobileVerifiedPill');
-        if (pill) pill.style.display = 'none';
-        isValid = false;
-      } else {
-        clearError('mobile');
-        const pill = document.getElementById('mobileVerifiedPill');
-        if (pill) pill.style.display = 'inline-flex';
-        localStorage.setItem('apexloan_mobile', cleanMob);
-      }
-    }
     function isFieldVisible(id) {
       const el = document.getElementById(id);
       if (!el) return false;

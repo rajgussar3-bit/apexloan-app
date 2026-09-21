@@ -71,12 +71,6 @@
         "visible": true,
         "required": true
       },
-      "mobile": {
-        "label": "Mobile Number (Primary Identity)",
-        "placeholder": "Enter 10-digit mobile number",
-        "visible": true,
-        "required": true
-      },
       "dob": {
         "label": "Date of Birth",
         "placeholder": "",

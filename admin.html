@@ -972,31 +972,7 @@
                 <span>📋</span> Phase 1 Columns / Fields Customizer (Name, Placeholder & Show/Hide)
               </div>
 
-              <!-- Field 1: Mobile Number -->
-              <div class="field-editor-card">
-                <div class="field-editor-header">
-                  <div class="field-editor-title">
-                    <span>📱</span> Mobile Number (Primary Identity)
-                    <span class="field-tag-badge field-tag-req">Required</span>
-                  </div>
-                  <label class="toggle-row">
-                    <span style="font-size: 12px; margin-right: 6px;">Show Field</span>
-                    <input type="checkbox" id="cfg_f_s1_mobile_vis" checked onchange="updateLivePreview()">
-                  </label>
-                </div>
-                <div class="field-editor-inputs">
-                  <div>
-                    <label class="field-sublabel">Column Name / Label</label>
-                    <input type="text" id="cfg_f_s1_mobile_lbl" class="admin-input field-input-sm" value="Mobile Number (Primary Identity)" oninput="updateLivePreview()">
-                  </div>
-                  <div>
-                    <label class="field-sublabel">Placeholder / Hint</label>
-                    <input type="text" id="cfg_f_s1_mobile_ph" class="admin-input field-input-sm" value="Enter 10-digit mobile number" oninput="updateLivePreview()">
-                  </div>
-                </div>
-              </div>
-
-              <!-- Field 2: Full Name -->
+              <!-- Field 1: Full Name -->
               <div class="field-editor-card">
                 <div class="field-editor-header">
                   <div class="field-editor-title">
@@ -1977,13 +1953,7 @@
                     <div id="mockStep1Subtitle" style="font-size: 11px; color: #94a3b8; margin-top: 3px;">Tell us about yourself to check pre-approved loan eligibility</div>
                   </div>
 
-                  <!-- Field 1: Mobile Number -->
-                  <div id="mockStep1MobileBox" style="background: #1e293b; border-radius: 12px; padding: 12px; margin-bottom: 10px; font-size: 12px;">
-                    <div id="mockStep1MobileLabel" style="color: #94a3b8; font-size: 11px; margin-bottom: 3px;">Mobile Number *</div>
-                    <div id="mockStep1MobilePh" style="color: #ffffff; font-weight: 700; font-family: monospace;">+91 98112 23344 ✓</div>
-                  </div>
-
-                  <!-- Field 2: Full Name -->
+                  <!-- Field 1: Full Name -->
                   <div id="mockStep1NameBox" style="background: #1e293b; border-radius: 12px; padding: 12px; margin-bottom: 10px; font-size: 12px;">
                     <div id="mockStep1NameLabel" style="color: #94a3b8; font-size: 11px; margin-bottom: 3px;">Full Name (as per Aadhaar) *</div>
                     <div id="mockStep1NamePh" style="color: #cbd5e1; font-weight: 600;">Rajesh Kumar Sharma</div>
@@ -2893,10 +2863,6 @@
         setVal('cfg_f_s1_fullName_lbl', f1.fullName?.label || 'Full Name (as per Aadhaar)');
         setVal('cfg_f_s1_fullName_ph', f1.fullName?.placeholder || 'e.g. Rajesh Kumar Sharma');
 
-        setChecked('cfg_f_s1_mobile_vis', f1.mobile?.visible !== false);
-        setVal('cfg_f_s1_mobile_lbl', f1.mobile?.label || 'Mobile Number (Primary Identity)');
-        setVal('cfg_f_s1_mobile_ph', f1.mobile?.placeholder || 'Enter 10-digit mobile number');
-
         setChecked('cfg_f_s1_dob_vis', f1.dob?.visible !== false);
         setVal('cfg_f_s1_dob_lbl', f1.dob?.label || 'Date of Birth');
 
@@ -3155,12 +3121,6 @@
       if (s1NameLbl) s1NameLbl.textContent = (document.getElementById('cfg_f_s1_fullName_lbl')?.value || 'Full Name') + ' *';
       const s1NamePh = document.getElementById('mockStep1NamePh');
       if (s1NamePh) s1NamePh.textContent = document.getElementById('cfg_f_s1_fullName_ph')?.value || 'Rajesh Kumar Sharma';
-
-      const s1MobVis = document.getElementById('cfg_f_s1_mobile_vis')?.checked;
-      const s1MobBox = document.getElementById('mockStep1MobileBox');
-      if (s1MobBox) s1MobBox.style.display = s1MobVis ? 'block' : 'none';
-      const s1MobLbl = document.getElementById('mockStep1MobileLabel');
-      if (s1MobLbl) s1MobLbl.textContent = (document.getElementById('cfg_f_s1_mobile_lbl')?.value || 'Mobile Number') + ' *';
 
       const s1DobVis = document.getElementById('cfg_f_s1_dob_vis')?.checked;
       const s1DobBox = document.getElementById('mockStep1DobBox');
@@ -3498,12 +3458,6 @@
               label: document.getElementById('cfg_f_s1_fullName_lbl')?.value?.trim() || 'Full Name (as per Aadhaar)',
               placeholder: document.getElementById('cfg_f_s1_fullName_ph')?.value?.trim() || 'e.g. Rajesh Kumar Sharma',
               visible: document.getElementById('cfg_f_s1_fullName_vis')?.checked,
-              required: true
-            },
-            mobile: {
-              label: document.getElementById('cfg_f_s1_mobile_lbl')?.value?.trim() || 'Mobile Number (Primary Identity)',
-              placeholder: document.getElementById('cfg_f_s1_mobile_ph')?.value?.trim() || 'Enter 10-digit mobile number',
-              visible: document.getElementById('cfg_f_s1_mobile_vis')?.checked,
               required: true
             },
             dob: {

@@ -1,7 +1,8 @@
 /* ========================================================
    ApexLoan / Bruno Credits - Central Dynamic Settings Applier
    Applies granular field-level and visual customizations across all views
-   Supports 0ms synchronous localStorage hydration & real-time BroadcastChannel sync
+   Supports 0ms synchronous localStorage hydration, real-time BroadcastChannel sync,
+   and 5s background heartbeat polling across browsers/devices
    ======================================================== */
 
 (function(window) {
@@ -12,6 +13,8 @@
 
   window.ApexSettingsManager = {
     settings: null,
+    _heartbeatTimer: null,
+    _lastPayloadHash: '',
 
     init() {
       // 1. Instant 0ms synchronous hydration from localStorage
@@ -21,6 +24,7 @@
           const parsed = JSON.parse(cached);
           if (parsed && typeof parsed === 'object') {
             this.settings = parsed;
+            this._lastPayloadHash = JSON.stringify(parsed);
             this.apply(parsed);
           }
         }
@@ -38,6 +42,7 @@
           channel.onmessage = (event) => {
             if (event.data && typeof event.data === 'object') {
               this.settings = event.data;
+              this._lastPayloadHash = JSON.stringify(event.data);
               this.apply(event.data);
             }
           };
@@ -53,27 +58,52 @@
             const updated = JSON.parse(e.newValue);
             if (updated && typeof updated === 'object') {
               this.settings = updated;
+              this._lastPayloadHash = e.newValue;
               this.apply(updated);
             }
           } catch (err) {}
         }
       });
+
+      // 5. Window focus and visibilitychange listeners for instantaneous tab switching sync
+      window.addEventListener('focus', () => {
+        this.fetchFresh();
+      });
+
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+          this.fetchFresh();
+        }
+      });
+
+      // 6. 5-second background heartbeat check for multi-browser / multi-device synchronization
+      if (!this._heartbeatTimer) {
+        this._heartbeatTimer = setInterval(() => {
+          this.fetchFresh(true);
+        }, 5000);
+      }
     },
 
-    async fetchFresh() {
+    async fetchFresh(isSilent) {
       try {
         const apiBase = (window.APP_CONFIG && window.APP_CONFIG.API_BASE_URL) ? window.APP_CONFIG.API_BASE_URL : '/api';
         const res = await fetch(`${apiBase}/settings?_t=${Date.now()}`, { cache: 'no-store' });
         const data = await res.json();
         if (data && data.success && data.settings) {
-          this.settings = data.settings;
-          try {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(data.settings));
-          } catch (e) {}
-          this.apply(data.settings);
+          const newHash = JSON.stringify(data.settings);
+          if (newHash !== this._lastPayloadHash) {
+            this._lastPayloadHash = newHash;
+            this.settings = data.settings;
+            try {
+              localStorage.setItem(STORAGE_KEY, newHash);
+            } catch (e) {}
+            this.apply(data.settings);
+          }
         }
       } catch (err) {
-        console.warn('[SETTINGS_APPLIER] Failed to fetch fresh settings, using existing:', err);
+        if (!isSilent) {
+          console.warn('[SETTINGS_APPLIER] Failed to fetch fresh settings, using existing:', err);
+        }
       }
     },
 
@@ -84,15 +114,21 @@
 
       // 1. Global Themes & Branding
       const primary = s.themeColor || s.sanctionCardColor || s.sanctionCard?.btnColor || '#0d2b82';
+      const accent = s.accentColor || '#10b981';
       if (primary) {
-        root.style.setProperty('--primary', primary);
-        root.style.setProperty('--color-primary', primary);
-        root.style.setProperty('--primary-blue', primary);
-        root.style.setProperty('--primary-blue-vibrant', primary);
+        root.style.setProperty('--primary', primary, 'important');
+        root.style.setProperty('--color-primary', primary, 'important');
+        root.style.setProperty('--primary-blue', primary, 'important');
+        root.style.setProperty('--primary-blue-vibrant', primary, 'important');
+        root.style.setProperty('--primary-vibrant', primary, 'important');
+        root.style.setProperty('--primary-dark', primary, 'important');
+        root.style.setProperty('--gradient-primary', `linear-gradient(135deg, ${primary} 0%, ${primary} 100%)`, 'important');
+        root.style.setProperty('--header-gradient', `linear-gradient(180deg, ${primary} 0%, ${primary} 100%)`, 'important');
+        root.style.setProperty('--btn-custom-bg', primary, 'important');
       }
-      if (s.accentColor) {
-        root.style.setProperty('--accent', s.accentColor);
-        root.style.setProperty('--success', s.accentColor);
+      if (accent) {
+        root.style.setProperty('--accent', accent, 'important');
+        root.style.setProperty('--success', accent, 'important');
       }
 
       if (s.brandName) {
@@ -133,9 +169,7 @@
 
         // Update label text
         if (cfg.label) {
-          let labelEl = null;
-          if (grp) labelEl = grp.querySelector('label');
-          if (!labelEl) labelEl = document.getElementById('lbl_' + elId);
+          let labelEl = document.getElementById('lbl_' + elId) || (grp ? grp.querySelector('label') : null);
           if (labelEl) {
             const isReq = cfg.required !== false;
             labelEl.innerHTML = `${cfg.label} ${isReq ? '<span class="required">*</span>' : ''}`;
@@ -151,10 +185,9 @@
       // 2. Granular Field Customizations per Phase
       const f = s.fields || {};
 
-      // Phase 1 Fields
+      // Phase 1 Fields (Mobile is removed from Phase 1)
       if (f.step1) {
         applyField('fullName', f.step1.fullName);
-        applyField('mobile', f.step1.mobile);
         applyField('dob', f.step1.dob);
         applyField('gender', f.step1.gender);
         applyField('email', f.step1.email);
@@ -166,8 +199,8 @@
         if (calcBox && f.step1.loanSlider) {
           calcBox.style.display = f.step1.loanSlider.visible === false ? 'none' : '';
           if (f.step1.loanSlider.label) {
-            const calcLbl = calcBox.querySelector('label') || calcBox.querySelector('.calc-label');
-            if (calcLbl) calcLbl.textContent = f.step1.loanSlider.label;
+            const calcLbl = document.getElementById('lbl_loanSlider') || calcBox.querySelector('label') || calcBox.querySelector('.calc-label');
+            if (calcLbl) calcLbl.innerHTML = `${f.step1.loanSlider.label} <span class="required">*</span>`;
           }
         }
       }
@@ -183,7 +216,7 @@
         if (slipBox && f.step2.salarySlip) {
           slipBox.style.display = f.step2.salarySlip.visible === false ? 'none' : '';
           if (f.step2.salarySlip.label) {
-            const slipLbl = slipBox.querySelector('label');
+            const slipLbl = document.getElementById('lbl_salarySlip') || slipBox.querySelector('label');
             if (slipLbl) slipLbl.textContent = f.step2.salarySlip.label;
           }
         }
@@ -231,9 +264,18 @@
         const stepCfg = s['step' + curStep];
         if (stepCfg) {
           if (stepCfg.btnLabel) nextBtn.textContent = stepCfg.btnLabel;
-          if (stepCfg.btnColor) nextBtn.style.background = stepCfg.btnColor;
-          if (stepCfg.btnHeight) nextBtn.style.height = stepCfg.btnHeight;
-          if (stepCfg.btnRadius) nextBtn.style.borderRadius = stepCfg.btnRadius;
+          if (stepCfg.btnColor) {
+            nextBtn.style.setProperty('background', stepCfg.btnColor, 'important');
+            root.style.setProperty('--btn-custom-bg', stepCfg.btnColor, 'important');
+          }
+          if (stepCfg.btnHeight) {
+            nextBtn.style.setProperty('height', stepCfg.btnHeight, 'important');
+            root.style.setProperty('--btn-custom-height', stepCfg.btnHeight, 'important');
+          }
+          if (stepCfg.btnRadius) {
+            nextBtn.style.setProperty('border-radius', stepCfg.btnRadius, 'important');
+            root.style.setProperty('--btn-custom-radius', stepCfg.btnRadius, 'important');
+          }
         }
       }
 
@@ -265,9 +307,9 @@
             if (span) span.textContent = s.step4.btnLabel;
             else verifyBtn.textContent = s.step4.btnLabel;
           }
-          if (s.step4.btnColor) verifyBtn.style.background = s.step4.btnColor;
-          if (s.step4.btnHeight) verifyBtn.style.height = s.step4.btnHeight;
-          if (s.step4.btnRadius) verifyBtn.style.borderRadius = s.step4.btnRadius;
+          if (s.step4.btnColor) verifyBtn.style.setProperty('background', s.step4.btnColor, 'important');
+          if (s.step4.btnHeight) verifyBtn.style.setProperty('height', s.step4.btnHeight, 'important');
+          if (s.step4.btnRadius) verifyBtn.style.setProperty('border-radius', s.step4.btnRadius, 'important');
         }
       }
 
@@ -275,7 +317,10 @@
       const sc = s.sanctionCard || {};
       const heroColor = sc.heroColor || s.sanctionCardColor || s.themeColor || '#0d2b82';
       const topHero = document.querySelector('.sanction-hero-top');
-      if (topHero) topHero.style.background = heroColor;
+      if (topHero) {
+        topHero.style.setProperty('background', heroColor, 'important');
+        root.style.setProperty('--sanction-hero-bg', heroColor, 'important');
+      }
 
       const ceilingLabel = document.getElementById('sanctionCeilingLabel');
       if (ceilingLabel && sc.ceilingText) {
@@ -290,10 +335,23 @@
 
       const acceptBtn = document.getElementById('acceptLoanBtn');
       if (acceptBtn) {
-        if (sc.btnLabel || s.btnLabel) acceptBtn.textContent = sc.btnLabel || s.btnLabel;
-        if (sc.btnColor || s.btnColor) acceptBtn.style.background = sc.btnColor || s.btnColor;
-        if (sc.btnHeight || s.btnHeight) acceptBtn.style.height = sc.btnHeight || s.btnHeight;
-        if (sc.btnRadius || s.btnRadius) acceptBtn.style.borderRadius = sc.btnRadius || s.btnRadius;
+        const bLbl = sc.btnLabel || s.btnLabel;
+        const bCol = sc.btnColor || s.btnColor;
+        const bHgt = sc.btnHeight || s.btnHeight;
+        const bRad = sc.btnRadius || s.btnRadius;
+        if (bLbl) acceptBtn.textContent = bLbl;
+        if (bCol) {
+          acceptBtn.style.setProperty('background', bCol, 'important');
+          root.style.setProperty('--sanction-btn-bg', bCol, 'important');
+        }
+        if (bHgt) {
+          acceptBtn.style.setProperty('height', bHgt, 'important');
+          root.style.setProperty('--sanction-btn-height', bHgt, 'important');
+        }
+        if (bRad) {
+          acceptBtn.style.setProperty('border-radius', bRad, 'important');
+          root.style.setProperty('--sanction-btn-radius', bRad, 'important');
+        }
       }
 
       const defaultLimit = Number(sc.defaultLimit || s.defaultCreditLimit || 50000);
@@ -315,6 +373,16 @@
 
       const heroBtnSpan = document.querySelector('.btn-primary-blue span');
       if (heroBtnSpan && d.heroBtnText) heroBtnSpan.textContent = d.heroBtnText;
+
+      const dashHeroCard = document.querySelector('.quick-loan-card');
+      if (dashHeroCard && primary) {
+        dashHeroCard.style.setProperty('background', `linear-gradient(135deg, ${primary} 0%, ${primary} 100%)`, 'important');
+      }
+
+      const dashBtn = document.querySelector('.btn-primary-blue');
+      if (dashBtn && primary) {
+        dashBtn.style.setProperty('background', primary, 'important');
+      }
 
       // Important notice card
       const impCard = document.querySelector('.important-card');
