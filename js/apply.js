@@ -119,6 +119,10 @@ document.addEventListener('DOMContentLoaded', () => {
         status
       };
 
+      try {
+        localStorage.setItem('apexloan_local_submitted_app', JSON.stringify(data));
+      } catch(e) {}
+
       if (window.ApexAPI && typeof window.ApexAPI.submitApplication === 'function') {
         window.ApexAPI.submitApplication(data).then(res => {
           console.log('[SYNC] Successfully synced to employee operations desk:', res);

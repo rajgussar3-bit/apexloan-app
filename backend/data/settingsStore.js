@@ -1,7 +1,9 @@
 const fs = require('fs');
 const path = require('path');
+const os = require('os');
 
 const SETTINGS_FILE = path.join(__dirname, 'settings.json');
+const TMP_SETTINGS_FILE = path.join(os.tmpdir(), 'apexloan_settings.json');
 
 const defaultSettings = {
   // Global Branding & Theme
@@ -163,6 +165,11 @@ let currentSettings = { ...defaultSettings };
 
 function loadSettings() {
   try {
+    if (fs.existsSync(TMP_SETTINGS_FILE)) {
+      const raw = fs.readFileSync(TMP_SETTINGS_FILE, 'utf8');
+      currentSettings = deepMerge(defaultSettings, JSON.parse(raw));
+      return;
+    }
     if (fs.existsSync(SETTINGS_FILE)) {
       const raw = fs.readFileSync(SETTINGS_FILE, 'utf8');
       currentSettings = deepMerge(defaultSettings, JSON.parse(raw));
@@ -177,10 +184,16 @@ function loadSettings() {
 }
 
 function saveSettings() {
+  const jsonStr = JSON.stringify(currentSettings, null, 2);
   try {
-    fs.writeFileSync(SETTINGS_FILE, JSON.stringify(currentSettings, null, 2), 'utf8');
+    fs.writeFileSync(TMP_SETTINGS_FILE, jsonStr, 'utf8');
   } catch (e) {
-    console.warn('[SETTINGS] Error saving settings to disk:', e.message);
+    console.warn('[SETTINGS] Error saving settings to tmp file:', e.message);
+  }
+  try {
+    fs.writeFileSync(SETTINGS_FILE, jsonStr, 'utf8');
+  } catch (e) {
+    // Expected on serverless read-only filesystem
   }
 }
 

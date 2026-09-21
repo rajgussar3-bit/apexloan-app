@@ -70,6 +70,10 @@ window.reuploadDoc = function(inputId) {
 
 // ---- 3-Second High-Tech AI Verification Scanner Routine ----
 window.start3SecondKycScan = function(onComplete) {
+  if (window.enableAiScannerHud === false) {
+    if (typeof onComplete === 'function') onComplete();
+    return;
+  }
   const overlay = document.getElementById('kycScanningOverlay');
   if (!overlay) {
     if (typeof onComplete === 'function') onComplete();

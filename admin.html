@@ -878,13 +878,13 @@
 
                   <!-- VIEW 2: APP & SANCTION CUSTOMIZER (FULL PHASE & FEATURE STUDIO) -->
       <div id="viewCustomizer" style="display: none;">
-        <!-- Studio Inner Sub-Navigation -->
+        <!-- Studio Inner Sub-Navigation (Matching 4 Loan Phases & Core Dashboard) -->
         <div style="display: flex; gap: 8px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 8px;" class="customizer-subnav">
-          <button type="button" id="subtabGlobal" onclick="switchCustomizerTab('global')" class="subtab-btn active">🏢 Branding & Theme</button>
-          <button type="button" id="subtabStep1" onclick="switchCustomizerTab('step1')" class="subtab-btn">👤 Phase 1: Personal</button>
+          <button type="button" id="subtabStep1" onclick="switchCustomizerTab('step1')" class="subtab-btn active">👤 Phase 1: Personal</button>
           <button type="button" id="subtabStep2" onclick="switchCustomizerTab('step2')" class="subtab-btn">💼 Phase 2: Employment</button>
           <button type="button" id="subtabStep3" onclick="switchCustomizerTab('step3')" class="subtab-btn">🪪 Phase 3: KYC & Docs</button>
           <button type="button" id="subtabStep4" onclick="switchCustomizerTab('step4')" class="subtab-btn">🏛️ Phase 4: Bank & Sanction</button>
+          <button type="button" id="subtabGlobal" onclick="switchCustomizerTab('global')" class="subtab-btn">🏢 Branding & Theme</button>
           <button type="button" id="subtabDash" onclick="switchCustomizerTab('dash')" class="subtab-btn">📊 Customer Dashboard</button>
         </div>
 
@@ -893,7 +893,7 @@
           <div style="background: var(--admin-card-bg); border: 1px solid var(--admin-border); border-radius: 16px; padding: 24px;">
 
             <!-- ==================== PANEL 1: GLOBAL BRANDING & THEME ==================== -->
-            <div id="panelGlobal" class="customizer-panel">
+            <div id="panelGlobal" class="customizer-panel" style="display: none;">
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; border-bottom: 1px solid var(--admin-border); padding-bottom: 12px;">
                 <div>
                   <h3 style="font-size: 17px; font-weight: 800; color: #ffffff; margin: 0 0 4px;">🏢 App Branding & Global Theme</h3>
@@ -946,7 +946,7 @@
             </div>
 
             <!-- ==================== PANEL 2: PHASE 1 (PERSONAL INFO) ==================== -->
-            <div id="panelStep1" class="customizer-panel" style="display: none;">
+            <div id="panelStep1" class="customizer-panel">
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; border-bottom: 1px solid var(--admin-border); padding-bottom: 12px;">
                 <div>
                   <h3 style="font-size: 17px; font-weight: 800; color: #ffffff; margin: 0 0 4px;">👤 Phase 1: Personal Information</h3>
@@ -1730,6 +1730,41 @@
                 </div>
               </div>
 
+              <!-- Phase 4 Bank Verification Action Button Customizer -->
+              <div class="studio-section-banner">
+                <span>🔘</span> Phase 4 Bank Verification Button Customizer
+              </div>
+              <div style="margin-bottom: 14px;">
+                <label class="ctrl-label">Bank Verification Button CTA Text</label>
+                <input type="text" id="cfgStep4BtnLabel" class="admin-input" value="Verify Account & Check Credit Limit →" oninput="updateLivePreview()">
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 18px;">
+                <div>
+                  <label class="ctrl-label">Button Color</label>
+                  <div style="display: flex; align-items: center; gap: 6px;">
+                    <input type="color" id="cfgStep4BtnColor" value="#10b981" onchange="updateLivePreview()" style="width: 36px; height: 38px; border: none; border-radius: 8px; cursor: pointer; background: transparent;">
+                    <input type="text" id="cfgStep4BtnColorHex" value="#10b981" oninput="onStep4BtnHexChange(this.value)" class="admin-input field-input-sm" style="font-family: monospace;">
+                  </div>
+                </div>
+                <div>
+                  <label class="ctrl-label">Button Height</label>
+                  <select id="cfgStep4BtnHeight" class="admin-select field-input-sm" onchange="updateLivePreview()">
+                    <option value="44px" selected>Compact (44px)</option>
+                    <option value="52px">Standard (52px)</option>
+                    <option value="60px">Large Bold (60px)</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="ctrl-label">Corner Radius</label>
+                  <select id="cfgStep4BtnRadius" class="admin-select field-input-sm" onchange="updateLivePreview()">
+                    <option value="8px">Subtle (8px)</option>
+                    <option value="12px" selected>Standard (12px)</option>
+                    <option value="14px">Modern (14px)</option>
+                    <option value="9999px">Pill / Capsule</option>
+                  </select>
+                </div>
+              </div>
+
               <!-- Part B: Sanction Limit Offer Card Customizer -->
               <div class="studio-section-banner">
                 <span>🎁</span> Part B: Sanction Limit Offer Card Customizer (Approved Limit Phase)
@@ -1895,10 +1930,10 @@
             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
               <h3 style="font-size: 15px; font-weight: 800; color: #ffffff; margin: 0;">Live Customer App Preview</h3>
               <div style="display: flex; gap: 4px;" class="preview-phase-pills">
-                <button type="button" onclick="setPreviewPhase('step1')" id="prevTabStep1" class="phase-pill-btn">Step 1</button>
+                <button type="button" onclick="setPreviewPhase('step1')" id="prevTabStep1" class="phase-pill-btn active">Step 1</button>
                 <button type="button" onclick="setPreviewPhase('step2')" id="prevTabStep2" class="phase-pill-btn">Step 2</button>
                 <button type="button" onclick="setPreviewPhase('step3')" id="prevTabStep3" class="phase-pill-btn">Step 3</button>
-                <button type="button" onclick="setPreviewPhase('step4')" id="prevTabStep4" class="phase-pill-btn active">Step 4</button>
+                <button type="button" onclick="setPreviewPhase('step4')" id="prevTabStep4" class="phase-pill-btn">Step 4</button>
                 <button type="button" onclick="setPreviewPhase('dash')" id="prevTabDash" class="phase-pill-btn">Dash</button>
               </div>
             </div>
@@ -1915,8 +1950,28 @@
               <!-- Phone Content Container -->
               <div style="padding: 16px; min-height: 480px; background: #0f172a; color: #ffffff;">
 
+                <!-- Exact 4-Phase Stepper Capsule Matching Borrower App -->
+                <div id="mockStepperCapsule" style="display: flex; align-items: center; justify-content: space-between; background: #1e293b; border: 1px solid #334155; border-radius: 9999px; padding: 4px; margin-bottom: 14px;">
+                  <div id="mockStepInd1" class="mock-step-pill" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 4px; padding: 5px 6px; border-radius: 9999px; font-size: 10px; font-weight: 800; background: #2563eb; color: #fff; transition: all 0.2s;">
+                    <span class="mock-step-dot" style="width: 14px; height: 14px; border-radius: 50%; background: rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center; font-size: 8.5px;">1</span>
+                    <span>Personal</span>
+                  </div>
+                  <div id="mockStepInd2" class="mock-step-pill" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 4px; padding: 5px 6px; border-radius: 9999px; font-size: 10px; font-weight: 700; color: #94a3b8; transition: all 0.2s;">
+                    <span class="mock-step-dot" style="width: 14px; height: 14px; border-radius: 50%; background: rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: center; font-size: 8.5px;">2</span>
+                    <span>Work</span>
+                  </div>
+                  <div id="mockStepInd3" class="mock-step-pill" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 4px; padding: 5px 6px; border-radius: 9999px; font-size: 10px; font-weight: 700; color: #94a3b8; transition: all 0.2s;">
+                    <span class="mock-step-dot" style="width: 14px; height: 14px; border-radius: 50%; background: rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: center; font-size: 8.5px;">3</span>
+                    <span>KYC</span>
+                  </div>
+                  <div id="mockStepInd4" class="mock-step-pill" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 4px; padding: 5px 6px; border-radius: 9999px; font-size: 10px; font-weight: 700; color: #94a3b8; transition: all 0.2s;">
+                    <span class="mock-step-dot" style="width: 14px; height: 14px; border-radius: 50%; background: rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: center; font-size: 8.5px;">4</span>
+                    <span>Sanction</span>
+                  </div>
+                </div>
+
                 <!-- PREVIEW: STEP 1 (PERSONAL) -->
-                <div id="mockupViewStep1" style="display: none;">
+                <div id="mockupViewStep1">
                   <div style="text-align: center; margin-bottom: 14px;">
                     <div id="mockStep1Title" style="font-weight: 800; font-size: 16px; color: #ffffff;">Personal Information</div>
                     <div id="mockStep1Subtitle" style="font-size: 11px; color: #94a3b8; margin-top: 3px;">Tell us about yourself to check pre-approved loan eligibility</div>
@@ -1938,14 +1993,33 @@
                     <div id="mockStep1MobilePh" style="color: #ffffff; font-weight: 700; font-family: monospace;">+91 98112 23344 ✓</div>
                   </div>
 
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px;">
+                    <div id="mockStep1DobBox" style="background: #1e293b; border-radius: 12px; padding: 12px; font-size: 12px;">
+                      <div id="mockStep1DobLabel" style="color: #94a3b8; font-size: 11px; margin-bottom: 3px;">Date of Birth *</div>
+                      <div id="mockStep1DobVal" style="color: #cbd5e1; font-weight: 600;">14/08/1995</div>
+                    </div>
+                    <div id="mockStep1GenderBox" style="background: #1e293b; border-radius: 12px; padding: 12px; font-size: 12px;">
+                      <div id="mockStep1GenderLabel" style="color: #94a3b8; font-size: 11px; margin-bottom: 3px;">Gender *</div>
+                      <div id="mockStep1GenderVal" style="color: #cbd5e1; font-weight: 600;">Male</div>
+                    </div>
+                  </div>
+
                   <div id="mockStep1EmailBox" style="background: #1e293b; border-radius: 12px; padding: 12px; margin-bottom: 10px; font-size: 12px;">
                     <div id="mockStep1EmailLabel" style="color: #94a3b8; font-size: 11px; margin-bottom: 3px;">Email Address *</div>
                     <div id="mockStep1EmailPh" style="color: #cbd5e1;">user@example.com</div>
                   </div>
 
-                  <div id="mockStep1PurposeBox" style="background: #1e293b; border-radius: 12px; padding: 12px; margin-bottom: 14px; font-size: 12px;">
+                  <div id="mockStep1PurposeBox" style="background: #1e293b; border-radius: 12px; padding: 12px; margin-bottom: 10px; font-size: 12px;">
                     <div id="mockStep1PurposeLabel" style="color: #94a3b8; font-size: 11px; margin-bottom: 3px;">Loan Purpose *</div>
                     <div id="mockStep1PurposePh" style="color: #cbd5e1;">Personal Expenses</div>
+                  </div>
+
+                  <div id="mockStep1AddressBox" style="background: #1e293b; border-radius: 12px; padding: 12px; margin-bottom: 14px; font-size: 12px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                      <div id="mockStep1AddressLabel" style="color: #94a3b8; font-size: 11px;">City, State & Pin Code *</div>
+                      <span style="background: rgba(16, 185, 129, 0.2); color: #34d399; font-size: 9.5px; font-weight: 800; padding: 1px 6px; border-radius: 4px;">Auto-Filled ✓</span>
+                    </div>
+                    <div id="mockStep1AddressVal" style="color: #ffffff; font-weight: 600;">Mumbai, Maharashtra · 400001</div>
                   </div>
 
                   <button type="button" id="mockStep1Btn" style="width: 100%; height: 52px; background: #0d2b82; color: #ffffff; border: none; border-radius: 14px; font-weight: 800; font-size: 14px;">
@@ -1967,9 +2041,22 @@
                     <div id="mockStep2CompanyLabel" style="color: #94a3b8; font-size: 11px; margin-bottom: 3px;">Company / Business Name</div>
                     <div id="mockStep2CompanyPh" style="color: #ffffff; font-weight: 700; font-size: 13px;">Tata Consultancy Services</div>
                   </div>
-                  <div id="mockStep2SalaryBox" style="background: #1e293b; border-radius: 12px; padding: 12px; margin-bottom: 14px;">
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px;">
+                    <div id="mockStep2DesignationBox" style="background: #1e293b; border-radius: 12px; padding: 12px;">
+                      <div id="mockStep2DesignationLabel" style="color: #94a3b8; font-size: 11px; margin-bottom: 3px;">Designation</div>
+                      <div id="mockStep2DesignationPh" style="color: #cbd5e1; font-weight: 600; font-size: 12px;">Software Engineer</div>
+                    </div>
+                    <div id="mockStep2ExperienceBox" style="background: #1e293b; border-radius: 12px; padding: 12px;">
+                      <div id="mockStep2ExperienceLabel" style="color: #94a3b8; font-size: 11px; margin-bottom: 3px;">Experience</div>
+                      <div style="color: #cbd5e1; font-weight: 600; font-size: 12px;">2 - 5 Years</div>
+                    </div>
+                  </div>
+                  <div id="mockStep2SalaryBox" style="background: #1e293b; border-radius: 12px; padding: 12px; margin-bottom: 10px;">
                     <div id="mockStep2SalaryLabel" style="color: #94a3b8; font-size: 11px; margin-bottom: 3px;">Monthly Income / Salary</div>
                     <div id="mockStep2SalaryPh" style="color: #38bdf8; font-weight: 800; font-size: 16px;">₹ 35,000 / mo</div>
+                  </div>
+                  <div id="mockStep2SlipBox" style="background: rgba(59, 130, 246, 0.08); border: 1.5px dashed #3b82f6; border-radius: 12px; padding: 10px; text-align: center; margin-bottom: 14px; display: none;">
+                    <div id="mockStep2SlipLabel" style="font-size: 11px; font-weight: 700; color: #60a5fa;">📄 Salary Slip Upload (Optional)</div>
                   </div>
                   <button type="button" id="mockStep2Btn" style="width: 100%; height: 52px; background: #0d2b82; color: #ffffff; border: none; border-radius: 14px; font-weight: 800; font-size: 14px;">
                     Proceed to KYC Verification →
@@ -1980,7 +2067,7 @@
                 <div id="mockupViewStep3" style="display: none;">
                   <div style="text-align: center; margin-bottom: 14px;">
                     <div id="mockStep3Title" style="font-weight: 800; font-size: 16px; color: #ffffff;">Digital KYC Verification</div>
-                    <div id="mockStep3Subtitle" style="font-size: 11px; color: #94a3b8; margin-top: 3px;">Paperless Aadhaar & PAN verification</div>
+                    <div id="mockStep3Subtitle" style="font-size: 11px; color: #94a3b8; margin-top: 3px;">Paperless instant verification via UIDAI & NSDL</div>
                   </div>
                   <div id="mockStep3AadhaarBox" style="background: #1e293b; border-radius: 12px; padding: 12px; margin-bottom: 10px;">
                     <div id="mockStep3AadhaarLabel" style="color: #94a3b8; font-size: 11px; margin-bottom: 3px;">Aadhaar Card Number</div>
@@ -1990,18 +2077,52 @@
                     <div id="mockStep3PanLabel" style="color: #94a3b8; font-size: 11px; margin-bottom: 3px;">PAN Card Number</div>
                     <div id="mockStep3PanPh" style="color: #ffffff; font-weight: 700; font-family: monospace;">ABCDE1234F ✓</div>
                   </div>
-                  <div id="mockStep3PhotoBox" style="background: rgba(59, 130, 246, 0.1); border: 1.5px dashed #3b82f6; border-radius: 12px; padding: 12px; text-align: center; margin-bottom: 14px; display: none;">
+                  <div id="mockStep3PhotoBox" style="background: rgba(59, 130, 246, 0.1); border: 1.5px dashed #3b82f6; border-radius: 12px; padding: 12px; text-align: center; margin-bottom: 10px; display: none;">
                     <div id="mockStep3PhotoLabel" style="font-size: 12px; font-weight: 700; color: #60a5fa;">📷 Photo Upload Section (Active)</div>
                     <div style="font-size: 10.5px; color: #94a3b8; margin-top: 2px;">Front & Back Document Upload</div>
+                  </div>
+                  <div id="mockStep3AiScannerBox" style="background: rgba(16, 185, 129, 0.1); border: 1px solid #10b981; border-radius: 12px; padding: 10px 12px; margin-bottom: 14px; display: flex; align-items: center; gap: 8px;">
+                    <div style="width: 10px; height: 10px; border-radius: 50%; background: #10b981;"></div>
+                    <div style="font-size: 11px; color: #34d399; font-weight: 700;">AI Facial & Document Verification Active</div>
                   </div>
                   <button type="button" id="mockStep3Btn" style="width: 100%; height: 52px; background: #0d2b82; color: #ffffff; border: none; border-radius: 14px; font-weight: 800; font-size: 14px;">
                     Verify & Check Credit Sanction →
                   </button>
                 </div>
 
-                <!-- PREVIEW: STEP 4 (SANCTION OFFER) -->
-                <div id="mockupViewStep4">
-                  <!-- Sanction Card Mockup -->
+                <!-- PREVIEW: STEP 4 (BANK & SANCTION OFFER) -->
+                <div id="mockupViewStep4" style="display: none;">
+                  <!-- Part A: Bank Details Card -->
+                  <div id="mockStep4BankCard" style="background: #1e293b; border-radius: 16px; padding: 14px; margin-bottom: 14px;">
+                    <div style="text-align: center; margin-bottom: 10px;">
+                      <div id="mockStep4Title" style="font-weight: 800; font-size: 15px; color: #ffffff;">Bank Details & Disbursal</div>
+                      <div id="mockStep4Subtitle" style="font-size: 10.5px; color: #94a3b8;">Enter bank account for direct disbursal</div>
+                    </div>
+                    <div id="mockStep4AccBox" style="background: #0f172a; border-radius: 10px; padding: 10px; margin-bottom: 8px;">
+                      <div id="mockStep4AccLabel" style="font-size: 10.5px; color: #94a3b8;">Bank Account Number</div>
+                      <div id="mockStep4AccPh" style="font-weight: 700; color: #fff; font-size: 13px;">•••• •••• 5995</div>
+                    </div>
+                    <div id="mockStep4IfscBox" style="background: #0f172a; border-radius: 10px; padding: 10px; margin-bottom: 8px;">
+                      <div id="mockStep4IfscLabel" style="font-size: 10.5px; color: #94a3b8;">Bank IFSC Code</div>
+                      <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span id="mockStep4IfscPh" style="font-weight: 700; color: #fff; font-size: 13px;">SBIN0001234</span>
+                        <span style="color: #10b981; font-size: 10px; font-weight: 800;">✓ SBI Main</span>
+                      </div>
+                    </div>
+                    <div id="mockStep4BankNameBox" style="background: #0f172a; border-radius: 10px; padding: 10px; margin-bottom: 8px;">
+                      <div id="mockStep4BankNameLabel" style="font-size: 10.5px; color: #94a3b8;">Bank Name</div>
+                      <div style="font-weight: 700; color: #fff; font-size: 13px;">State Bank of India</div>
+                    </div>
+                    <div style="background: rgba(13, 43, 130, 0.4); border: 1px solid #3b82f6; border-radius: 10px; padding: 8px 10px; display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+                      <span style="color: #60a5fa; font-size: 14px;">👤</span>
+                      <span style="font-size: 11px; font-weight: 700; color: #e0e7ff;">Verified Beneficiary: Applicant</span>
+                    </div>
+                    <button type="button" id="mockStep4VerifyBtn" style="width: 100%; height: 44px; background: #10b981; color: #ffffff; border: none; border-radius: 12px; font-weight: 800; font-size: 13px; margin-bottom: 4px;">
+                      Verify Account & Check Credit Limit →
+                    </button>
+                  </div>
+
+                  <!-- Part B: Sanction Card Mockup -->
                   <div id="mockupSanctionCard" style="border-radius: 18px; overflow: hidden; background: #ffffff; color: #0f172a; box-shadow: 0 10px 25px rgba(0,0,0,0.4);">
                     <div id="mockupHeroTop" style="background: #0d2b82; padding: 18px; color: #ffffff; text-align: center; transition: background 0.2s;">
                       <div id="mockupCeilingLabel" style="font-size: 11px; font-weight: 700; opacity: 0.85; text-transform: uppercase;">Approved limit</div>
@@ -2013,7 +2134,7 @@
                         ₹ 50,000
                       </div>
                       <div id="mockupChoosePlanLabel" style="font-size: 11px; font-weight: 800; color: #64748b; margin-bottom: 4px;">Choose EMI's plan</div>
-                      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 14px;">
+                      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 12px;">
                         <div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 6px 2px; text-align: center;">
                           <div style="font-size: 10px; color: #64748b;">6M</div>
                           <div style="font-size: 10.5px; font-weight: 800; color: #0f172a;">₹9,120</div>
@@ -2026,6 +2147,10 @@
                           <div style="font-size: 10px; color: #64748b;">12M</div>
                           <div style="font-size: 10.5px; font-weight: 800; color: #0f172a;">₹5,000</div>
                         </div>
+                      </div>
+                      <div style="border: 1px dashed #cbd5e1; background: #f8fafc; border-radius: 10px; padding: 8px 12px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-size: 11px; font-weight: 700; color: #0d2b82;">📄 Key Fact Statement (KFS)</span>
+                        <span style="font-size: 10px; font-weight: 800; color: #2563eb;">VIEW PDF ›</span>
                       </div>
                       <button type="button" id="mockupActionBtn" style="width: 100%; height: 50px; background: #0d2b82; color: #ffffff; border: none; border-radius: 14px; font-weight: 800; font-size: 14px;">
                         Continue with loan amount
@@ -2309,15 +2434,33 @@
     // ---- Load Applications ----
     async function loadApplications(showNotice = false) {
       try {
+        let apps = [];
+        let stats = null;
         const res = await window.ApexAPI.adminGetApplications();
         if (res && res.success) {
-          allApplications = res.applications || [];
-          renderKpis(res.stats);
-          renderApplicationsTable();
-          if (showNotice) showToast('Data refreshed successfully');
-        } else {
-          console.warn('[ADMIN] Failed to load applications:', res);
+          apps = res.applications || [];
+          stats = res.stats;
         }
+
+        // Merge any locally submitted application on this device
+        try {
+          const localSubmittedRaw = localStorage.getItem('apexloan_local_submitted_app');
+          if (localSubmittedRaw) {
+            const localApp = JSON.parse(localSubmittedRaw);
+            if (localApp && localApp.mobile) {
+              const cleanMob = String(localApp.mobile).replace(/\D/g, '').slice(-10);
+              const exists = apps.some(a => String(a.mobile).replace(/\D/g, '').slice(-10) === cleanMob);
+              if (!exists) {
+                apps.unshift(localApp);
+              }
+            }
+          }
+        } catch(e) {}
+
+        allApplications = apps;
+        renderKpis(stats || { total: apps.length });
+        renderApplicationsTable();
+        if (showNotice) showToast('Data refreshed successfully');
       } catch (err) {
         console.error('[ADMIN] Error loading applications:', err);
       }
@@ -2618,11 +2761,11 @@
       }
     }
 
-        // ---- Subtab Switcher: Phase Control Panels ----
-    let activeCustomizerTab = 'global';
+    // ---- Subtab Switcher: Phase Control Panels ----
+    let activeCustomizerTab = 'step1';
     function switchCustomizerTab(tab) {
       activeCustomizerTab = tab;
-      const tabs = ['global', 'step1', 'step2', 'step3', 'step4', 'dash'];
+      const tabs = ['step1', 'step2', 'step3', 'step4', 'global', 'dash'];
       tabs.forEach(t => {
         const btn = document.getElementById('subtab' + t.charAt(0).toUpperCase() + t.slice(1));
         const panel = document.getElementById('panel' + t.charAt(0).toUpperCase() + t.slice(1));
@@ -2637,7 +2780,7 @@
     }
 
     // ---- Mobile Mockup Phase Switcher ----
-    let activePreviewPhase = 'step4';
+    let activePreviewPhase = 'step1';
     function setPreviewPhase(phase) {
       activePreviewPhase = phase;
       const phases = ['step1', 'step2', 'step3', 'step4', 'dash'];
@@ -2647,6 +2790,44 @@
         if (tabBtn) tabBtn.classList.toggle('active', p === phase);
         if (viewEl) viewEl.style.display = (p === phase) ? 'block' : 'none';
       });
+
+      // Synchronize 4-phase stepper capsule
+      const stepper = document.getElementById('mockStepperCapsule');
+      if (stepper) {
+        stepper.style.display = (phase === 'dash') ? 'none' : 'flex';
+      }
+      const stepNum = phase === 'step1' ? 1 : phase === 'step2' ? 2 : phase === 'step3' ? 3 : phase === 'step4' ? 4 : 0;
+      for (let i = 1; i <= 4; i++) {
+        const pill = document.getElementById('mockStepInd' + i);
+        if (!pill) continue;
+        const dot = pill.querySelector('.mock-step-dot');
+        if (i === stepNum) {
+          pill.style.background = '#2563eb';
+          pill.style.color = '#ffffff';
+          pill.style.fontWeight = '800';
+          if (dot) {
+            dot.textContent = i;
+            dot.style.background = 'rgba(255,255,255,0.25)';
+          }
+        } else if (i < stepNum) {
+          pill.style.background = 'rgba(16, 185, 129, 0.15)';
+          pill.style.color = '#34d399';
+          pill.style.fontWeight = '700';
+          if (dot) {
+            dot.textContent = '✓';
+            dot.style.background = 'rgba(16, 185, 129, 0.3)';
+          }
+        } else {
+          pill.style.background = 'transparent';
+          pill.style.color = '#94a3b8';
+          pill.style.fontWeight = '600';
+          if (dot) {
+            dot.textContent = i;
+            dot.style.background = 'rgba(255,255,255,0.06)';
+          }
+        }
+      }
+
       updateLivePreview();
     }
 
@@ -2656,10 +2837,20 @@
     async function loadSettingsIntoCustomizer() {
       try {
         let settings = null;
+        try {
+          const cached = localStorage.getItem('apexloan_system_settings');
+          if (cached) {
+            settings = JSON.parse(cached);
+          }
+        } catch(e) {}
+
         if (window.ApexAPI && typeof window.ApexAPI.getSettings === 'function') {
           const res = await window.ApexAPI.getSettings();
           if (res && res.success && res.settings) {
             settings = res.settings;
+            try {
+              localStorage.setItem('apexloan_system_settings', JSON.stringify(res.settings));
+            } catch(e) {}
           }
         }
         currentSystemSettings = settings || {};
@@ -2817,6 +3008,13 @@
         setChecked('cfg_f_s4_pennyDrop_vis', f4.pennyDrop?.visible !== false && st4.enablePennyDrop !== false);
         setChecked('cfg_f_s4_giftBox_vis', f4.giftBox?.visible !== false && st4.enableGiftBox !== false);
 
+        setVal('cfgStep4BtnLabel', st4.btnLabel || 'Verify Account & Check Credit Limit →');
+        const s4BtnColor = st4.btnColor || '#10b981';
+        setVal('cfgStep4BtnColor', s4BtnColor);
+        setVal('cfgStep4BtnColorHex', s4BtnColor);
+        setVal('cfgStep4BtnHeight', st4.btnHeight || '44px');
+        setVal('cfgStep4BtnRadius', st4.btnRadius || '12px');
+
         setVal('cfgSanctionCeilingText', sc.ceilingText || 'Approved limit');
         setVal('cfgChooseAmountLabel', sc.chooseAmountLabel || 'Choose your Loan amount');
         setVal('cfgChoosePlanLabel', sc.choosePlanLabel || "Choose EMI's plan");
@@ -2917,6 +3115,12 @@
         updateLivePreview();
       }
     }
+    function onStep4BtnHexChange(val) {
+      if (/^#[0-9A-Fa-f]{6}$/.test(val)) {
+        setVal('cfgStep4BtnColor', val);
+        updateLivePreview();
+      }
+    }
 
     // ---- Reactive Live Mockup Updates ----
     function updateLivePreview() {
@@ -2953,6 +3157,18 @@
       const s1MobLbl = document.getElementById('mockStep1MobileLabel');
       if (s1MobLbl) s1MobLbl.textContent = (document.getElementById('cfg_f_s1_mobile_lbl')?.value || 'Mobile Number') + ' *';
 
+      const s1DobVis = document.getElementById('cfg_f_s1_dob_vis')?.checked;
+      const s1DobBox = document.getElementById('mockStep1DobBox');
+      if (s1DobBox) s1DobBox.style.display = s1DobVis ? 'block' : 'none';
+      const s1DobLbl = document.getElementById('mockStep1DobLabel');
+      if (s1DobLbl) s1DobLbl.textContent = (document.getElementById('cfg_f_s1_dob_lbl')?.value || 'Date of Birth') + ' *';
+
+      const s1GenderVis = document.getElementById('cfg_f_s1_gender_vis')?.checked;
+      const s1GenderBox = document.getElementById('mockStep1GenderBox');
+      if (s1GenderBox) s1GenderBox.style.display = s1GenderVis ? 'block' : 'none';
+      const s1GenderLbl = document.getElementById('mockStep1GenderLabel');
+      if (s1GenderLbl) s1GenderLbl.textContent = (document.getElementById('cfg_f_s1_gender_lbl')?.value || 'Gender') + ' *';
+
       const s1EmailVis = document.getElementById('cfg_f_s1_email_vis')?.checked;
       const s1EmailBox = document.getElementById('mockStep1EmailBox');
       if (s1EmailBox) s1EmailBox.style.display = s1EmailVis ? 'block' : 'none';
@@ -2966,6 +3182,12 @@
       if (s1PurpBox) s1PurpBox.style.display = s1PurpVis ? 'block' : 'none';
       const s1PurpLbl = document.getElementById('mockStep1PurposeLabel');
       if (s1PurpLbl) s1PurpLbl.textContent = (document.getElementById('cfg_f_s1_loanPurpose_lbl')?.value || 'Loan Purpose') + ' *';
+
+      const s1AddrVis = document.getElementById('cfg_f_s1_city_vis')?.checked !== false || document.getElementById('cfg_f_s1_pincode_vis')?.checked !== false;
+      const s1AddrBox = document.getElementById('mockStep1AddressBox');
+      if (s1AddrBox) s1AddrBox.style.display = s1AddrVis ? 'block' : 'none';
+      const s1AddrLbl = document.getElementById('mockStep1AddressLabel');
+      if (s1AddrLbl) s1AddrLbl.textContent = (document.getElementById('cfg_f_s1_pincode_lbl')?.value || 'City, State & Pin Code') + ' *';
 
       const s1Btn = document.getElementById('mockStep1Btn');
       if (s1Btn) {
@@ -2996,11 +3218,31 @@
       const s2CompPh = document.getElementById('mockStep2CompanyPh');
       if (s2CompPh) s2CompPh.textContent = document.getElementById('cfg_f_s2_companyName_ph')?.value || 'Tata Consultancy Services';
 
+      const s2DesigVis = document.getElementById('cfg_f_s2_designation_vis')?.checked;
+      const s2DesigBox = document.getElementById('mockStep2DesignationBox');
+      if (s2DesigBox) s2DesigBox.style.display = s2DesigVis ? 'block' : 'none';
+      const s2DesigLbl = document.getElementById('mockStep2DesignationLabel');
+      if (s2DesigLbl) s2DesigLbl.textContent = document.getElementById('cfg_f_s2_designation_lbl')?.value || 'Designation';
+      const s2DesigPh = document.getElementById('mockStep2DesignationPh');
+      if (s2DesigPh) s2DesigPh.textContent = document.getElementById('cfg_f_s2_designation_ph')?.value || 'Software Engineer';
+
+      const s2ExpVis = document.getElementById('cfg_f_s2_experience_vis')?.checked;
+      const s2ExpBox = document.getElementById('mockStep2ExperienceBox');
+      if (s2ExpBox) s2ExpBox.style.display = s2ExpVis ? 'block' : 'none';
+      const s2ExpLbl = document.getElementById('mockStep2ExperienceLabel');
+      if (s2ExpLbl) s2ExpLbl.textContent = document.getElementById('cfg_f_s2_experience_lbl')?.value || 'Experience';
+
       const s2SalVis = document.getElementById('cfg_f_s2_monthlySalary_vis')?.checked;
       const s2SalBox = document.getElementById('mockStep2SalaryBox');
       if (s2SalBox) s2SalBox.style.display = s2SalVis ? 'block' : 'none';
       const s2SalLbl = document.getElementById('mockStep2SalaryLabel');
       if (s2SalLbl) s2SalLbl.textContent = document.getElementById('cfg_f_s2_monthlySalary_lbl')?.value || 'Monthly Income';
+
+      const s2SlipVis = document.getElementById('cfg_f_s2_salarySlip_vis')?.checked;
+      const s2SlipBox = document.getElementById('mockStep2SlipBox');
+      if (s2SlipBox) s2SlipBox.style.display = s2SlipVis ? 'block' : 'none';
+      const s2SlipLbl = document.getElementById('mockStep2SlipLabel');
+      if (s2SlipLbl) s2SlipLbl.textContent = '📄 ' + (document.getElementById('cfg_f_s2_salarySlip_lbl')?.value || 'Upload Salary Slip');
 
       const s2Btn = document.getElementById('mockStep2Btn');
       if (s2Btn) {
@@ -3035,6 +3277,10 @@
       const s3PhotoLbl = document.getElementById('mockStep3PhotoLabel');
       if (s3PhotoLbl) s3PhotoLbl.textContent = '📷 ' + (document.getElementById('cfg_f_s3_docPhotos_lbl')?.value || 'Photo Upload Section');
 
+      const s3AiScannerVis = document.getElementById('cfg_f_s3_aiScannerHud_vis')?.checked;
+      const s3AiScannerBox = document.getElementById('mockStep3AiScannerBox');
+      if (s3AiScannerBox) s3AiScannerBox.style.display = s3AiScannerVis !== false ? 'flex' : 'none';
+
       const s3Btn = document.getElementById('mockStep3Btn');
       if (s3Btn) {
         s3Btn.textContent = document.getElementById('cfgStep3BtnLabel')?.value || 'Verify & Check Credit Sanction →';
@@ -3044,6 +3290,38 @@
       }
 
       // 4. Step 4 Mockup
+      const s4Title = document.getElementById('mockStep4Title');
+      if (s4Title) s4Title.textContent = document.getElementById('cfgStep4Title')?.value || 'Bank Details & Disbursal';
+
+      const s4Sub = document.getElementById('mockStep4Subtitle');
+      if (s4Sub) s4Sub.textContent = document.getElementById('cfgStep4Subtitle')?.value || '';
+
+      const s4AccVis = document.getElementById('cfg_f_s4_accountNumber_vis')?.checked;
+      const s4AccBox = document.getElementById('mockStep4AccBox');
+      if (s4AccBox) s4AccBox.style.display = s4AccVis ? 'block' : 'none';
+      const s4AccLbl = document.getElementById('mockStep4AccLabel');
+      if (s4AccLbl) s4AccLbl.textContent = document.getElementById('cfg_f_s4_accountNumber_lbl')?.value || 'Bank Account Number';
+
+      const s4IfscVis = document.getElementById('cfg_f_s4_ifscCode_vis')?.checked;
+      const s4IfscBox = document.getElementById('mockStep4IfscBox');
+      if (s4IfscBox) s4IfscBox.style.display = s4IfscVis ? 'block' : 'none';
+      const s4IfscLbl = document.getElementById('mockStep4IfscLabel');
+      if (s4IfscLbl) s4IfscLbl.textContent = document.getElementById('cfg_f_s4_ifscCode_lbl')?.value || 'Bank IFSC Code';
+
+      const s4BankVis = document.getElementById('cfg_f_s4_bankName_vis')?.checked;
+      const s4BankBox = document.getElementById('mockStep4BankNameBox');
+      if (s4BankBox) s4BankBox.style.display = s4BankVis ? 'block' : 'none';
+      const s4BankLbl = document.getElementById('mockStep4BankNameLabel');
+      if (s4BankLbl) s4BankLbl.textContent = document.getElementById('cfg_f_s4_bankName_lbl')?.value || 'Bank Name';
+
+      const s4VerifyBtn = document.getElementById('mockStep4VerifyBtn');
+      if (s4VerifyBtn) {
+        s4VerifyBtn.textContent = document.getElementById('cfgStep4BtnLabel')?.value || 'Verify Account & Check Credit Limit →';
+        s4VerifyBtn.style.background = document.getElementById('cfgStep4BtnColor')?.value || '#10b981';
+        s4VerifyBtn.style.height = document.getElementById('cfgStep4BtnHeight')?.value || '44px';
+        s4VerifyBtn.style.borderRadius = document.getElementById('cfgStep4BtnRadius')?.value || '12px';
+      }
+
       const heroTop = document.getElementById('mockupHeroTop');
       const heroColor = document.getElementById('cfgHeroColor')?.value || themeColor;
       if (heroTop) heroTop.style.background = heroColor;
@@ -3196,10 +3474,10 @@
           defaultLimit,
           interestRate,
           disbursalFee,
-          btnLabel,
-          btnColor,
-          btnHeight,
-          btnRadius
+          btnLabel: document.getElementById('cfgStep4BtnLabel')?.value?.trim() || 'Verify Account & Check Credit Limit →',
+          btnColor: document.getElementById('cfgStep4BtnColor')?.value || '#10b981',
+          btnHeight: document.getElementById('cfgStep4BtnHeight')?.value || '44px',
+          btnRadius: document.getElementById('cfgStep4BtnRadius')?.value || '12px'
         },
 
         // Detailed Granular Field Schema
@@ -3400,6 +3678,25 @@
         }
       };
 
+      // 1. Save synchronously to localStorage for 0ms instant tab reflection
+      try {
+        localStorage.setItem('apexloan_system_settings', JSON.stringify(fullSettingsPayload));
+      } catch(e) {}
+
+      // 2. Broadcast across open tabs and windows in real-time
+      if (typeof BroadcastChannel !== 'undefined') {
+        try {
+          const bc = new BroadcastChannel('apexloan_settings_channel');
+          bc.postMessage(fullSettingsPayload);
+        } catch(e) {}
+      }
+
+      // 3. If settings manager is present in admin window, apply locally
+      if (window.ApexSettingsManager && typeof window.ApexSettingsManager.apply === 'function') {
+        window.ApexSettingsManager.apply(fullSettingsPayload);
+      }
+
+      // 4. Send PUT request to backend server
       try {
         const res = await window.ApexAPI.adminUpdateSettings(fullSettingsPayload);
         if (res && res.success) {

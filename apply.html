@@ -1413,7 +1413,7 @@
       <!-- Approved Sanction Card -->
       <div id="creditSanctionCard" style="display: none; margin-top: 24px;">
         <div class="sanction-hero-top">
-          <div class="sanction-hero-label">
+          <div class="sanction-hero-label" id="sanctionCeilingLabel">
             Approved limit
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
           </div>
@@ -1421,7 +1421,7 @@
         </div>
 
         <div class="sanction-white-body">
-          <label class="sanction-field-label">Choose your Loan amount</label>
+          <label class="sanction-field-label" id="lblChooseLoanAmount">Choose your Loan amount</label>
           <select class="form-control" id="customLoanAmountSelect" onchange="window.handleSelectLoanAmount(this.value)" style="margin-bottom: 6px; font-weight: 800;">
             <option value="50000" selected>₹ 50,000</option>
             <option value="40000">₹ 40,000</option>
@@ -1444,7 +1444,7 @@
 
           <div class="dotted-divider"></div>
 
-          <label class="sanction-field-label">Choose EMI's plan</label>
+          <label class="sanction-field-label" id="lblChooseEmiPlan">Choose EMI's plan</label>
           <div class="emi-plans-container">
             <div class="emi-plan-pill" data-months="6" onclick="window.selectPlanChip(6)">
               <div class="radio-circle"></div>
@@ -1787,12 +1787,12 @@
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <script src="js/config.js"></script>
   <script src="js/api.js"></script>
+  <script src="js/settingsApplier.js"></script>
   <script src="js/apply.js"></script>
   <script src="js/kyc.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script src="js/kfs.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('DOMContentLoaded', () => {
       const mob = localStorage.getItem('apexloan_mobile');
       const mobileInput = document.getElementById('mobile');
@@ -1812,13 +1812,10 @@
         });
       }
 
-      // Fetch live admin customization settings
-      const apiBase = (window.APP_CONFIG && window.APP_CONFIG.API_BASE_URL) ? window.APP_CONFIG.API_BASE_URL : '/api';
-      fetch(`${apiBase}/settings`).then(r => r.json()).then(res => {
-        if (res && res.success && res.settings) {
-          applySystemSettings(res.settings);
-        }
-      }).catch(e => console.warn('[SETTINGS] Fetch:', e));
+      // Initialize central settings manager
+      if (window.ApexSettingsManager && typeof window.ApexSettingsManager.init === 'function') {
+        window.ApexSettingsManager.init();
+      }
 
       // Fetch existing application from server if mobile exists
       if (mob && window.ApexAPI && typeof window.ApexAPI.getLoanStatus === 'function') {
@@ -1834,6 +1831,9 @@
 
     function applySystemSettings(s) {
       if (!s) return;
+      if (window.ApexSettingsManager && typeof window.ApexSettingsManager.apply === 'function') {
+        window.ApexSettingsManager.apply(s);
+      }
       const root = document.documentElement;
       if (s.themeColor) root.style.setProperty('--primary', s.themeColor);
       if (s.sanctionCardColor) {
@@ -2084,7 +2084,5 @@
       }
     };
   </script>
-
-  <script src="js/settingsApplier.js"></script>
 </body>
 </html>

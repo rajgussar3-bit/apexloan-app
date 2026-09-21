@@ -103,6 +103,15 @@ app.get('/api/settings', (req, res) => {
   res.json({ success: true, settings: SettingsStore.get() });
 });
 
+app.put('/api/settings', (req, res) => {
+  try {
+    const updated = SettingsStore.update(req.body);
+    res.json({ success: true, message: 'Settings saved successfully', settings: updated });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
 app.use((req, res) => {
   res.status(404).json({ error: 'Endpoint not found', path: req.path });
 });

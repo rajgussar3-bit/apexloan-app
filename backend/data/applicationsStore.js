@@ -1,8 +1,10 @@
 const fs = require('fs');
 const path = require('path');
+const os = require('os');
 
 const DATA_DIR = path.join(__dirname);
 const DATA_FILE = path.join(DATA_DIR, 'applications.json');
+const TMP_DATA_FILE = path.join(os.tmpdir(), 'apexloan_applications.json');
 
 // Ensure data directory exists
 if (!fs.existsSync(DATA_DIR)) {
@@ -58,6 +60,12 @@ const initialSeed = [
 
 function loadFromFile() {
   try {
+    if (fs.existsSync(TMP_DATA_FILE)) {
+      const raw = fs.readFileSync(TMP_DATA_FILE, 'utf8');
+      inMemoryStore = JSON.parse(raw);
+      console.log(`[STORE] Loaded ${inMemoryStore.length} applications from ${TMP_DATA_FILE}`);
+      return;
+    }
     if (fs.existsSync(DATA_FILE)) {
       const raw = fs.readFileSync(DATA_FILE, 'utf8');
       inMemoryStore = JSON.parse(raw);
@@ -75,10 +83,16 @@ function loadFromFile() {
 }
 
 function saveToFile() {
+  const jsonStr = JSON.stringify(inMemoryStore, null, 2);
   try {
-    fs.writeFileSync(DATA_FILE, JSON.stringify(inMemoryStore, null, 2), 'utf8');
+    fs.writeFileSync(TMP_DATA_FILE, jsonStr, 'utf8');
   } catch (err) {
-    console.warn('[STORE] Error saving applications to disk:', err.message);
+    console.warn('[STORE] Error saving applications to tmp disk:', err.message);
+  }
+  try {
+    fs.writeFileSync(DATA_FILE, jsonStr, 'utf8');
+  } catch (err) {
+    // Expected on serverless read-only root
   }
 }
 
