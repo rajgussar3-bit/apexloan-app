@@ -78,8 +78,67 @@ const defaultSettings = {
     btnRadius: '14px'
   },
 
+  // Detailed Field-Level Descriptors per Phase
+  fields: {
+    step1: {
+      fullName: { label: 'Full Name (as per Aadhaar)', placeholder: 'e.g. Rajesh Kumar Sharma', visible: true, required: true },
+      mobile: { label: 'Mobile Number (Primary Identity)', placeholder: 'Enter 10-digit mobile number', visible: true, required: true },
+      dob: { label: 'Date of Birth', placeholder: '', visible: true, required: true },
+      gender: { label: 'Gender', placeholder: 'Select Gender', visible: true, required: true },
+      email: { label: 'Email Address', placeholder: 'e.g. rajesh@email.com', visible: true, required: true },
+      loanPurpose: { label: 'Loan Purpose', placeholder: 'Select Purpose', visible: true, required: true },
+      city: { label: 'City', placeholder: 'e.g. Mumbai', visible: true, required: true },
+      pincode: { label: 'Pin Code', placeholder: 'e.g. 400001', visible: true, required: true },
+      state: { label: 'State', placeholder: 'Select State', visible: true, required: true },
+      loanSlider: { label: 'Desired Loan Amount', placeholder: '', visible: true, required: true }
+    },
+    step2: {
+      empType: { label: 'Employment Type', placeholder: '', visible: true, required: true },
+      companyName: { label: 'Company / Business Name', placeholder: 'e.g. Tata Consultancy Services', visible: true, required: true },
+      designation: { label: 'Designation', placeholder: 'e.g. Software Engineer', visible: true, required: true },
+      experience: { label: 'Work Experience', placeholder: 'Select Experience', visible: true, required: true },
+      monthlySalary: { label: 'Monthly Income / Salary', placeholder: 'e.g. 35000', visible: true, required: true },
+      salarySlip: { label: 'Upload Salary Slip (Optional)', placeholder: 'Click to upload salary slip', visible: true, required: false }
+    },
+    step3: {
+      aadhaarNumber: { label: 'Aadhaar Card Number', placeholder: 'XXXX XXXX XXXX (12 Digits)', visible: true, required: true },
+      panNumber: { label: 'PAN Card Number', placeholder: 'ABCDE1234F', visible: true, required: true },
+      docPhotos: { label: 'Document Photo Uploads (Aadhaar & PAN)', placeholder: 'Tap to upload (Optional)', visible: false, required: false },
+      aiScannerHud: { label: '3-Second High-Tech AI KYC Scanner HUD', placeholder: '', visible: true, required: false }
+    },
+    step4: {
+      bankName: { label: 'Bank Name', placeholder: 'Select Bank', visible: true, required: true },
+      accountNumber: { label: 'Bank Account Number', placeholder: 'Enter bank account number', visible: true, required: true },
+      confirmAccountNumber: { label: 'Re-enter Bank Account Number', placeholder: 'Re-enter bank account number', visible: true, required: true },
+      ifscCode: { label: 'Bank IFSC Code', placeholder: 'e.g. SBIN0001234', visible: true, required: true },
+      pennyDrop: { label: 'NPCI Penny Drop Verification', placeholder: '', visible: true, required: false },
+      giftBox: { label: 'Celebratory Gift Box Reveal Animation', placeholder: '', visible: true, required: false }
+    }
+  },
+
+  // Sanction Card / Limit Offer Phase
+  sanctionCard: {
+    heroColor: '#0d2b82',
+    ceilingText: 'Approved limit',
+    chooseAmountLabel: 'Choose your Loan amount',
+    choosePlanLabel: "Choose EMI's plan",
+    btnLabel: 'Continue with loan amount',
+    btnColor: '#0d2b82',
+    btnHeight: '52px',
+    btnRadius: '14px',
+    defaultLimit: 50000,
+    interestRate: 24.0,
+    disbursalFee: 199
+  },
+
   // Dashboard Controls
   dashboard: {
+    heroTitle: 'Get a credit limit up to ₹50,000',
+    heroSubtext: 'Avail limit up to ₹50,000 in 4 easy steps',
+    heroBtnText: 'Complete your application',
+    importantTitle: 'Few steps left to unlock your money 💸',
+    importantSubtext: 'Selfie and Bank account verification',
+    showImportant: true,
     showAnnouncement: true,
     announcementText: '⚡ Instant Bank Disbursal is active for all approved borrowers via IMPS / RTGS.',
     showKfsButton: true,
@@ -135,6 +194,14 @@ const SettingsStore = {
   update(newSettings) {
     currentSettings = deepMerge(currentSettings, newSettings);
     // Keep top-level keys synchronized if sub-objects were changed
+    if (newSettings.sanctionCard) {
+      if (newSettings.sanctionCard.defaultLimit !== undefined) currentSettings.defaultCreditLimit = Number(newSettings.sanctionCard.defaultLimit);
+      if (newSettings.sanctionCard.interestRate !== undefined) currentSettings.interestRate = Number(newSettings.sanctionCard.interestRate);
+      if (newSettings.sanctionCard.disbursalFee !== undefined) currentSettings.disbursalFee = Number(newSettings.sanctionCard.disbursalFee);
+      if (newSettings.sanctionCard.btnLabel !== undefined) currentSettings.btnLabel = newSettings.sanctionCard.btnLabel;
+      if (newSettings.sanctionCard.btnColor !== undefined) currentSettings.btnColor = newSettings.sanctionCard.btnColor;
+      if (newSettings.sanctionCard.heroColor !== undefined) currentSettings.sanctionCardColor = newSettings.sanctionCard.heroColor;
+    }
     if (newSettings.step4) {
       if (newSettings.step4.defaultLimit !== undefined) currentSettings.defaultCreditLimit = Number(newSettings.step4.defaultLimit);
       if (newSettings.step4.interestRate !== undefined) currentSettings.interestRate = Number(newSettings.step4.interestRate);

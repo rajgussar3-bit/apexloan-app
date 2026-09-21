@@ -574,13 +574,13 @@
     }
   </style>
 
-  <style>
+    <style>
     /* Phase & Feature Customizer Styles */
     .subtab-btn {
-      padding: 8px 16px;
+      padding: 9px 18px;
       border-radius: 10px;
       font-weight: 700;
-      font-size: 12.5px;
+      font-size: 13px;
       cursor: pointer;
       border: 1px solid #334155;
       background: #1e293b;
@@ -588,10 +588,15 @@
       white-space: nowrap;
       transition: all 0.2s;
     }
+    .subtab-btn:hover {
+      border-color: #475569;
+      color: #ffffff;
+    }
     .subtab-btn.active {
       background: #3b82f6;
       border-color: #60a5fa;
       color: #ffffff;
+      box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
     }
     .ctrl-label {
       font-size: 12px;
@@ -616,7 +621,7 @@
       accent-color: #10b981;
     }
     .phase-pill-btn {
-      padding: 4px 10px;
+      padding: 5px 12px;
       border-radius: 8px;
       font-size: 11px;
       font-weight: 800;
@@ -626,12 +631,99 @@
       cursor: pointer;
       transition: all 0.2s;
     }
+    .phase-pill-btn:hover {
+      color: #ffffff;
+    }
     .phase-pill-btn.active {
       background: #1d4ed8;
       border-color: #3b82f6;
       color: #ffffff;
     }
+
+    /* Granular Field Customizer Studio Cards */
+    .field-editor-card {
+      background: #09102b;
+      border: 1px solid var(--admin-border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 12px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .field-editor-card:hover {
+      border-color: var(--admin-border-light);
+      background: #0d1738;
+    }
+    .field-editor-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .field-editor-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .field-tag-badge {
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+    .field-tag-req {
+      background: rgba(239, 68, 68, 0.15);
+      color: #fca5a5;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+    .field-tag-opt {
+      background: rgba(59, 130, 246, 0.15);
+      color: #93c5fd;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+    .field-editor-inputs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    @media (max-width: 640px) {
+      .field-editor-inputs {
+        grid-template-columns: 1fr;
+      }
+    }
+    .field-sublabel {
+      font-size: 11px;
+      font-weight: 700;
+      color: #94a3b8;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .field-input-sm {
+      height: 38px;
+      font-size: 12.5px;
+      padding: 0 10px;
+    }
+    .studio-section-banner {
+      background: linear-gradient(90deg, rgba(30, 58, 138, 0.35), rgba(13, 23, 56, 0.6));
+      border-left: 3px solid #3b82f6;
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 800;
+      color: #93c5fd;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin: 18px 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
   </style>
+
 </head>
 <body class="admin-body">
 
@@ -784,7 +876,7 @@
         </div>
       </div>
 
-            <!-- VIEW 2: APP & SANCTION CUSTOMIZER (FULL PHASE & FEATURE STUDIO) -->
+                  <!-- VIEW 2: APP & SANCTION CUSTOMIZER (FULL PHASE & FEATURE STUDIO) -->
       <div id="viewCustomizer" style="display: none;">
         <!-- Studio Inner Sub-Navigation -->
         <div style="display: flex; gap: 8px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 8px;" class="customizer-subnav">
@@ -797,7 +889,7 @@
         </div>
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 24px; align-items: start;">
-          <!-- Left Column: Phase Controls -->
+          <!-- Left Column: Phase Controls Studio -->
           <div style="background: var(--admin-card-bg); border: 1px solid var(--admin-border); border-radius: 16px; padding: 24px;">
 
             <!-- ==================== PANEL 1: GLOBAL BRANDING & THEME ==================== -->
@@ -858,50 +950,275 @@
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; border-bottom: 1px solid var(--admin-border); padding-bottom: 12px;">
                 <div>
                   <h3 style="font-size: 17px; font-weight: 800; color: #ffffff; margin: 0 0 4px;">👤 Phase 1: Personal Information</h3>
-                  <div style="font-size: 12px; color: var(--admin-text-muted);">Configure fields, header text, and button for Step 1</div>
+                  <div style="font-size: 12px; color: var(--admin-text-muted);">Customize every field label, placeholder hint, visibility switch & action button</div>
                 </div>
                 <span style="background: rgba(59, 130, 246, 0.15); color: #60a5fa; font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 6px;">STEP 1</span>
               </div>
 
-              <div style="margin-bottom: 14px;">
-                <label class="ctrl-label">Phase 1 Title</label>
-                <input type="text" id="cfgStep1Title" class="admin-input" value="Personal Information" oninput="updateLivePreview()">
-              </div>
-              <div style="margin-bottom: 18px;">
-                <label class="ctrl-label">Phase 1 Subtitle</label>
-                <input type="text" id="cfgStep1Subtitle" class="admin-input" value="Tell us about yourself to check pre-approved loan eligibility" oninput="updateLivePreview()">
-              </div>
-
-              <div style="background: #0f172a; border: 1px solid var(--admin-border); border-radius: 12px; padding: 14px; margin-bottom: 18px;">
-                <div style="font-size: 12px; font-weight: 800; color: #94a3b8; text-transform: uppercase; margin-bottom: 10px;">Field Visibility Toggles</div>
-                <div style="display: flex; flex-direction: column; gap: 10px;">
-                  <label class="toggle-row">
-                    <span>Desired Loan Amount & EMI Slider</span>
-                    <input type="checkbox" id="cfgStep1ShowSlider" checked onchange="updateLivePreview()">
-                  </label>
-                  <label class="toggle-row">
-                    <span>Email Address Input Field</span>
-                    <input type="checkbox" id="cfgStep1ShowEmail" checked onchange="updateLivePreview()">
-                  </label>
-                  <label class="toggle-row">
-                    <span>Gender Selection Field</span>
-                    <input type="checkbox" id="cfgStep1ShowGender" checked onchange="updateLivePreview()">
-                  </label>
-                  <label class="toggle-row">
-                    <span>Residential City, State & Pincode</span>
-                    <input type="checkbox" id="cfgStep1ShowAddress" checked onchange="updateLivePreview()">
-                  </label>
+              <!-- Phase Titles -->
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px;">
+                <div>
+                  <label class="ctrl-label">Phase 1 Title</label>
+                  <input type="text" id="cfgStep1Title" class="admin-input" value="Personal Information" oninput="updateLivePreview()">
+                </div>
+                <div>
+                  <label class="ctrl-label">Phase 1 Subtitle</label>
+                  <input type="text" id="cfgStep1Subtitle" class="admin-input" value="Tell us about yourself to check pre-approved loan eligibility" oninput="updateLivePreview()">
                 </div>
               </div>
 
-              <div style="border-top: 1px solid var(--admin-border); padding-top: 14px; margin-bottom: 14px;">
+              <!-- Phase 1 Columns / Fields Customization Studio -->
+              <div class="studio-section-banner">
+                <span>📋</span> Phase 1 Columns / Fields Customizer (Name, Placeholder & Show/Hide)
+              </div>
+
+              <!-- Field 1: Desired Loan Amount Slider -->
+              <div class="field-editor-card">
+                <div class="field-editor-header">
+                  <div class="field-editor-title">
+                    <span>⚡</span> Desired Loan Amount Slider
+                    <span class="field-tag-badge field-tag-req">Required</span>
+                  </div>
+                  <label class="toggle-row">
+                    <span style="font-size: 12px; margin-right: 6px;">Show Field</span>
+                    <input type="checkbox" id="cfg_f_s1_loanSlider_vis" checked onchange="updateLivePreview()">
+                  </label>
+                </div>
+                <div>
+                  <label class="field-sublabel">Column Name / Label</label>
+                  <input type="text" id="cfg_f_s1_loanSlider_lbl" class="admin-input field-input-sm" value="Desired Loan Amount" oninput="updateLivePreview()">
+                </div>
+              </div>
+
+              <!-- Field 2: Full Name -->
+              <div class="field-editor-card">
+                <div class="field-editor-header">
+                  <div class="field-editor-title">
+                    <span>👤</span> Full Legal Name
+                    <span class="field-tag-badge field-tag-req">Required</span>
+                  </div>
+                  <label class="toggle-row">
+                    <span style="font-size: 12px; margin-right: 6px;">Show Field</span>
+                    <input type="checkbox" id="cfg_f_s1_fullName_vis" checked onchange="updateLivePreview()">
+                  </label>
+                </div>
+                <div class="field-editor-inputs">
+                  <div>
+                    <label class="field-sublabel">Column Name / Label</label>
+                    <input type="text" id="cfg_f_s1_fullName_lbl" class="admin-input field-input-sm" value="Full Name (as per Aadhaar)" oninput="updateLivePreview()">
+                  </div>
+                  <div>
+                    <label class="field-sublabel">Placeholder / Hint (kis column may kya bharna hai)</label>
+                    <input type="text" id="cfg_f_s1_fullName_ph" class="admin-input field-input-sm" value="e.g. Rajesh Kumar Sharma" oninput="updateLivePreview()">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Field 3: Mobile Number -->
+              <div class="field-editor-card">
+                <div class="field-editor-header">
+                  <div class="field-editor-title">
+                    <span>📱</span> Mobile Number
+                    <span class="field-tag-badge field-tag-req">Required</span>
+                  </div>
+                  <label class="toggle-row">
+                    <span style="font-size: 12px; margin-right: 6px;">Show Field</span>
+                    <input type="checkbox" id="cfg_f_s1_mobile_vis" checked onchange="updateLivePreview()">
+                  </label>
+                </div>
+                <div class="field-editor-inputs">
+                  <div>
+                    <label class="field-sublabel">Column Name / Label</label>
+                    <input type="text" id="cfg_f_s1_mobile_lbl" class="admin-input field-input-sm" value="Mobile Number (Primary Identity)" oninput="updateLivePreview()">
+                  </div>
+                  <div>
+                    <label class="field-sublabel">Placeholder / Hint</label>
+                    <input type="text" id="cfg_f_s1_mobile_ph" class="admin-input field-input-sm" value="Enter 10-digit mobile number" oninput="updateLivePreview()">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Field 4: Date of Birth -->
+              <div class="field-editor-card">
+                <div class="field-editor-header">
+                  <div class="field-editor-title">
+                    <span>📅</span> Date of Birth (DOB)
+                    <span class="field-tag-badge field-tag-req">Required</span>
+                  </div>
+                  <label class="toggle-row">
+                    <span style="font-size: 12px; margin-right: 6px;">Show Field</span>
+                    <input type="checkbox" id="cfg_f_s1_dob_vis" checked onchange="updateLivePreview()">
+                  </label>
+                </div>
+                <div>
+                  <label class="field-sublabel">Column Name / Label</label>
+                  <input type="text" id="cfg_f_s1_dob_lbl" class="admin-input field-input-sm" value="Date of Birth" oninput="updateLivePreview()">
+                </div>
+              </div>
+
+              <!-- Field 5: Gender -->
+              <div class="field-editor-card">
+                <div class="field-editor-header">
+                  <div class="field-editor-title">
+                    <span>⚧</span> Gender
+                    <span class="field-tag-badge field-tag-req">Required</span>
+                  </div>
+                  <label class="toggle-row">
+                    <span style="font-size: 12px; margin-right: 6px;">Show Field</span>
+                    <input type="checkbox" id="cfg_f_s1_gender_vis" checked onchange="updateLivePreview()">
+                  </label>
+                </div>
+                <div class="field-editor-inputs">
+                  <div>
+                    <label class="field-sublabel">Column Name / Label</label>
+                    <input type="text" id="cfg_f_s1_gender_lbl" class="admin-input field-input-sm" value="Gender" oninput="updateLivePreview()">
+                  </div>
+                  <div>
+                    <label class="field-sublabel">Placeholder / Hint</label>
+                    <input type="text" id="cfg_f_s1_gender_ph" class="admin-input field-input-sm" value="Select Gender" oninput="updateLivePreview()">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Field 6: Email Address -->
+              <div class="field-editor-card">
+                <div class="field-editor-header">
+                  <div class="field-editor-title">
+                    <span>✉️</span> Email Address
+                    <span class="field-tag-badge field-tag-req">Required</span>
+                  </div>
+                  <label class="toggle-row">
+                    <span style="font-size: 12px; margin-right: 6px;">Show Field</span>
+                    <input type="checkbox" id="cfg_f_s1_email_vis" checked onchange="updateLivePreview()">
+                  </label>
+                </div>
+                <div class="field-editor-inputs">
+                  <div>
+                    <label class="field-sublabel">Column Name / Label</label>
+                    <input type="text" id="cfg_f_s1_email_lbl" class="admin-input field-input-sm" value="Email Address" oninput="updateLivePreview()">
+                  </div>
+                  <div>
+                    <label class="field-sublabel">Placeholder / Hint</label>
+                    <input type="text" id="cfg_f_s1_email_ph" class="admin-input field-input-sm" value="e.g. rajesh@email.com" oninput="updateLivePreview()">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Field 7: Loan Purpose -->
+              <div class="field-editor-card">
+                <div class="field-editor-header">
+                  <div class="field-editor-title">
+                    <span>🎯</span> Loan Purpose
+                    <span class="field-tag-badge field-tag-req">Required</span>
+                  </div>
+                  <label class="toggle-row">
+                    <span style="font-size: 12px; margin-right: 6px;">Show Field</span>
+                    <input type="checkbox" id="cfg_f_s1_loanPurpose_vis" checked onchange="updateLivePreview()">
+                  </label>
+                </div>
+                <div class="field-editor-inputs">
+                  <div>
+                    <label class="field-sublabel">Column Name / Label</label>
+                    <input type="text" id="cfg_f_s1_loanPurpose_lbl" class="admin-input field-input-sm" value="Loan Purpose" oninput="updateLivePreview()">
+                  </div>
+                  <div>
+                    <label class="field-sublabel">Placeholder / Hint</label>
+                    <input type="text" id="cfg_f_s1_loanPurpose_ph" class="admin-input field-input-sm" value="Select Purpose" oninput="updateLivePreview()">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Field 8: City -->
+              <div class="field-editor-card">
+                <div class="field-editor-header">
+                  <div class="field-editor-title">
+                    <span>🏙️</span> City
+                    <span class="field-tag-badge field-tag-req">Required</span>
+                  </div>
+                  <label class="toggle-row">
+                    <span style="font-size: 12px; margin-right: 6px;">Show Field</span>
+                    <input type="checkbox" id="cfg_f_s1_city_vis" checked onchange="updateLivePreview()">
+                  </label>
+                </div>
+                <div class="field-editor-inputs">
+                  <div>
+                    <label class="field-sublabel">Column Name / Label</label>
+                    <input type="text" id="cfg_f_s1_city_lbl" class="admin-input field-input-sm" value="City" oninput="updateLivePreview()">
+                  </div>
+                  <div>
+                    <label class="field-sublabel">Placeholder / Hint</label>
+                    <input type="text" id="cfg_f_s1_city_ph" class="admin-input field-input-sm" value="e.g. Mumbai" oninput="updateLivePreview()">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Field 9: Pin Code -->
+              <div class="field-editor-card">
+                <div class="field-editor-header">
+                  <div class="field-editor-title">
+                    <span>📮</span> Pin Code
+                    <span class="field-tag-badge field-tag-req">Required</span>
+                  </div>
+                  <label class="toggle-row">
+                    <span style="font-size: 12px; margin-right: 6px;">Show Field</span>
+                    <input type="checkbox" id="cfg_f_s1_pincode_vis" checked onchange="updateLivePreview()">
+                  </label>
+                </div>
+                <div class="field-editor-inputs">
+                  <div>
+                    <label class="field-sublabel">Column Name / Label</label>
+                    <input type="text" id="cfg_f_s1_pincode_lbl" class="admin-input field-input-sm" value="Pin Code" oninput="updateLivePreview()">
+                  </div>
+                  <div>
+                    <label class="field-sublabel">Placeholder / Hint</label>
+                    <input type="text" id="cfg_f_s1_pincode_ph" class="admin-input field-input-sm" value="e.g. 400001" oninput="updateLivePreview()">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Field 10: State -->
+              <div class="field-editor-card">
+                <div class="field-editor-header">
+                  <div class="field-editor-title">
+                    <span>🗺️</span> State
+                    <span class="field-tag-badge field-tag-req">Required</span>
+                  </div>
+                  <label class="toggle-row">
+                    <span style="font-size: 12px; margin-right: 6px;">Show Field</span>
+                    <input type="checkbox" id="cfg_f_s1_state_vis" checked onchange="updateLivePreview()">
+                  </label>
+                </div>
+                <div class="field-editor-inputs">
+                  <div>
+                    <label class="field-sublabel">Column Name / Label</label>
+                    <input type="text" id="cfg_f_s1_state_lbl" class="admin-input field-input-sm" value="State" oninput="updateLivePreview()">
+                  </div>
+                  <div>
+                    <label class="field-sublabel">Placeholder / Hint</label>
+                    <input type="text" id="cfg_f_s1_state_ph" class="admin-input field-input-sm" value="Select State" oninput="updateLivePreview()">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Phase 1 Button Customization -->
+              <div class="studio-section-banner">
+                <span>🔘</span> Phase 1 Button Customizer
+              </div>
+              <div style="margin-bottom: 14px;">
                 <label class="ctrl-label">Step 1 Action Button CTA Text</label>
                 <input type="text" id="cfgStep1BtnLabel" class="admin-input" value="Continue to Work Details →" oninput="updateLivePreview()">
               </div>
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+              <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px;">
+                <div>
+                  <label class="ctrl-label">Button Color</label>
+                  <div style="display: flex; align-items: center; gap: 6px;">
+                    <input type="color" id="cfgStep1BtnColor" value="#0d2b82" onchange="updateLivePreview()" style="width: 36px; height: 38px; border: none; border-radius: 8px; cursor: pointer; background: transparent;">
+                    <input type="text" id="cfgStep1BtnColorHex" value="#0d2b82" oninput="onStep1BtnHexChange(this.value)" class="admin-input field-input-sm" style="font-family: monospace;">
+                  </div>
+                </div>
                 <div>
                   <label class="ctrl-label">Button Height</label>
-                  <select id="cfgStep1BtnHeight" class="admin-select" onchange="updateLivePreview()">
+                  <select id="cfgStep1BtnHeight" class="admin-select field-input-sm" onchange="updateLivePreview()">
                     <option value="46px">Compact (46px)</option>
                     <option value="52px" selected>Standard (52px)</option>
                     <option value="60px">Large Bold (60px)</option>
@@ -909,7 +1226,7 @@
                 </div>
                 <div>
                   <label class="ctrl-label">Corner Radius</label>
-                  <select id="cfgStep1BtnRadius" class="admin-select" onchange="updateLivePreview()">
+                  <select id="cfgStep1BtnRadius" class="admin-select field-input-sm" onchange="updateLivePreview()">
                     <option value="8px">Subtle (8px)</option>
                     <option value="14px" selected>Modern (14px)</option>
                     <option value="9999px">Pill / Capsule</option>
@@ -923,46 +1240,203 @@
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; border-bottom: 1px solid var(--admin-border); padding-bottom: 12px;">
                 <div>
                   <h3 style="font-size: 17px; font-weight: 800; color: #ffffff; margin: 0 0 4px;">💼 Phase 2: Employment & Income</h3>
-                  <div style="font-size: 12px; color: var(--admin-text-muted);">Configure employment fields, salary threshold, and buttons</div>
+                  <div style="font-size: 12px; color: var(--admin-text-muted);">Customize employment fields, salary requirement, and action button</div>
                 </div>
                 <span style="background: rgba(59, 130, 246, 0.15); color: #60a5fa; font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 6px;">STEP 2</span>
               </div>
 
-              <div style="margin-bottom: 14px;">
-                <label class="ctrl-label">Phase 2 Title</label>
-                <input type="text" id="cfgStep2Title" class="admin-input" value="Employment & Income" oninput="updateLivePreview()">
-              </div>
-              <div style="margin-bottom: 18px;">
-                <label class="ctrl-label">Phase 2 Subtitle</label>
-                <input type="text" id="cfgStep2Subtitle" class="admin-input" value="Provide your work profile for instant credit assessment" oninput="updateLivePreview()">
-              </div>
-
-              <div style="background: #0f172a; border: 1px solid var(--admin-border); border-radius: 12px; padding: 14px; margin-bottom: 18px;">
-                <div style="font-size: 12px; font-weight: 800; color: #94a3b8; text-transform: uppercase; margin-bottom: 10px;">Field Visibility Toggles</div>
-                <div style="display: flex; flex-direction: column; gap: 10px;">
-                  <label class="toggle-row">
-                    <span>Company Name Field</span>
-                    <input type="checkbox" id="cfgStep2ShowCompany" checked onchange="updateLivePreview()">
-                  </label>
-                  <label class="toggle-row">
-                    <span>Designation / Role Field</span>
-                    <input type="checkbox" id="cfgStep2ShowDesignation" checked onchange="updateLivePreview()">
-                  </label>
-                  <label class="toggle-row">
-                    <span>Total Experience Dropdown</span>
-                    <input type="checkbox" id="cfgStep2ShowExperience" checked onchange="updateLivePreview()">
-                  </label>
+              <!-- Phase Titles -->
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px;">
+                <div>
+                  <label class="ctrl-label">Phase 2 Title</label>
+                  <input type="text" id="cfgStep2Title" class="admin-input" value="Employment & Income" oninput="updateLivePreview()">
+                </div>
+                <div>
+                  <label class="ctrl-label">Phase 2 Subtitle</label>
+                  <input type="text" id="cfgStep2Subtitle" class="admin-input" value="Provide your work profile for instant credit assessment" oninput="updateLivePreview()">
                 </div>
               </div>
 
-              <div style="margin-bottom: 18px;">
+              <!-- Phase 2 Columns / Fields Customization Studio -->
+              <div class="studio-section-banner">
+                <span>📋</span> Phase 2 Columns / Fields Customizer (Name, Placeholder & Show/Hide)
+              </div>
+
+              <!-- Field 1: Employment Type -->
+              <div class="field-editor-card">
+                <div class="field-editor-header">
+                  <div class="field-editor-title">
+                    <span>🏢</span> Employment Type
+                    <span class="field-tag-badge field-tag-req">Required</span>
+                  </div>
+                  <label class="toggle-row">
+                    <span style="font-size: 12px; margin-right: 6px;">Show Field</span>
+                    <input type="checkbox" id="cfg_f_s2_empType_vis" checked onchange="updateLivePreview()">
+                  </label>
+                </div>
+                <div>
+                  <label class="field-sublabel">Column Name / Label</label>
+                  <input type="text" id="cfg_f_s2_empType_lbl" class="admin-input field-input-sm" value="Employment Type" oninput="updateLivePreview()">
+                </div>
+              </div>
+
+              <!-- Field 2: Company Name -->
+              <div class="field-editor-card">
+                <div class="field-editor-header">
+                  <div class="field-editor-title">
+                    <span>🏛️</span> Company / Business Name
+                    <span class="field-tag-badge field-tag-req">Required</span>
+                  </div>
+                  <label class="toggle-row">
+                    <span style="font-size: 12px; margin-right: 6px;">Show Field</span>
+                    <input type="checkbox" id="cfg_f_s2_companyName_vis" checked onchange="updateLivePreview()">
+                  </label>
+                </div>
+                <div class="field-editor-inputs">
+                  <div>
+                    <label class="field-sublabel">Column Name / Label</label>
+                    <input type="text" id="cfg_f_s2_companyName_lbl" class="admin-input field-input-sm" value="Company / Business Name" oninput="updateLivePreview()">
+                  </div>
+                  <div>
+                    <label class="field-sublabel">Placeholder / Hint</label>
+                    <input type="text" id="cfg_f_s2_companyName_ph" class="admin-input field-input-sm" value="e.g. Tata Consultancy Services" oninput="updateLivePreview()">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Field 3: Designation -->
+              <div class="field-editor-card">
+                <div class="field-editor-header">
+                  <div class="field-editor-title">
+                    <span>💼</span> Designation / Job Role
+                    <span class="field-tag-badge field-tag-req">Required</span>
+                  </div>
+                  <label class="toggle-row">
+                    <span style="font-size: 12px; margin-right: 6px;">Show Field</span>
+                    <input type="checkbox" id="cfg_f_s2_designation_vis" checked onchange="updateLivePreview()">
+                  </label>
+                </div>
+                <div class="field-editor-inputs">
+                  <div>
+                    <label class="field-sublabel">Column Name / Label</label>
+                    <input type="text" id="cfg_f_s2_designation_lbl" class="admin-input field-input-sm" value="Designation" oninput="updateLivePreview()">
+                  </div>
+                  <div>
+                    <label class="field-sublabel">Placeholder / Hint</label>
+                    <input type="text" id="cfg_f_s2_designation_ph" class="admin-input field-input-sm" value="e.g. Software Engineer" oninput="updateLivePreview()">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Field 4: Work Experience -->
+              <div class="field-editor-card">
+                <div class="field-editor-header">
+                  <div class="field-editor-title">
+                    <span>⏳</span> Work Experience
+                    <span class="field-tag-badge field-tag-req">Required</span>
+                  </div>
+                  <label class="toggle-row">
+                    <span style="font-size: 12px; margin-right: 6px;">Show Field</span>
+                    <input type="checkbox" id="cfg_f_s2_experience_vis" checked onchange="updateLivePreview()">
+                  </label>
+                </div>
+                <div class="field-editor-inputs">
+                  <div>
+                    <label class="field-sublabel">Column Name / Label</label>
+                    <input type="text" id="cfg_f_s2_experience_lbl" class="admin-input field-input-sm" value="Work Experience" oninput="updateLivePreview()">
+                  </div>
+                  <div>
+                    <label class="field-sublabel">Placeholder / Hint</label>
+                    <input type="text" id="cfg_f_s2_experience_ph" class="admin-input field-input-sm" value="Select Experience" oninput="updateLivePreview()">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Field 5: Monthly Net Salary -->
+              <div class="field-editor-card">
+                <div class="field-editor-header">
+                  <div class="field-editor-title">
+                    <span>💵</span> Monthly Income / Salary
+                    <span class="field-tag-badge field-tag-req">Required</span>
+                  </div>
+                  <label class="toggle-row">
+                    <span style="font-size: 12px; margin-right: 6px;">Show Field</span>
+                    <input type="checkbox" id="cfg_f_s2_monthlySalary_vis" checked onchange="updateLivePreview()">
+                  </label>
+                </div>
+                <div class="field-editor-inputs">
+                  <div>
+                    <label class="field-sublabel">Column Name / Label</label>
+                    <input type="text" id="cfg_f_s2_monthlySalary_lbl" class="admin-input field-input-sm" value="Monthly Income / Salary" oninput="updateLivePreview()">
+                  </div>
+                  <div>
+                    <label class="field-sublabel">Placeholder / Hint</label>
+                    <input type="text" id="cfg_f_s2_monthlySalary_ph" class="admin-input field-input-sm" value="e.g. 35000" oninput="updateLivePreview()">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Field 6: Salary Slip Upload -->
+              <div class="field-editor-card">
+                <div class="field-editor-header">
+                  <div class="field-editor-title">
+                    <span>📄</span> Upload Salary Slip
+                    <span class="field-tag-badge field-tag-opt">Optional</span>
+                  </div>
+                  <label class="toggle-row">
+                    <span style="font-size: 12px; margin-right: 6px;">Show Field</span>
+                    <input type="checkbox" id="cfg_f_s2_salarySlip_vis" checked onchange="updateLivePreview()">
+                  </label>
+                </div>
+                <div class="field-editor-inputs">
+                  <div>
+                    <label class="field-sublabel">Column Name / Label</label>
+                    <input type="text" id="cfg_f_s2_salarySlip_lbl" class="admin-input field-input-sm" value="Upload Salary Slip (Optional)" oninput="updateLivePreview()">
+                  </div>
+                  <div>
+                    <label class="field-sublabel">Placeholder / Hint</label>
+                    <input type="text" id="cfg_f_s2_salarySlip_ph" class="admin-input field-input-sm" value="Click to upload salary slip" oninput="updateLivePreview()">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Threshold & Button Customizer -->
+              <div class="studio-section-banner">
+                <span>🔘</span> Phase 2 Threshold & Button Customizer
+              </div>
+              <div style="margin-bottom: 14px;">
                 <label class="ctrl-label">Minimum Monthly Salary Requirement (₹)</label>
                 <input type="number" id="cfgStep2MinSalary" class="admin-input" value="15000" step="1000">
               </div>
 
-              <div style="border-top: 1px solid var(--admin-border); padding-top: 14px; margin-bottom: 14px;">
+              <div style="margin-bottom: 14px;">
                 <label class="ctrl-label">Step 2 Action Button CTA Text</label>
                 <input type="text" id="cfgStep2BtnLabel" class="admin-input" value="Proceed to KYC Verification →" oninput="updateLivePreview()">
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px;">
+                <div>
+                  <label class="ctrl-label">Button Color</label>
+                  <div style="display: flex; align-items: center; gap: 6px;">
+                    <input type="color" id="cfgStep2BtnColor" value="#0d2b82" onchange="updateLivePreview()" style="width: 36px; height: 38px; border: none; border-radius: 8px; cursor: pointer; background: transparent;">
+                    <input type="text" id="cfgStep2BtnColorHex" value="#0d2b82" oninput="onStep2BtnHexChange(this.value)" class="admin-input field-input-sm" style="font-family: monospace;">
+                  </div>
+                </div>
+                <div>
+                  <label class="ctrl-label">Button Height</label>
+                  <select id="cfgStep2BtnHeight" class="admin-select field-input-sm" onchange="updateLivePreview()">
+                    <option value="46px">Compact (46px)</option>
+                    <option value="52px" selected>Standard (52px)</option>
+                    <option value="60px">Large Bold (60px)</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="ctrl-label">Corner Radius</label>
+                  <select id="cfgStep2BtnRadius" class="admin-select field-input-sm" onchange="updateLivePreview()">
+                    <option value="8px">Subtle (8px)</option>
+                    <option value="14px" selected>Modern (14px)</option>
+                    <option value="9999px">Pill / Capsule</option>
+                  </select>
+                </div>
               </div>
             </div>
 
@@ -971,79 +1445,319 @@
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; border-bottom: 1px solid var(--admin-border); padding-bottom: 12px;">
                 <div>
                   <h3 style="font-size: 17px; font-weight: 800; color: #ffffff; margin: 0 0 4px;">🪪 Phase 3: KYC & Verification</h3>
-                  <div style="font-size: 12px; color: var(--admin-text-muted);">Configure Aadhaar, PAN, photo uploads and AI Scanner HUD</div>
+                  <div style="font-size: 12px; color: var(--admin-text-muted);">Customize Aadhaar, PAN, photo uploads, AI Scanner HUD & buttons</div>
                 </div>
                 <span style="background: rgba(59, 130, 246, 0.15); color: #60a5fa; font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 6px;">STEP 3</span>
               </div>
 
-              <div style="margin-bottom: 14px;">
-                <label class="ctrl-label">Phase 3 Title</label>
-                <input type="text" id="cfgStep3Title" class="admin-input" value="Digital KYC Verification" oninput="updateLivePreview()">
-              </div>
-              <div style="margin-bottom: 18px;">
-                <label class="ctrl-label">Phase 3 Subtitle</label>
-                <input type="text" id="cfgStep3Subtitle" class="admin-input" value="Paperless Aadhaar & PAN verification for instant credit sanction" oninput="updateLivePreview()">
-              </div>
-
-              <div style="background: #0f172a; border: 1px solid var(--admin-border); border-radius: 12px; padding: 14px; margin-bottom: 18px;">
-                <div style="font-size: 12px; font-weight: 800; color: #94a3b8; text-transform: uppercase; margin-bottom: 10px;">KYC Feature & Upload Toggles</div>
-                <div style="display: flex; flex-direction: column; gap: 10px;">
-                  <label class="toggle-row">
-                    <span>Show Document Photo Upload Boxes (Aadhaar & PAN)</span>
-                    <input type="checkbox" id="cfgStep3ShowPhotos" onchange="updateLivePreview()">
-                  </label>
-                  <label class="toggle-row">
-                    <span>Enable 3-Second High-Tech AI KYC Scanner HUD</span>
-                    <input type="checkbox" id="cfgStep3AiScanner" checked onchange="updateLivePreview()">
-                  </label>
+              <!-- Phase Titles -->
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px;">
+                <div>
+                  <label class="ctrl-label">Phase 3 Title</label>
+                  <input type="text" id="cfgStep3Title" class="admin-input" value="Digital KYC Verification" oninput="updateLivePreview()">
+                </div>
+                <div>
+                  <label class="ctrl-label">Phase 3 Subtitle</label>
+                  <input type="text" id="cfgStep3Subtitle" class="admin-input" value="Paperless Aadhaar & PAN verification for instant credit sanction" oninput="updateLivePreview()">
                 </div>
               </div>
 
-              <div style="border-top: 1px solid var(--admin-border); padding-top: 14px; margin-bottom: 14px;">
+              <!-- Phase 3 Columns / Fields Customization Studio -->
+              <div class="studio-section-banner">
+                <span>📋</span> Phase 3 Columns / Fields Customizer (Name, Placeholder & Show/Hide)
+              </div>
+
+              <!-- Field 1: Aadhaar Card Number -->
+              <div class="field-editor-card">
+                <div class="field-editor-header">
+                  <div class="field-editor-title">
+                    <span>🪪</span> Aadhaar Card Number (UIDAI)
+                    <span class="field-tag-badge field-tag-req">Required</span>
+                  </div>
+                  <label class="toggle-row">
+                    <span style="font-size: 12px; margin-right: 6px;">Show Field</span>
+                    <input type="checkbox" id="cfg_f_s3_aadhaarNumber_vis" checked onchange="updateLivePreview()">
+                  </label>
+                </div>
+                <div class="field-editor-inputs">
+                  <div>
+                    <label class="field-sublabel">Column Name / Label</label>
+                    <input type="text" id="cfg_f_s3_aadhaarNumber_lbl" class="admin-input field-input-sm" value="Aadhaar Card Number" oninput="updateLivePreview()">
+                  </div>
+                  <div>
+                    <label class="field-sublabel">Placeholder / Hint</label>
+                    <input type="text" id="cfg_f_s3_aadhaarNumber_ph" class="admin-input field-input-sm" value="XXXX XXXX XXXX (12 Digits)" oninput="updateLivePreview()">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Field 2: PAN Card Number -->
+              <div class="field-editor-card">
+                <div class="field-editor-header">
+                  <div class="field-editor-title">
+                    <span>💳</span> PAN Card Number (NSDL)
+                    <span class="field-tag-badge field-tag-req">Required</span>
+                  </div>
+                  <label class="toggle-row">
+                    <span style="font-size: 12px; margin-right: 6px;">Show Field</span>
+                    <input type="checkbox" id="cfg_f_s3_panNumber_vis" checked onchange="updateLivePreview()">
+                  </label>
+                </div>
+                <div class="field-editor-inputs">
+                  <div>
+                    <label class="field-sublabel">Column Name / Label</label>
+                    <input type="text" id="cfg_f_s3_panNumber_lbl" class="admin-input field-input-sm" value="PAN Card Number" oninput="updateLivePreview()">
+                  </div>
+                  <div>
+                    <label class="field-sublabel">Placeholder / Hint</label>
+                    <input type="text" id="cfg_f_s3_panNumber_ph" class="admin-input field-input-sm" value="ABCDE1234F" oninput="updateLivePreview()">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Field 3: Document Photo Uploads -->
+              <div class="field-editor-card">
+                <div class="field-editor-header">
+                  <div class="field-editor-title">
+                    <span>📷</span> Document Photo Uploads (Aadhaar & PAN)
+                    <span class="field-tag-badge field-tag-opt">Optional</span>
+                  </div>
+                  <label class="toggle-row">
+                    <span style="font-size: 12px; margin-right: 6px;">Show Field</span>
+                    <input type="checkbox" id="cfg_f_s3_docPhotos_vis" onchange="updateLivePreview()">
+                  </label>
+                </div>
+                <div class="field-editor-inputs">
+                  <div>
+                    <label class="field-sublabel">Column Name / Label</label>
+                    <input type="text" id="cfg_f_s3_docPhotos_lbl" class="admin-input field-input-sm" value="Document Photo Uploads (Aadhaar & PAN)" oninput="updateLivePreview()">
+                  </div>
+                  <div>
+                    <label class="field-sublabel">Placeholder / Hint</label>
+                    <input type="text" id="cfg_f_s3_docPhotos_ph" class="admin-input field-input-sm" value="Tap to upload (Optional)" oninput="updateLivePreview()">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Field 4: AI Scanner HUD -->
+              <div class="field-editor-card">
+                <div class="field-editor-header">
+                  <div class="field-editor-title">
+                    <span>🤖</span> 3-Second High-Tech AI KYC Scanner HUD
+                    <span class="field-tag-badge field-tag-opt">Interactive</span>
+                  </div>
+                  <label class="toggle-row">
+                    <span style="font-size: 12px; margin-right: 6px;">Enable HUD</span>
+                    <input type="checkbox" id="cfg_f_s3_aiScannerHud_vis" checked onchange="updateLivePreview()">
+                  </label>
+                </div>
+                <div>
+                  <label class="field-sublabel">Feature Label</label>
+                  <input type="text" id="cfg_f_s3_aiScannerHud_lbl" class="admin-input field-input-sm" value="3-Second High-Tech AI KYC Scanner HUD" oninput="updateLivePreview()">
+                </div>
+              </div>
+
+              <!-- Phase 3 Button Customizer -->
+              <div class="studio-section-banner">
+                <span>🔘</span> Phase 3 Button Customizer
+              </div>
+              <div style="margin-bottom: 14px;">
                 <label class="ctrl-label">Step 3 Action Button CTA Text</label>
                 <input type="text" id="cfgStep3BtnLabel" class="admin-input" value="Verify & Check Credit Sanction →" oninput="updateLivePreview()">
               </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px;">
+                <div>
+                  <label class="ctrl-label">Button Color</label>
+                  <div style="display: flex; align-items: center; gap: 6px;">
+                    <input type="color" id="cfgStep3BtnColor" value="#0d2b82" onchange="updateLivePreview()" style="width: 36px; height: 38px; border: none; border-radius: 8px; cursor: pointer; background: transparent;">
+                    <input type="text" id="cfgStep3BtnColorHex" value="#0d2b82" oninput="onStep3BtnHexChange(this.value)" class="admin-input field-input-sm" style="font-family: monospace;">
+                  </div>
+                </div>
+                <div>
+                  <label class="ctrl-label">Button Height</label>
+                  <select id="cfgStep3BtnHeight" class="admin-select field-input-sm" onchange="updateLivePreview()">
+                    <option value="46px">Compact (46px)</option>
+                    <option value="52px" selected>Standard (52px)</option>
+                    <option value="60px">Large Bold (60px)</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="ctrl-label">Corner Radius</label>
+                  <select id="cfgStep3BtnRadius" class="admin-select field-input-sm" onchange="updateLivePreview()">
+                    <option value="8px">Subtle (8px)</option>
+                    <option value="14px" selected>Modern (14px)</option>
+                    <option value="9999px">Pill / Capsule</option>
+                  </select>
+                </div>
+              </div>
             </div>
 
-            <!-- ==================== PANEL 5: PHASE 4 (BANK & SANCTION) ==================== -->
+            <!-- ==================== PANEL 5: PHASE 4 (BANK & SANCTION LIMIT OFFER) ==================== -->
             <div id="panelStep4" class="customizer-panel" style="display: none;">
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; border-bottom: 1px solid var(--admin-border); padding-bottom: 12px;">
                 <div>
-                  <h3 style="font-size: 17px; font-weight: 800; color: #ffffff; margin: 0 0 4px;">🏛️ Phase 4: Bank Details & Sanction</h3>
-                  <div style="font-size: 12px; color: var(--admin-text-muted);">Configure sanction card, credit limit, interest, fee & button</div>
+                  <h3 style="font-size: 17px; font-weight: 800; color: #ffffff; margin: 0 0 4px;">🏛️ Phase 4: Bank Details & Sanction Approval</h3>
+                  <div style="font-size: 12px; color: var(--admin-text-muted);">Customize bank settlement columns, sanction limit card, fee, and disbursal action button</div>
                 </div>
                 <span style="background: rgba(16, 185, 129, 0.15); color: #34d399; font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 6px;">STEP 4</span>
               </div>
 
-              <div style="margin-bottom: 14px;">
-                <label class="ctrl-label">Phase 4 Title</label>
-                <input type="text" id="cfgStep4Title" class="admin-input" value="Bank Verification & Loan Sanction" oninput="updateLivePreview()">
-              </div>
-              <div style="margin-bottom: 18px;">
-                <label class="ctrl-label">Phase 4 Subtitle</label>
-                <input type="text" id="cfgStep4Subtitle" class="admin-input" value="Enter bank account where your approved loan funds will be disbursed" oninput="updateLivePreview()">
+              <!-- Phase Titles -->
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px;">
+                <div>
+                  <label class="ctrl-label">Phase 4 Title</label>
+                  <input type="text" id="cfgStep4Title" class="admin-input" value="Bank Details & Sanction Approval" oninput="updateLivePreview()">
+                </div>
+                <div>
+                  <label class="ctrl-label">Phase 4 Subtitle</label>
+                  <input type="text" id="cfgStep4Subtitle" class="admin-input" value="Enter bank account where your approved loan funds will be disbursed" oninput="updateLivePreview()">
+                </div>
               </div>
 
-              <div style="background: #0f172a; border: 1px solid var(--admin-border); border-radius: 12px; padding: 14px; margin-bottom: 18px;">
-                <div style="font-size: 12px; font-weight: 800; color: #94a3b8; text-transform: uppercase; margin-bottom: 10px;">Interactive Feature Toggles</div>
+              <!-- Part A: Bank Settlement Columns Studio -->
+              <div class="studio-section-banner">
+                <span>🏦</span> Part A: Bank Settlement Columns Customizer
+              </div>
+
+              <!-- Field 1: Bank Name -->
+              <div class="field-editor-card">
+                <div class="field-editor-header">
+                  <div class="field-editor-title">
+                    <span>🏛️</span> Bank Name
+                    <span class="field-tag-badge field-tag-req">Required</span>
+                  </div>
+                  <label class="toggle-row">
+                    <span style="font-size: 12px; margin-right: 6px;">Show Field</span>
+                    <input type="checkbox" id="cfg_f_s4_bankName_vis" checked onchange="updateLivePreview()">
+                  </label>
+                </div>
+                <div class="field-editor-inputs">
+                  <div>
+                    <label class="field-sublabel">Column Name / Label</label>
+                    <input type="text" id="cfg_f_s4_bankName_lbl" class="admin-input field-input-sm" value="Bank Name" oninput="updateLivePreview()">
+                  </div>
+                  <div>
+                    <label class="field-sublabel">Placeholder / Hint</label>
+                    <input type="text" id="cfg_f_s4_bankName_ph" class="admin-input field-input-sm" value="Select Bank" oninput="updateLivePreview()">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Field 2: Account Number -->
+              <div class="field-editor-card">
+                <div class="field-editor-header">
+                  <div class="field-editor-title">
+                    <span>💳</span> Bank Account Number
+                    <span class="field-tag-badge field-tag-req">Required</span>
+                  </div>
+                  <label class="toggle-row">
+                    <span style="font-size: 12px; margin-right: 6px;">Show Field</span>
+                    <input type="checkbox" id="cfg_f_s4_accountNumber_vis" checked onchange="updateLivePreview()">
+                  </label>
+                </div>
+                <div class="field-editor-inputs">
+                  <div>
+                    <label class="field-sublabel">Column Name / Label</label>
+                    <input type="text" id="cfg_f_s4_accountNumber_lbl" class="admin-input field-input-sm" value="Bank Account Number" oninput="updateLivePreview()">
+                  </div>
+                  <div>
+                    <label class="field-sublabel">Placeholder / Hint</label>
+                    <input type="text" id="cfg_f_s4_accountNumber_ph" class="admin-input field-input-sm" value="Enter bank account number" oninput="updateLivePreview()">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Field 3: Confirm Account Number -->
+              <div class="field-editor-card">
+                <div class="field-editor-header">
+                  <div class="field-editor-title">
+                    <span>🔁</span> Re-enter Bank Account Number
+                    <span class="field-tag-badge field-tag-req">Required</span>
+                  </div>
+                  <label class="toggle-row">
+                    <span style="font-size: 12px; margin-right: 6px;">Show Field</span>
+                    <input type="checkbox" id="cfg_f_s4_confirmAccountNumber_vis" checked onchange="updateLivePreview()">
+                  </label>
+                </div>
+                <div class="field-editor-inputs">
+                  <div>
+                    <label class="field-sublabel">Column Name / Label</label>
+                    <input type="text" id="cfg_f_s4_confirmAccountNumber_lbl" class="admin-input field-input-sm" value="Re-enter Bank Account Number" oninput="updateLivePreview()">
+                  </div>
+                  <div>
+                    <label class="field-sublabel">Placeholder / Hint</label>
+                    <input type="text" id="cfg_f_s4_confirmAccountNumber_ph" class="admin-input field-input-sm" value="Re-enter bank account number" oninput="updateLivePreview()">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Field 4: IFSC Code -->
+              <div class="field-editor-card">
+                <div class="field-editor-header">
+                  <div class="field-editor-title">
+                    <span>🔢</span> Bank IFSC Code
+                    <span class="field-tag-badge field-tag-req">Required</span>
+                  </div>
+                  <label class="toggle-row">
+                    <span style="font-size: 12px; margin-right: 6px;">Show Field</span>
+                    <input type="checkbox" id="cfg_f_s4_ifscCode_vis" checked onchange="updateLivePreview()">
+                  </label>
+                </div>
+                <div class="field-editor-inputs">
+                  <div>
+                    <label class="field-sublabel">Column Name / Label</label>
+                    <input type="text" id="cfg_f_s4_ifscCode_lbl" class="admin-input field-input-sm" value="Bank IFSC Code" oninput="updateLivePreview()">
+                  </div>
+                  <div>
+                    <label class="field-sublabel">Placeholder / Hint</label>
+                    <input type="text" id="cfg_f_s4_ifscCode_ph" class="admin-input field-input-sm" value="e.g. SBIN0001234" oninput="updateLivePreview()">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Animations / Features -->
+              <div style="background: #09102b; border: 1px solid var(--admin-border); border-radius: 12px; padding: 14px; margin-bottom: 18px;">
+                <div style="font-size: 12px; font-weight: 800; color: #94a3b8; text-transform: uppercase; margin-bottom: 10px;">Verification & Reveal Animations</div>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                   <label class="toggle-row">
-                    <span>Enable NPCI Penny Drop 3-Stage Animation</span>
-                    <input type="checkbox" id="cfgStep4PennyDrop" checked onchange="updateLivePreview()">
+                    <span>NPCI Penny Drop 3-Stage Verification Animation</span>
+                    <input type="checkbox" id="cfg_f_s4_pennyDrop_vis" checked onchange="updateLivePreview()">
                   </label>
                   <label class="toggle-row">
-                    <span>Enable Celebratory Gift Box Reveal Animation</span>
-                    <input type="checkbox" id="cfgStep4GiftBox" checked onchange="updateLivePreview()">
+                    <span>Celebratory Gift Box Reveal Animation</span>
+                    <input type="checkbox" id="cfg_f_s4_giftBox_vis" checked onchange="updateLivePreview()">
                   </label>
                 </div>
               </div>
 
-              <!-- Financial Parameters -->
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 18px;">
+              <!-- Part B: Sanction Limit Offer Card Customizer -->
+              <div class="studio-section-banner">
+                <span>🎁</span> Part B: Sanction Limit Offer Card Customizer (Approved Limit Phase)
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px;">
                 <div>
-                  <label class="ctrl-label">Default Credit Limit (₹)</label>
+                  <label class="ctrl-label">Approved Limit Header Text</label>
+                  <input type="text" id="cfgSanctionCeilingText" class="admin-input" value="Approved limit" oninput="updateLivePreview()">
+                </div>
+                <div>
+                  <label class="ctrl-label">Default Approved Credit Limit (₹)</label>
                   <input type="number" id="cfgDefaultLimit" class="admin-input" value="50000" step="1000" oninput="updateLivePreview()">
                 </div>
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px;">
+                <div>
+                  <label class="ctrl-label">Amount Section Header Label</label>
+                  <input type="text" id="cfgChooseAmountLabel" class="admin-input" value="Choose your Loan amount" oninput="updateLivePreview()">
+                </div>
+                <div>
+                  <label class="ctrl-label">EMI Plan Section Header Label</label>
+                  <input type="text" id="cfgChoosePlanLabel" class="admin-input" value="Choose EMI's plan" oninput="updateLivePreview()">
+                </div>
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px;">
                 <div>
                   <label class="ctrl-label">Interest Rate (% p.a.)</label>
                   <input type="number" id="cfgInterestRate" class="admin-input" value="24" step="0.5" oninput="updateLivePreview()">
@@ -1052,24 +1766,35 @@
                   <label class="ctrl-label">Disbursal Fee (₹)</label>
                   <input type="number" id="cfgDisbursalFee" class="admin-input" value="199" step="50" oninput="updateLivePreview()">
                 </div>
-                <div>
-                  <label class="ctrl-label">Sanction Hero Color</label>
-                  <div style="display: flex; align-items: center; gap: 6px;">
-                    <input type="color" id="cfgHeroColor" value="#0d2b82" onchange="updateLivePreview()" style="width: 36px; height: 36px; border: none; border-radius: 6px; cursor: pointer; background: transparent;">
-                    <input type="text" id="cfgHeroColorHex" value="#0d2b82" oninput="onHeroHexChange(this.value)" class="admin-input" style="font-family: monospace; font-size: 11px;">
-                  </div>
+              </div>
+
+              <div style="margin-bottom: 16px;">
+                <label class="ctrl-label">Sanction Hero Header Background Color</label>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <input type="color" id="cfgHeroColor" value="#0d2b82" onchange="updateLivePreview()" style="width: 44px; height: 38px; border: none; border-radius: 8px; cursor: pointer; background: transparent;">
+                  <input type="text" id="cfgHeroColorHex" value="#0d2b82" oninput="onHeroHexChange(this.value)" class="admin-input" style="font-family: monospace; width: 140px;">
                 </div>
               </div>
 
               <!-- Sanction Action Button -->
-              <div style="border-top: 1px solid var(--admin-border); padding-top: 14px; margin-bottom: 14px;">
+              <div class="studio-section-banner">
+                <span>🔘</span> Sanction Action Button Customizer
+              </div>
+              <div style="margin-bottom: 14px;">
                 <label class="ctrl-label">Sanction Action Button CTA Text</label>
                 <input type="text" id="cfgBtnLabel" class="admin-input" value="Continue with loan amount" oninput="updateLivePreview()">
               </div>
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+              <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 14px;">
+                <div>
+                  <label class="ctrl-label">Button Color</label>
+                  <div style="display: flex; align-items: center; gap: 6px;">
+                    <input type="color" id="cfgBtnColor" value="#0d2b82" onchange="updateLivePreview()" style="width: 36px; height: 38px; border: none; border-radius: 8px; cursor: pointer; background: transparent;">
+                    <input type="text" id="cfgBtnColorHex" value="#0d2b82" oninput="onBtnHexChange(this.value)" class="admin-input field-input-sm" style="font-family: monospace;">
+                  </div>
+                </div>
                 <div>
                   <label class="ctrl-label">Button Height</label>
-                  <select id="cfgBtnHeight" class="admin-select" onchange="updateLivePreview()">
+                  <select id="cfgBtnHeight" class="admin-select field-input-sm" onchange="updateLivePreview()">
                     <option value="46px">Compact (46px)</option>
                     <option value="52px" selected>Standard (52px)</option>
                     <option value="60px">Large Bold (60px)</option>
@@ -1077,18 +1802,11 @@
                 </div>
                 <div>
                   <label class="ctrl-label">Corner Radius</label>
-                  <select id="cfgBtnRadius" class="admin-select" onchange="updateLivePreview()">
-                    <option value="8px">Subtle Rounded (8px)</option>
-                    <option value="14px" selected>Modern Fintech (14px)</option>
-                    <option value="9999px">Full Capsule / Pill</option>
+                  <select id="cfgBtnRadius" class="admin-select field-input-sm" onchange="updateLivePreview()">
+                    <option value="8px">Subtle (8px)</option>
+                    <option value="14px" selected>Modern (14px)</option>
+                    <option value="9999px">Pill / Capsule</option>
                   </select>
-                </div>
-              </div>
-              <div>
-                <label class="ctrl-label">Button Background Color</label>
-                <div style="display: flex; align-items: center; gap: 10px;">
-                  <input type="color" id="cfgBtnColor" value="#0d2b82" onchange="updateLivePreview()" style="width: 44px; height: 38px; border: none; border-radius: 8px; cursor: pointer; background: transparent;">
-                  <input type="text" id="cfgBtnColorHex" value="#0d2b82" oninput="onBtnHexChange(this.value)" class="admin-input" style="font-family: monospace; font-weight: 700; width: 140px;">
                 </div>
               </div>
             </div>
@@ -1098,15 +1816,55 @@
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; border-bottom: 1px solid var(--admin-border); padding-bottom: 12px;">
                 <div>
                   <h3 style="font-size: 17px; font-weight: 800; color: #ffffff; margin: 0 0 4px;">📊 Customer Dashboard & Banners</h3>
-                  <div style="font-size: 12px; color: var(--admin-text-muted);">Configure live customer announcement banner and feature cards</div>
+                  <div style="font-size: 12px; color: var(--admin-text-muted);">Configure main customer portal cards, announcement banner, and action buttons</div>
                 </div>
                 <span style="background: rgba(16, 185, 129, 0.15); color: #34d399; font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 6px;">PORTAL</span>
               </div>
 
-              <div style="background: #0f172a; border: 1px solid var(--admin-border); border-radius: 12px; padding: 14px; margin-bottom: 18px;">
+              <!-- Hero Card Controls -->
+              <div class="studio-section-banner">
+                <span>🎴</span> Main Interface Hero Application Card
+              </div>
+              <div style="margin-bottom: 14px;">
+                <label class="ctrl-label">Hero Title</label>
+                <input type="text" id="cfgDashHeroTitle" class="admin-input" value="Get a credit limit up to ₹50,000" oninput="updateLivePreview()">
+              </div>
+              <div style="margin-bottom: 14px;">
+                <label class="ctrl-label">Hero Subtext</label>
+                <input type="text" id="cfgDashHeroSubtext" class="admin-input" value="Avail limit up to ₹50,000 in 4 easy steps" oninput="updateLivePreview()">
+              </div>
+              <div style="margin-bottom: 16px;">
+                <label class="ctrl-label">Hero Button Text</label>
+                <input type="text" id="cfgDashHeroBtnText" class="admin-input" value="Complete your application" oninput="updateLivePreview()">
+              </div>
+
+              <!-- Important Steps Card Controls -->
+              <div class="studio-section-banner">
+                <span>🔔</span> Pending Notice Card ("Few steps left")
+              </div>
+              <div style="background: #09102b; border: 1px solid var(--admin-border); border-radius: 12px; padding: 14px; margin-bottom: 14px;">
+                <label class="toggle-row" style="margin-bottom: 10px;">
+                  <span>Show Pending Notice Card on Dashboard</span>
+                  <input type="checkbox" id="cfgDashShowImportant" checked onchange="updateLivePreview()">
+                </label>
+                <div style="margin-bottom: 10px;">
+                  <label class="field-sublabel">Notice Title</label>
+                  <input type="text" id="cfgDashImportantTitle" class="admin-input field-input-sm" value="Few steps left to unlock your money 💸" oninput="updateLivePreview()">
+                </div>
+                <div>
+                  <label class="field-sublabel">Notice Subtext</label>
+                  <input type="text" id="cfgDashImportantSubtext" class="admin-input field-input-sm" value="Selfie and Bank account verification" oninput="updateLivePreview()">
+                </div>
+              </div>
+
+              <!-- Live Announcement Banner -->
+              <div class="studio-section-banner">
+                <span>📢</span> Live Announcement Banner & Portal Widgets
+              </div>
+              <div style="background: #09102b; border: 1px solid var(--admin-border); border-radius: 12px; padding: 14px; margin-bottom: 16px;">
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                   <label class="toggle-row">
-                    <span>Show Live Announcement Banner on Dashboard</span>
+                    <span>Show Live Announcement Banner</span>
                     <input type="checkbox" id="cfgDashShowAnnouncement" checked onchange="updateLivePreview()">
                   </label>
                   <label class="toggle-row">
@@ -1121,21 +1879,21 @@
               </div>
 
               <div style="margin-bottom: 16px;">
-                <label class="ctrl-label">Announcement Banner Text</label>
+                <label class="ctrl-label">Live Announcement Banner Text</label>
                 <input type="text" id="cfgDashAnnouncementText" class="admin-input" value="⚡ Instant Bank Disbursal is active for all approved borrowers via IMPS / RTGS." oninput="updateLivePreview()">
               </div>
             </div>
 
             <!-- Save Action Button -->
-            <button type="button" class="btn-submit-save" id="btnSaveSystemSettings" onclick="saveSystemCustomization()" style="width: 100%; margin-top: 18px; font-size: 15px; padding: 15px;">
+            <button type="button" class="btn-submit-save" id="btnSaveSystemSettings" onclick="saveSystemCustomization()" style="width: 100%; margin-top: 18px; font-size: 15px; padding: 16px;">
               💾 Save All Changes & Reflect Instantly on Live App
             </button>
           </div>
 
           <!-- Right Column: Interactive Multi-Phase Mobile Mockup -->
-          <div style="background: var(--admin-card-bg); border: 1px solid var(--admin-border); border-radius: 16px; padding: 24px;">
+          <div style="background: var(--admin-card-bg); border: 1px solid var(--admin-border); border-radius: 16px; padding: 24px; position: sticky; top: 80px;">
             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
-              <h3 style="font-size: 16px; font-weight: 800; color: #ffffff; margin: 0;">Live Customer App Preview</h3>
+              <h3 style="font-size: 15px; font-weight: 800; color: #ffffff; margin: 0;">Live Customer App Preview</h3>
               <div style="display: flex; gap: 4px;" class="preview-phase-pills">
                 <button type="button" onclick="setPreviewPhase('step1')" id="prevTabStep1" class="phase-pill-btn">Step 1</button>
                 <button type="button" onclick="setPreviewPhase('step2')" id="prevTabStep2" class="phase-pill-btn">Step 2</button>
@@ -1146,7 +1904,7 @@
             </div>
 
             <!-- Phone Frame -->
-            <div style="max-width: 400px; margin: 0 auto; border: 8px solid #334155; border-radius: 36px; overflow: hidden; background: #0f172a; box-shadow: 0 20px 40px rgba(0,0,0,0.6);">
+            <div style="max-width: 380px; margin: 0 auto; border: 8px solid #334155; border-radius: 36px; overflow: hidden; background: #0f172a; box-shadow: 0 20px 40px rgba(0,0,0,0.6);">
               <!-- Phone Status Bar -->
               <div style="background: #1e293b; padding: 8px 16px; display: flex; justify-content: space-between; align-items: center; font-size: 10px; color: #94a3b8; font-weight: 700;">
                 <span id="mockupClock">9:41 AM</span>
@@ -1163,19 +1921,33 @@
                     <div id="mockStep1Title" style="font-weight: 800; font-size: 16px; color: #ffffff;">Personal Information</div>
                     <div id="mockStep1Subtitle" style="font-size: 11px; color: #94a3b8; margin-top: 3px;">Tell us about yourself to check pre-approved loan eligibility</div>
                   </div>
-                  <div style="background: #1e293b; border-radius: 12px; padding: 14px; margin-bottom: 12px; font-size: 12px;">
-                    <div style="color: #94a3b8; font-size: 11px; margin-bottom: 4px;">Mobile Number</div>
-                    <div style="font-weight: 700; color: #ffffff; font-family: monospace;">+91 98112 23344 ✓</div>
-                  </div>
-                  <div id="mockStep1EmailBox" style="background: #1e293b; border-radius: 12px; padding: 14px; margin-bottom: 12px; font-size: 12px;">
-                    <div style="color: #94a3b8; font-size: 11px; margin-bottom: 4px;">Email Address</div>
-                    <div style="color: #cbd5e1;">user@example.com</div>
-                  </div>
-                  <div id="mockStep1CalcBox" style="background: #1e293b; border-radius: 12px; padding: 14px; margin-bottom: 14px; text-align: center;">
-                    <div style="font-size: 11px; color: #94a3b8;">Desired Loan Amount</div>
+
+                  <div id="mockStep1CalcBox" style="background: #1e293b; border-radius: 12px; padding: 14px; margin-bottom: 12px; text-align: center;">
+                    <div id="mockStep1CalcLabel" style="font-size: 11px; color: #94a3b8;">Desired Loan Amount</div>
                     <div style="font-size: 20px; font-weight: 900; color: #38bdf8; margin: 4px 0;">₹ 50,000</div>
                     <div style="font-size: 11px; color: #94a3b8;">~₹4,497/mo (12 Months)</div>
                   </div>
+
+                  <div id="mockStep1NameBox" style="background: #1e293b; border-radius: 12px; padding: 12px; margin-bottom: 10px; font-size: 12px;">
+                    <div id="mockStep1NameLabel" style="color: #94a3b8; font-size: 11px; margin-bottom: 3px;">Full Name (as per Aadhaar) *</div>
+                    <div id="mockStep1NamePh" style="color: #cbd5e1; font-weight: 600;">Rajesh Kumar Sharma</div>
+                  </div>
+
+                  <div id="mockStep1MobileBox" style="background: #1e293b; border-radius: 12px; padding: 12px; margin-bottom: 10px; font-size: 12px;">
+                    <div id="mockStep1MobileLabel" style="color: #94a3b8; font-size: 11px; margin-bottom: 3px;">Mobile Number *</div>
+                    <div id="mockStep1MobilePh" style="color: #ffffff; font-weight: 700; font-family: monospace;">+91 98112 23344 ✓</div>
+                  </div>
+
+                  <div id="mockStep1EmailBox" style="background: #1e293b; border-radius: 12px; padding: 12px; margin-bottom: 10px; font-size: 12px;">
+                    <div id="mockStep1EmailLabel" style="color: #94a3b8; font-size: 11px; margin-bottom: 3px;">Email Address *</div>
+                    <div id="mockStep1EmailPh" style="color: #cbd5e1;">user@example.com</div>
+                  </div>
+
+                  <div id="mockStep1PurposeBox" style="background: #1e293b; border-radius: 12px; padding: 12px; margin-bottom: 14px; font-size: 12px;">
+                    <div id="mockStep1PurposeLabel" style="color: #94a3b8; font-size: 11px; margin-bottom: 3px;">Loan Purpose *</div>
+                    <div id="mockStep1PurposePh" style="color: #cbd5e1;">Personal Expenses</div>
+                  </div>
+
                   <button type="button" id="mockStep1Btn" style="width: 100%; height: 52px; background: #0d2b82; color: #ffffff; border: none; border-radius: 14px; font-weight: 800; font-size: 14px;">
                     Continue to Work Details →
                   </button>
@@ -1187,17 +1959,17 @@
                     <div id="mockStep2Title" style="font-weight: 800; font-size: 16px; color: #ffffff;">Employment & Income</div>
                     <div id="mockStep2Subtitle" style="font-size: 11px; color: #94a3b8; margin-top: 3px;">Provide your work profile for instant credit assessment</div>
                   </div>
-                  <div style="background: #1e293b; border-radius: 12px; padding: 14px; margin-bottom: 12px;">
-                    <div style="color: #94a3b8; font-size: 11px; margin-bottom: 4px;">Employment Type</div>
+                  <div id="mockStep2EmpTypeBox" style="background: #1e293b; border-radius: 12px; padding: 12px; margin-bottom: 10px;">
+                    <div id="mockStep2EmpTypeLabel" style="color: #94a3b8; font-size: 11px; margin-bottom: 3px;">Employment Type</div>
                     <div style="color: #34d399; font-weight: 700; font-size: 13px;">Salaried Professional</div>
                   </div>
-                  <div id="mockStep2CompanyBox" style="background: #1e293b; border-radius: 12px; padding: 14px; margin-bottom: 12px;">
-                    <div style="color: #94a3b8; font-size: 11px; margin-bottom: 4px;">Company / Employer</div>
-                    <div style="color: #ffffff; font-weight: 700; font-size: 13px;">Infosys BPM Ltd</div>
+                  <div id="mockStep2CompanyBox" style="background: #1e293b; border-radius: 12px; padding: 12px; margin-bottom: 10px;">
+                    <div id="mockStep2CompanyLabel" style="color: #94a3b8; font-size: 11px; margin-bottom: 3px;">Company / Business Name</div>
+                    <div id="mockStep2CompanyPh" style="color: #ffffff; font-weight: 700; font-size: 13px;">Tata Consultancy Services</div>
                   </div>
-                  <div style="background: #1e293b; border-radius: 12px; padding: 14px; margin-bottom: 14px;">
-                    <div style="color: #94a3b8; font-size: 11px; margin-bottom: 4px;">Monthly Net Salary</div>
-                    <div style="color: #38bdf8; font-weight: 800; font-size: 16px;">₹ 35,000 / mo</div>
+                  <div id="mockStep2SalaryBox" style="background: #1e293b; border-radius: 12px; padding: 12px; margin-bottom: 14px;">
+                    <div id="mockStep2SalaryLabel" style="color: #94a3b8; font-size: 11px; margin-bottom: 3px;">Monthly Income / Salary</div>
+                    <div id="mockStep2SalaryPh" style="color: #38bdf8; font-weight: 800; font-size: 16px;">₹ 35,000 / mo</div>
                   </div>
                   <button type="button" id="mockStep2Btn" style="width: 100%; height: 52px; background: #0d2b82; color: #ffffff; border: none; border-radius: 14px; font-weight: 800; font-size: 14px;">
                     Proceed to KYC Verification →
@@ -1210,16 +1982,16 @@
                     <div id="mockStep3Title" style="font-weight: 800; font-size: 16px; color: #ffffff;">Digital KYC Verification</div>
                     <div id="mockStep3Subtitle" style="font-size: 11px; color: #94a3b8; margin-top: 3px;">Paperless Aadhaar & PAN verification</div>
                   </div>
-                  <div style="background: #1e293b; border-radius: 12px; padding: 14px; margin-bottom: 12px;">
-                    <div style="color: #94a3b8; font-size: 11px; margin-bottom: 4px;">Aadhaar Card (UIDAI)</div>
-                    <div style="color: #ffffff; font-weight: 700; font-family: monospace;">7829 4512 8839 ✓</div>
+                  <div id="mockStep3AadhaarBox" style="background: #1e293b; border-radius: 12px; padding: 12px; margin-bottom: 10px;">
+                    <div id="mockStep3AadhaarLabel" style="color: #94a3b8; font-size: 11px; margin-bottom: 3px;">Aadhaar Card Number</div>
+                    <div id="mockStep3AadhaarPh" style="color: #ffffff; font-weight: 700; font-family: monospace;">7829 4512 8839 ✓</div>
                   </div>
-                  <div style="background: #1e293b; border-radius: 12px; padding: 14px; margin-bottom: 12px;">
-                    <div style="color: #94a3b8; font-size: 11px; margin-bottom: 4px;">PAN Card (NSDL)</div>
-                    <div style="color: #ffffff; font-weight: 700; font-family: monospace;">ABCDE1234F ✓</div>
+                  <div id="mockStep3PanBox" style="background: #1e293b; border-radius: 12px; padding: 12px; margin-bottom: 10px;">
+                    <div id="mockStep3PanLabel" style="color: #94a3b8; font-size: 11px; margin-bottom: 3px;">PAN Card Number</div>
+                    <div id="mockStep3PanPh" style="color: #ffffff; font-weight: 700; font-family: monospace;">ABCDE1234F ✓</div>
                   </div>
-                  <div id="mockStep3PhotoBox" style="background: rgba(59, 130, 246, 0.1); border: 1.5px dashed #3b82f6; border-radius: 12px; padding: 14px; text-align: center; margin-bottom: 14px; display: none;">
-                    <div style="font-size: 12px; font-weight: 700; color: #60a5fa;">📷 Photo Upload Section (Active)</div>
+                  <div id="mockStep3PhotoBox" style="background: rgba(59, 130, 246, 0.1); border: 1.5px dashed #3b82f6; border-radius: 12px; padding: 12px; text-align: center; margin-bottom: 14px; display: none;">
+                    <div id="mockStep3PhotoLabel" style="font-size: 12px; font-weight: 700; color: #60a5fa;">📷 Photo Upload Section (Active)</div>
                     <div style="font-size: 10.5px; color: #94a3b8; margin-top: 2px;">Front & Back Document Upload</div>
                   </div>
                   <button type="button" id="mockStep3Btn" style="width: 100%; height: 52px; background: #0d2b82; color: #ffffff; border: none; border-radius: 14px; font-weight: 800; font-size: 14px;">
@@ -1232,15 +2004,15 @@
                   <!-- Sanction Card Mockup -->
                   <div id="mockupSanctionCard" style="border-radius: 18px; overflow: hidden; background: #ffffff; color: #0f172a; box-shadow: 0 10px 25px rgba(0,0,0,0.4);">
                     <div id="mockupHeroTop" style="background: #0d2b82; padding: 18px; color: #ffffff; text-align: center; transition: background 0.2s;">
-                      <div style="font-size: 11px; font-weight: 700; opacity: 0.85; text-transform: uppercase;">Approved limit</div>
+                      <div id="mockupCeilingLabel" style="font-size: 11px; font-weight: 700; opacity: 0.85; text-transform: uppercase;">Approved limit</div>
                       <div id="mockupLimitAmount" style="font-size: 28px; font-weight: 900; margin-top: 3px;">₹ 50,000</div>
                     </div>
                     <div style="padding: 16px;">
-                      <div style="font-size: 11px; font-weight: 800; color: #64748b; margin-bottom: 4px;">Choose your Loan amount</div>
+                      <div id="mockupChooseAmountLabel" style="font-size: 11px; font-weight: 800; color: #64748b; margin-bottom: 4px;">Choose your Loan amount</div>
                       <div id="mockupSelectAmount" style="border: 1.5px solid #cbd5e1; border-radius: 10px; padding: 8px 12px; font-weight: 800; font-size: 13.5px; color: #0f172a; margin-bottom: 12px;">
                         ₹ 50,000
                       </div>
-                      <div style="font-size: 11px; font-weight: 800; color: #64748b; margin-bottom: 4px;">Choose EMI's plan</div>
+                      <div id="mockupChoosePlanLabel" style="font-size: 11px; font-weight: 800; color: #64748b; margin-bottom: 4px;">Choose EMI's plan</div>
                       <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 14px;">
                         <div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 6px 2px; text-align: center;">
                           <div style="font-size: 10px; color: #64748b;">6M</div>
@@ -1269,12 +2041,15 @@
                     <span id="mockDashBannerText">Instant Bank Disbursal is active for all approved borrowers.</span>
                   </div>
                   <div style="background: linear-gradient(135deg, #1e3a8a, #0d2b82); border-radius: 16px; padding: 16px; margin-bottom: 12px; color: #fff;">
-                    <div style="font-size: 11px; opacity: 0.8;">Active Approved Limit</div>
-                    <div style="font-size: 24px; font-weight: 900; margin: 4px 0;">₹ 50,000</div>
-                    <div style="display: flex; justify-content: space-between; font-size: 11px; opacity: 0.85;">
-                      <span>Status: DISBURSED ✓</span>
-                      <span>Tenure: 9 Months</span>
-                    </div>
+                    <div id="mockDashHeroTitle" style="font-size: 15px; font-weight: 800;">Get a credit limit up to ₹50,000</div>
+                    <div id="mockDashHeroSub" style="font-size: 11px; opacity: 0.85; margin: 4px 0 10px;">Avail limit up to ₹50,000 in 4 easy steps</div>
+                    <button type="button" id="mockDashHeroBtn" style="background: #ffffff; color: #0d2b82; font-weight: 800; font-size: 12px; border: none; border-radius: 8px; padding: 6px 12px;">
+                      Complete your application
+                    </button>
+                  </div>
+                  <div id="mockDashImportantBox" style="background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.35); border-radius: 12px; padding: 12px; margin-bottom: 10px;">
+                    <div id="mockDashImportantTitle" style="font-size: 11.5px; font-weight: 800; color: #fbbf24;">Few steps left to unlock your money 💸</div>
+                    <div id="mockDashImportantSubtext" style="font-size: 10.5px; color: #cbd5e1; margin-top: 2px;">Selfie and Bank account verification</div>
                   </div>
                   <div id="mockDashKfsBox" style="background: #1e293b; border-radius: 12px; padding: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
                     <div style="font-size: 12px; font-weight: 700; color: #ffffff;">Key Fact Statement (KFS)</div>
@@ -1843,7 +2618,7 @@
       }
     }
 
-    // ---- Subtab Switcher: Phase Control Panels ----
+        // ---- Subtab Switcher: Phase Control Panels ----
     let activeCustomizerTab = 'global';
     function switchCustomizerTab(tab) {
       activeCustomizerTab = tab;
@@ -1900,56 +2675,176 @@
         setVal('cfgSanctionColor', color);
         setVal('cfgSanctionColorHex', color);
 
+        // Granular Field Descriptors
+        const f = settings?.fields || {};
+
         // Panel 2: Step 1
         const st1 = settings?.step1 || {};
+        const f1 = f.step1 || {};
         setVal('cfgStep1Title', st1.title || 'Personal Information');
         setVal('cfgStep1Subtitle', st1.subtitle || 'Tell us about yourself to check pre-approved loan eligibility');
-        setChecked('cfgStep1ShowSlider', st1.showLoanSlider !== false);
-        setChecked('cfgStep1ShowEmail', st1.showEmail !== false);
-        setChecked('cfgStep1ShowGender', st1.showGender !== false);
-        setChecked('cfgStep1ShowAddress', st1.showAddress !== false);
         setVal('cfgStep1BtnLabel', st1.btnLabel || 'Continue to Work Details →');
+        const s1BtnColor = st1.btnColor || color;
+        setVal('cfgStep1BtnColor', s1BtnColor);
+        setVal('cfgStep1BtnColorHex', s1BtnColor);
         setVal('cfgStep1BtnHeight', st1.btnHeight || '52px');
         setVal('cfgStep1BtnRadius', st1.btnRadius || '14px');
 
+        setChecked('cfg_f_s1_loanSlider_vis', f1.loanSlider?.visible !== false && st1.showLoanSlider !== false);
+        setVal('cfg_f_s1_loanSlider_lbl', f1.loanSlider?.label || 'Desired Loan Amount');
+
+        setChecked('cfg_f_s1_fullName_vis', f1.fullName?.visible !== false);
+        setVal('cfg_f_s1_fullName_lbl', f1.fullName?.label || 'Full Name (as per Aadhaar)');
+        setVal('cfg_f_s1_fullName_ph', f1.fullName?.placeholder || 'e.g. Rajesh Kumar Sharma');
+
+        setChecked('cfg_f_s1_mobile_vis', f1.mobile?.visible !== false);
+        setVal('cfg_f_s1_mobile_lbl', f1.mobile?.label || 'Mobile Number (Primary Identity)');
+        setVal('cfg_f_s1_mobile_ph', f1.mobile?.placeholder || 'Enter 10-digit mobile number');
+
+        setChecked('cfg_f_s1_dob_vis', f1.dob?.visible !== false);
+        setVal('cfg_f_s1_dob_lbl', f1.dob?.label || 'Date of Birth');
+
+        setChecked('cfg_f_s1_gender_vis', f1.gender?.visible !== false && st1.showGender !== false);
+        setVal('cfg_f_s1_gender_lbl', f1.gender?.label || 'Gender');
+        setVal('cfg_f_s1_gender_ph', f1.gender?.placeholder || 'Select Gender');
+
+        setChecked('cfg_f_s1_email_vis', f1.email?.visible !== false && st1.showEmail !== false);
+        setVal('cfg_f_s1_email_lbl', f1.email?.label || 'Email Address');
+        setVal('cfg_f_s1_email_ph', f1.email?.placeholder || 'e.g. rajesh@email.com');
+
+        setChecked('cfg_f_s1_loanPurpose_vis', f1.loanPurpose?.visible !== false);
+        setVal('cfg_f_s1_loanPurpose_lbl', f1.loanPurpose?.label || 'Loan Purpose');
+        setVal('cfg_f_s1_loanPurpose_ph', f1.loanPurpose?.placeholder || 'Select Purpose');
+
+        setChecked('cfg_f_s1_city_vis', f1.city?.visible !== false && st1.showAddress !== false);
+        setVal('cfg_f_s1_city_lbl', f1.city?.label || 'City');
+        setVal('cfg_f_s1_city_ph', f1.city?.placeholder || 'e.g. Mumbai');
+
+        setChecked('cfg_f_s1_pincode_vis', f1.pincode?.visible !== false && st1.showAddress !== false);
+        setVal('cfg_f_s1_pincode_lbl', f1.pincode?.label || 'Pin Code');
+        setVal('cfg_f_s1_pincode_ph', f1.pincode?.placeholder || 'e.g. 400001');
+
+        setChecked('cfg_f_s1_state_vis', f1.state?.visible !== false && st1.showAddress !== false);
+        setVal('cfg_f_s1_state_lbl', f1.state?.label || 'State');
+        setVal('cfg_f_s1_state_ph', f1.state?.placeholder || 'Select State');
+
         // Panel 3: Step 2
         const st2 = settings?.step2 || {};
+        const f2 = f.step2 || {};
         setVal('cfgStep2Title', st2.title || 'Employment & Income');
         setVal('cfgStep2Subtitle', st2.subtitle || 'Provide your work profile for instant credit assessment');
-        setChecked('cfgStep2ShowCompany', st2.showCompany !== false);
-        setChecked('cfgStep2ShowDesignation', st2.showDesignation !== false);
-        setChecked('cfgStep2ShowExperience', st2.showExperience !== false);
         setVal('cfgStep2MinSalary', st2.minSalary || 15000);
         setVal('cfgStep2BtnLabel', st2.btnLabel || 'Proceed to KYC Verification →');
+        const s2BtnColor = st2.btnColor || color;
+        setVal('cfgStep2BtnColor', s2BtnColor);
+        setVal('cfgStep2BtnColorHex', s2BtnColor);
+        setVal('cfgStep2BtnHeight', st2.btnHeight || '52px');
+        setVal('cfgStep2BtnRadius', st2.btnRadius || '14px');
+
+        setChecked('cfg_f_s2_empType_vis', f2.empType?.visible !== false);
+        setVal('cfg_f_s2_empType_lbl', f2.empType?.label || 'Employment Type');
+
+        setChecked('cfg_f_s2_companyName_vis', f2.companyName?.visible !== false && st2.showCompany !== false);
+        setVal('cfg_f_s2_companyName_lbl', f2.companyName?.label || 'Company / Business Name');
+        setVal('cfg_f_s2_companyName_ph', f2.companyName?.placeholder || 'e.g. Tata Consultancy Services');
+
+        setChecked('cfg_f_s2_designation_vis', f2.designation?.visible !== false && st2.showDesignation !== false);
+        setVal('cfg_f_s2_designation_lbl', f2.designation?.label || 'Designation');
+        setVal('cfg_f_s2_designation_ph', f2.designation?.placeholder || 'e.g. Software Engineer');
+
+        setChecked('cfg_f_s2_experience_vis', f2.experience?.visible !== false && st2.showExperience !== false);
+        setVal('cfg_f_s2_experience_lbl', f2.experience?.label || 'Work Experience');
+        setVal('cfg_f_s2_experience_ph', f2.experience?.placeholder || 'Select Experience');
+
+        setChecked('cfg_f_s2_monthlySalary_vis', f2.monthlySalary?.visible !== false);
+        setVal('cfg_f_s2_monthlySalary_lbl', f2.monthlySalary?.label || 'Monthly Income / Salary');
+        setVal('cfg_f_s2_monthlySalary_ph', f2.monthlySalary?.placeholder || 'e.g. 35000');
+
+        setChecked('cfg_f_s2_salarySlip_vis', f2.salarySlip?.visible !== false);
+        setVal('cfg_f_s2_salarySlip_lbl', f2.salarySlip?.label || 'Upload Salary Slip (Optional)');
+        setVal('cfg_f_s2_salarySlip_ph', f2.salarySlip?.placeholder || 'Click to upload salary slip');
 
         // Panel 4: Step 3
         const st3 = settings?.step3 || {};
+        const f3 = f.step3 || {};
         setVal('cfgStep3Title', st3.title || 'Digital KYC Verification');
         setVal('cfgStep3Subtitle', st3.subtitle || 'Paperless Aadhaar & PAN verification for instant credit sanction');
-        setChecked('cfgStep3ShowPhotos', st3.showPhotoUploads === true);
-        setChecked('cfgStep3AiScanner', st3.enableAiScannerHud !== false);
         setVal('cfgStep3BtnLabel', st3.btnLabel || 'Verify & Check Credit Sanction →');
+        const s3BtnColor = st3.btnColor || color;
+        setVal('cfgStep3BtnColor', s3BtnColor);
+        setVal('cfgStep3BtnColorHex', s3BtnColor);
+        setVal('cfgStep3BtnHeight', st3.btnHeight || '52px');
+        setVal('cfgStep3BtnRadius', st3.btnRadius || '14px');
 
-        // Panel 5: Step 4
+        setChecked('cfg_f_s3_aadhaarNumber_vis', f3.aadhaarNumber?.visible !== false);
+        setVal('cfg_f_s3_aadhaarNumber_lbl', f3.aadhaarNumber?.label || 'Aadhaar Card Number');
+        setVal('cfg_f_s3_aadhaarNumber_ph', f3.aadhaarNumber?.placeholder || 'XXXX XXXX XXXX (12 Digits)');
+
+        setChecked('cfg_f_s3_panNumber_vis', f3.panNumber?.visible !== false);
+        setVal('cfg_f_s3_panNumber_lbl', f3.panNumber?.label || 'PAN Card Number');
+        setVal('cfg_f_s3_panNumber_ph', f3.panNumber?.placeholder || 'ABCDE1234F');
+
+        setChecked('cfg_f_s3_docPhotos_vis', f3.docPhotos?.visible === true || st3.showPhotoUploads === true);
+        setVal('cfg_f_s3_docPhotos_lbl', f3.docPhotos?.label || 'Document Photo Uploads (Aadhaar & PAN)');
+        setVal('cfg_f_s3_docPhotos_ph', f3.docPhotos?.placeholder || 'Tap to upload (Optional)');
+
+        setChecked('cfg_f_s3_aiScannerHud_vis', f3.aiScannerHud?.visible !== false && st3.enableAiScannerHud !== false);
+        setVal('cfg_f_s3_aiScannerHud_lbl', f3.aiScannerHud?.label || '3-Second High-Tech AI KYC Scanner HUD');
+
+        // Panel 5: Step 4 & Sanction
         const st4 = settings?.step4 || {};
-        setVal('cfgStep4Title', st4.title || 'Bank Verification & Loan Sanction');
+        const f4 = f.step4 || {};
+        const sc = settings?.sanctionCard || {};
+        setVal('cfgStep4Title', st4.title || 'Bank Details & Sanction Approval');
         setVal('cfgStep4Subtitle', st4.subtitle || 'Enter bank account where your approved loan funds will be disbursed');
-        setChecked('cfgStep4PennyDrop', st4.enablePennyDrop !== false);
-        setChecked('cfgStep4GiftBox', st4.enableGiftBox !== false);
-        setVal('cfgDefaultLimit', st4.defaultLimit || settings?.defaultCreditLimit || 50000);
-        setVal('cfgInterestRate', st4.interestRate || settings?.interestRate || 24);
-        setVal('cfgDisbursalFee', st4.disbursalFee || settings?.disbursalFee || 199);
-        setVal('cfgHeroColor', color);
-        setVal('cfgHeroColorHex', color);
-        setVal('cfgBtnLabel', st4.btnLabel || settings?.btnLabel || 'Continue with loan amount');
-        setVal('cfgBtnHeight', st4.btnHeight || settings?.btnHeight || '52px');
-        setVal('cfgBtnRadius', st4.btnRadius || settings?.btnRadius || '14px');
-        const btnColor = st4.btnColor || settings?.btnColor || color;
+
+        setChecked('cfg_f_s4_bankName_vis', f4.bankName?.visible !== false);
+        setVal('cfg_f_s4_bankName_lbl', f4.bankName?.label || 'Bank Name');
+        setVal('cfg_f_s4_bankName_ph', f4.bankName?.placeholder || 'Select Bank');
+
+        setChecked('cfg_f_s4_accountNumber_vis', f4.accountNumber?.visible !== false);
+        setVal('cfg_f_s4_accountNumber_lbl', f4.accountNumber?.label || 'Bank Account Number');
+        setVal('cfg_f_s4_accountNumber_ph', f4.accountNumber?.placeholder || 'Enter bank account number');
+
+        setChecked('cfg_f_s4_confirmAccountNumber_vis', f4.confirmAccountNumber?.visible !== false);
+        setVal('cfg_f_s4_confirmAccountNumber_lbl', f4.confirmAccountNumber?.label || 'Re-enter Bank Account Number');
+        setVal('cfg_f_s4_confirmAccountNumber_ph', f4.confirmAccountNumber?.placeholder || 'Re-enter bank account number');
+
+        setChecked('cfg_f_s4_ifscCode_vis', f4.ifscCode?.visible !== false);
+        setVal('cfg_f_s4_ifscCode_lbl', f4.ifscCode?.label || 'Bank IFSC Code');
+        setVal('cfg_f_s4_ifscCode_ph', f4.ifscCode?.placeholder || 'e.g. SBIN0001234');
+
+        setChecked('cfg_f_s4_pennyDrop_vis', f4.pennyDrop?.visible !== false && st4.enablePennyDrop !== false);
+        setChecked('cfg_f_s4_giftBox_vis', f4.giftBox?.visible !== false && st4.enableGiftBox !== false);
+
+        setVal('cfgSanctionCeilingText', sc.ceilingText || 'Approved limit');
+        setVal('cfgChooseAmountLabel', sc.chooseAmountLabel || 'Choose your Loan amount');
+        setVal('cfgChoosePlanLabel', sc.choosePlanLabel || "Choose EMI's plan");
+
+        const defaultLimit = sc.defaultLimit || st4.defaultLimit || settings?.defaultCreditLimit || 50000;
+        setVal('cfgDefaultLimit', defaultLimit);
+        setVal('cfgInterestRate', sc.interestRate || st4.interestRate || settings?.interestRate || 24);
+        setVal('cfgDisbursalFee', sc.disbursalFee || st4.disbursalFee || settings?.disbursalFee || 199);
+
+        const heroColor = sc.heroColor || color;
+        setVal('cfgHeroColor', heroColor);
+        setVal('cfgHeroColorHex', heroColor);
+
+        setVal('cfgBtnLabel', sc.btnLabel || st4.btnLabel || settings?.btnLabel || 'Continue with loan amount');
+        setVal('cfgBtnHeight', sc.btnHeight || st4.btnHeight || settings?.btnHeight || '52px');
+        setVal('cfgBtnRadius', sc.btnRadius || st4.btnRadius || settings?.btnRadius || '14px');
+        const btnColor = sc.btnColor || st4.btnColor || settings?.btnColor || color;
         setVal('cfgBtnColor', btnColor);
         setVal('cfgBtnColorHex', btnColor);
 
         // Panel 6: Dash
         const dash = settings?.dashboard || {};
+        setVal('cfgDashHeroTitle', dash.heroTitle || 'Get a credit limit up to ₹50,000');
+        setVal('cfgDashHeroSubtext', dash.heroSubtext || 'Avail limit up to ₹50,000 in 4 easy steps');
+        setVal('cfgDashHeroBtnText', dash.heroBtnText || 'Complete your application');
+        setVal('cfgDashImportantTitle', dash.importantTitle || 'Few steps left to unlock your money 💸');
+        setVal('cfgDashImportantSubtext', dash.importantSubtext || 'Selfie and Bank account verification');
+        setChecked('cfgDashShowImportant', dash.showImportant !== false);
         setChecked('cfgDashShowAnnouncement', dash.showAnnouncement !== false);
         setChecked('cfgDashShowKfs', dash.showKfsButton !== false);
         setChecked('cfgDashShowSupport', dash.showSupportBox !== false);
@@ -1957,13 +2852,13 @@
 
         updateLivePreview();
       } catch (err) {
-        console.error('Error loading settings:', err);
+        console.error('Error loading settings into studio:', err);
       }
     }
 
     function setVal(id, val) {
       const el = document.getElementById(id);
-      if (el) el.value = val;
+      if (el) el.value = (val !== undefined && val !== null) ? val : '';
     }
     function setChecked(id, checked) {
       const el = document.getElementById(id);
@@ -1973,6 +2868,12 @@
     function setThemePreset(hex) {
       setVal('cfgSanctionColor', hex);
       setVal('cfgSanctionColorHex', hex);
+      setVal('cfgStep1BtnColor', hex);
+      setVal('cfgStep1BtnColorHex', hex);
+      setVal('cfgStep2BtnColor', hex);
+      setVal('cfgStep2BtnColorHex', hex);
+      setVal('cfgStep3BtnColor', hex);
+      setVal('cfgStep3BtnColorHex', hex);
       setVal('cfgHeroColor', hex);
       setVal('cfgHeroColorHex', hex);
       setVal('cfgBtnColor', hex);
@@ -1983,6 +2884,24 @@
     function onHexInputChange(val) {
       if (/^#[0-9A-Fa-f]{6}$/.test(val)) {
         setVal('cfgSanctionColor', val);
+        updateLivePreview();
+      }
+    }
+    function onStep1BtnHexChange(val) {
+      if (/^#[0-9A-Fa-f]{6}$/.test(val)) {
+        setVal('cfgStep1BtnColor', val);
+        updateLivePreview();
+      }
+    }
+    function onStep2BtnHexChange(val) {
+      if (/^#[0-9A-Fa-f]{6}$/.test(val)) {
+        setVal('cfgStep2BtnColor', val);
+        updateLivePreview();
+      }
+    }
+    function onStep3BtnHexChange(val) {
+      if (/^#[0-9A-Fa-f]{6}$/.test(val)) {
+        setVal('cfgStep3BtnColor', val);
         updateLivePreview();
       }
     }
@@ -2014,18 +2933,44 @@
       const s1Sub = document.getElementById('mockStep1Subtitle');
       if (s1Sub) s1Sub.textContent = document.getElementById('cfgStep1Subtitle')?.value || '';
 
-      const s1Slider = document.getElementById('cfgStep1ShowSlider')?.checked;
+      const s1SliderVis = document.getElementById('cfg_f_s1_loanSlider_vis')?.checked;
       const s1CalcBox = document.getElementById('mockStep1CalcBox');
-      if (s1CalcBox) s1CalcBox.style.display = s1Slider ? 'block' : 'none';
+      if (s1CalcBox) s1CalcBox.style.display = s1SliderVis ? 'block' : 'none';
+      const s1CalcLbl = document.getElementById('mockStep1CalcLabel');
+      if (s1CalcLbl) s1CalcLbl.textContent = document.getElementById('cfg_f_s1_loanSlider_lbl')?.value || 'Desired Loan Amount';
 
-      const s1Email = document.getElementById('cfgStep1ShowEmail')?.checked;
+      const s1NameVis = document.getElementById('cfg_f_s1_fullName_vis')?.checked;
+      const s1NameBox = document.getElementById('mockStep1NameBox');
+      if (s1NameBox) s1NameBox.style.display = s1NameVis ? 'block' : 'none';
+      const s1NameLbl = document.getElementById('mockStep1NameLabel');
+      if (s1NameLbl) s1NameLbl.textContent = (document.getElementById('cfg_f_s1_fullName_lbl')?.value || 'Full Name') + ' *';
+      const s1NamePh = document.getElementById('mockStep1NamePh');
+      if (s1NamePh) s1NamePh.textContent = document.getElementById('cfg_f_s1_fullName_ph')?.value || 'Rajesh Kumar Sharma';
+
+      const s1MobVis = document.getElementById('cfg_f_s1_mobile_vis')?.checked;
+      const s1MobBox = document.getElementById('mockStep1MobileBox');
+      if (s1MobBox) s1MobBox.style.display = s1MobVis ? 'block' : 'none';
+      const s1MobLbl = document.getElementById('mockStep1MobileLabel');
+      if (s1MobLbl) s1MobLbl.textContent = (document.getElementById('cfg_f_s1_mobile_lbl')?.value || 'Mobile Number') + ' *';
+
+      const s1EmailVis = document.getElementById('cfg_f_s1_email_vis')?.checked;
       const s1EmailBox = document.getElementById('mockStep1EmailBox');
-      if (s1EmailBox) s1EmailBox.style.display = s1Email ? 'block' : 'none';
+      if (s1EmailBox) s1EmailBox.style.display = s1EmailVis ? 'block' : 'none';
+      const s1EmailLbl = document.getElementById('mockStep1EmailLabel');
+      if (s1EmailLbl) s1EmailLbl.textContent = (document.getElementById('cfg_f_s1_email_lbl')?.value || 'Email Address') + ' *';
+      const s1EmailPh = document.getElementById('mockStep1EmailPh');
+      if (s1EmailPh) s1EmailPh.textContent = document.getElementById('cfg_f_s1_email_ph')?.value || 'user@example.com';
+
+      const s1PurpVis = document.getElementById('cfg_f_s1_loanPurpose_vis')?.checked;
+      const s1PurpBox = document.getElementById('mockStep1PurposeBox');
+      if (s1PurpBox) s1PurpBox.style.display = s1PurpVis ? 'block' : 'none';
+      const s1PurpLbl = document.getElementById('mockStep1PurposeLabel');
+      if (s1PurpLbl) s1PurpLbl.textContent = (document.getElementById('cfg_f_s1_loanPurpose_lbl')?.value || 'Loan Purpose') + ' *';
 
       const s1Btn = document.getElementById('mockStep1Btn');
       if (s1Btn) {
-        s1Btn.textContent = document.getElementById('cfgStep1BtnLabel')?.value || 'Continue →';
-        s1Btn.style.background = themeColor;
+        s1Btn.textContent = document.getElementById('cfgStep1BtnLabel')?.value || 'Continue to Work Details →';
+        s1Btn.style.background = document.getElementById('cfgStep1BtnColor')?.value || themeColor;
         s1Btn.style.height = document.getElementById('cfgStep1BtnHeight')?.value || '52px';
         s1Btn.style.borderRadius = document.getElementById('cfgStep1BtnRadius')?.value || '14px';
       }
@@ -2037,31 +2982,65 @@
       const s2Sub = document.getElementById('mockStep2Subtitle');
       if (s2Sub) s2Sub.textContent = document.getElementById('cfgStep2Subtitle')?.value || '';
 
-      const s2Comp = document.getElementById('cfgStep2ShowCompany')?.checked;
+      const s2EmpVis = document.getElementById('cfg_f_s2_empType_vis')?.checked;
+      const s2EmpBox = document.getElementById('mockStep2EmpTypeBox');
+      if (s2EmpBox) s2EmpBox.style.display = s2EmpVis ? 'block' : 'none';
+      const s2EmpLbl = document.getElementById('mockStep2EmpTypeLabel');
+      if (s2EmpLbl) s2EmpLbl.textContent = document.getElementById('cfg_f_s2_empType_lbl')?.value || 'Employment Type';
+
+      const s2CompVis = document.getElementById('cfg_f_s2_companyName_vis')?.checked;
       const s2CompBox = document.getElementById('mockStep2CompanyBox');
-      if (s2CompBox) s2CompBox.style.display = s2Comp ? 'block' : 'none';
+      if (s2CompBox) s2CompBox.style.display = s2CompVis ? 'block' : 'none';
+      const s2CompLbl = document.getElementById('mockStep2CompanyLabel');
+      if (s2CompLbl) s2CompLbl.textContent = document.getElementById('cfg_f_s2_companyName_lbl')?.value || 'Company / Employer';
+      const s2CompPh = document.getElementById('mockStep2CompanyPh');
+      if (s2CompPh) s2CompPh.textContent = document.getElementById('cfg_f_s2_companyName_ph')?.value || 'Tata Consultancy Services';
+
+      const s2SalVis = document.getElementById('cfg_f_s2_monthlySalary_vis')?.checked;
+      const s2SalBox = document.getElementById('mockStep2SalaryBox');
+      if (s2SalBox) s2SalBox.style.display = s2SalVis ? 'block' : 'none';
+      const s2SalLbl = document.getElementById('mockStep2SalaryLabel');
+      if (s2SalLbl) s2SalLbl.textContent = document.getElementById('cfg_f_s2_monthlySalary_lbl')?.value || 'Monthly Income';
 
       const s2Btn = document.getElementById('mockStep2Btn');
       if (s2Btn) {
-        s2Btn.textContent = document.getElementById('cfgStep2BtnLabel')?.value || 'Proceed →';
-        s2Btn.style.background = themeColor;
+        s2Btn.textContent = document.getElementById('cfgStep2BtnLabel')?.value || 'Proceed to KYC Verification →';
+        s2Btn.style.background = document.getElementById('cfgStep2BtnColor')?.value || themeColor;
+        s2Btn.style.height = document.getElementById('cfgStep2BtnHeight')?.value || '52px';
+        s2Btn.style.borderRadius = document.getElementById('cfgStep2BtnRadius')?.value || '14px';
       }
 
       // 3. Step 3 Mockup
       const s3Title = document.getElementById('mockStep3Title');
-      if (s3Title) s3Title.textContent = document.getElementById('cfgStep3Title')?.value || 'Digital KYC';
+      if (s3Title) s3Title.textContent = document.getElementById('cfgStep3Title')?.value || 'Digital KYC Verification';
 
       const s3Sub = document.getElementById('mockStep3Subtitle');
       if (s3Sub) s3Sub.textContent = document.getElementById('cfgStep3Subtitle')?.value || '';
 
-      const s3Photos = document.getElementById('cfgStep3ShowPhotos')?.checked;
+      const s3AadhaarVis = document.getElementById('cfg_f_s3_aadhaarNumber_vis')?.checked;
+      const s3AadhaarBox = document.getElementById('mockStep3AadhaarBox');
+      if (s3AadhaarBox) s3AadhaarBox.style.display = s3AadhaarVis ? 'block' : 'none';
+      const s3AadhaarLbl = document.getElementById('mockStep3AadhaarLabel');
+      if (s3AadhaarLbl) s3AadhaarLbl.textContent = document.getElementById('cfg_f_s3_aadhaarNumber_lbl')?.value || 'Aadhaar Card';
+
+      const s3PanVis = document.getElementById('cfg_f_s3_panNumber_vis')?.checked;
+      const s3PanBox = document.getElementById('mockStep3PanBox');
+      if (s3PanBox) s3PanBox.style.display = s3PanVis ? 'block' : 'none';
+      const s3PanLbl = document.getElementById('mockStep3PanLabel');
+      if (s3PanLbl) s3PanLbl.textContent = document.getElementById('cfg_f_s3_panNumber_lbl')?.value || 'PAN Card';
+
+      const s3PhotosVis = document.getElementById('cfg_f_s3_docPhotos_vis')?.checked;
       const s3PhotoBox = document.getElementById('mockStep3PhotoBox');
-      if (s3PhotoBox) s3PhotoBox.style.display = s3Photos ? 'block' : 'none';
+      if (s3PhotoBox) s3PhotoBox.style.display = s3PhotosVis ? 'block' : 'none';
+      const s3PhotoLbl = document.getElementById('mockStep3PhotoLabel');
+      if (s3PhotoLbl) s3PhotoLbl.textContent = '📷 ' + (document.getElementById('cfg_f_s3_docPhotos_lbl')?.value || 'Photo Upload Section');
 
       const s3Btn = document.getElementById('mockStep3Btn');
       if (s3Btn) {
-        s3Btn.textContent = document.getElementById('cfgStep3BtnLabel')?.value || 'Verify →';
-        s3Btn.style.background = themeColor;
+        s3Btn.textContent = document.getElementById('cfgStep3BtnLabel')?.value || 'Verify & Check Credit Sanction →';
+        s3Btn.style.background = document.getElementById('cfgStep3BtnColor')?.value || themeColor;
+        s3Btn.style.height = document.getElementById('cfgStep3BtnHeight')?.value || '52px';
+        s3Btn.style.borderRadius = document.getElementById('cfgStep3BtnRadius')?.value || '14px';
       }
 
       // 4. Step 4 Mockup
@@ -2069,12 +3048,21 @@
       const heroColor = document.getElementById('cfgHeroColor')?.value || themeColor;
       if (heroTop) heroTop.style.background = heroColor;
 
+      const ceilLbl = document.getElementById('mockupCeilingLabel');
+      if (ceilLbl) ceilLbl.textContent = document.getElementById('cfgSanctionCeilingText')?.value || 'Approved limit';
+
       const defaultLimit = Number(document.getElementById('cfgDefaultLimit')?.value) || 50000;
       const limitEl = document.getElementById('mockupLimitAmount');
       if (limitEl) limitEl.textContent = '₹ ' + defaultLimit.toLocaleString('en-IN');
 
+      const chooseAmtLbl = document.getElementById('mockupChooseAmountLabel');
+      if (chooseAmtLbl) chooseAmtLbl.textContent = document.getElementById('cfgChooseAmountLabel')?.value || 'Choose your Loan amount';
+
       const selectAmtEl = document.getElementById('mockupSelectAmount');
       if (selectAmtEl) selectAmtEl.textContent = '₹ ' + defaultLimit.toLocaleString('en-IN');
+
+      const choosePlanLbl = document.getElementById('mockupChoosePlanLabel');
+      if (choosePlanLbl) choosePlanLbl.textContent = document.getElementById('cfgChoosePlanLabel')?.value || "Choose EMI's plan";
 
       const activePill = document.getElementById('mockupActiveEmiPill');
       if (activePill) {
@@ -2098,6 +3086,30 @@
       const dashAnnounceText = document.getElementById('cfgDashAnnouncementText')?.value || '';
       const mockAnnounceEl = document.getElementById('mockDashBannerText');
       if (mockAnnounceEl) mockAnnounceEl.textContent = dashAnnounceText;
+
+      const dashHeroTitle = document.getElementById('cfgDashHeroTitle')?.value || 'Get a credit limit up to ₹50,000';
+      const mockDashTitle = document.getElementById('mockDashHeroTitle');
+      if (mockDashTitle) mockDashTitle.textContent = dashHeroTitle;
+
+      const dashHeroSub = document.getElementById('cfgDashHeroSubtext')?.value || '';
+      const mockDashSub = document.getElementById('mockDashHeroSub');
+      if (mockDashSub) mockDashSub.textContent = dashHeroSub;
+
+      const dashHeroBtn = document.getElementById('cfgDashHeroBtnText')?.value || 'Complete your application';
+      const mockDashBtn = document.getElementById('mockDashHeroBtn');
+      if (mockDashBtn) mockDashBtn.textContent = dashHeroBtn;
+
+      const showImportant = document.getElementById('cfgDashShowImportant')?.checked;
+      const mockImportantBox = document.getElementById('mockDashImportantBox');
+      if (mockImportantBox) mockImportantBox.style.display = showImportant ? 'block' : 'none';
+
+      const dashImpTitle = document.getElementById('cfgDashImportantTitle')?.value || '';
+      const mockImpTitle = document.getElementById('mockDashImportantTitle');
+      if (mockImpTitle) mockImpTitle.textContent = dashImpTitle;
+
+      const dashImpSub = document.getElementById('cfgDashImportantSubtext')?.value || '';
+      const mockImpSub = document.getElementById('mockDashImportantSubtext');
+      if (mockImpSub) mockImpSub.textContent = dashImpSub;
 
       const showKfs = document.getElementById('cfgDashShowKfs')?.checked;
       const mockKfsBox = document.getElementById('mockDashKfsBox');
@@ -2142,12 +3154,12 @@
         step1: {
           title: document.getElementById('cfgStep1Title')?.value?.trim() || 'Personal Information',
           subtitle: document.getElementById('cfgStep1Subtitle')?.value?.trim() || 'Tell us about yourself to check pre-approved loan eligibility',
-          showLoanSlider: document.getElementById('cfgStep1ShowSlider')?.checked,
-          showEmail: document.getElementById('cfgStep1ShowEmail')?.checked,
-          showGender: document.getElementById('cfgStep1ShowGender')?.checked,
-          showAddress: document.getElementById('cfgStep1ShowAddress')?.checked,
+          showLoanSlider: document.getElementById('cfg_f_s1_loanSlider_vis')?.checked,
+          showEmail: document.getElementById('cfg_f_s1_email_vis')?.checked,
+          showGender: document.getElementById('cfg_f_s1_gender_vis')?.checked,
+          showAddress: document.getElementById('cfg_f_s1_city_vis')?.checked,
           btnLabel: document.getElementById('cfgStep1BtnLabel')?.value?.trim() || 'Continue to Work Details →',
-          btnColor: themeColor,
+          btnColor: document.getElementById('cfgStep1BtnColor')?.value || themeColor,
           btnHeight: document.getElementById('cfgStep1BtnHeight')?.value || '52px',
           btnRadius: document.getElementById('cfgStep1BtnRadius')?.value || '14px'
         },
@@ -2155,32 +3167,32 @@
         step2: {
           title: document.getElementById('cfgStep2Title')?.value?.trim() || 'Employment & Income',
           subtitle: document.getElementById('cfgStep2Subtitle')?.value?.trim() || 'Provide your work profile for instant credit assessment',
-          showCompany: document.getElementById('cfgStep2ShowCompany')?.checked,
-          showDesignation: document.getElementById('cfgStep2ShowDesignation')?.checked,
-          showExperience: document.getElementById('cfgStep2ShowExperience')?.checked,
+          showCompany: document.getElementById('cfg_f_s2_companyName_vis')?.checked,
+          showDesignation: document.getElementById('cfg_f_s2_designation_vis')?.checked,
+          showExperience: document.getElementById('cfg_f_s2_experience_vis')?.checked,
           minSalary: Number(document.getElementById('cfgStep2MinSalary')?.value) || 15000,
           btnLabel: document.getElementById('cfgStep2BtnLabel')?.value?.trim() || 'Proceed to KYC Verification →',
-          btnColor: themeColor,
-          btnHeight: '52px',
-          btnRadius: '14px'
+          btnColor: document.getElementById('cfgStep2BtnColor')?.value || themeColor,
+          btnHeight: document.getElementById('cfgStep2BtnHeight')?.value || '52px',
+          btnRadius: document.getElementById('cfgStep2BtnRadius')?.value || '14px'
         },
 
         step3: {
           title: document.getElementById('cfgStep3Title')?.value?.trim() || 'Digital KYC Verification',
           subtitle: document.getElementById('cfgStep3Subtitle')?.value?.trim() || 'Paperless Aadhaar & PAN verification for instant credit sanction',
-          showPhotoUploads: document.getElementById('cfgStep3ShowPhotos')?.checked,
-          enableAiScannerHud: document.getElementById('cfgStep3AiScanner')?.checked,
+          showPhotoUploads: document.getElementById('cfg_f_s3_docPhotos_vis')?.checked,
+          enableAiScannerHud: document.getElementById('cfg_f_s3_aiScannerHud_vis')?.checked,
           btnLabel: document.getElementById('cfgStep3BtnLabel')?.value?.trim() || 'Verify & Check Credit Sanction →',
-          btnColor: themeColor,
-          btnHeight: '52px',
-          btnRadius: '14px'
+          btnColor: document.getElementById('cfgStep3BtnColor')?.value || themeColor,
+          btnHeight: document.getElementById('cfgStep3BtnHeight')?.value || '52px',
+          btnRadius: document.getElementById('cfgStep3BtnRadius')?.value || '14px'
         },
 
         step4: {
-          title: document.getElementById('cfgStep4Title')?.value?.trim() || 'Bank Verification & Loan Sanction',
+          title: document.getElementById('cfgStep4Title')?.value?.trim() || 'Bank Details & Sanction Approval',
           subtitle: document.getElementById('cfgStep4Subtitle')?.value?.trim() || 'Enter bank account where your approved loan funds will be disbursed',
-          enablePennyDrop: document.getElementById('cfgStep4PennyDrop')?.checked,
-          enableGiftBox: document.getElementById('cfgStep4GiftBox')?.checked,
+          enablePennyDrop: document.getElementById('cfg_f_s4_pennyDrop_vis')?.checked,
+          enableGiftBox: document.getElementById('cfg_f_s4_giftBox_vis')?.checked,
           defaultLimit,
           interestRate,
           disbursalFee,
@@ -2190,7 +3202,197 @@
           btnRadius
         },
 
+        // Detailed Granular Field Schema
+        fields: {
+          step1: {
+            loanSlider: {
+              label: document.getElementById('cfg_f_s1_loanSlider_lbl')?.value?.trim() || 'Desired Loan Amount',
+              placeholder: '',
+              visible: document.getElementById('cfg_f_s1_loanSlider_vis')?.checked,
+              required: true
+            },
+            fullName: {
+              label: document.getElementById('cfg_f_s1_fullName_lbl')?.value?.trim() || 'Full Name (as per Aadhaar)',
+              placeholder: document.getElementById('cfg_f_s1_fullName_ph')?.value?.trim() || 'e.g. Rajesh Kumar Sharma',
+              visible: document.getElementById('cfg_f_s1_fullName_vis')?.checked,
+              required: true
+            },
+            mobile: {
+              label: document.getElementById('cfg_f_s1_mobile_lbl')?.value?.trim() || 'Mobile Number (Primary Identity)',
+              placeholder: document.getElementById('cfg_f_s1_mobile_ph')?.value?.trim() || 'Enter 10-digit mobile number',
+              visible: document.getElementById('cfg_f_s1_mobile_vis')?.checked,
+              required: true
+            },
+            dob: {
+              label: document.getElementById('cfg_f_s1_dob_lbl')?.value?.trim() || 'Date of Birth',
+              placeholder: '',
+              visible: document.getElementById('cfg_f_s1_dob_vis')?.checked,
+              required: true
+            },
+            gender: {
+              label: document.getElementById('cfg_f_s1_gender_lbl')?.value?.trim() || 'Gender',
+              placeholder: document.getElementById('cfg_f_s1_gender_ph')?.value?.trim() || 'Select Gender',
+              visible: document.getElementById('cfg_f_s1_gender_vis')?.checked,
+              required: true
+            },
+            email: {
+              label: document.getElementById('cfg_f_s1_email_lbl')?.value?.trim() || 'Email Address',
+              placeholder: document.getElementById('cfg_f_s1_email_ph')?.value?.trim() || 'e.g. rajesh@email.com',
+              visible: document.getElementById('cfg_f_s1_email_vis')?.checked,
+              required: true
+            },
+            loanPurpose: {
+              label: document.getElementById('cfg_f_s1_loanPurpose_lbl')?.value?.trim() || 'Loan Purpose',
+              placeholder: document.getElementById('cfg_f_s1_loanPurpose_ph')?.value?.trim() || 'Select Purpose',
+              visible: document.getElementById('cfg_f_s1_loanPurpose_vis')?.checked,
+              required: true
+            },
+            city: {
+              label: document.getElementById('cfg_f_s1_city_lbl')?.value?.trim() || 'City',
+              placeholder: document.getElementById('cfg_f_s1_city_ph')?.value?.trim() || 'e.g. Mumbai',
+              visible: document.getElementById('cfg_f_s1_city_vis')?.checked,
+              required: true
+            },
+            pincode: {
+              label: document.getElementById('cfg_f_s1_pincode_lbl')?.value?.trim() || 'Pin Code',
+              placeholder: document.getElementById('cfg_f_s1_pincode_ph')?.value?.trim() || 'e.g. 400001',
+              visible: document.getElementById('cfg_f_s1_pincode_vis')?.checked,
+              required: true
+            },
+            state: {
+              label: document.getElementById('cfg_f_s1_state_lbl')?.value?.trim() || 'State',
+              placeholder: document.getElementById('cfg_f_s1_state_ph')?.value?.trim() || 'Select State',
+              visible: document.getElementById('cfg_f_s1_state_vis')?.checked,
+              required: true
+            }
+          },
+          step2: {
+            empType: {
+              label: document.getElementById('cfg_f_s2_empType_lbl')?.value?.trim() || 'Employment Type',
+              placeholder: '',
+              visible: document.getElementById('cfg_f_s2_empType_vis')?.checked,
+              required: true
+            },
+            companyName: {
+              label: document.getElementById('cfg_f_s2_companyName_lbl')?.value?.trim() || 'Company / Business Name',
+              placeholder: document.getElementById('cfg_f_s2_companyName_ph')?.value?.trim() || 'e.g. Tata Consultancy Services',
+              visible: document.getElementById('cfg_f_s2_companyName_vis')?.checked,
+              required: true
+            },
+            designation: {
+              label: document.getElementById('cfg_f_s2_designation_lbl')?.value?.trim() || 'Designation',
+              placeholder: document.getElementById('cfg_f_s2_designation_ph')?.value?.trim() || 'e.g. Software Engineer',
+              visible: document.getElementById('cfg_f_s2_designation_vis')?.checked,
+              required: true
+            },
+            experience: {
+              label: document.getElementById('cfg_f_s2_experience_lbl')?.value?.trim() || 'Work Experience',
+              placeholder: document.getElementById('cfg_f_s2_experience_ph')?.value?.trim() || 'Select Experience',
+              visible: document.getElementById('cfg_f_s2_experience_vis')?.checked,
+              required: true
+            },
+            monthlySalary: {
+              label: document.getElementById('cfg_f_s2_monthlySalary_lbl')?.value?.trim() || 'Monthly Income / Salary',
+              placeholder: document.getElementById('cfg_f_s2_monthlySalary_ph')?.value?.trim() || 'e.g. 35000',
+              visible: document.getElementById('cfg_f_s2_monthlySalary_vis')?.checked,
+              required: true
+            },
+            salarySlip: {
+              label: document.getElementById('cfg_f_s2_salarySlip_lbl')?.value?.trim() || 'Upload Salary Slip (Optional)',
+              placeholder: document.getElementById('cfg_f_s2_salarySlip_ph')?.value?.trim() || 'Click to upload salary slip',
+              visible: document.getElementById('cfg_f_s2_salarySlip_vis')?.checked,
+              required: false
+            }
+          },
+          step3: {
+            aadhaarNumber: {
+              label: document.getElementById('cfg_f_s3_aadhaarNumber_lbl')?.value?.trim() || 'Aadhaar Card Number',
+              placeholder: document.getElementById('cfg_f_s3_aadhaarNumber_ph')?.value?.trim() || 'XXXX XXXX XXXX (12 Digits)',
+              visible: document.getElementById('cfg_f_s3_aadhaarNumber_vis')?.checked,
+              required: true
+            },
+            panNumber: {
+              label: document.getElementById('cfg_f_s3_panNumber_lbl')?.value?.trim() || 'PAN Card Number',
+              placeholder: document.getElementById('cfg_f_s3_panNumber_ph')?.value?.trim() || 'ABCDE1234F',
+              visible: document.getElementById('cfg_f_s3_panNumber_vis')?.checked,
+              required: true
+            },
+            docPhotos: {
+              label: document.getElementById('cfg_f_s3_docPhotos_lbl')?.value?.trim() || 'Document Photo Uploads (Aadhaar & PAN)',
+              placeholder: document.getElementById('cfg_f_s3_docPhotos_ph')?.value?.trim() || 'Tap to upload (Optional)',
+              visible: document.getElementById('cfg_f_s3_docPhotos_vis')?.checked,
+              required: false
+            },
+            aiScannerHud: {
+              label: document.getElementById('cfg_f_s3_aiScannerHud_lbl')?.value?.trim() || '3-Second High-Tech AI KYC Scanner HUD',
+              placeholder: '',
+              visible: document.getElementById('cfg_f_s3_aiScannerHud_vis')?.checked,
+              required: false
+            }
+          },
+          step4: {
+            bankName: {
+              label: document.getElementById('cfg_f_s4_bankName_lbl')?.value?.trim() || 'Bank Name',
+              placeholder: document.getElementById('cfg_f_s4_bankName_ph')?.value?.trim() || 'Select Bank',
+              visible: document.getElementById('cfg_f_s4_bankName_vis')?.checked,
+              required: true
+            },
+            accountNumber: {
+              label: document.getElementById('cfg_f_s4_accountNumber_lbl')?.value?.trim() || 'Bank Account Number',
+              placeholder: document.getElementById('cfg_f_s4_accountNumber_ph')?.value?.trim() || 'Enter bank account number',
+              visible: document.getElementById('cfg_f_s4_accountNumber_vis')?.checked,
+              required: true
+            },
+            confirmAccountNumber: {
+              label: document.getElementById('cfg_f_s4_confirmAccountNumber_lbl')?.value?.trim() || 'Re-enter Bank Account Number',
+              placeholder: document.getElementById('cfg_f_s4_confirmAccountNumber_ph')?.value?.trim() || 'Re-enter bank account number',
+              visible: document.getElementById('cfg_f_s4_confirmAccountNumber_vis')?.checked,
+              required: true
+            },
+            ifscCode: {
+              label: document.getElementById('cfg_f_s4_ifscCode_lbl')?.value?.trim() || 'Bank IFSC Code',
+              placeholder: document.getElementById('cfg_f_s4_ifscCode_ph')?.value?.trim() || 'e.g. SBIN0001234',
+              visible: document.getElementById('cfg_f_s4_ifscCode_vis')?.checked,
+              required: true
+            },
+            pennyDrop: {
+              label: 'NPCI Penny Drop Verification',
+              placeholder: '',
+              visible: document.getElementById('cfg_f_s4_pennyDrop_vis')?.checked,
+              required: false
+            },
+            giftBox: {
+              label: 'Celebratory Gift Box Reveal Animation',
+              placeholder: '',
+              visible: document.getElementById('cfg_f_s4_giftBox_vis')?.checked,
+              required: false
+            }
+          }
+        },
+
+        // Sanction Card / Offer Phase
+        sanctionCard: {
+          heroColor,
+          ceilingText: document.getElementById('cfgSanctionCeilingText')?.value?.trim() || 'Approved limit',
+          chooseAmountLabel: document.getElementById('cfgChooseAmountLabel')?.value?.trim() || 'Choose your Loan amount',
+          choosePlanLabel: document.getElementById('cfgChoosePlanLabel')?.value?.trim() || "Choose EMI's plan",
+          btnLabel,
+          btnColor,
+          btnHeight,
+          btnRadius,
+          defaultLimit,
+          interestRate,
+          disbursalFee
+        },
+
+        // Customer Dashboard
         dashboard: {
+          heroTitle: document.getElementById('cfgDashHeroTitle')?.value?.trim() || 'Get a credit limit up to ₹50,000',
+          heroSubtext: document.getElementById('cfgDashHeroSubtext')?.value?.trim() || 'Avail limit up to ₹50,000 in 4 easy steps',
+          heroBtnText: document.getElementById('cfgDashHeroBtnText')?.value?.trim() || 'Complete your application',
+          importantTitle: document.getElementById('cfgDashImportantTitle')?.value?.trim() || 'Few steps left to unlock your money 💸',
+          importantSubtext: document.getElementById('cfgDashImportantSubtext')?.value?.trim() || 'Selfie and Bank account verification',
+          showImportant: document.getElementById('cfgDashShowImportant')?.checked,
           showAnnouncement: document.getElementById('cfgDashShowAnnouncement')?.checked,
           announcementText: document.getElementById('cfgDashAnnouncementText')?.value?.trim() || '',
           showKfsButton: document.getElementById('cfgDashShowKfs')?.checked,
@@ -2201,7 +3403,7 @@
       try {
         const res = await window.ApexAPI.adminUpdateSettings(fullSettingsPayload);
         if (res && res.success) {
-          showToast('✓ All changes saved! Live settings updated across the entire customer app.');
+          showToast('✓ All changes saved! Live settings updated across all 4 phases and main dashboard.');
         } else {
           alert((res && res.message) || 'Failed to save settings.');
         }
@@ -2214,6 +3416,6 @@
         }
       }
     }
-    </script>
+  </script>
 </body>
 </html>

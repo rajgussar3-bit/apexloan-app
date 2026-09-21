@@ -701,7 +701,19 @@ function updateUI() {
   const submitBtn = document.getElementById('submitBtn');
 
   if (prevBtn) prevBtn.style.display = currentStep > 1 ? 'inline-flex' : 'none';
-  if (nextBtn) nextBtn.style.display = (currentStep < totalSteps) ? 'inline-flex' : 'none';
+  if (nextBtn) {
+    nextBtn.style.display = (currentStep < totalSteps) ? 'inline-flex' : 'none';
+    const s = window.ApexSettingsManager?.settings;
+    if (s) {
+      const stepCfg = s['step' + currentStep];
+      if (stepCfg) {
+        if (stepCfg.btnLabel) nextBtn.textContent = stepCfg.btnLabel;
+        if (stepCfg.btnColor) nextBtn.style.background = stepCfg.btnColor;
+        if (stepCfg.btnHeight) nextBtn.style.height = stepCfg.btnHeight;
+        if (stepCfg.btnRadius) nextBtn.style.borderRadius = stepCfg.btnRadius;
+      }
+    }
+  }
   if (submitBtn) submitBtn.style.display = 'none'; // Replaced by Step 4's action button
 }
 
@@ -730,18 +742,18 @@ function validateStep(step) {
       return true;
     }
 
-    isValid = validateRequired('fullName') & isValid;
-    isValid = validateRequired('dob') & isValid;
+    if (isFieldVisible('fullName')) isValid = validateRequired('fullName') & isValid;
+    if (isFieldVisible('dob')) isValid = validateRequired('dob') & isValid;
     if (isFieldVisible('gender')) isValid = validateRequired('gender') & isValid;
     if (isFieldVisible('email')) isValid = validateEmail('email') & isValid;
     if (isFieldVisible('city')) isValid = validateRequired('city') & isValid;
     if (isFieldVisible('pincode')) isValid = validatePincode('pincode') & isValid;
     if (isFieldVisible('state')) isValid = validateRequired('state') & isValid;
-    isValid = validateRequired('loanPurpose') & isValid;
+    if (isFieldVisible('loanPurpose')) isValid = validateRequired('loanPurpose') & isValid;
 
     // Age validation: 18 - 58
     const dob = document.getElementById('dob').value;
-    if (dob) {
+    if (dob && isFieldVisible('dob')) {
       const age = getAge(new Date(dob));
       if (age < 18 || age > 58) {
         setError('dob', 'Age must be between 18 and 58 years');
@@ -759,7 +771,7 @@ function validateStep(step) {
       return true;
     }
 
-    if (!document.getElementById('empType').value) {
+    if (isFieldVisible('empType') && !document.getElementById('empType').value) {
       const group = document.querySelector('.emp-type-grid').closest('.form-group');
       if (group) group.classList.add('has-error');
       isValid = false;
@@ -767,17 +779,25 @@ function validateStep(step) {
     if (isFieldVisible('companyName')) isValid = validateRequired('companyName') & isValid;
     if (isFieldVisible('designation')) isValid = validateRequired('designation') & isValid;
     if (isFieldVisible('experience')) isValid = validateRequired('experience') & isValid;
-    isValid = validateSalary('monthlySalary') & isValid;
+    if (isFieldVisible('monthlySalary')) isValid = validateSalary('monthlySalary') & isValid;
   }
 
   if (step === 3) {
+    function isFieldVisible(id) {
+      const el = document.getElementById(id);
+      if (!el) return false;
+      const grp = el.closest('.form-group') || el.closest('.form-row');
+      if (grp && grp.style.display === 'none') return false;
+      return true;
+    }
+
     let step3Valid = true;
 
     // 1. Aadhaar Number Validation (12 digits)
     const aadhaarInput = document.getElementById('aadhaarNumber');
     const aadhaarVal = aadhaarInput ? aadhaarInput.value.replace(/\D/g, '') : '';
     const aadhaarErr = document.getElementById('aadhaarError');
-    if (aadhaarVal.length !== 12) {
+    if (isFieldVisible('aadhaarNumber') && aadhaarVal.length !== 12) {
       if (aadhaarInput) {
         const group = aadhaarInput.closest('.form-group');
         if (group) group.classList.add('has-error');
@@ -797,7 +817,7 @@ function validateStep(step) {
     const panVal = panInput ? panInput.value.trim().toUpperCase() : '';
     const panRegex = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
     const panErr = document.getElementById('panError');
-    if (!panRegex.test(panVal)) {
+    if (isFieldVisible('panNumber') && !panRegex.test(panVal)) {
       if (panInput) {
         const group = panInput.closest('.form-group');
         if (group) group.classList.add('has-error');
