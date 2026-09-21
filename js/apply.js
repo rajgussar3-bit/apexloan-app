@@ -255,11 +255,217 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ---- PIN code - digits only ----
+  // ========================================================
+  // AUTOMATIC PINCODE -> CITY & STATE AUTO-FILL ENGINE
+  // ========================================================
+  const STATE_NAME_CODE_MAP = {
+    'andaman & nicobar': 'AN', 'andaman and nicobar': 'AN', 'andaman': 'AN',
+    'andhra pradesh': 'AP', 'andhra': 'AP',
+    'arunachal pradesh': 'AR', 'arunachal': 'AR',
+    'assam': 'AS',
+    'bihar': 'BR',
+    'chandigarh': 'CH',
+    'chhattisgarh': 'CG', 'chattisgarh': 'CG',
+    'delhi': 'DL', 'nct of delhi': 'DL', 'new delhi': 'DL',
+    'goa': 'GA',
+    'gujarat': 'GJ',
+    'haryana': 'HR',
+    'himachal pradesh': 'HP', 'himachal': 'HP',
+    'jammu & kashmir': 'JK', 'jammu and kashmir': 'JK', 'jammu': 'JK', 'kashmir': 'JK', 'ladakh': 'JK',
+    'jharkhand': 'JH',
+    'karnataka': 'KA',
+    'kerala': 'KL',
+    'madhya pradesh': 'MP',
+    'maharashtra': 'MH',
+    'manipur': 'MN',
+    'meghalaya': 'ML',
+    'mizoram': 'MZ',
+    'nagaland': 'NL',
+    'odisha': 'OD', 'orissa': 'OD',
+    'punjab': 'PB',
+    'rajasthan': 'RJ',
+    'sikkim': 'SK',
+    'tamil nadu': 'TN', 'tamilnadu': 'TN',
+    'telangana': 'TS',
+    'tripura': 'TR',
+    'uttar pradesh': 'UP',
+    'uttarakhand': 'UK', 'uttaranchal': 'UK',
+    'west bengal': 'WB'
+  };
+
+  const PINCODE_PREFIX_MAP = {
+    '110': { city: 'New Delhi', state: 'Delhi' },
+    '121': { city: 'Faridabad', state: 'Haryana' },
+    '122': { city: 'Gurugram', state: 'Haryana' },
+    '124': { city: 'Rohtak', state: 'Haryana' },
+    '131': { city: 'Sonipat', state: 'Haryana' },
+    '132': { city: 'Panipat', state: 'Haryana' },
+    '141': { city: 'Ludhiana', state: 'Punjab' },
+    '143': { city: 'Amritsar', state: 'Punjab' },
+    '144': { city: 'Jalandhar', state: 'Punjab' },
+    '160': { city: 'Chandigarh', state: 'Chandigarh' },
+    '201': { city: 'Noida', state: 'Uttar Pradesh' },
+    '208': { city: 'Kanpur', state: 'Uttar Pradesh' },
+    '221': { city: 'Varanasi', state: 'Uttar Pradesh' },
+    '226': { city: 'Lucknow', state: 'Uttar Pradesh' },
+    '248': { city: 'Dehradun', state: 'Uttarakhand' },
+    '282': { city: 'Agra', state: 'Uttar Pradesh' },
+    '302': { city: 'Jaipur', state: 'Rajasthan' },
+    '342': { city: 'Jodhpur', state: 'Rajasthan' },
+    '380': { city: 'Ahmedabad', state: 'Gujarat' },
+    '390': { city: 'Vadodara', state: 'Gujarat' },
+    '395': { city: 'Surat', state: 'Gujarat' },
+    '400': { city: 'Mumbai', state: 'Maharashtra' },
+    '401': { city: 'Thane', state: 'Maharashtra' },
+    '403': { city: 'Panaji', state: 'Goa' },
+    '411': { city: 'Pune', state: 'Maharashtra' },
+    '422': { city: 'Nashik', state: 'Maharashtra' },
+    '440': { city: 'Nagpur', state: 'Maharashtra' },
+    '452': { city: 'Indore', state: 'Madhya Pradesh' },
+    '462': { city: 'Bhopal', state: 'Madhya Pradesh' },
+    '492': { city: 'Raipur', state: 'Chhattisgarh' },
+    '500': { city: 'Hyderabad', state: 'Telangana' },
+    '520': { city: 'Vijayawada', state: 'Andhra Pradesh' },
+    '530': { city: 'Visakhapatnam', state: 'Andhra Pradesh' },
+    '560': { city: 'Bengaluru', state: 'Karnataka' },
+    '570': { city: 'Mysuru', state: 'Karnataka' },
+    '600': { city: 'Chennai', state: 'Tamil Nadu' },
+    '641': { city: 'Coimbatore', state: 'Tamil Nadu' },
+    '682': { city: 'Kochi', state: 'Kerala' },
+    '695': { city: 'Thiruvananthapuram', state: 'Kerala' },
+    '700': { city: 'Kolkata', state: 'West Bengal' },
+    '751': { city: 'Bhubaneswar', state: 'Odisha' },
+    '781': { city: 'Guwahati', state: 'Assam' },
+    '800': { city: 'Patna', state: 'Bihar' },
+    '834': { city: 'Ranchi', state: 'Jharkhand' }
+  };
+
+  function selectStateByDetectedName(stateName) {
+    const stateSelect = document.getElementById('state');
+    if (!stateSelect || !stateName) return;
+    const clean = stateName.toLowerCase().trim();
+    const mappedCode = STATE_NAME_CODE_MAP[clean];
+
+    for (let i = 0; i < stateSelect.options.length; i++) {
+      const opt = stateSelect.options[i];
+      if (mappedCode && opt.value === mappedCode) {
+        stateSelect.selectedIndex = i;
+        clearError('state');
+        stateSelect.dispatchEvent(new Event('change'));
+        return;
+      }
+      const optTextClean = opt.text.toLowerCase().trim();
+      if (optTextClean === clean || optTextClean.includes(clean) || clean.includes(optTextClean)) {
+        stateSelect.selectedIndex = i;
+        clearError('state');
+        stateSelect.dispatchEvent(new Event('change'));
+        return;
+      }
+    }
+  }
+
+  let pincodeLookupTimer = null;
+  let lastLookedUpPin = '';
+
+  async function autoDetectCityStateFromPincode(pin) {
+    if (!pin || pin.length !== 6) return;
+    if (pin === lastLookedUpPin) return;
+    lastLookedUpPin = pin;
+
+    const cityInput = document.getElementById('city');
+    const badge = document.getElementById('pincodeLocationBadge');
+
+    if (badge) {
+      badge.textContent = '🔍 Detecting city & state...';
+      badge.style.color = '#3b82f6';
+      badge.style.display = 'block';
+    }
+
+    // 1. Instant local prefix lookup (0ms)
+    const prefix = pin.slice(0, 3);
+    const fastMatch = PINCODE_PREFIX_MAP[prefix];
+    if (fastMatch) {
+      if (cityInput && (!cityInput.value || cityInput.dataset.autoDetected === 'true')) {
+        cityInput.value = fastMatch.city;
+        cityInput.dataset.autoDetected = 'true';
+        clearError('city');
+      }
+      selectStateByDetectedName(fastMatch.state);
+      if (badge) {
+        badge.innerHTML = '✓ Detected: <b>' + fastMatch.city + ', ' + fastMatch.state + '</b>';
+        badge.style.color = '#10b981';
+        badge.style.display = 'block';
+      }
+    }
+
+    // 2. Official India Post Postal PIN Code API (handles all 19,000+ PIN codes in India)
+    try {
+      const res = await fetch('https://api.postalpincode.in/pincode/' + pin);
+      const data = await res.json();
+      if (data && data[0] && data[0].Status === 'Success' && data[0].PostOffice && data[0].PostOffice.length > 0) {
+        const po = data[0].PostOffice[0];
+        const detectedCity = po.District || po.Block || po.Division || po.Name;
+        const detectedState = po.State;
+
+        if (detectedCity && cityInput) {
+          cityInput.value = detectedCity;
+          cityInput.dataset.autoDetected = 'true';
+          clearError('city');
+        }
+        if (detectedState) {
+          selectStateByDetectedName(detectedState);
+        }
+        if (badge && detectedCity && detectedState) {
+          badge.innerHTML = '✓ Detected: <b>' + detectedCity + ', ' + detectedState + '</b>';
+          badge.style.color = '#10b981';
+          badge.style.display = 'block';
+        }
+        clearError('pincode');
+      } else if (!fastMatch && badge) {
+        badge.textContent = 'Please verify PIN code';
+        badge.style.color = '#f59e0b';
+      }
+    } catch (e) {
+      console.warn('[PINCODE] Online lookup failed, prefix used if available:', e);
+    }
+  }
+
+  // ---- PIN code - digits only & auto-lookup on 6th digit ----
   const pinInput = document.getElementById('pincode');
   if (pinInput) {
     pinInput.addEventListener('input', (e) => {
-      e.target.value = e.target.value.replace(/\D/g, '').slice(0, 6);
+      const cleanVal = e.target.value.replace(/\D/g, '').slice(0, 6);
+      e.target.value = cleanVal;
+      const badge = document.getElementById('pincodeLocationBadge');
+      if (cleanVal.length === 6) {
+        clearTimeout(pincodeLookupTimer);
+        pincodeLookupTimer = setTimeout(() => {
+          autoDetectCityStateFromPincode(cleanVal);
+        }, 150);
+      } else {
+        lastLookedUpPin = '';
+        if (badge) badge.style.display = 'none';
+      }
+    });
+
+    pinInput.addEventListener('blur', (e) => {
+      const val = e.target.value.replace(/\D/g, '');
+      if (val.length === 6) autoDetectCityStateFromPincode(val);
+    });
+
+    // Check on initial load if prefilled
+    if (pinInput.value && pinInput.value.replace(/\D/g, '').length === 6) {
+      setTimeout(() => {
+        autoDetectCityStateFromPincode(pinInput.value.replace(/\D/g, ''));
+      }, 500);
+    }
+  }
+
+  // Manual city input resets autoDetected flag so user's manual edits are honored
+  const cityInputEl = document.getElementById('city');
+  if (cityInputEl) {
+    cityInputEl.addEventListener('input', () => {
+      cityInputEl.dataset.autoDetected = 'false';
     });
   }
 
