@@ -263,6 +263,17 @@
     .input-group .form-control {
       padding-left: 48px !important;
     }
+    #mobileInputWrapper:focus-within {
+      border-color: #103bb3 !important;
+      box-shadow: 0 0 0 3px rgba(16, 59, 179, 0.15) !important;
+    }
+    .form-group.has-error #mobileInputWrapper {
+      border-color: #ef4444 !important;
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15) !important;
+    }
+    .form-group.has-error #mobileError {
+      display: block !important;
+    }
     .kyc-num-input {
       font-family: 'JetBrains Mono', 'Plus Jakarta Sans', monospace !important;
       font-size: 16px !important;
@@ -905,13 +916,27 @@
 
       <!-- Mobile Number Field (Primary Identity & Backoffice Sync) -->
       <div class="form-group" style="margin-bottom: 20px;">
-        <label>Mobile Number (Primary Identity) <span class="required">*</span></label>
-        <div class="input-group">
-          <span class="input-prefix" style="color: #ffffff; font-weight: 800; font-size: 15px;">🇮🇳 +91</span>
-          <input type="tel" class="form-control" id="mobile" placeholder="Enter 10-digit mobile number" maxlength="10" autocomplete="tel" required style="font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 16px; letter-spacing: 0.8px;">
-          <span class="input-suffix" style="color: #10b981; font-weight: 800; font-size: 11px; background: rgba(16, 185, 129, 0.12); padding: 4px 8px; border-radius: 6px;" id="mobileVerifiedPill">✓ VERIFIED</span>
+        <label id="lbl_mobile">Mobile Number (Primary Identity) <span class="required">*</span></label>
+        <div class="phone-input-wrapper" id="mobileInputWrapper" style="display: flex; align-items: center; background: #ffffff; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 4px 6px; transition: all 0.2s ease;">
+          <div class="country-chip" style="display: flex; align-items: center; gap: 6px; padding: 8px 12px; background: #f1f5f9; border-radius: 9px; font-weight: 800; font-size: 14px; color: #0f172a; user-select: none;">
+            <span>🇮🇳</span>
+            <span style="color: #0f172a; font-weight: 800;">+91</span>
+          </div>
+          <input 
+            type="tel" 
+            class="phone-input-field" 
+            id="mobile" 
+            placeholder="Enter 10-digit mobile number" 
+            maxlength="15" 
+            inputmode="numeric" 
+            autocomplete="tel-national" 
+            style="flex: 1; min-width: 0; background: transparent; border: none; outline: none; padding: 10px 12px; font-size: 16px; font-weight: 800; letter-spacing: 0.8px; color: #0f172a; font-family: 'JetBrains Mono', monospace;"
+          >
+          <div id="mobileVerifiedPill" style="display: none; align-items: center; gap: 4px; color: #10b981; font-weight: 800; font-size: 11px; background: rgba(16, 185, 129, 0.12); padding: 6px 10px; border-radius: 6px; margin-right: 6px; white-space: nowrap;">
+            ✓ VERIFIED
+          </div>
         </div>
-        <div class="error-text" id="mobileError">Please enter a valid 10-digit mobile number</div>
+        <div class="error-text" id="mobileError" style="display: none; color: #ef4444; font-size: 12px; font-weight: 700; margin-top: 6px;">Please enter a valid 10-digit mobile number</div>
       </div>
 
       <!-- Full Name -->
@@ -1793,20 +1818,80 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script src="js/kfs.js"></script>
   <script>
+    // Bulletproof Indian Mobile Number Formatter & Cleaner
+    window.formatAndSyncMobile = function(rawVal) {
+      if (rawVal === undefined || rawVal === null) return '';
+      let clean = String(rawVal).replace(/\D/g, '');
+      // Strip 0 prefix if 11 digits
+      if (clean.length === 11 && clean.startsWith('0')) {
+        clean = clean.slice(1);
+      }
+      // Strip 91 country code if 12 digits
+      else if (clean.length === 12 && clean.startsWith('91')) {
+        clean = clean.slice(2);
+      }
+      // If user pasted something longer than 10 digits, keep the last 10 digits
+      else if (clean.length > 10) {
+        clean = clean.slice(-10);
+      }
+      return clean;
+    };
+
+    function handleMobileInputEvent() {
+      const mobileInput = document.getElementById('mobile');
+      if (!mobileInput) return;
+      const clean = window.formatAndSyncMobile(mobileInput.value);
+      if (mobileInput.value !== clean) {
+        mobileInput.value = clean;
+      }
+      const pill = document.getElementById('mobileVerifiedPill');
+      const errEl = document.getElementById('mobileError');
+      const grp = mobileInput.closest('.form-group');
+
+      if (clean.length === 10 && /^[6-9]/.test(clean)) {
+        if (pill) pill.style.display = 'inline-flex';
+        if (errEl) errEl.style.display = 'none';
+        if (grp) grp.classList.remove('has-error');
+        localStorage.setItem('apexloan_mobile', clean);
+        if (typeof window.syncApplicationToBackend === 'function') {
+          window.syncApplicationToBackend();
+        }
+      } else {
+        if (pill) pill.style.display = 'none';
+        if (clean.length > 0 && clean.length < 10) {
+          if (grp) grp.classList.remove('has-error');
+          if (errEl) errEl.style.display = 'none';
+        }
+      }
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
       const mob = localStorage.getItem('apexloan_mobile');
       const mobileInput = document.getElementById('mobile');
-      if (mob && mobileInput) {
-        mobileInput.value = mob.slice(-10);
-      }
       if (mobileInput) {
-        mobileInput.addEventListener('input', () => {
-          const clean = mobileInput.value.replace(/\D/g, '').slice(0, 10);
+        if (mob) {
+          const clean = window.formatAndSyncMobile(mob);
           mobileInput.value = clean;
-          if (clean.length === 10) {
-            localStorage.setItem('apexloan_mobile', clean);
-            if (typeof window.syncApplicationToBackend === 'function') {
-              window.syncApplicationToBackend();
+          if (clean.length === 10 && /^[6-9]/.test(clean)) {
+            const pill = document.getElementById('mobileVerifiedPill');
+            if (pill) pill.style.display = 'inline-flex';
+          }
+        }
+
+        mobileInput.addEventListener('input', handleMobileInputEvent);
+        mobileInput.addEventListener('change', handleMobileInputEvent);
+        mobileInput.addEventListener('paste', () => {
+          setTimeout(handleMobileInputEvent, 10);
+        });
+        mobileInput.addEventListener('blur', () => {
+          const clean = window.formatAndSyncMobile(mobileInput.value);
+          const grp = mobileInput.closest('.form-group');
+          const errEl = document.getElementById('mobileError');
+          if (clean.length > 0 && (clean.length !== 10 || !/^[6-9]/.test(clean))) {
+            if (grp) grp.classList.add('has-error');
+            if (errEl) {
+              errEl.textContent = 'Please enter a valid 10-digit mobile number starting with 6, 7, 8, or 9';
+              errEl.style.display = 'block';
             }
           }
         });

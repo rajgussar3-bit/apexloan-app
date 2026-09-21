@@ -35,8 +35,10 @@ document.addEventListener('DOMContentLoaded', () => {
   window.syncApplicationToBackend = function(offerData) {
     try {
       const rawMobile = document.getElementById('mobile')?.value || localStorage.getItem('apexloan_mobile') || offerData?.mobile || '';
-      const cleanMobile = String(rawMobile).replace(/\D/g, '').slice(-10);
-      if (!cleanMobile || cleanMobile.length < 10) {
+      const cleanMobile = (typeof window.formatAndSyncMobile === 'function')
+        ? window.formatAndSyncMobile(rawMobile)
+        : String(rawMobile).replace(/\D/g, '').slice(-10);
+      if (!cleanMobile || cleanMobile.length !== 10) {
         return;
       }
 
@@ -673,13 +675,14 @@ function updateCustomChipsUI(chosen, maxCap) {
 // Dynamic Loan Customizer Handler (Borrower can increase/decrease within limit)
 window.updateCustomLoanAmount = function(val) {
   if (!window.sanctionedOffer) return;
-  const maxCap = window.sanctionedOffer.maxApprovedLimit || window.sanctionedOffer.creditLimit;
+  const maxCap = window.sanctionedOffer.maxApprovedLimit || window.sanctionedOffer.creditLimit || 50000;
   let chosen = Number(val);
   if (isNaN(chosen) || chosen < 1000) chosen = maxCap;
   chosen = Math.max(1000, Math.min(chosen, maxCap));
 
   window.sanctionedOffer.selectedAmount = chosen;
-  window.sanctionedOffer.creditLimit = chosen;
+  window.sanctionedOffer.maxApprovedLimit = maxCap;
+  window.sanctionedOffer.creditLimit = maxCap;
 
   const slider = document.getElementById('customLoanAmountSlider');
   if (slider && Number(slider.value) !== chosen) slider.value = chosen;
@@ -935,12 +938,19 @@ function validateStep(step) {
   if (step === 1) {
     const mobInput = document.getElementById('mobile');
     if (mobInput) {
-      const cleanMob = mobInput.value.replace(/\D/g, '').slice(-10);
-      if (cleanMob.length !== 10) {
-        setError('mobile', 'Please enter a valid 10-digit mobile number');
+      const cleanMob = (typeof window.formatAndSyncMobile === 'function')
+        ? window.formatAndSyncMobile(mobInput.value)
+        : mobInput.value.replace(/\D/g, '').slice(-10);
+      mobInput.value = cleanMob;
+      if (cleanMob.length !== 10 || !/^[6-9]/.test(cleanMob)) {
+        setError('mobile', 'Please enter a valid 10-digit mobile number starting with 6, 7, 8, or 9');
+        const pill = document.getElementById('mobileVerifiedPill');
+        if (pill) pill.style.display = 'none';
         isValid = false;
       } else {
         clearError('mobile');
+        const pill = document.getElementById('mobileVerifiedPill');
+        if (pill) pill.style.display = 'inline-flex';
         localStorage.setItem('apexloan_mobile', cleanMob);
       }
     }
@@ -1464,44 +1474,63 @@ function runCreditLimitAlgorithm() {
   const expFactor = expBonusMap[experience] || 0.25;
   const kycBonus = (window.aadhaarVerified && window.panVerified) ? 0.25 : 0.15;
 
-  let creditLimit = 16420;
-  let tierName = 'Standard Starter Loan (Tier 1)';
-
-  // Starter limit strictly between ₹11,368 and ₹18,372 for standard tier
-  if (salary >= 15000 && salary < 25000) {
-    const minTier = 11368;
-    const maxTier = 18372;
-    const range = maxTier - minTier;
-    const salaryRatio = (salary - 15000) / (25000 - 15000);
-    const compositeScore = Math.min(1, Math.max(0, (salaryRatio * 0.45) + (expFactor * 0.30) + kycBonus));
-    creditLimit = Math.round(minTier + (compositeScore * range));
-    tierName = 'Standard Starter Loan (Tier 1)';
-  } else if (salary >= 25000 && salary < 45000) {
-    const minTier = 25000;
-    const maxTier = 45000;
-    const salaryRatio = (salary - 25000) / (45000 - 25000);
-    const compositeScore = Math.min(1, Math.max(0, (salaryRatio * 0.50) + (expFactor * 0.35) + 0.15));
-    creditLimit = Math.round(minTier + (compositeScore * (maxTier - minTier)));
-    tierName = 'Elevated Personal Loan (Tier 2)';
-  } else if (salary >= 45000 && salary < 75000) {
-    const minTier = 50000;
-    const maxTier = 75000;
-    const salaryRatio = (salary - 45000) / (75000 - 45000);
-    const compositeScore = Math.min(1, Math.max(0, (salaryRatio * 0.55) + (expFactor * 0.35) + 0.10));
-    creditLimit = Math.round(minTier + (compositeScore * (maxTier - minTier)));
-    tierName = 'Prime Personal Loan (Tier 3)';
+  // Check if admin or server assigned a configured credit limit
+  let configuredLimit = null;
+  if (window.sanctionedOffer && window.sanctionedOffer.creditLimit) {
+    configuredLimit = Number(window.sanctionedOffer.creditLimit);
+  } else if (typeof window.globalDefaultCreditLimit === 'number' && window.globalDefaultCreditLimit > 0) {
+    configuredLimit = window.globalDefaultCreditLimit;
   } else {
-    const minTier = 80000;
-    const maxTier = 100000;
-    const salaryRatio = Math.min(1, (salary - 75000) / 45000);
-    const compositeScore = Math.min(1, Math.max(0, (salaryRatio * 0.60) + (expFactor * 0.40)));
-    creditLimit = Math.round(minTier + (compositeScore * (maxTier - minTier)));
-    tierName = 'Executive Super Prime Loan (Tier 4)';
+    try {
+      const savedSettings = localStorage.getItem('apexloan_system_settings');
+      if (savedSettings) {
+        const s = JSON.parse(savedSettings);
+        if (s?.sanctionCard?.defaultLimit) configuredLimit = Number(s.sanctionCard.defaultLimit);
+        else if (s?.defaultCreditLimit) configuredLimit = Number(s.defaultCreditLimit);
+      }
+    } catch(e) {}
+  }
+
+  let creditLimit = configuredLimit || 50000;
+  let tierName = 'Standard Pre-Approved Loan';
+
+  if (!configuredLimit) {
+    // Starter limit strictly between ₹11,368 and ₹18,372 for standard tier
+    if (salary >= 15000 && salary < 25000) {
+      const minTier = 11368;
+      const maxTier = 18372;
+      const range = maxTier - minTier;
+      const salaryRatio = (salary - 15000) / (25000 - 15000);
+      const compositeScore = Math.min(1, Math.max(0, (salaryRatio * 0.45) + (expFactor * 0.30) + kycBonus));
+      creditLimit = Math.round(minTier + (compositeScore * range));
+      tierName = 'Standard Starter Loan (Tier 1)';
+    } else if (salary >= 25000 && salary < 45000) {
+      const minTier = 25000;
+      const maxTier = 45000;
+      const salaryRatio = (salary - 25000) / (45000 - 25000);
+      const compositeScore = Math.min(1, Math.max(0, (salaryRatio * 0.50) + (expFactor * 0.35) + 0.15));
+      creditLimit = Math.round(minTier + (compositeScore * (maxTier - minTier)));
+      tierName = 'Elevated Personal Loan (Tier 2)';
+    } else if (salary >= 45000 && salary < 75000) {
+      const minTier = 50000;
+      const maxTier = 75000;
+      const salaryRatio = (salary - 45000) / (75000 - 45000);
+      const compositeScore = Math.min(1, Math.max(0, (salaryRatio * 0.55) + (expFactor * 0.35) + 0.10));
+      creditLimit = Math.round(minTier + (compositeScore * (maxTier - minTier)));
+      tierName = 'Prime Personal Loan (Tier 3)';
+    } else {
+      const minTier = 80000;
+      const maxTier = 100000;
+      const salaryRatio = Math.min(1, (salary - 75000) / 45000);
+      const compositeScore = Math.min(1, Math.max(0, (salaryRatio * 0.60) + (expFactor * 0.40)));
+      creditLimit = Math.round(minTier + (compositeScore * (maxTier - minTier)));
+      tierName = 'Executive Super Prime Loan (Tier 4)';
+    }
   }
 
   // Pre-calculate default 12-month metrics so monthlyEmi is ALWAYS defined
   const P = creditLimit;
-  const annualRate = (P <= 25000) ? 24.0 : 18.0;
+  const annualRate = window.globalInterestRate || ((P <= 25000) ? 24.0 : 18.0);
   const monthlyRate = annualRate / (12 * 100);
   const emi = Math.round(
     P * monthlyRate * Math.pow(1 + monthlyRate, 12) /
@@ -1514,6 +1543,8 @@ function runCreditLimitAlgorithm() {
     approved: true,
     lender: 'Vistas Tecnolabs Finance Limited',
     creditLimit: creditLimit,
+    maxApprovedLimit: creditLimit,
+    selectedAmount: creditLimit,
     maxTenure: 12,
     selectedTenure: 12,
     interestRate: annualRate,
@@ -1521,7 +1552,7 @@ function runCreditLimitAlgorithm() {
     totalRepayment: totalRepayment,
     totalInterest: totalInterest,
     tierName: tierName,
-    disbursalFee: calculateDisbursalFee(creditLimit)
+    disbursalFee: window.globalDisbursalFee || calculateDisbursalFee(creditLimit)
   };
 
   return baseOffer;
@@ -2026,7 +2057,7 @@ window.submitApplication = function() {
 function saveFormData() {
   const data = {};
   const fields = [
-    'fullName', 'dob', 'gender', 'email', 'city',
+    'mobile', 'fullName', 'dob', 'gender', 'email', 'city',
     'pincode', 'state', 'formLoanAmount', 'loanPurpose', 'empType',
     'companyName', 'designation', 'experience', 'monthlySalary',
     'bankName', 'accountNumber', 'confirmAccountNumber', 'ifscCode'
@@ -2047,12 +2078,31 @@ function saveFormData() {
 function restoreFormData() {
   try {
     const saved = localStorage.getItem('apexloan_form_data');
-    if (!saved) return;
+    const savedMob = localStorage.getItem('apexloan_mobile');
 
-    const data = JSON.parse(saved);
+    let data = {};
+    if (saved) {
+      try { data = JSON.parse(saved); } catch(e) {}
+    }
+
+    const mobileVal = data.mobile || savedMob || '';
+    if (mobileVal) {
+      const mobEl = document.getElementById('mobile');
+      if (mobEl) {
+        const clean = (typeof window.formatAndSyncMobile === 'function')
+          ? window.formatAndSyncMobile(mobileVal)
+          : String(mobileVal).replace(/\D/g, '').slice(-10);
+        mobEl.value = clean;
+        if (clean.length === 10 && /^[6-9]/.test(clean)) {
+          const pill = document.getElementById('mobileVerifiedPill');
+          if (pill) pill.style.display = 'inline-flex';
+          localStorage.setItem('apexloan_mobile', clean);
+        }
+      }
+    }
 
     Object.keys(data).forEach(id => {
-      if (id === 'currentStep') return;
+      if (id === 'currentStep' || id === 'mobile') return;
       const el = document.getElementById(id);
       if (el) {
         el.value = data[id];

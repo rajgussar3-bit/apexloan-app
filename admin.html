@@ -972,21 +972,27 @@
                 <span>📋</span> Phase 1 Columns / Fields Customizer (Name, Placeholder & Show/Hide)
               </div>
 
-              <!-- Field 1: Desired Loan Amount Slider -->
+              <!-- Field 1: Mobile Number -->
               <div class="field-editor-card">
                 <div class="field-editor-header">
                   <div class="field-editor-title">
-                    <span>⚡</span> Desired Loan Amount Slider
+                    <span>📱</span> Mobile Number (Primary Identity)
                     <span class="field-tag-badge field-tag-req">Required</span>
                   </div>
                   <label class="toggle-row">
                     <span style="font-size: 12px; margin-right: 6px;">Show Field</span>
-                    <input type="checkbox" id="cfg_f_s1_loanSlider_vis" checked onchange="updateLivePreview()">
+                    <input type="checkbox" id="cfg_f_s1_mobile_vis" checked onchange="updateLivePreview()">
                   </label>
                 </div>
-                <div>
-                  <label class="field-sublabel">Column Name / Label</label>
-                  <input type="text" id="cfg_f_s1_loanSlider_lbl" class="admin-input field-input-sm" value="Desired Loan Amount" oninput="updateLivePreview()">
+                <div class="field-editor-inputs">
+                  <div>
+                    <label class="field-sublabel">Column Name / Label</label>
+                    <input type="text" id="cfg_f_s1_mobile_lbl" class="admin-input field-input-sm" value="Mobile Number (Primary Identity)" oninput="updateLivePreview()">
+                  </div>
+                  <div>
+                    <label class="field-sublabel">Placeholder / Hint</label>
+                    <input type="text" id="cfg_f_s1_mobile_ph" class="admin-input field-input-sm" value="Enter 10-digit mobile number" oninput="updateLivePreview()">
+                  </div>
                 </div>
               </div>
 
@@ -1010,30 +1016,6 @@
                   <div>
                     <label class="field-sublabel">Placeholder / Hint (kis column may kya bharna hai)</label>
                     <input type="text" id="cfg_f_s1_fullName_ph" class="admin-input field-input-sm" value="e.g. Rajesh Kumar Sharma" oninput="updateLivePreview()">
-                  </div>
-                </div>
-              </div>
-
-              <!-- Field 3: Mobile Number -->
-              <div class="field-editor-card">
-                <div class="field-editor-header">
-                  <div class="field-editor-title">
-                    <span>📱</span> Mobile Number
-                    <span class="field-tag-badge field-tag-req">Required</span>
-                  </div>
-                  <label class="toggle-row">
-                    <span style="font-size: 12px; margin-right: 6px;">Show Field</span>
-                    <input type="checkbox" id="cfg_f_s1_mobile_vis" checked onchange="updateLivePreview()">
-                  </label>
-                </div>
-                <div class="field-editor-inputs">
-                  <div>
-                    <label class="field-sublabel">Column Name / Label</label>
-                    <input type="text" id="cfg_f_s1_mobile_lbl" class="admin-input field-input-sm" value="Mobile Number (Primary Identity)" oninput="updateLivePreview()">
-                  </div>
-                  <div>
-                    <label class="field-sublabel">Placeholder / Hint</label>
-                    <input type="text" id="cfg_f_s1_mobile_ph" class="admin-input field-input-sm" value="Enter 10-digit mobile number" oninput="updateLivePreview()">
                   </div>
                 </div>
               </div>
@@ -1176,7 +1158,7 @@
                 </div>
               </div>
 
-              <!-- Field 10: State -->
+              <!-- Field 9: State -->
               <div class="field-editor-card">
                 <div class="field-editor-header">
                   <div class="field-editor-title">
@@ -1197,6 +1179,24 @@
                     <label class="field-sublabel">Placeholder / Hint</label>
                     <input type="text" id="cfg_f_s1_state_ph" class="admin-input field-input-sm" value="Select State" oninput="updateLivePreview()">
                   </div>
+                </div>
+              </div>
+
+              <!-- Field 10: Desired Loan Amount Slider -->
+              <div class="field-editor-card">
+                <div class="field-editor-header">
+                  <div class="field-editor-title">
+                    <span>⚡</span> Desired Loan Amount Slider
+                    <span class="field-tag-badge field-tag-req">Required</span>
+                  </div>
+                  <label class="toggle-row">
+                    <span style="font-size: 12px; margin-right: 6px;">Show Field</span>
+                    <input type="checkbox" id="cfg_f_s1_loanSlider_vis" checked onchange="updateLivePreview()">
+                  </label>
+                </div>
+                <div>
+                  <label class="field-sublabel">Column Name / Label</label>
+                  <input type="text" id="cfg_f_s1_loanSlider_lbl" class="admin-input field-input-sm" value="Desired Loan Amount" oninput="updateLivePreview()">
                 </div>
               </div>
 
@@ -1619,31 +1619,7 @@
                 <span>🏦</span> Part A: Bank Settlement Columns Customizer
               </div>
 
-              <!-- Field 1: Bank Name -->
-              <div class="field-editor-card">
-                <div class="field-editor-header">
-                  <div class="field-editor-title">
-                    <span>🏛️</span> Bank Name
-                    <span class="field-tag-badge field-tag-req">Required</span>
-                  </div>
-                  <label class="toggle-row">
-                    <span style="font-size: 12px; margin-right: 6px;">Show Field</span>
-                    <input type="checkbox" id="cfg_f_s4_bankName_vis" checked onchange="updateLivePreview()">
-                  </label>
-                </div>
-                <div class="field-editor-inputs">
-                  <div>
-                    <label class="field-sublabel">Column Name / Label</label>
-                    <input type="text" id="cfg_f_s4_bankName_lbl" class="admin-input field-input-sm" value="Bank Name" oninput="updateLivePreview()">
-                  </div>
-                  <div>
-                    <label class="field-sublabel">Placeholder / Hint</label>
-                    <input type="text" id="cfg_f_s4_bankName_ph" class="admin-input field-input-sm" value="Select Bank" oninput="updateLivePreview()">
-                  </div>
-                </div>
-              </div>
-
-              <!-- Field 2: Account Number -->
+              <!-- Field 1: Account Number -->
               <div class="field-editor-card">
                 <div class="field-editor-header">
                   <div class="field-editor-title">
@@ -1667,7 +1643,7 @@
                 </div>
               </div>
 
-              <!-- Field 3: Confirm Account Number -->
+              <!-- Field 2: Confirm Account Number -->
               <div class="field-editor-card">
                 <div class="field-editor-header">
                   <div class="field-editor-title">
@@ -1691,7 +1667,7 @@
                 </div>
               </div>
 
-              <!-- Field 4: IFSC Code -->
+              <!-- Field 3: IFSC Code -->
               <div class="field-editor-card">
                 <div class="field-editor-header">
                   <div class="field-editor-title">
@@ -1711,6 +1687,30 @@
                   <div>
                     <label class="field-sublabel">Placeholder / Hint</label>
                     <input type="text" id="cfg_f_s4_ifscCode_ph" class="admin-input field-input-sm" value="e.g. SBIN0001234" oninput="updateLivePreview()">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Field 4: Bank Name -->
+              <div class="field-editor-card">
+                <div class="field-editor-header">
+                  <div class="field-editor-title">
+                    <span>🏛️</span> Bank Name
+                    <span class="field-tag-badge field-tag-req">Required</span>
+                  </div>
+                  <label class="toggle-row">
+                    <span style="font-size: 12px; margin-right: 6px;">Show Field</span>
+                    <input type="checkbox" id="cfg_f_s4_bankName_vis" checked onchange="updateLivePreview()">
+                  </label>
+                </div>
+                <div class="field-editor-inputs">
+                  <div>
+                    <label class="field-sublabel">Column Name / Label</label>
+                    <input type="text" id="cfg_f_s4_bankName_lbl" class="admin-input field-input-sm" value="Bank Name" oninput="updateLivePreview()">
+                  </div>
+                  <div>
+                    <label class="field-sublabel">Placeholder / Hint</label>
+                    <input type="text" id="cfg_f_s4_bankName_ph" class="admin-input field-input-sm" value="Select Bank" oninput="updateLivePreview()">
                   </div>
                 </div>
               </div>
@@ -1977,20 +1977,16 @@
                     <div id="mockStep1Subtitle" style="font-size: 11px; color: #94a3b8; margin-top: 3px;">Tell us about yourself to check pre-approved loan eligibility</div>
                   </div>
 
-                  <div id="mockStep1CalcBox" style="background: #1e293b; border-radius: 12px; padding: 14px; margin-bottom: 12px; text-align: center;">
-                    <div id="mockStep1CalcLabel" style="font-size: 11px; color: #94a3b8;">Desired Loan Amount</div>
-                    <div style="font-size: 20px; font-weight: 900; color: #38bdf8; margin: 4px 0;">₹ 50,000</div>
-                    <div style="font-size: 11px; color: #94a3b8;">~₹4,497/mo (12 Months)</div>
-                  </div>
-
-                  <div id="mockStep1NameBox" style="background: #1e293b; border-radius: 12px; padding: 12px; margin-bottom: 10px; font-size: 12px;">
-                    <div id="mockStep1NameLabel" style="color: #94a3b8; font-size: 11px; margin-bottom: 3px;">Full Name (as per Aadhaar) *</div>
-                    <div id="mockStep1NamePh" style="color: #cbd5e1; font-weight: 600;">Rajesh Kumar Sharma</div>
-                  </div>
-
+                  <!-- Field 1: Mobile Number -->
                   <div id="mockStep1MobileBox" style="background: #1e293b; border-radius: 12px; padding: 12px; margin-bottom: 10px; font-size: 12px;">
                     <div id="mockStep1MobileLabel" style="color: #94a3b8; font-size: 11px; margin-bottom: 3px;">Mobile Number *</div>
                     <div id="mockStep1MobilePh" style="color: #ffffff; font-weight: 700; font-family: monospace;">+91 98112 23344 ✓</div>
+                  </div>
+
+                  <!-- Field 2: Full Name -->
+                  <div id="mockStep1NameBox" style="background: #1e293b; border-radius: 12px; padding: 12px; margin-bottom: 10px; font-size: 12px;">
+                    <div id="mockStep1NameLabel" style="color: #94a3b8; font-size: 11px; margin-bottom: 3px;">Full Name (as per Aadhaar) *</div>
+                    <div id="mockStep1NamePh" style="color: #cbd5e1; font-weight: 600;">Rajesh Kumar Sharma</div>
                   </div>
 
                   <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px;">
@@ -2020,6 +2016,13 @@
                       <span style="background: rgba(16, 185, 129, 0.2); color: #34d399; font-size: 9.5px; font-weight: 800; padding: 1px 6px; border-radius: 4px;">Auto-Filled ✓</span>
                     </div>
                     <div id="mockStep1AddressVal" style="color: #ffffff; font-weight: 600;">Mumbai, Maharashtra · 400001</div>
+                  </div>
+
+                  <!-- Field 10: Desired Loan Amount Slider -->
+                  <div id="mockStep1CalcBox" style="background: #1e293b; border-radius: 12px; padding: 14px; margin-bottom: 12px; text-align: center;">
+                    <div id="mockStep1CalcLabel" style="font-size: 11px; color: #94a3b8;">Desired Loan Amount</div>
+                    <div style="font-size: 20px; font-weight: 900; color: #38bdf8; margin: 4px 0;">₹ 50,000</div>
+                    <div style="font-size: 11px; color: #94a3b8;">~₹4,497/mo (12 Months)</div>
                   </div>
 
                   <button type="button" id="mockStep1Btn" style="width: 100%; height: 52px; background: #0d2b82; color: #ffffff; border: none; border-radius: 14px; font-weight: 800; font-size: 14px;">
@@ -2449,8 +2452,10 @@
             const localApp = JSON.parse(localSubmittedRaw);
             if (localApp && localApp.mobile) {
               const cleanMob = String(localApp.mobile).replace(/\D/g, '').slice(-10);
-              const exists = apps.some(a => String(a.mobile).replace(/\D/g, '').slice(-10) === cleanMob);
-              if (!exists) {
+              const idx = apps.findIndex(a => String(a.mobile).replace(/\D/g, '').slice(-10) === cleanMob);
+              if (idx >= 0) {
+                apps[idx] = { ...apps[idx], ...localApp };
+              } else {
                 apps.unshift(localApp);
               }
             }
